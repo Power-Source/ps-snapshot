@@ -1,0 +1,29 @@
+{
+  "name": "ps-snapshot",
+  "version": "1.0.0",
+  "description": "WordPress/ClassicPress Snapshot Backup Plugin",
+  "main": "snapshot.php",
+  "scripts": {
+    "build": "npm run build:js && npm run build:sass",
+    "build:js": "terser assets/js/src/main.js assets/js/src/pages/*.js assets/js/src/utils.js -o assets/js/admin.min.js -c -m --source-map",
+    "build:js:watch": "nodemon --watch assets/js/src --ext .js --exec npm run build:js",
+    "build:sass": "sass assets/sass/admin.scss css/snapshots-admin-styles.css && sass assets/sass/menu-icon.scss css/snapshots-menu-icon.css",
+    "build:sass:watch": "nodemon --watch assets/sass --ext .scss --exec npm run build:sass",
+    "watch": "npm-run-all --parallel build:js:watch build:sass:watch",
+    "dev": "npm run build && npm run watch"
+  },
+  "keywords": [
+    "backup",
+    "snapshot",
+    "wordpress",
+    "classicpress"
+  ],
+  "author": "DerN3rd (PSOURCE)",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "sass": "^1.69.0",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "terser": "^5.19.0"
+  }
+}
