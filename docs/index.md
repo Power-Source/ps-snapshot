@@ -6,7 +6,7 @@ title: "PS SnapShot"
 <h2 align="center" style="color:#38c2bb;">📚 PS SnapShot</h2>
 
 <div class="menu">
-  <a href="https://github.com/Power-Source/cp-snapshot/releases" style="color:#38c2bb;">DOWNLOAD</a>
+  <a href="https://github.com/Power-Source/ps-snapshot/releases" style="color:#38c2bb;">DOWNLOAD</a>
   <a href="https://github.com/Power-Source/ps-snapshot-installer/releases/tag/1.0.1" style="color:#38c2bb;">RESTORE TOOL</a>
 </div>
 
