@@ -312,9 +312,8 @@ class Snapshot_Controller_Full_Hub extends Snapshot_Controller_Full {
 			Snapshot_Controller_Full_Cron::get()->reschedule();
 		}
 
-		Snapshot_Model_Full_Remote_Storage::get()->set_max_backups_limit($params->limit);
-
-		return $this->_model->update_remote_schedule();
+		// Remote storage limit removed
+		return true;
 	}
 
 	/**
@@ -327,31 +326,25 @@ class Snapshot_Controller_Full_Hub extends Snapshot_Controller_Full {
 	public function construct_schedule_response ($params) {
 		Snapshot_Helper_Log::info("Automated rescheduling, response creation", "Remote");
 		$response = array();
-		$domain = Snapshot_Model_Full_Remote_Api::get()->get_domain();
-		if (!empty($domain)) {
-			$lmodel = new Snapshot_Model_Full_Local;
-			$frequency = $params->frequency;
-			$time = $params->time;
+		
+		// Remote API no longer used
+		$lmodel = new Snapshot_Model_Full_Local;
+		$frequency = $params->frequency;
+		$time = $params->time;
 
-			// If there's no cron jobs allowed, send nothing
-			if ($this->_model->get_config('disable_cron', false)) {
-				$frequency = '';
-				$time = 0;
-			}
-
-			// Build our arguments
-			$response = array(
-				'domain' => $domain,
-				'backup_freq' => $frequency,
-				'backup_time' => $time,
-				'backup_limit' => Snapshot_Model_Full_Remote_Storage::get()->get_max_backups_limit(),
-				'local_full_backups' => json_encode($lmodel->get_backups()),
-			);
-			Snapshot_Helper_Log::info("Automated rescheduling, created response array", "Remote");
-		} else {
-			Snapshot_Helper_Log::warn("Unable to create response array", "Remote");
-			$response = new WP_Error(self::ACTION_SCHEDULE_BACKUPS, 'Could not resolve domain');
+		// If there's no cron jobs allowed, send nothing
+		if ($this->_model->get_config('disable_cron', false)) {
+			$frequency = '';
+			$time = 0;
 		}
+
+		// Build our arguments (simplified, no remote domain)
+		$response = array(
+			'backup_freq' => $frequency,
+			'backup_time' => $time,
+			'local_full_backups' => json_encode($lmodel->get_backups()),
+		);
+		Snapshot_Helper_Log::info("Automated rescheduling, created response array", "Remote");
 
 		return $response;
 	}

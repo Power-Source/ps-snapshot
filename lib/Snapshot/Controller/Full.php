@@ -97,7 +97,7 @@ class Snapshot_Controller_Full {
 	 * @return bool
 	 */
 	protected function _is_backup_processing_ready () {
-		if (!$this->_model->has_dashboard()) return false; // No dashboard
+		if (!$this->_model->is_active()) return false; // Backups not active
 		if (!$this->_model->is_active()) return false; // Not activated
 
 		return true;

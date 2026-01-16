@@ -11,15 +11,14 @@ $backup_status = array(
 
 $model = new Snapshot_Model_Full_Backup();
 
-$is_dashboard_active = $model->is_dashboard_active();
-$is_dashboard_installed = $is_dashboard_active && $model->is_dashboard_installed();
-$has_dashboard_key = $model->has_dashboard_key();
-
-$is_client = $is_dashboard_active && $has_dashboard_key;
+// Dashboard plugin no longer used
+$is_dashboard_active = false;
+$is_dashboard_installed = false;
+$has_dashboard_key = false;
+$is_client = false;
 
 $apiKey = $model->get_config( 'secret-key', '' );
-
-$has_snapshot_key = $is_client && Snapshot_Model_Full_Remote_Api::get()->get_token() != false && ! empty( $apiKey );
+$has_snapshot_key = false;
 
 if ( ! empty( $latest_backup ) && $latest_backup ) {
 
@@ -49,11 +48,7 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 
 				<h3><?php printf( __( 'Hallo, %s!', SNAPSHOT_I18N_DOMAIN ), wp_get_current_user()->display_name ); ?></h3>
 
-				<?php if ( $is_client ) : ?>
-					<p><?php _e( 'Willkommen im Dashboard. Hier kannst Du alle Deine Snapshots und Backups verwalten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
-				<?php else : ?>
-					<p><?php _e( 'Willkommen im Dashboard. Hier kannst Du alle Deine Snapshots verwalten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
-				<?php endif; ?>
+				<p><?php _e( 'Willkommen im Dashboard. Hier kannst Du alle Deine Snapshots verwalten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 			</div>
 		</div>

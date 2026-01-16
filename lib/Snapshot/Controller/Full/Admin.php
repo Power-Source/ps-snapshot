@@ -60,8 +60,6 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		$this->_model->set_config( 'frequency', false );
 		$this->_model->set_config( 'schedule_time', false );
 		$this->_model->set_config( 'secret-key', false );
-
-		$this->_model->remote()->remove_token();
 	}
 
 	/**
@@ -153,8 +151,7 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		}
 
 		if ( ! empty( $status ) ) {
-			// Update all settings, new list included
-			$this->_model->update_remote_schedule();
+			// Backups deleted successfully
 		}
 
 		$url = PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' );
@@ -187,13 +184,8 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 
 		$file = $this->_model->local()->get_backup( $timestamp );
 		if ( empty( $file ) || ! file_exists( $file ) ) {
-			// Try to deal with remote file directly
-			$url = $this->_model->remote()->get_backup_link( $timestamp );
-			if ( ! $url ) {
-				wp_safe_redirect( add_query_arg( 'error', self::CODE_ERROR_DOWNLOAD ) );
-			} else {
-				wp_redirect( $url );
-			}
+			// No local backup available
+			wp_safe_redirect( add_query_arg( 'error', self::CODE_ERROR_DOWNLOAD ) );
 			die;
 		}
 
@@ -246,20 +238,13 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 					return false;
 				}
 
-				$old_key = $this->_model->get_config( 'secret-key', false );
 				$this->_model->set_config( 'secret-key', $key );
-				if ( empty( $key ) || $key !== $old_key ) {
-					$this->_model->remote()->remove_token();
-				}
 
 				// Require secret key to activate the backups
 				$this->_model->set_config( 'active', true );
 
 				// Set initial cron hooks if at all possible
 				Snapshot_Controller_Full_Cron::get()->reschedule();
-
-				// Send initial schedule update
-				$this->_model->update_remote_schedule();
 			}
 
 			// We can't attempt to update remote schedule
@@ -290,9 +275,6 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		$this->_model->set_config( 'disable_cron', true );
 		Snapshot_Controller_Full_Cron::get()->stop();
 
-		// Let the service know
-		$this->_model->update_remote_schedule();
-
 		return false;
 	}
 
@@ -306,15 +288,11 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		}
 
 		$this->_model->set_config( 'secret-key', '' );
-		$this->_model->remote()->remove_token();
 
 		$this->_model->set_config( 'frequency', false );
 		$this->_model->set_config( 'schedule_time', false );
 		$this->_model->set_config( 'disable_cron', true );
 		Snapshot_Controller_Full_Cron::get()->stop();
-
-		// Let the service know
-		$this->_model->update_remote_schedule();
 
 		return false;
 	}
@@ -337,9 +315,6 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		// Reset cron hooks
 		Snapshot_Controller_Full_Cron::get()->reschedule();
 
-		// Let the service know
-		$this->_model->update_remote_schedule();
-
 		return true;
 	}
 
@@ -359,11 +334,7 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		// Do the secret key part first
 		if ( $data->has( 'secret-key' ) ) {
 			$key = sanitize_text_field( $data->value( 'secret-key' ) );
-			$old_key = $this->_model->get_config( 'secret-key', false );
 			$this->_model->set_config( 'secret-key', $key );
-			if ( empty( $key ) || $key !== $old_key ) {
-				$this->_model->remote()->remove_token();
-			}
 
 			// Also stop cron when there's no secret key
 			if ( empty( $key ) ) {
@@ -376,9 +347,7 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 
 		// Do the limit part
 		if ( $data->has( 'backups-limit' ) ) {
-			Snapshot_Model_Full_Remote_Storage::get()->set_max_backups_limit( $data->value( 'backups-limit' ) );
-			// ... *then* update remote info
-			$this->_model->update_remote_schedule();
+			// Backup limit configuration removed (was remote storage specific)
 		}
 
 		// Do the logging part
@@ -422,8 +391,6 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 		if ( ! $data->has( 'snapshot-disable-cron' ) ) {
 			$this->_reenable_cron_backups( $data );
 		}
-
-		$this->_model->update_remote_schedule();
 
 		return true;
 	}

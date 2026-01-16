@@ -84,31 +84,21 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * Sets up backup key exchange
 	 */
 	public function json_remote_key_exchange () {
-		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die; // Only some users can reload
-
-		$rmt = Snapshot_Model_Full_Remote_Key::get();
-
-		$token = $rmt->get_remote_key();
-		if (empty($token)) return wp_send_json_error(__('Unable to get exchange token', SNAPSHOT_I18N_DOMAIN));
-
-		$key = $rmt->get_remote_key($token);
-		if (empty($key)) return wp_send_json_error(__('Unable to exchange key', SNAPSHOT_I18N_DOMAIN));
-
-		$status = $rmt->set_key($key);
-		if ($status) $this->_model->set_config( 'active', true ); // Also activate
-
-		return wp_send_json_success($status);
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+		
+		// Remote key exchange removed - no longer using remote storage
+		return wp_send_json_error(__('Remote storage not available', SNAPSHOT_I18N_DOMAIN));
 	}
 
 	/**
 	 * Forces backup list reloads
 	 */
 	public function json_reload_backups () {
-		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die; // Only some users can reload
-		$status = $this->_model->remote()->reset_backups_cache(true);
-
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+		
+		// Just return success - local backups don't need cache reset
 		wp_send_json(array(
-			'status' => $status,
+			'status' => true,
 		));
 	}
 
@@ -152,23 +142,12 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 
 		$archive_path = $this->_model->local()->get_backup($timestamp);
 		if (empty($archive_path) || !file_exists($archive_path)) {
-			// No local backup, try and get the remote URL instead
-			$archive_path = $this->_model->remote()->get_backup_link($timestamp);
-			if (empty($archive_path)) {
-				// Something went wrong with determining the remote URL
-				wp_send_json(array(
-					'task' => 'fetching',
-					'error' => !!$this->_model->has_errors(),
-					'status' => false,
-				));
-			} else {
-				// All good
-				wp_send_json(array(
-					'task' => 'clearing',
-					'status' => true,
-					'nonce' => wp_create_nonce('snapshot-full_backups-download'),
-				));
-			}
+			// No local backup available
+			wp_send_json(array(
+				'task' => 'fetching',
+				'error' => true,
+				'status' => false,
+			));
 		} else {
 			// If we don't have the full archive path yet, we're still fetching the file
 			if (!file_exists($archive_path)) {
@@ -208,11 +187,6 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		));
 
 		$status = $this->_model->delete_backup($timestamp);
-
-		if (!empty($status)) {
-			// Update all settings, new list included
-			$this->_model->update_remote_schedule();
-		}
 
 		wp_send_json(array(
 			'task' => 'clearing',

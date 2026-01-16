@@ -18,7 +18,7 @@ $data = array(
 	'offset' => $offset,
 );
 
-$disabled = $model->has_api_error() ? 'disabled="disabled"' : '';
+$disabled = ''; // API errors no longer relevant
 $cron_disabled = $model->get_config( 'disable_cron', false );
 
 $model = new Snapshot_Model_Full_Backup();
@@ -247,15 +247,10 @@ $model = new Snapshot_Model_Full_Backup();
 
 														$data_item = empty( $backup['data'] ) ? array() : Snapshot_Helper_Utility::latest_data_item( $backup['data'] );
 
-														/* Fetch the remote link for the backup */
-														$backup_link = $model->remote()->get_backup_link( $backup['timestamp'] );
-
-														/* If there is no remote URL, build a local download link */
-														if ( ! $backup_link ) {
-															$backup_link = PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' );
-															$backup_link = add_query_arg( 'snapshot-action', 'download-backup-archive', $backup_link );
-															$backup_link = add_query_arg( 'backup-item', sanitize_text_field( $backup['timestamp'] ), $backup_link );
-														}
+														/* Build local download link */
+														$backup_link = PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' );
+														$backup_link = add_query_arg( 'snapshot-action', 'download-backup-archive', $backup_link );
+														$backup_link = add_query_arg( 'backup-item', sanitize_text_field( $backup['timestamp'] ), $backup_link );
 
 														?>
 
@@ -510,7 +505,7 @@ $apiKey = $model->get_config( 'secret-key', '' );
 $data = array(
 	"hasApikey" => ! empty( $apiKey ),
 	"apiKey" => $apiKey,
-	"apiKeyUrl" => $model->get_current_secret_key_link(),
+	"apiKeyUrl" => '', // No remote storage
 );
 $this->render( "boxes/modals/popup-snapshot", false, $data, false, false );
 

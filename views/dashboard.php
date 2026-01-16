@@ -14,13 +14,14 @@
 			$model  = new Snapshot_Model_Full_Backup;
 			$apiKey = $model->get_config( 'secret-key', '' );
 
-			$is_client = $model->is_dashboard_active() && $model->has_dashboard_key();
-			$has_snapshot_key = $is_client && Snapshot_Model_Full_Remote_Api::get()->get_token() != false && ! empty( $apiKey );
+			// Dashboard plugin no longer used
+			$is_client = false;
+			$has_snapshot_key = false;
 
 			$data = array(
 				"hasApikey" => ! empty( $apiKey ),
 				"apiKey" => $apiKey,
-				"apiKeyUrl" => $model->get_current_secret_key_link(),
+				"apiKeyUrl" => '', // No remote storage
 				"is_client" => $is_client,
 				"has_snapshot_key" => $has_snapshot_key
 			);

@@ -70,8 +70,7 @@
 
 								<?php endif; ?>
 
-									<?php 	$model = new Snapshot_Model_Full_Backup; ?>
-									<a href="<?php echo esc_attr( $model->get_current_secret_key_link() );?>" target='_blank' class="button button-gray wps-snapshot-popin-content-step-4 <?php echo ( isset( $apiKey ) && !empty( $apiKey ) ) ? '' : 'hidden' ?>"><?php _e('Reset Key', SNAPSHOT_I18N_DOMAIN);?></a>
+									<?php /* Remote key reset removed - no longer using remote storage */ ?>
 
 
 

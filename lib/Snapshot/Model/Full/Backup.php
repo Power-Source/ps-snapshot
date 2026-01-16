@@ -6,13 +6,6 @@
 class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 
 	/**
-	 * Remote model instance reference
-	 *
-	 * @var object Snapshot_Model_Full_Remote
-	 */
-	private $_storage;
-
-	/**
 	 * Local model instance reference
 	 *
 	 * @var object Snapshot_Model_Full_Local
@@ -25,7 +18,6 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	 * Also populates internal facade references
 	 */
 	public function __construct() {
-		$this->_storage = new Snapshot_Model_Full_Remote;
 		$this->_local = new Snapshot_Model_Full_Local;
 	}
 
@@ -50,27 +42,15 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	}
 
 	/**
-	 * Gets remote handler instance
-	 *
-	 * @return Snapshot_Model_Full_Remote Remote handler instance
-	 */
-	public function remote() {
-		return $this->_storage;
-	}
-
-	/**
 	 * Check for existence of any errors
 	 *
 	 * @return bool
 	 */
 	public function has_errors() {
-		if ( $this->_storage->has_errors() ) {
-			return true;
-		}
 		if ( $this->_local->has_errors() ) {
 			return true;
 		}
-		return empty( $this->_errors );
+		return ! empty( $this->_errors );
 	}
 
 	/**
@@ -79,133 +59,11 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	 * @return array
 	 */
 	public function get_errors() {
-		$from_storage = $this->_storage->get_errors();
-		$from_local = $this->_storage->get_errors();
+		$from_local = $this->_local->get_errors();
 		$errors = is_array( $this->_errors )
 			? $this->_errors
 			: array();
-		return array_merge( $from_storage, $from_local, $errors );
-	}
-
-	/**
-	 * Proxy remote API info check
-	 *
-	 * @return bool
-	 */
-	public function has_api_info() {
-		return $this->_storage->has_api_info();
-	}
-
-	/**
-	 * Proxy remote API error check
-	 *
-	 * @return bool
-	 */
-	public function has_api_error() {
-		return $this->_storage->has_api_error();
-	}
-
-	/**
-	 * Proxy the current site DEV management link
-	 *
-	 * @return string
-	 */
-	public function get_current_site_management_link() {
-		return $this->_storage->get_current_site_management_link();
-	}
-
-	/**
-	 * Proxy the current site DEV secret key link
-	 *
-	 * @return string
-	 */
-	public function get_current_secret_key_link() {
-		return $this->_storage->get_current_secret_key_link();
-	}
-
-	/**
-	 * Updates the schedule frequencies on remote DEV side to their current local values
-	 *
-	 * Proxies the Remote schedule update method
-	 *
-	 * @param int $timestamp Optional last backup timestamp (to be passed on verbatim)
-	 *
-	 * @return bool
-	 */
-	public function update_remote_schedule( $timestamp = false ) {
-		$frequency = $this->get_frequency();
-		$time = $this->get_schedule_time();
-
-		return $this->_storage->update_schedule( $frequency, $time, $timestamp );
-	}
-
-
-	/**
-	 * Check if we have dashboard installed
-	 *
-	 * @return bool
-	 */
-	public function has_dashboard() {
-		return (bool) apply_filters(
-			$this->get_filter( 'has_dashboard' ),
-			$this->is_dashboard_active() && $this->has_dashboard_key()
-		);
-	}
-
-	/**
-	 * Check if we have PSOURCE Dashboard plugin installed and activated
-	 *
-	 * @return bool
-	 */
-	public function is_dashboard_active() {
-		return (bool) apply_filters(
-			$this->get_filter( 'is_dashboard_active' ),
-			class_exists( 'PSOURCE_Dashboard' )
-		);
-	}
-
-	/**
-	 * Checks if Dashboard plugin is installed, but not activated
-	 *
-	 * @return bool
-	 */
-	public function is_dashboard_installed() {
-		if ( $this->is_dashboard_active() ) {
-			return true;
-		}
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-		$plugins = get_plugins();
-		if ( ! is_array( $plugins ) || empty( $plugins ) ) {
-			return false;
-		}
-
-		return ! empty( $plugins['psource-updates/update-notifications.php'] );
-	}
-
-	/**
-	 * Check if we have our API key
-	 *
-	 * If we do, this means the user has logged into the dashboard
-	 *
-	 * @return bool
-	 */
-	public function has_dashboard_key() {
-		$key = $this->get_dashboard_api_key();
-		return (bool) apply_filters(
-			$this->get_filter( 'has_dashboard_key' ),
-			! empty( $key )
-		);
-	}
-
-	/**
-	 * Remote facade for dashboard key getting.
-	 *
-	 * @return string API key
-	 */
-	public function get_dashboard_api_key() {
-		return $this->_storage->get_dashboard_api_key();
+		return array_merge( $from_local, $errors );
 	}
 
 	/**
@@ -214,10 +72,10 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	 * @return bool
 	 */
 	public function is_active() {
-		return $this->has_dashboard() && apply_filters(
-				$this->get_filter( 'is_active' ),
-				$this->get_config( 'active' )
-			);
+		return apply_filters(
+			$this->get_filter( 'is_active' ),
+			$this->get_config( 'active' )
+		);
 	}
 
 	/**
@@ -326,35 +184,8 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	public function get_backups() {
 		return apply_filters(
 			$this->get_filter( 'get_backups' ),
-			array_merge(
-				$this->_storage->get_backups(),
-				$this->_local->get_backups()
-			)
+			$this->_local->get_backups()
 		);
-	}
-
-	/**
-	 * Send finished backup file to remote destination.
-	 *
-	 * Facade method for storage action.
-	 *
-	 * @param Snapshot_Helper_Backup $backup Backup helper to send away
-	 *
-	 * @return bool
-	 */
-	public function send_backup( Snapshot_Helper_Backup $backup ) {
-		return $this->_storage->send_backup( $backup );
-	}
-
-	/**
-	 * Continue item upload for this backup
-	 *
-	 * @param int $timestamp Timestamp for backup to resolve
-	 *
-	 * @return bool
-	 */
-	public function continue_item_upload( $timestamp ) {
-		return $this->_storage->continue_item_upload( $timestamp );
 	}
 
 	/**
@@ -365,25 +196,18 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	 * @return mixed Path to backup if local file exists, (bool)false otherwise
 	 */
 	public function get_backup( $timestamp ) {
-		$local = $this->_local->get_backup( $timestamp );
-		if ( ! empty( $local ) ) {
-			return $local;
-		}
-
-		return $this->_storage->get_backup( $timestamp );
+		return $this->_local->get_backup( $timestamp );
 	}
 
 	/**
-	 * Deletes a remote backup instance
+	 * Deletes a backup instance
 	 *
 	 * @param int $timestamp Timestamp for backup to resolve
 	 *
 	 * @return bool
 	 */
 	public function delete_backup( $timestamp ) {
-		$local_result = $this->_local->delete_backup( $timestamp );
-		$remote_result = $this->_storage->delete_backup( $timestamp );
-		return $local_result || $remote_result;
+		return $this->_local->delete_backup( $timestamp );
 	}
 
 	/**
