@@ -46,10 +46,10 @@ $warning = $requirements_test['warning'];
 		<section class="wpmud-box new-snapshot-main-box">
 
 			<div class="wpmud-box-title has-button">
-				<h3><?php _e( 'Restore Wizard', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+				<h3><?php _e( 'Wiederherstellungsassistent', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 				<a class="button button-outline button-gray"
 				   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ) ); ?>">
-					<?php _e( 'Back', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php _e( 'Zurück', SNAPSHOT_I18N_DOMAIN ); ?>
 				</a>
 			</div>
 
@@ -64,15 +64,15 @@ $warning = $requirements_test['warning'];
 					<div class="wpmud-box-tab-title can-toggle">
 
 						<h3>
-							<?php _e( 'Configuration', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php _e( 'Konfiguration', SNAPSHOT_I18N_DOMAIN ); ?>
 							<?php if ( ! $all_good ) { ?>
 								<span class="wps-restore-backup-notice">
-						<?php _e( 'You must meet the server requirements before proceeding.', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'Du musst die Servervoraussetzungen erfüllen, bevor du fortfahren kannst.', SNAPSHOT_I18N_DOMAIN ); ?>
 					</span>
 							<?php } ?>
 							<?php if ( $all_good && $warning ) { ?>
 								<span class="wps-restore-backup-notice">
-						<?php _e( 'You have 1 or more requirements warnings. You can proceed, however Snapshot may run into issues due to the warnings.', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'Du hast eine oder mehrere Warnungen zu den Anforderungen. Du kannst fortfahren, jedoch kann es aufgrund der Warnungen zu Problemen mit Snapshot kommen.', SNAPSHOT_I18N_DOMAIN ); ?>
 					</span>
 							<?php } ?>
 						</h3>
@@ -88,7 +88,7 @@ $warning = $requirements_test['warning'];
 							<div id="wps-restore-subsite" class="row">
 
 								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-									<label class="label-box"><?php _e( 'Blog options', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									<label class="label-box"><?php _e( 'Blog Optionen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 								</div>
 
 								<?php
@@ -125,17 +125,17 @@ $warning = $requirements_test['warning'];
 
 										<?php if ( is_multisite() ) { ?>
 											<div class="wps-notice">
-												<p><?php _e( 'You can restore the backup to a different blog within your Multisite environment.<br><strong>Note: The destination blog MUST already exist.</strong>', SNAPSHOT_I18N_DOMAIN ); ?></p>
+												<p><?php _e( 'Du kannst das Backup in einem anderen Blog innerhalb deiner Multisite-Umgebung wiederherstellen.<br><strong>Hinweis: Der Ziel-Blog MUSS bereits existieren.</strong>', SNAPSHOT_I18N_DOMAIN ); ?></p>
 											</div>
 
 											<div class="wps-auth-message warning">
-												<p><?php _e( 'This migration logic is considered still in beta.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+												<p><?php _e( 'Diese Migrationslogik gilt noch als Beta.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 											</div>
 
 											<?php if ( ! isset( $item['MANIFEST']['WP_SITEURL'] ) || $blog_details->siteurl !== $item['MANIFEST']['WP_SITEURL'] ) { ?>
 												<div class="wps-auth-message error">
 
-													<p><?php _e( 'Restore Note: URL mismatch! The Snapshot archive does not appear made from the current WordPress system. Every attempt will be made to replace the source URL with the URL from the destination.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+													<p><?php _e( 'Wiederherstellungs-Hinweis: URL stimmt nicht überein! Das Snapshot-Archiv scheint nicht vom aktuellen WordPress-System erstellt worden zu sein. Es wird jeder Versuch unternommen, die Quell-URL durch die URL des Ziels zu ersetzen.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 												</div>
 
 											<?php }
@@ -145,18 +145,18 @@ $warning = $requirements_test['warning'];
 
 											<div class="wps-restore-col">
 
-												<label class="label-title"><?php _e( 'Information from archive', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												<label class="label-title"><?php _e( 'Information aus dem Archiv', SNAPSHOT_I18N_DOMAIN ); ?></label>
 												<?php
 
 												global $wpdb;
 
 												$sections = array(
 													__( 'Blog ID:', SNAPSHOT_I18N_DOMAIN ) => 'WP_BLOG_ID',
-													__( 'Site URL:', SNAPSHOT_I18N_DOMAIN ) => 'WP_SITEURL',
-													__( 'Database Name:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_NAME',
-													__( 'Database Base Prefix:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_BASE_PREFIX',
-													__( 'Database Prefix:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_PREFIX',
-													__( 'Upload Path:', SNAPSHOT_I18N_DOMAIN ) => 'WP_UPLOAD_PATH',
+													__( 'Web URL:', SNAPSHOT_I18N_DOMAIN ) => 'WP_SITEURL',
+													__( 'Datenbank Name:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_NAME',
+													__( 'Datenbank Basis Präfix:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_BASE_PREFIX',
+													__( 'Datenbank Präfix:', SNAPSHOT_I18N_DOMAIN ) => 'WP_DB_PREFIX',
+													__( 'Upload Pfad:', SNAPSHOT_I18N_DOMAIN ) => 'WP_UPLOAD_PATH',
 												);
 
 												if ( ! is_multisite() ) {
@@ -189,7 +189,7 @@ $warning = $requirements_test['warning'];
 
 											<div class="wps-restore-col">
 
-												<label class="label-title"><?php _e( 'Will be restored to', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												<label class="label-title"><?php _e( 'Wird wiederhergestellt in', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 												<table cellspacing="0" cellpadding="0">
 
@@ -207,7 +207,7 @@ $warning = $requirements_test['warning'];
 													<?php } ?>
 
 													<tr>
-														<th><?php _e( 'Site URL:', SNAPSHOT_I18N_DOMAIN ); ?></th>
+														<th><?php _e( 'Web URL:', SNAPSHOT_I18N_DOMAIN ); ?></th>
 														<td>
 													<span id="snapshot-blog-search-success">
 														<span id="snapshot-blog-name"><?php
@@ -226,7 +226,7 @@ $warning = $requirements_test['warning'];
 														<?php if ( is_multisite() ) { ?>
 															<button id="snapshot-blog-id-change" style="margin-left: 10px;"
 															        class="button button-small button-gray button-outline"><?php
-																_e( 'Change', SNAPSHOT_I18N_DOMAIN );
+																_e( 'Ändern', SNAPSHOT_I18N_DOMAIN );
 																?></button>
 														<?php } ?>
 
@@ -235,7 +235,7 @@ $warning = $requirements_test['warning'];
 															<?php if ( is_multisite() ) { ?>
 																<span id="snapshot-blog-search" style="display: none;">
 														<span id="snapshot-blog-search-error" style="color: #FF0000; display:none;">
-															<?php _e( 'Error on blog lookup. Try again', SNAPSHOT_I18N_DOMAIN ); ?>
+															<?php _e( 'Fehler bei der Blog-Suche. Bitte erneut versuchen', SNAPSHOT_I18N_DOMAIN ); ?>
 															<br>
 														</span>
 
@@ -271,18 +271,18 @@ $warning = $requirements_test['warning'];
 																	<p class="description"><small style="white-space: normal;"><?php
 
 																			if ( is_subdomain_install() ) {
-																				_e( 'Enter the blog sub-domain prefix (i.e. site 1) or blog ID (i.e. 22), or a mapped domain, or leave blank for the primary site.', SNAPSHOT_I18N_DOMAIN );
+																				_e( 'Gib das Blog-Subdomain-Präfix (z. B. site 1) oder die Blog-ID (z. B. 22) oder eine zugeordnete Domain ein, oder lasse das Feld für die primäre Website leer.', SNAPSHOT_I18N_DOMAIN );
 																			} else {
-																				_e( 'Enter the blog path (i.e. site1) or blog ID (i.e. 22), or leave blank for the primary site', SNAPSHOT_I18N_DOMAIN );
+																				_e( 'Gib den Blog-Pfad (z. B. site1) oder die Blog-ID (z. B. 22) ein, oder lasse das Feld für die primäre Website leer.', SNAPSHOT_I18N_DOMAIN );
 																			}
 																			?></small></p>
 
 														<p>
 															<button id="snapshot-blog-id-lookup" class="button button-small button-blue">
-																<?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?>
+																<?php _e( 'Suchen', SNAPSHOT_I18N_DOMAIN ); ?>
 															</button>
 															<button id="snapshot-blog-id-cancel" class="button button-small button-gray">
-																<?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?>
+																<?php _e( 'Abbrechen', SNAPSHOT_I18N_DOMAIN ); ?>
 															</button>
 														</p>
 													</span>
@@ -291,7 +291,7 @@ $warning = $requirements_test['warning'];
 													</tr>
 
 													<tr>
-														<th><?php _e( 'Database Name:', SNAPSHOT_I18N_DOMAIN ); ?></th>
+														<th><?php _e( 'Datenbank Name:', SNAPSHOT_I18N_DOMAIN ); ?></th>
 														<td id="snapshot-new-db-name"><?php
 															echo is_multisite() && ! $item['blog-id'] && isset( $item['IMPORT'] ) ?
 																'' : DB_NAME;
@@ -299,7 +299,7 @@ $warning = $requirements_test['warning'];
 													</tr>
 
 													<tr>
-														<th><?php _e( 'Database Base Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></th>
+														<th><?php _e( 'Datenbank Basis-Präfix:', SNAPSHOT_I18N_DOMAIN ); ?></th>
 														<td id="snapshot-new-db-base-prefix"><?php
 															echo is_multisite() && ! $item['blog-id'] && isset( $item['IMPORT'] ) ?
 																'' : $wpdb->base_prefix;
@@ -307,7 +307,7 @@ $warning = $requirements_test['warning'];
 													</tr>
 
 													<tr>
-														<th><?php _e( 'Database Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></th>
+														<th><?php _e( 'Datenbank Präfix:', SNAPSHOT_I18N_DOMAIN ); ?></th>
 														<td id="snapshot-new-db-prefix"><?php
 
 															if ( is_multisite() ) {
@@ -321,7 +321,7 @@ $warning = $requirements_test['warning'];
 													</tr>
 
 													<tr>
-														<th><?php _e( 'Upload Path:', SNAPSHOT_I18N_DOMAIN ); ?></th>
+														<th><?php _e( 'Upload-Pfad:', SNAPSHOT_I18N_DOMAIN ); ?></th>
 														<td id="snapshot-new-upload-path"><?php
 
 															if ( is_multisite() ) {
@@ -363,7 +363,7 @@ $warning = $requirements_test['warning'];
 
 									<div class="wpmud-box-mask">
 
-										<label class="label-title"><?php _e( 'Select the archive you wish to restore from.', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										<label class="label-title"><?php _e( 'Wähle das Archiv, das du wiederherstellen möchtest.', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										<?php
 										if ( ( isset( $item['data'] ) ) && ( count( $item['data'] ) ) ) :
@@ -408,7 +408,7 @@ $warning = $requirements_test['warning'];
 
 								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 
-									<label class="label-box"><?php _e( 'Files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									<label class="label-box"><?php _e( 'Dateien', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 								</div>
 
@@ -421,13 +421,13 @@ $warning = $requirements_test['warning'];
 											     || ( array_search( 'htaccess', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 											) {
 												?><p
-														class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the .htaccess and/or the wp-config.php files. Normally you do not want to restore these files unless your site is broken. To restore either of these files you must select them from the'include selected files' section below.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+														class="snapshot-error"><?php _e( "Wiederherstellungs-Hinweis: Das Archiv, das du wiederherstellen möchtest, enthält die Dateien .htaccess und/oder wp-config.php. Normalerweise möchtest du diese Dateien nicht wiederherstellen, es sei denn, deine Seite ist defekt. Um eine dieser Dateien wiederherzustellen, musst du sie im Abschnitt 'Ausgewählte Dateien einbeziehen' unten auswählen.", SNAPSHOT_I18N_DOMAIN ); ?></p>
 												<?php
 											}
 										}
 										?>
 
-										<label class="label-title"><?php _e( 'Select which files you want to include.', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										<label class="label-title"><?php _e( 'Wähle aus, welche Dateien du einbeziehen möchtest.', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										<div class="wps-input--item">
 
@@ -439,7 +439,7 @@ $warning = $requirements_test['warning'];
 
 											</div>
 
-											<label for="snapshot-files-option-none"><?php _e( 'Don\'t include any files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											<label for="snapshot-files-option-none"><?php _e( 'Keine Dateien einbeziehen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										</div>
 
@@ -452,13 +452,13 @@ $warning = $requirements_test['warning'];
 
 											</div>
 
-											<label for="snapshot-files-option-all"><?php _e( 'Restore all files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											<label for="snapshot-files-option-all"><?php _e( 'Alle Dateien wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 											<?php
 											if ( ( array_search( 'config', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 											     || ( array_search( 'htaccess', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 											) {
 												?> <span>
-												<strong><?php _e( '(excluding .htaccess & wp-config.php files)', SNAPSHOT_I18N_DOMAIN ); ?></strong>
+												<strong><?php _e( '(ohne .htaccess & wp-config.php Dateien)', SNAPSHOT_I18N_DOMAIN ); ?></strong>
 												</span><?php
 											}
 											?>
@@ -475,7 +475,7 @@ $warning = $requirements_test['warning'];
 
 											</div>
 
-											<label for="snapshot-files-option-selected"><?php _e( 'Only include selected files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											<label for="snapshot-files-option-selected"><?php _e( 'Nur ausgewählte Dateien einbeziehen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										</div>
 
@@ -483,7 +483,7 @@ $warning = $requirements_test['warning'];
 										     style="margin-left: 30px; padding-top: 10px; display: none;">
 
 											<?php if ( is_multisite() ) { ?>
-												<p class="snapshot-error"><?php _e( "Restore Note: The files wp-config.php and .htaccess can only be restored for the primary site. Even then it is not advisable to restore these file for a working Multisite installation.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+												<p class="snapshot-error"><?php _e( "Wiederherstellungs-Hinweis: Die Dateien wp-config.php und .htaccess können nur für die Hauptseite wiederhergestellt werden. Selbst dann ist es nicht ratsam, diese Dateien für eine funktionierende Multisite-Installation wiederherzustellen.", SNAPSHOT_I18N_DOMAIN ); ?></p>
 											<?php } ?>
 
 											<ul id="snapshot-select-files-option" class="wpmud-box-gray">
@@ -511,7 +511,7 @@ $warning = $requirements_test['warning'];
 															<input type="checkbox" class="snapshot-backup-sub-options" checked="checked" id="snapshot-files-option-media" value="media" name="snapshot-files-sections[media]">
 															<label for="snapshot-files-option-media"></label>
 														</div>
-														<label for="snapshot-files-option-media"><?php _e( 'Media Files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+														<label for="snapshot-files-option-media"><?php _e( 'Mediendateien', SNAPSHOT_I18N_DOMAIN ); ?></label>
 													</li>
 												<?php } ?>
 												<?php if ( array_search( 'config', $item['data'][ $data_item_key ]['files-sections'] ) !== false ) { ?>
@@ -572,7 +572,7 @@ $warning = $requirements_test['warning'];
 
 								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 
-									<label class="label-box"><?php _e( 'Database', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									<label class="label-box"><?php _e( 'Datenbank', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 								</div>
 
@@ -582,17 +582,17 @@ $warning = $requirements_test['warning'];
 
 										<?php if ( is_multisite() && ( isset( $item['data'][ $data_item_key ]['tables-sections']['global'] ) ) && ( count( $item['data'][ $data_item_key ]['tables-sections']['global'] ) ) ) : ?>
 
-											<p class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the global database tables users and/or usermeta. Normally, you do not want to restore these tables unless your site is broken. To restore either of these database tables you must select them from the 'Restore selected database tables' section below. The data contained within these tables will be merged with the current global tables", SNAPSHOT_I18N_DOMAIN ); ?></p>
+											<p class="snapshot-error"><?php _e( "Wiederherstellungs-Hinweis: Das Archiv, das Du wiederherstellen möchtest, enthält die globalen Datenbanktabellen users und/oder usermeta. Normalerweise möchtest Du diese Tabellen nicht wiederherstellen, es sei denn, Deine Website ist beschädigt. Um eine dieser Datenbanktabellen wiederherzustellen, musst Du sie im Abschnitt 'Ausgewählte Datenbanktabellen wiederherstellen' unten auswählen. Die in diesen Tabellen enthaltenen Daten werden mit den aktuellen globalen Tabellen zusammengeführt", SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 										<?php endif; ?>
 
 										<?php if ( ( ! is_multisite() ) && ( $item['MANIFEST']['WP_DB_PREFIX'] != $wpdb->prefix ) ) : ?>
 
-											<p class="snapshot-error"><?php printf( __( "Restore Note: The archive contains tables names with a different database prefix ( %s ) than this site ( %s ). The tables restored will automatically be renamed to the site prefix", SNAPSHOT_I18N_DOMAIN ), $item['MANIFEST']['WP_DB_PREFIX'], $wpdb->prefix ); ?></p>
+											<p class="snapshot-error"><?php printf( __( "Wiederherstellungs-Hinweis: Das Archiv enthält Tabellennamen mit einem anderen Datenbankpräfix ( %s ) als diese Website ( %s ). Die wiederhergestellten Tabellen werden automatisch auf das Website-Präfix umbenannt", SNAPSHOT_I18N_DOMAIN ), $item['MANIFEST']['WP_DB_PREFIX'], $wpdb->prefix ); ?></p>
 
 										<?php endif; ?>
 
-										<label class="label-title"><?php _e( 'Select which database tables you want to include.', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										<label class="label-title"><?php _e( 'Wähle aus, welche Datenbanktabellen Du einbeziehen möchtest.', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										<div class="wps-input--group">
 
@@ -607,7 +607,7 @@ $warning = $requirements_test['warning'];
 
 												<label for="snapshot-tables-option-all">
 													<?php
-													( is_multisite() ) ? _e( 'Restore <strong>all</strong> blog database tables contained in this archive <strong>(excluding global tables users & usermeta)</strong>', SNAPSHOT_I18N_DOMAIN ) : _e( 'Restore <strong>all</strong> blog database tables contained in this archive ', SNAPSHOT_I18N_DOMAIN );
+													( is_multisite() ) ? _e( 'Stelle <strong>alle</strong> in diesem Archiv enthaltenen Blog-Datenbanktabellen wieder her <strong>(mit Ausnahme der globalen Tabellen users & usermeta)</strong>', SNAPSHOT_I18N_DOMAIN ) : _e( 'Stelle <strong>alle</strong> in diesem Archiv enthaltenen Blog-Datenbanktabellen wieder her', SNAPSHOT_I18N_DOMAIN );
 													?>
 												</label>
 
@@ -622,7 +622,7 @@ $warning = $requirements_test['warning'];
 
 												</div>
 
-												<label for="snapshot-tables-option-none"><?php _e( 'Don\'t include any database tables', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												<label for="snapshot-tables-option-none"><?php _e( 'Keine Datenbanktabellen einbeziehen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 											</div>
 
@@ -635,7 +635,7 @@ $warning = $requirements_test['warning'];
 
 												</div>
 
-												<label for="snapshot-tables-option-selected"><?php _e( 'Only include selected tables', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												<label for="snapshot-tables-option-selected"><?php _e( 'Nur ausgewählte Tabellen einbeziehen', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 											</div>
 
@@ -644,10 +644,10 @@ $warning = $requirements_test['warning'];
 										<div id="snapshot-selected-tables-container" class="wpmud-box-gray" style="display: none;">
 
 											<?php $tables_sets_idx = array(
-												'global' => __( "WordPress Global Tables", SNAPSHOT_I18N_DOMAIN ),
-												'wp' => __( "WordPress Blog Tables", SNAPSHOT_I18N_DOMAIN ),
-												'non' => __( "Non-WordPress Tables", SNAPSHOT_I18N_DOMAIN ),
-												'other' => __( "Other Tables", SNAPSHOT_I18N_DOMAIN ),
+												'global' => __( "WordPress Globale Tabellen", SNAPSHOT_I18N_DOMAIN ),
+												'wp' => __( "WordPress Blog Tabellen", SNAPSHOT_I18N_DOMAIN ),
+												'non' => __( "Nicht-WordPress Tabellen", SNAPSHOT_I18N_DOMAIN ),
+												'other' => __( "Andere Tabellen", SNAPSHOT_I18N_DOMAIN ),
 											);
 
 											//echo "item<pre>"; print_r($item); echo "</pre>";
@@ -663,22 +663,22 @@ $warning = $requirements_test['warning'];
 											<div id="snapshot-tables-<?php echo $table_set_key ?>-set" class="snapshot-tables-set" style="display: <?php echo $display_set; ?>">
 
 												<h3 class="snapshot-tables-title"><?php echo $table_set_title; ?><?php if ( ( isset( $item['data'][ $data_item_key ]['tables-sections'][ $table_set_key ] ) ) && ( count( $item['data'][ $data_item_key ]['tables-sections'][ $table_set_key ] ) ) ) { ?>
-														<a class="button-link snapshot-table-select-all" href="#" id="snapshot-table-<?php echo $table_set_key ?>-select-all"><?php _e( 'Select all', SNAPSHOT_I18N_DOMAIN ); ?></a>
+														<a class="button-link snapshot-table-select-all" href="#" id="snapshot-table-<?php echo $table_set_key ?>-select-all"><?php _e( 'Alle auswählen', SNAPSHOT_I18N_DOMAIN ); ?></a>
 													<?php } ?></h3>
 
 												<?php if ( ( is_multisite() ) && ( $table_set_key == "global" ) ) { ?>
 
-													<p class="snapshot-error"><?php _e( 'When restoring users and usermeta records under a Multisite environment there are a few limitations. Please read the following carefully', SNAPSHOT_I18N_DOMAIN ); ?></p>
+													<p class="snapshot-error"><?php _e( 'Beim Wiederherstellen von Benutzer- und Usermeta-Datensätzen in einer Multisite-Umgebung gibt es einige Einschränkungen. Bitte lesen Sie die folgenden Hinweise sorgfältig durch', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 													<ol class="snapshot-error">
-														<li><?php _e( "If restoring to the primary blog ALL user entries will be replaced!", SNAPSHOT_I18N_DOMAIN ); ?></li>
-														<li><?php _e( "If restoring to a non-primary blog, the user's ID and user_name fields are checked against existing users.", SNAPSHOT_I18N_DOMAIN ); ?>
+														<li><?php _e( "Wenn Du auf den primären Blog wiederherstellst, werden ALLE Benutzereinträge ersetzt!", SNAPSHOT_I18N_DOMAIN ); ?></li>
+														<li><?php _e( "Wenn Du auf einen nicht primären Blog wiederherstellst, werden die Benutzer-ID- und Benutzername-Felder mit vorhandenen Benutzern abgeglichen.", SNAPSHOT_I18N_DOMAIN ); ?>
 															<ul>
-																<li><?php _e( "- If a match is not found a new user will be created. This means a new user ID will be assigned.", SNAPSHOT_I18N_DOMAIN ); ?></li>
-																<li><?php _e( "- If a match is found but the user ID is different. The found user ID will be used.", SNAPSHOT_I18N_DOMAIN ); ?></li>
+																<li><?php _e( "- Wird keine Übereinstimmung gefunden, wird ein neuer Benutzer angelegt. Dies bedeutet, dass ihm eine neue Benutzer-ID zugewiesen wird.", SNAPSHOT_I18N_DOMAIN ); ?></li>
+																<li><?php _e( "- Wird eine Übereinstimmung gefunden, aber die Benutzer-ID ist unterschiedlich. Die gefundene Benutzer-ID wird verwendet.", SNAPSHOT_I18N_DOMAIN ); ?></li>
 															</ul>
 														</li>
-														<li><?php _e( "If the restored user ID is changed, Snapshot will update usermeta, posts and comments records with the new user ID. A new usermeta record will be added with the key '_old_user_id' with the value of the previous user ID. Snapshot cannot attempt updates to other tables like BuddyPress where the user ID fields are not known. These will need to be updated manually." ); ?></li>
+														<li><?php _e( "Wenn die wiederhergestellte Benutzer-ID geändert wird, aktualisiert Snapshot die Benutzer-Meta-, Beiträge- und Kommentar-Datensätze mit der neuen Benutzer-ID. Ein neuer Benutzer-Meta-Datensatz wird mit dem Schlüssel '_old_user_id' und dem Wert der vorherigen Benutzer-ID hinzugefügt. Snapshot kann keine Updates für andere Tabellen wie BuddyPress vornehmen, bei denen die Benutzer-ID-Felder nicht bekannt sind. Diese müssen manuell aktualisiert werden.", SNAPSHOT_I18N_DOMAIN ); ?></li>
 													</ol>
 
 												<?php } ?>
@@ -718,7 +718,7 @@ $warning = $requirements_test['warning'];
 
 												<?php } else { ?>
 
-													<p><?php _e( 'No tables', SNAPSHOT_I18N_DOMAIN ); ?></p>
+													<p><?php _e( 'Keine Tabellen', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 												<?php } ?>
 
@@ -759,10 +759,10 @@ $warning = $requirements_test['warning'];
 
 											</div>
 
-											<label for="snapshot-restore-option-plugins"><?php _e( 'Deactivate plugins', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											<label for="snapshot-restore-option-plugins"><?php _e( 'Plugins deaktivieren', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 											<p>
-												<small><?php _e( 'This will deactivate all plugins. You\'ll then be able to activate them manually after the restoration is complete.', SNAPSHOT_I18N_DOMAIN ); ?></small>
+												<small><?php _e( 'Dies deaktiviert alle Plugins. Du kannst sie nach Abschluss der Wiederherstellung manuell wieder aktivieren.', SNAPSHOT_I18N_DOMAIN ); ?></small>
 											</p>
 
 										</div>
@@ -785,7 +785,7 @@ $warning = $requirements_test['warning'];
 
 									<div class="wpmud-box-mask">
 
-										<label class="label-title"><?php _e( 'Select which theme you want to activate when this site is restored.', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										<label class="label-title"><?php _e( 'Wähle das Theme aus, das aktiviert werden soll, wenn diese Seite wiederhergestellt wird.', SNAPSHOT_I18N_DOMAIN ); ?></label>
 
 										<?php
 										if ( isset( $item['blog-id'] ) ) {
@@ -834,8 +834,8 @@ $warning = $requirements_test['warning'];
 
 									<div class="form-button-container">
 
-										<a class="button button-gray" href=""><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
-										<input class="button button-blue" id="snapshot-form-restore-submit" class="button-primary" type="submit" value="<?php _e( 'Restore Now', SNAPSHOT_I18N_DOMAIN ); ?>">
+										<a class="button button-gray" href=""><?php _e( 'Abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+										<input class="button button-blue" id="snapshot-form-restore-submit" class="button-primary" type="submit" value="<?php _e( 'Jetzt wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?>">
 
 									</div>
 
