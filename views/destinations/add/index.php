@@ -126,7 +126,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 								}
 							}
 
-							if ( strpos( $type, 'dropbox' ) !== false && version_compare( phpversion(), '5.5.0', '<' ) ) {
+						if ( strpos( $type, 'dropbox' ) !== false && version_compare( phpversion(), '7.4', '<' ) ) {
 								$this->render( "destinations/add/dropbox-error", false, array(
 									'item'        => $item,
 								), false, false, false );
@@ -138,7 +138,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 							}
 
 							?>
-							<?php if ( strpos( $type, 'dropbox' ) !== false && version_compare( phpversion(), '5.5.0', '<' ) ) : ?>
+						<?php if ( strpos( $type, 'dropbox' ) !== false && version_compare( phpversion(), '7.4', '<' ) ) : ?>
 								<div class="form-footer"></div>
 							<?php else : ?>
                             <div class="form-footer">

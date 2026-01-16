@@ -41,7 +41,7 @@
 
 	<div id="wps-destination-auth" class="form-row">
 		<div class="wps-auth-message error">
-			<p><?php esc_html_e( 'Aufgrund der neuen Anforderungen der Dropbox API V2 musst du PHP 5.5 oder neuer verwenden, um ein Dropbox-Ziel hinzufügen zu können.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Aufgrund der neuen Anforderungen der Dropbox API V2 musst du PHP 7.4 oder neuer verwenden, um ein Dropbox-Ziel hinzufügen zu können.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 		</div>
 	</div>
 </div>

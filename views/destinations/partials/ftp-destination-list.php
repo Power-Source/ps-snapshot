@@ -2,7 +2,7 @@
 
     <div class="wps-notice">
 
-        <p><?php _e( "Du hast noch kein FTP-Ziel hinzugefügt.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+        <p><?php _e( "Du hast noch keinen FTP-Speicherort hinzugefügt.", SNAPSHOT_I18N_DOMAIN ); ?></p>
 
     </div>
 

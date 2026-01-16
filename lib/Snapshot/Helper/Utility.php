@@ -2052,7 +2052,7 @@ if ( ! class_exists( 'Snapshot_Helper_Utility' ) ) {
 			$current_timeout = (int)ini_get( 'max_execution_time' );
 			$defaults = array(
 				'PhpVersion' => array(
-					'test' => version_compare(PHP_VERSION, '5.2') >= 0,
+					'test' => version_compare(PHP_VERSION, '7.4') >= 0,
 					'value' => PHP_VERSION
 				),
 				'MaxExecTime' => array(

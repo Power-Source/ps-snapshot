@@ -11,6 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: snapshot
 Domain Path: languages
 Network: true
+Requires PHP: 7.4
  */
 
 /*  Copyright 2016-2026 PSOURCE (https://github.com/Power-Source)
@@ -503,8 +504,8 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			);
 			$this->_pagehooks['snapshots-newui-destinations'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Ziele', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Ziele', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Speicherorte', 'page label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Speicherorte', 'menu label', SNAPSHOT_I18N_DOMAIN ),
 				'manage_options',
 				'snapshot_destinations',
 				array( $this->_new_ui_tester, 'destinations' )
@@ -5407,7 +5408,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				'Update Settings' => 'Einstellungen aktualisieren',
 				'Managed Backups Log' => 'Log verwalteter Backups',
 				"<p>Here's a log of events for managed backups.</p>" => '<p>Hier findest du das Log der verwalteten Backups.</p>',
-				'Destinations' => 'Ziele',
+				'Destinations' => 'Speicherorte',
 				'Snapshots' => 'Snapshots',
 				'Get Started' => 'Los geht’s',
 				"Create and store snapshots of your website. You choose what you want to back up and where you want to save it. Let's get started!" => 'Erstelle und speichere Snapshots deiner Website. Du entscheidest, was gesichert wird und wohin. Leg los!',
@@ -5415,7 +5416,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				'Available Snapshots' => 'Verfügbare Snapshots',
 				'New Snapshot' => 'Neuer Snapshot',
 				'Filter by' => 'Filtern nach',
-				'All Destinations' => 'Alle Ziele',
+				'All Destinations' => 'Alle Speicherorte',
 				'Filter' => 'Filtern',
 				'Name' => 'Name',
 				'Type' => 'Typ',

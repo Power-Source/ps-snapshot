@@ -2,7 +2,7 @@
 <?php if ( empty( $destinations ) ) : ?>
 
     <div class="wps-notice">
-        <p><?php _e( "Du hast noch kein Dropbox-Ziel hinzugefügt.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+        <p><?php _e( "Du hast noch keinen Dropbox-Speicherort hinzugefügt.", SNAPSHOT_I18N_DOMAIN ); ?></p>
     </div>
 
 <?php else : ?>

@@ -1,14 +1,14 @@
 <div class="wpmud-box-tab requirements-check-box<?php if ( !$all_good || $warning ) { echo ' open'; } ?>">
 	<div class="wpmud-box-tab-title can-toggle">
-		<h3><?php _e( 'Requirements Check', SNAPSHOT_I18N_DOMAIN ); ?>
+		<h3><?php _e( 'Anforderungsprüfung', SNAPSHOT_I18N_DOMAIN ); ?>
 		<span class="wps-tag wps-tag--<?php if ( !$all_good ) { echo 'red'; } else if ( $warning ) { echo 'yellow'; } else { echo 'green'; } ?>">
 		<?php
 			if ( !$all_good ) {
-			_e( 'FAIL', SNAPSHOT_I18N_DOMAIN );
+			_e( 'FEHLGESCHLAGEN', SNAPSHOT_I18N_DOMAIN );
 			} else if ( $warning ) {
-			_e( 'WARNING', SNAPSHOT_I18N_DOMAIN );
+			_e( 'WARNUNG', SNAPSHOT_I18N_DOMAIN );
 			} else {
-			_e( 'PASS', SNAPSHOT_I18N_DOMAIN );
+			_e( 'BESTANDEN', SNAPSHOT_I18N_DOMAIN );
 			} ?>
 		</span></h3>
 		<i class="wps-icon i-arrow-right"></i>
@@ -22,34 +22,34 @@
 							<th>
 								<?php _e( 'PHP Version', SNAPSHOT_I18N_DOMAIN ); ?>
 								<?php if( !$checks['PhpVersion']['test'] ) : ?>
-								<span class="wps-tag wps-tag--red"><?php _e( 'FAIL', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--red"><?php _e( 'FEHLGESCHLAGEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php else : ?>
-								<span class="wps-tag wps-tag--green"><?php _e( 'PASS', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--green"><?php _e( 'BESTANDEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php endif; ?>
 							</th>
 							<?php if( !$checks['PhpVersion']['test'] ) : ?>
 							<td>
-								<?php printf( __( 'Your PHP version is out of date.
-									Your current version is %s and we require 5.2 or newer.
-									You\'ll need to update your PHP version to proceed.
-									If you use a managed host, contact them directly to have it updated.', SNAPSHOT_I18N_DOMAIN ) ,$checks['PhpVersion']['value'] ); ?>
+								<?php printf( __( 'Deine PHP-Version ist veraltet.
+									Deine aktuelle Version ist %s und wir benötigen 7.4 oder neuer.
+									Du musst deine PHP-Version aktualisieren, um fortzufahren.
+									Wenn du einen Managed Host verwendest, kontaktiere diesen direkt, um ein Update zu veranlassen.', SNAPSHOT_I18N_DOMAIN ) ,$checks['PhpVersion']['value'] ); ?>
 							</td>
 							<?php endif; ?>
 						</tr>
 						<tr>
 							<th <?php if( $checks['MaxExecTime']['test'] ) : ?> colspan="2" <?php endif; ?> >
-								<?php _e( 'Max Execution Time', SNAPSHOT_I18N_DOMAIN ); ?>
+								<?php _e( 'Maximale Ausführungszeit', SNAPSHOT_I18N_DOMAIN ); ?>
 								<?php if( !$checks['MaxExecTime']['test'] ) : ?>
-								<span class="wps-tag wps-tag--yellow"><?php _e( 'WARNING', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--yellow"><?php _e( 'WARNUNG', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php else : ?>
-								<span class="wps-tag wps-tag--green"><?php _e( 'PASS', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--green"><?php _e( 'BESTANDEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php endif; ?>
 							</th>
 							<?php if( !$checks['MaxExecTime']['test'] ) : ?>
 							<td>
-								<?php printf( __( '<b><code>max_execution_time</code> is set to %s which is too low</b>.
-									A minimum execution time of 150 seconds is recommended to give the migration process the
-									best chance of succeeding. If you use a managed host, contact them directly to have it updated.', SNAPSHOT_I18N_DOMAIN ) ,$checks['MaxExecTime']['value'] ); ?>
+								<?php printf( __( '<b><code>max_execution_time</code> ist auf %s gesetzt, was zu niedrig ist</b>.
+									Es wird eine Mindestausführungszeit von 150 Sekunden empfohlen, um dem Migrationsprozess die
+									bestmögliche Chance auf Erfolg zu geben. Wenn du einen Managed Host verwendest, kontaktiere diesen direkt, um ein Update zu veranlassen.', SNAPSHOT_I18N_DOMAIN ) ,$checks['MaxExecTime']['value'] ); ?>
 							</td>
 							<?php endif; ?>
 						</tr>
@@ -57,17 +57,16 @@
 							<th <?php if( $checks['Mysqli']['test'] ) : ?> colspan="2" <?php endif; ?> >
 								<?php _e( 'MySQLi', SNAPSHOT_I18N_DOMAIN ); ?>
 								<?php if( !$checks['Mysqli']['test'] ) : ?>
-								<span class="wps-tag wps-tag--red"><?php _e( 'FAIL', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--red"><?php _e( 'FEHLGESCHLAGEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php else : ?>
-								<span class="wps-tag wps-tag--green"><?php _e( 'PASS', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--green"><?php _e( 'BESTANDEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php endif; ?>
 							</th>
 							<?php if( !$checks['Mysqli']['test'] ) : ?>
 							<td>
-								<?php _e( '<b>PHP MySQLi module not found</b>.
-									Snapshot needs the MySQLi module to be installed and enabled
-									on the target server. If you use a managed host, contact them
-									directly to have this module installed and enabled.', SNAPSHOT_I18N_DOMAIN );
+								<?php _e( '<b>PHP MySQLi Modul nicht gefunden</b>.
+									Snapshot benötigt das MySQLi Modul, das auf dem Zielserver installiert und aktiviert sein muss.
+									Wenn du einen Managed Host verwendest, kontaktiere diesen direkt, um das Modul installieren und aktivieren zu lassen.', SNAPSHOT_I18N_DOMAIN );
 									?>
 							</td>
 							<?php endif; ?>
@@ -76,16 +75,16 @@
 							<th <?php if( $checks['Zip']['test'] ) : ?> colspan="2" <?php endif; ?> >
 								<?php _e( 'GZip', SNAPSHOT_I18N_DOMAIN ); ?>
 								<?php if( !$checks['Zip']['test'] ) : ?>
-								<span class="wps-tag wps-tag--red"><?php _e( 'FAIL', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--red"><?php _e( 'FEHLGESCHLAGEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php else : ?>
-								<span class="wps-tag wps-tag--green"><?php _e( 'PASS', SNAPSHOT_I18N_DOMAIN ); ?></span>
+								<span class="wps-tag wps-tag--green"><?php _e( 'BESTANDEN', SNAPSHOT_I18N_DOMAIN ); ?></span>
 								<?php endif; ?>
 							</th>
 							<?php if( !$checks['Zip']['test'] ) : ?>
 							<td>
-								<?php _e( '<b>PHP Zip module not found</b>.
-									To unpack the zip file, Snapshot needs the Zip module to be installed and enabled.
-									If you use a managed host, contact them directly to have it updated.', SNAPSHOT_I18N_DOMAIN );
+								<?php _e( '<b>PHP Zip Modul nicht gefunden</b>.
+									Um die Zip-Datei zu entpacken, benötigt Snapshot das Zip-Modul, das installiert und aktiviert sein muss.
+									Wenn du einen Managed Host verwendest, kontaktiere diesen direkt, um ein Update zu veranlassen.', SNAPSHOT_I18N_DOMAIN );
 									?>
 							</td>
 							<?php endif; ?>
@@ -93,7 +92,7 @@
 					</tbody>
 				</table>
 			</div>
-			<p><a href="" class="button button-outline button-gray"><?php _e('Re-Check', SNAPSHOT_I18N_DOMAIN); ?></a></p>
+			<p><a href="" class="button button-outline button-gray"><?php _e('Neu prüfen', SNAPSHOT_I18N_DOMAIN); ?></a></p>
 		</div>
 	</div>
 </div>

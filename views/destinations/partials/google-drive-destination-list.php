@@ -1,7 +1,7 @@
 <?php if ( empty( $destinations ) ) : ?>
 
 	<div class="wps-notice">
-		<p><?php _e("Du hast noch kein Google Drive-Ziel hinzugefügt.", SNAPSHOT_I18N_DOMAIN); ?></p>
+		<p><?php _e("Du hast noch keinen Google Drive-Speicherort hinzugefügt.", SNAPSHOT_I18N_DOMAIN); ?></p>
 	</div>
 
 <?php else : ?>
