@@ -53,13 +53,15 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 					<tbody>
 
-						<?php foreach($destinations as $key => $destination) :
-								if( $key > 2 )	break;
-						?>
+					<?php 
+					$count = 0;
+					foreach($destinations as $key => $destination) :
+						if( $count >= 3 )	break;
+						$count++;
+					?>
+						<tr>
 
-							<tr>
-
-								<td class="wpsd-name">
+							<td class="wpsd-name">
 
 									<span class="wps-typecon <?php echo $destination['type']; ?>"></span>
 

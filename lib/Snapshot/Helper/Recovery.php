@@ -162,7 +162,7 @@ if ( ! class_exists( 'Snapshot_Helper_Recovery' ) ) {
 				}
 				if ( file_exists( $local_file ) ) {
 					$_SESSION['restore_form']['snapshot']['archive-file-local'] = $local_file;
-					$form_errors['message-success'][]                           = "Local Snapshot Archive located [" . basename( $local_file ) . "] successfully.";
+					$form_errors['message-success'][]                           = "Lokaler Snapshot Archive located [" . basename( $local_file ) . "] successfully.";
 				}
 			}
 

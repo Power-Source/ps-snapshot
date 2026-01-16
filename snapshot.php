@@ -2315,7 +2315,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 			if ( ! isset( $this->config_data['destinations']['local'] ) ) {
 				$this->config_data['destinations']['local'] = array(
-					'name' => __( 'Local Snapshot', SNAPSHOT_I18N_DOMAIN ),
+					'name' => __( 'Lokaler Snapshot', SNAPSHOT_I18N_DOMAIN ),
 					'type' => 'local',
 				);
 			}

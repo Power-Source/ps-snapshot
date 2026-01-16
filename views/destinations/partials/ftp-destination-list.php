@@ -2,7 +2,7 @@
 
     <div class="wps-notice">
 
-        <p><?php _e( "You haven't added a FTP destination yet.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+        <p><?php _e( "Du hast noch kein FTP-Ziel hinzugefügt.", SNAPSHOT_I18N_DOMAIN ); ?></p>
 
     </div>
 
@@ -16,7 +16,7 @@
 
             <th class="wps-destination-name"><?php _e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
             <th class="wps-destination-host"><?php _e( 'Host', SNAPSHOT_I18N_DOMAIN ); ?></th>
-            <th class="wps-destination-dir"><?php _e( 'Directory', SNAPSHOT_I18N_DOMAIN ); ?></th>
+            <th class="wps-destination-dir"><?php _e( 'Verzeichnis', SNAPSHOT_I18N_DOMAIN ); ?></th>
             <th class="wps-destination-shots"><?php _e( 'Snapshots', SNAPSHOT_I18N_DOMAIN ); ?></th>
             <th class="wps-destination-config"></th>
         </tr>
@@ -41,14 +41,14 @@
                     </a>
 
 	                <?php if ( ! Snapshot_Model_Destination::has_required_fields( $destination, $required_fields ) ) : ?>
-                        <span class="incomplete-warning" title="<?php esc_html_e( 'This destination has not been fully configured.', SNAPSHOT_I18N_DOMAIN ); ?>"></span>
+                        <span class="incomplete-warning" title="<?php esc_html_e( 'Dieser Speicherort wurde nicht vollständig konfiguriert.', SNAPSHOT_I18N_DOMAIN ); ?>"></span>
 	                <?php endif; ?>
 
                 </td>
 
                 <td class="wps-destination-host" data-text="Host:"><?php echo $destination['address'] ?></td>
 
-                <td class="wps-destination-dir" data-text="Dir:"><?php echo $destination['directory'] ?></td>
+                <td class="wps-destination-dir" data-text="Verzeichnis:"><?php echo $destination['directory'] ?></td>
 
                 <td class="wps-destination-shots"><?php Snapshot_Model_Destination::show_destination_item_count( $id ); ?></td>
 
@@ -60,7 +60,7 @@
 						'item'            => urlencode( $id )
 					), PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ) ); ?>">
                         <span class="dashicons dashicons-admin-generic"></span>
-                        <span class="wps-destination-config-text"><?php _e( 'Configure', SNAPSHOT_I18N_DOMAIN ); ?></span>
+                        <span class="wps-destination-config-text"><?php _e( 'Konfigurieren', SNAPSHOT_I18N_DOMAIN ); ?></span>
                     </a>
 
                 </td>

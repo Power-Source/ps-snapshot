@@ -48,7 +48,7 @@ A destination is a location where Snapshot backups are stored, and come in two f
 
 Connected destinations appear as options within the snapshot configuration screen. Multiple destinations can be connected, but only one destination can be used for any given snapshot.
 
-#### Local Snapshot
+#### Lokaler Snapshot
 
 The default local destination created by Snapshot is a directory on the same server that houses your site. See our guidance in the Destinations section below for details on using and modifying this default local destination.
 
@@ -169,7 +169,7 @@ You can change the directory where your snapshot backups are stored by clicking 
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/configure-local.png)
 
-The name of the local directory, Local Snapshot, cannot be modified, but the directory path can be changed to any folder on your server by entering the path into the field provided and clicking Save Destination.
+The name of the local directory, Lokaler Snapshot, cannot be modified, but the directory path can be changed to any folder on your server by entering the path into the field provided and clicking Save Destination.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/Change-local-directory.png)
 

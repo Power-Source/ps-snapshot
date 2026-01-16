@@ -10,7 +10,7 @@
 	<div id="wps-destination-type" class="form-row">
 
 		<div class="form-col-left">
-			<label><?php esc_html_e( 'Type', SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php esc_html_e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></label>
 		</div>
 
 		<div class="form-col">
@@ -41,7 +41,7 @@
 
 	<div id="wps-destination-auth" class="form-row">
 		<div class="wps-auth-message error">
-			<p><?php esc_html_e( 'Due to the new requirement from Dropbox API V2, you need to use PHP 5.5 or newer to be able to add Dropbox destination.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Aufgrund der neuen Anforderungen der Dropbox API V2 musst du PHP 5.5 oder neuer verwenden, um ein Dropbox-Ziel hinzufügen zu können.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 		</div>
 	</div>
 </div>

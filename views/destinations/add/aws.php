@@ -5,7 +5,7 @@
 	<div id="wps-destination-type" class="form-row">
 
 		<div class="form-col-left">
-			<label><?php _e( 'Type', SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php _e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></label>
 		</div>
 
 		<div class="form-col">
@@ -42,7 +42,7 @@
 
 			<?php $this->input_error_message( 'awskey' ); ?>
 
-			<p><small><?php echo sprintf( __( 'You can get your access keys via the <a target="_blank" href="%s">AWS Console</a>', SNAPSHOT_I18N_DOMAIN ), esc_url( 'https://aws-portal.amazon.com/gp/aws/securityCredentials' ) ); ?></small></p>
+			<p><small><?php echo sprintf( __( 'Du kannst Zugriffsschlüssel über die <a target="_blank" href="%s">AWS-Konsole</a> abrufen.', SNAPSHOT_I18N_DOMAIN ), esc_url( 'https://aws-portal.amazon.com/gp/aws/securityCredentials' ) ); ?></small></p>
 		</div>
 
 	</div>
@@ -50,7 +50,7 @@
 	<div id="wps-destination-key" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-secretkey"><?php _e( "AWS Secret Access Key", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-secretkey"><?php _e( "AWS Geheimer Zugriffsschlüssel", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -65,7 +65,7 @@
 	<div id="wps-destination-ssl" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-ssl"><?php _e( "Use SSL Connection", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-ssl"><?php _e( "SSL-Verbindung verwenden", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -123,7 +123,7 @@
 	<div id="wps-destination-storage" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-storage"><?php _e( 'Storage Type', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-storage"><?php _e( 'Speichertyp', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -181,7 +181,7 @@
 
 	<div id="wps-destination-permission" class="form-row">
 		<div class="form-col-left">
-			<label><?php _e( "File Permissions", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label><?php _e( "Dateiberechtigungen", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -191,18 +191,18 @@
 			} ?>
 			<select name="snapshot-destination[acl]" id="snapshot-destination-acl" class="<?php $this->input_error_class( 'acl' ); ?>">
 				<option value="<?php echo esc_attr( AmazonS3::ACL_PRIVATE ); ?>" <?php selected( $item['acl'], AmazonS3::ACL_PRIVATE ); ?>>
-					<?php _e( 'Private', SNAPSHOT_I18N_DOMAIN ) ?></option>
+					<?php _e( 'Privat', SNAPSHOT_I18N_DOMAIN ) ?></option>
 				<option value="<?php echo esc_attr( AmazonS3::ACL_PUBLIC ); ?>" <?php selected( $item['acl'], AmazonS3::ACL_PUBLIC ); ?>>
-					<?php _e( 'Public Read', SNAPSHOT_I18N_DOMAIN ) ?></option>
+					<?php _e( 'Öffentlich Lesen', SNAPSHOT_I18N_DOMAIN ) ?></option>
 				<option value="<?php echo esc_attr( AmazonS3::ACL_OPEN ); ?>" <?php selected( $item['acl'], AmazonS3::ACL_OPEN ); ?>>
-					<?php _e( 'Public Read/Write', SNAPSHOT_I18N_DOMAIN ) ?></option>
+					<?php _e( 'Öffentlich Lesen/Schreiben', SNAPSHOT_I18N_DOMAIN ) ?></option>
 				<option value="<?php echo esc_attr( AmazonS3::ACL_AUTH_READ ); ?>" <?php selected( $item['acl'], AmazonS3::ACL_AUTH_READ ); ?>>
-					<?php _e( 'Authenticated Read', SNAPSHOT_I18N_DOMAIN ) ?></option>
+					<?php _e( 'Authentifiziertes Lesen', SNAPSHOT_I18N_DOMAIN ) ?></option>
 			</select>
 
 			<?php $this->input_error_message( 'acl' ); ?>
 
-			<p><small><?php _e('Control who will have access to your backup files.', SNAPSHOT_I18N_DOMAIN); ?></small></p>
+			<p><small><?php _e('Steuere, wer Zugriff auf deine Sicherungsdateien hat.', SNAPSHOT_I18N_DOMAIN); ?></small></p>
 		</div>
 
 	</div>
@@ -210,15 +210,15 @@
 	<div id="wps-destination-dir" class="form-row">
 
 		<div class="form-col-left">
-			<label><?php _e( "Directory (optional)", SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php _e( "Verzeichnis (optional)", SNAPSHOT_I18N_DOMAIN ); ?></label>
 		</div>
 
 		<div class="form-col">
-			<input type="text" name="snapshot-destination[directory]" id="snapshot-destination-directory" placeholder="i.e. static/files" value="<?php if ( isset( $item['directory'] ) ) { echo $item['directory']; } ?>"/>
+			<input type="text" name="snapshot-destination[directory]" id="snapshot-destination-directory" placeholder="z.B. static/files" value="<?php if ( isset( $item['directory'] ) ) { echo $item['directory']; } ?>"/>
 
-			<p><small><?php _e( "If directory is blank the snapshot file will be stored at the bucket root. If the directory is provided it will be created inside the bucket. This is a global setting and will be used by all snapshot configurations using this destination. You can also define a director used by a specific snapshot.", SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+			<p><small><?php _e( "Ist das Verzeichnis leer, wird die Snapshot-Datei im Stammverzeichnis des Buckets gespeichert. Wird ein Verzeichnis angegeben, wird die Datei innerhalb des Buckets erstellt. Dies ist eine globale Einstellung und gilt für alle Snapshot-Konfigurationen, die dieses Ziel verwenden. Du kannst auch ein Verzeichnis für einen bestimmten Snapshot festlegen.", SNAPSHOT_I18N_DOMAIN ); ?></small></p>
 
-			<button id="snapshot-destination-test-connection" class="button button-gray"><?php _e( "Test Connection", SNAPSHOT_I18N_DOMAIN ); ?></button>
+			<button id="snapshot-destination-test-connection" class="button button-gray"><?php _e( "Verbindung testen", SNAPSHOT_I18N_DOMAIN ); ?></button>
 			<div id="snapshot-ajax-destination-test-result" style="display:none"></div>
 		</div>
 

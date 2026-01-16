@@ -31,7 +31,7 @@ $item = array_merge( array(
 
 	<div id="wps-destination-type" class="form-row">
 		<div class="form-col-left">
-			<label><?php _e( 'Type', SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php _e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></label>
 		</div>
 
 		<div class="form-col">
@@ -54,7 +54,7 @@ $item = array_merge( array(
 	<div id="wps-destination-dir" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-directory"><?php _e( "Directory ID", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-directory"><?php _e( "Verzeichnis-ID", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -68,9 +68,9 @@ $item = array_merge( array(
 				<small>
 					<?php
 
-					esc_html_e( "This isn't a traditional directory path like /app/snapshot/ but a unique directory ID that Google Drive use for their filesystem. ", SNAPSHOT_I18N_DOMAIN );
+					esc_html_e( "Dies ist kein traditioneller Verzeichnispfad wie /app/snapshot/, sondern eine eindeutige Verzeichnis-ID, die Google Drive für sein Dateisystem verwendet. ", SNAPSHOT_I18N_DOMAIN );
 					printf(
-							__( 'To retrieve your directory ID, follow <a %s>these instructions</a>.', SNAPSHOT_I18N_DOMAIN ),
+							__( 'Um Ihre Verzeichnis-ID abzurufen, folgen Sie <a %s>diesen Anweisungen</a>.', SNAPSHOT_I18N_DOMAIN ),
 							'class="show-instructions" data-instructions="#directory-instructions"'
 					);
 
@@ -79,9 +79,9 @@ $item = array_merge( array(
 			</p>
 
 			<ol class="instructions" id="directory-instructions">
-				<li><?php _e( 'Go to your <a href="https://drive.google.com/#my-drive" target="_blank">Drive account</a>. Navigate to or create a new directory where you want to upload the Snapshot archives. Make sure you are viewing the destination directory.', SNAPSHOT_I18N_DOMAIN ); ?></li>
-				<li><?php _e( 'The URL for the directory will be something similar to <em>https://drive.google.com/#folders/0B6GD66ctHXXCOWZKNDRIRGJJXS3</em>. The Directory ID would be the last part after <em>/#folders/</em>: <strong>0B6GD66ctHXXCOWZKNDRIRGJJXS3.</strong>', SNAPSHOT_I18N_DOMAIN ); ?></li>
-				<li><?php printf( esc_html__( 'You may specify multiple Directory IDs separated by a comma "%s"', SNAPSHOT_I18N_DOMAIN ),',' ); ?></li>
+				<li><?php _e( 'Gehe zu deinem <a href="https://drive.google.com/#my-drive" target="_blank">Drive-Konto</a>. Navigiere zu einem bestehenden Verzeichnis oder erstelle ein neues, in das du die Snapshot-Archive hochladen möchtest. Stelle sicher, dass du das Zielverzeichnis ansiehst.', SNAPSHOT_I18N_DOMAIN ); ?></li>
+				<li><?php _e( 'Die URL für das Verzeichnis sieht ungefähr so aus: <em>https://drive.google.com/#folders/0B6GD66ctHXXCOWZKNDRIRGJJXS3</em>. Die Verzeichnis-ID ist der letzte Teil nach <em>/#folders/</em>: <strong>0B6GD66ctHXXCOWZKNDRIRGJJXS3.</strong>', SNAPSHOT_I18N_DOMAIN ); ?></li>
+				<li><?php printf( esc_html__( 'Du kannst mehrere Verzeichnis-IDs angeben, getrennt durch ein Komma "%s"', SNAPSHOT_I18N_DOMAIN ),',' ); ?></li>
 			</ol>
 
 		</div>
@@ -105,18 +105,18 @@ $item = array_merge( array(
 				<p><small><?php
 
 					printf(
-						__( 'Follow <a %s>these instructions</a> to retrieve your Client ID and Secret.', SNAPSHOT_I18N_DOMAIN ),
+						__( 'Folge <a %s>diesen Anweisungen</a>, um deine Client-ID und dein Geheimnis abzurufen.', SNAPSHOT_I18N_DOMAIN ),
 						'class="show-instructions" data-instructions="#clientid-instructions"'
 					);
 
 					?></small></p>
 
 				<ol class="instructions" id="clientid-instructions">
-					<li><?php echo sprintf( __( 'Go to the %s', SNAPSHOT_I18N_DOMAIN ), '<a href="https://console.developers.google.com/cloud-resource-manager" target="_blank">' . __( 'Google API Console', SNAPSHOT_I18N_DOMAIN ) . '</a>' ) ?></li>
-					<li><?php _e( 'Select an existing project or create a new one. If creating a new project, you will need to enter a name, but the ID is not important and can be ignored.', SNAPSHOT_I18N_DOMAIN ); ?></li>
-					<li><?php _e( 'Once the Project creation is completed go to the <strong>API Manager</strong>. Here you need to enable the <strong>Drive API</strong>', SNAPSHOT_I18N_DOMAIN ) ?></li>
-					<li><?php _e( 'Next, go to the <strong>API Manager > Credentials</strong> section. Click <strong>Create Credentials > OAuth 2.0 client ID</strong>. In the popup select the <strong>Application Type</strong> as <strong>Web application</strong>. In the field <strong>Authorized redirect URI</strong> copy the value from the <strong>Redirect URI</strong> field below. Then click the <strong>Create Client ID</strong> button.', SNAPSHOT_I18N_DOMAIN ) ?></li>
-					<li><?php _e( 'After the popup closes copy the Client ID and Client Secret from the Google page and paste into the form fields.', SNAPSHOT_I18N_DOMAIN ) ?></li>
+					<li><?php echo sprintf( __( 'Gehe zu %s', SNAPSHOT_I18N_DOMAIN ), '<a href="https://console.developers.google.com/cloud-resource-manager" target="_blank">' . __( 'Google API Console', SNAPSHOT_I18N_DOMAIN ) . '</a>' ) ?></li>
+					<li><?php _e( 'Wähle ein bestehendes Projekt aus oder erstelle ein neues. Wenn du ein neues Projekt erstellst, musst du einen Namen eingeben, aber die ID ist nicht wichtig und kann ignoriert werden.', SNAPSHOT_I18N_DOMAIN ); ?></li>
+					<li><?php _e( 'Sobald die Projekterstellung abgeschlossen ist, gehe zum <strong>API Manager</strong>. Hier musst du die <strong>Drive API</strong> aktivieren.', SNAPSHOT_I18N_DOMAIN ) ?></li>
+					<li><?php _e( 'Gehe als nächstes zum Abschnitt <strong>API Manager > Anmeldedaten</strong>. Klicke auf <strong>Anmeldedaten erstellen > OAuth 2.0-Client-ID</strong>. Wähle im Popup-Fenster den <strong>Anwendungstyp</strong> als <strong>Webanwendung</strong> aus. Kopiere im Feld <strong>Autorisierte Weiterleitungs-URI</strong> den Wert aus dem unten stehenden Feld <strong>Weiterleitungs-URI</strong>. Klicke dann auf die Schaltfläche <strong>Client-ID erstellen</strong>.', SNAPSHOT_I18N_DOMAIN ) ?></li>
+					<li><?php _e( 'Nachdem das Popup-Fenster geschlossen wurde, kopiere die Client-ID und das Client-Geheimnis von der Google-Seite und füge sie in die Formularfelder ein.', SNAPSHOT_I18N_DOMAIN ) ?></li>
 				</ol>
 
 			</div>
@@ -166,11 +166,11 @@ $item = array_merge( array(
 					       value="<?php echo esc_url( $item['redirecturi'] ) ?>">
 
 					<button class="button button-gray copy-to-clipboard" data-clipboard-target="#snapshot-destination-redirecturi">
-						<?php esc_html_e('Copy URL', SNAPSHOT_I18N_DOMAIN); ?>
+						<?php esc_html_e('URL kopieren', SNAPSHOT_I18N_DOMAIN); ?>
 					</button>
 				</div>
 
-				<p><small><?php _e( 'When your create your new credentials, add this as the redirect URL.', SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+				<p><small><?php _e( 'Wenn du deine neuen Anmeldedaten erstellst, füge diese als Weiterleitungs-URL hinzu.', SNAPSHOT_I18N_DOMAIN ); ?></small></p>
 			</div>
 
 		</div>
@@ -182,7 +182,7 @@ $item = array_merge( array(
 		<div id="wps-destination-auth" class="form-row">
 
 			<div class="form-col-left">
-				<label><?php _e( 'Authenticated', SNAPSHOT_I18N_DOMAIN ); ?></label>
+				<label><?php _e( 'Authentifiziert', SNAPSHOT_I18N_DOMAIN ); ?></label>
 			</div>
 
 			<div class="form-col">
@@ -196,7 +196,7 @@ $item = array_merge( array(
 				if ( $form_step > 3 && ! empty( $item_object->destination_info['access_token'] ) ) {
 
 					echo '<div class="wps-auth-message success"><p>';
-					esc_html_e( 'This destination is authenticated and ready for use.', SNAPSHOT_I18N_DOMAIN );
+					esc_html_e( 'Dieses Ziel ist authentifiziert und einsatzbereit.', SNAPSHOT_I18N_DOMAIN );
 					echo '</p></div>';
 
 				} else if ( ! empty( $_GET['code'] ) ) {
@@ -211,8 +211,8 @@ $item = array_merge( array(
 						} catch (Google_0814_Auth_Exception $e) {
 							$auth_error = true;
 							echo '<div class="wps-auth-message error">';
-							echo '<p>', esc_html__( 'An error occurred authenticating with Google: ', SNAPSHOT_I18N_DOMAIN ), '<br>', $e->getMessage(), '</p>';
-							echo '<p>', esc_html__( 'Please check your client ID and secret ID before resubmitting this form to try again', SNAPSHOT_I18N_DOMAIN ), '</p>';
+							echo '<p>', esc_html__( 'Bei der Authentifizierung mit Google ist ein Fehler aufgetreten: ', SNAPSHOT_I18N_DOMAIN ), '<br>', $e->getMessage(), '</p>';
+							echo '<p>', esc_html__( 'Bitte überprüfe deine Client-ID und dein Secret, bevor du dieses Formular erneut absendest, um es erneut zu versuchen', SNAPSHOT_I18N_DOMAIN ), '</p>';
 							echo '</div>';
 						}
 
@@ -220,9 +220,9 @@ $item = array_merge( array(
 
 						if ( ! empty( $item_object->destination_info['access_token'] ) ) {
 							echo '<div class="wps-auth-message warning"><p>';
-							esc_html_e( 'Success. The Google Access Token has been received.', SNAPSHOT_I18N_DOMAIN );
-							echo ' <strong>', esc_html__( 'You must save this form one last time to retain the token.', SNAPSHOT_I18N_DOMAIN ), '</strong> ';
-							esc_html_e( 'The stored token will be used in the future when connecting to Google.', SNAPSHOT_I18N_DOMAIN );
+							esc_html_e( 'Erfolg. Das Google Access Token wurde empfangen.', SNAPSHOT_I18N_DOMAIN );
+							echo ' <strong>', esc_html__( 'Du musst dieses Formular ein letztes Mal speichern, um das Token zu behalten.', SNAPSHOT_I18N_DOMAIN ), '</strong> ';
+							esc_html_e( 'Das gespeicherte Token wird in Zukunft verwendet, wenn eine Verbindung zu Google hergestellt wird.', SNAPSHOT_I18N_DOMAIN );
 							echo '</p></div>';
 						}
 					}
@@ -230,7 +230,7 @@ $item = array_merge( array(
 				} else {
 
 					echo '<div class="wps-auth-message warning"><p>';
-					esc_html_e( 'To finish adding this destination you must authenticate it with Google Drive.', SNAPSHOT_I18N_DOMAIN );
+					esc_html_e( 'Um das Hinzufügen dieses Ziels abzuschließen, musst du es mit Google Drive authentifizieren.', SNAPSHOT_I18N_DOMAIN );
 					echo '</p></div>';
 				}
 
@@ -240,13 +240,13 @@ $item = array_merge( array(
 						<p class="wps-auth-button">
 							<a id="snapshot-destination-authorize-connection" class="button button-blue" href="<?php echo esc_url( $auth_url ); ?>">
 								<?php echo empty( $item_object->destination_info['access_token'] ) ?
-									esc_html__( 'Authorize', SNAPSHOT_I18N_DOMAIN ) :
-									esc_html__( 'Re-Authorize', SNAPSHOT_I18N_DOMAIN ); ?>
+									esc_html__( 'Autorisieren', SNAPSHOT_I18N_DOMAIN ) :
+									esc_html__( 'Erneut autorisieren', SNAPSHOT_I18N_DOMAIN ); ?>
 							</a>
 						</p>
 
 					<?php } else {
-						echo '<div class="wps-auth-message error"><p>', esc_html__( 'Unable to obtain an authorization URL from Google', SNAPSHOT_I18N_DOMAIN ), '</p></div>';
+						echo '<div class="wps-auth-message error"><p>', esc_html__( 'Es konnte keine Autorisierungs-URL von Google abgerufen werden', SNAPSHOT_I18N_DOMAIN ), '</p></div>';
 					}
 				}
 

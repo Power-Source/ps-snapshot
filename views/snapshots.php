@@ -174,7 +174,7 @@ $data = array(
 
 											if ( $snapshot['destination'] == 'local' ) {
 
-												$destination_name = 'Local Snapshot';
+												$destination_name = 'Lokaler Snapshot';
 
 											} else {
 
