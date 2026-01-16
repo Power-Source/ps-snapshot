@@ -36,9 +36,6 @@
 			flex: 0 128px;
 			margin: 0 auto 20px;
 			border-radius: 100%;
-			background: url("../img/sprite.png") no-repeat transparent;
-			background-image: url("../img/sprite.svg"), none;
-			background-position: -410px -335px;
 			@include screen("medium") {
 				height: 180px;
 				flex: 0 141px;

@@ -295,8 +295,8 @@ if ( ! empty( $item['data_item']['destination-status'] ) ) {
 								<th><?php _e( 'Log', SNAPSHOT_I18N_DOMAIN ); ?></th>
 								<td>
 
-									<a id="wps-snapshot-log-view" class="button button-small button-outline button-gray" href="#"><?php _e( 'view', SNAPSHOT_I18N_DOMAIN ) ?></a>
-									<a class="button button-small button-outline button-gray" href="<?php echo '?page=snapshot_snapshots&amp;snapshot-action=download-log&amp;snapshot-item=' . $item['timestamp'] . '&amp;snapshot-data-item=' . $item['data_item']['timestamp'] . '&amp;live=0' ?>"><?php _e( 'download', SNAPSHOT_I18N_DOMAIN ) ?>
+									<a id="wps-snapshot-log-view" class="button button-outline button-gray" href="#"><?php _e( 'view', SNAPSHOT_I18N_DOMAIN ) ?></a>
+									<a class="button button-outline button-gray" href="<?php echo '?page=snapshot_snapshots&amp;snapshot-action=download-log&amp;snapshot-item=' . $item['timestamp'] . '&amp;snapshot-data-item=' . $item['data_item']['timestamp'] . '&amp;live=0' ?>"><?php _e( 'download', SNAPSHOT_I18N_DOMAIN ) ?>
 									</a>
 
 								</td>

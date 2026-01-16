@@ -18,9 +18,9 @@ $plugin->save_config();
 	<div class="wps-popup-content">
 		<div class="wpmud-box">
 			<div class="wpmud-box-title has-button can-close">
-				<h3><?php _e('Welcome to Snapshot', SNAPSHOT_I18N_DOMAIN); ?></h3>
-				<a href="#" class="button button-small button-outline button-gray wps-popup-close wps-dismiss-welcome">
-					<?php _e('Skip', SNAPSHOT_I18N_DOMAIN); ?>
+				<h3><?php _e('Willkommen bei Snapshot', SNAPSHOT_I18N_DOMAIN); ?></h3>
+				<a href="#" class="button button-outline button-gray wps-popup-close wps-dismiss-welcome">
+					<?php _e('Überspringen', SNAPSHOT_I18N_DOMAIN); ?>
 				</a>
 			</div>
 
@@ -31,11 +31,11 @@ $plugin->save_config();
 
 						<?php if ( $is_client && ! $has_snapshot_key) : ?>
 
-							<p><?php _e('Welcome to Snapshot Pro, the hottest backups plugin for WordPress! Let’s start by choosing what type of backup you’d like to make - there are two types…', SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e('Willkommen bei PS Snapshot, dem heißesten Backup-Plugin für ClassicPress! Lass uns damit beginnen, auszuwählen, welche Art von Backup Du erstellen möchtest - es gibt zwei Arten...', SNAPSHOT_I18N_DOMAIN); ?></p>
 
 						<?php else : ?>
 
-							<p><?php _e('Welcome to Snapshot, the hottest backups plugin for WordPress! With this plugin you can backup and migrate bits and pieces of your website to third party destinations like Dropbox, Google Drive, Amazon S3 & more.', SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e('Willkommen bei Snapshot, dem heißesten Backup-Plugin für ClassicPress! Mit diesem Plugin kannst Du Teile Deiner Webseite sichern und zu Drittanbietern wie Dropbox, Google Drive, Amazon S3 und mehr migrieren.', SNAPSHOT_I18N_DOMAIN); ?></p>
 
 						<?php endif; ?>
 
@@ -43,22 +43,21 @@ $plugin->save_config();
 
 							<div class="wps-welcome-message-pro">
 								<h3><?php _e('PSOURCE Managed Backups', SNAPSHOT_I18N_DOMAIN); ?></h3>
-								<p><small><?php _e('As part of your PSOURCE membership you get 10GB free cloud storage to back up and store your entire WordPress website - including WordPress itself. You can schedule these backups to run daily, monthly or weekly and should you ever need it you can restore an entire website in just a few clicks.', SNAPSHOT_I18N_DOMAIN); ?></small></p>
 								<p><a class="button button-blue button-small wps-dismiss-welcome"
 									  href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-managed-backups') ); ?>">
-										<?php _e( 'Activate Managed Backups', SNAPSHOT_I18N_DOMAIN ); ?>
+										<?php _e( 'Verwaltete Backups aktivieren', SNAPSHOT_I18N_DOMAIN ); ?>
 									</a>
 								</p>
 							</div>
 
 							<div class="wps-welcome-message-pro">
 								<h3><?php _e('Snapshots', SNAPSHOT_I18N_DOMAIN); ?></h3>
-								<p><small><?php _e('With Snapshots you can backup and migrate bits and pieces of your website. You can choose what files, plugins/themes and database tables to backup and then store them on third party destinations. To get started, let’s add your first destination.', SNAPSHOT_I18N_DOMAIN); ?></small></p>
+								<p><small><?php _e('Mit Snapshots kannst Du Teile Deiner Webseite sichern und migrieren. Du kannst auswählen, welche Dateien, Plugins/Themes und Datenbanktabellen gesichert werden sollen, und diese dann bei Drittanbietern speichern. Um zu beginnen, füge Dein erstes Ziel hinzu.', SNAPSHOT_I18N_DOMAIN); ?></small></p>
 							</div>
 
 						<?php endif; ?>
 
-							<p><?php _e("<strong>Let’s start by adding a new destination</strong>; where would you like to store your first snapshot?", SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e("<strong>Lass uns damit beginnen, einen neuen Speicherort hinzuzufügen</strong>; wo möchtest Du Deinen ersten Snapshot speichern?", SNAPSHOT_I18N_DOMAIN); ?></p>
 
 						<table cellpadding="0" cellspacing="0">
 							<tbody>
@@ -68,18 +67,18 @@ $plugin->save_config();
 									<td class="start-btn">
 										<a class="button button-blue button-small wps-dismiss-welcome"
 										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'dropbox' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
-											<?php _e('Add Destination', SNAPSHOT_I18N_DOMAIN); ?>
+											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
 										</a>
 									</td>
 								</tr>
 
 								<tr><?php // Google Drive ?>
 									<td class="start-icon"><i class="wps-typecon google"></i></td>
-									<td class="start-name"><?php _e('Google', SNAPSHOT_I18N_DOMAIN); ?></td>
+									<td class="start-name"><?php _e('Google Drive', SNAPSHOT_I18N_DOMAIN); ?></td>
 									<td class="start-btn">
 										<a class="button button-blue button-small wps-dismiss-welcome"
 										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'google-drive' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
-											<?php _e('Add Destination', SNAPSHOT_I18N_DOMAIN); ?>
+											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
 											</a>
 									</td>
 								</tr>
@@ -90,7 +89,7 @@ $plugin->save_config();
 									<td class="start-btn">
 										<a class="button button-blue button-small wps-dismiss-welcome"
 										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'aws' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
-											<?php _e('Add Destination', SNAPSHOT_I18N_DOMAIN); ?>
+											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
 										</a>
 									</td>
 								</tr>
@@ -101,14 +100,14 @@ $plugin->save_config();
 									<td class="start-btn">
 										<a class="button button-blue button-small wps-dismiss-welcome"
 										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'ftp' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
-											<?php _e('Add Destination', SNAPSHOT_I18N_DOMAIN); ?>
+											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
 										</a>
 									</td>
 								</tr>
 
 								<tr><?php // Local ?>
 									<td class="start-icon"><i class="wps-typecon local"></i></td>
-									<td class="start-name"><?php _e('Local', SNAPSHOT_I18N_DOMAIN); ?></td>
+									<td class="start-name"><?php _e('Lokal', SNAPSHOT_I18N_DOMAIN); ?></td>
 									<td class="start-btn">
 										<a class="button button-gray button-small button-outline wps-dismiss-welcome"
 										   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-new-snapshot') ); ?>" >

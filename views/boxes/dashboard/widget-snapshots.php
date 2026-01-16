@@ -32,7 +32,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 		<?php if ( ! empty( $snapshots ) ) : ?>
 
-			<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-small button-blue"><?php _e( 'Create', SNAPSHOT_I18N_DOMAIN ) ?></a>
+			<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-small button-blue"><?php _e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ) ?></a>
 
 		<?php endif; ?>
 
@@ -48,15 +48,15 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 					<div class="wps-image img-snappie-one"></div>
 
-					<p><?php _e( 'Snapshots are restore points for your site. Simply choose what you want to back up and then store it on destinations such as Dropbox, Amazon S3 and more.', SNAPSHOT_I18N_DOMAIN ) ?></p>
+					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Wähle einfach aus, was Du sichern möchtest, und speichere es dann auf Zielen wie Dropbox, Amazon S3 und mehr.', SNAPSHOT_I18N_DOMAIN ) ?></p>
 
 					<p>
-						<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-blue"><?php _e( 'Create Snapshot', SNAPSHOT_I18N_DOMAIN ) ?></a>
+						<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-blue"><?php _e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ) ?></a>
 					</p>
 
 				<?php else : ?>
 
-					<p><?php _e( 'Snapshots are restore points for your site. Here are your latest snapshots.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Hier sind Deine neuesten Snapshots.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 					<table class="has-footer" cellpadding="0" cellspacing="0">
 
@@ -66,7 +66,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 							<th class="wss-name"><?php _e( 'Name', SNAPSHOT_I18N_DOMAIN ) ?></th>
 
-							<th class="wss-date"><?php _e( 'Date', SNAPSHOT_I18N_DOMAIN ) ?></th>
+							<th class="wss-date"><?php _e( 'Datum', SNAPSHOT_I18N_DOMAIN ) ?></th>
 
 						</tr>
 
@@ -160,7 +160,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 							<td colspan="2">
 
-								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ); ?>" class="button button-outline button-gray"><?php _e( 'View All', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ); ?>" class="button button-outline button-gray"><?php _e( 'Alle anzeigen', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 							</td>
 

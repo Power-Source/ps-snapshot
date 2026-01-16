@@ -83,8 +83,8 @@ $model = new Snapshot_Model_Full_Backup();
 							<th><?php esc_html_e( 'Last backup', SNAPSHOT_I18N_DOMAIN ); ?></th>
 							<?php if ( isset( $last_backup['timestamp'] ) ) : ?>
 								<td>
-									<?php echo Snapshot_Helper_Utility::show_date_time( $last_backup['timestamp'], 'F j, Y ' ) ?>
-									<span><?php echo __( 'at' ) . ' ' . Snapshot_Helper_Utility::show_date_time( $last_backup['timestamp'], 'g:ia' ) ?></span>
+									<?php echo Snapshot_Helper_Utility::show_date_time( $last_backup['timestamp'], 'd.m.Y' ) ?>
+									<span><?php echo __( 'at' ) . ' ' . Snapshot_Helper_Utility::show_date_time( $last_backup['timestamp'], 'H:i' ) ?></span>
 								</td>
 							<?php else : ?>
 								<td><?php echo __( 'Never', SNAPSHOT_I18N_DOMAIN ); ?></span></td>
@@ -189,7 +189,7 @@ $model = new Snapshot_Model_Full_Backup();
 
 							<h3><?php _e( 'Available Backups', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 
-							<a href="#view-log-file" class="button button-small button-outline button-gray"><?php _e( 'Show Log', SNAPSHOT_I18N_DOMAIN ); ?></a>
+							<a href="#view-log-file" class="button button-outline button-gray"><?php _e( 'Show Log', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 							<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' ); ?>&snapshot-action=backup" class="button button-small button-blue"><?php _e( 'New Backup', SNAPSHOT_I18N_DOMAIN ); ?></a>
 

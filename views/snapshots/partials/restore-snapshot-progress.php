@@ -7,7 +7,7 @@
 			<div class="wps-title-progress">
 				<h3><?php _e( 'Restore Wizard', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 
-				<button id="wps-show-full-log" data-wps-show-title="<?php _e( 'Show Full Log', SNAPSHOT_I18N_DOMAIN ); ?>" data-wps-hide-title="<?php _e( 'Hide Full Log', SNAPSHOT_I18N_DOMAIN ); ?>" class="button button-small button-outline button-gray"><?php _e( 'Show Full Log', SNAPSHOT_I18N_DOMAIN ); ?></button>
+				<button id="wps-show-full-log" data-wps-show-title="<?php _e( 'Show Full Log', SNAPSHOT_I18N_DOMAIN ); ?>" data-wps-hide-title="<?php _e( 'Hide Full Log', SNAPSHOT_I18N_DOMAIN ); ?>" class="button button-outline button-gray"><?php _e( 'Show Full Log', SNAPSHOT_I18N_DOMAIN ); ?></button>
 
 			</div>
 
@@ -127,7 +127,7 @@
 								<td class="wps-log-progress">
 									<div class="wps-log-progress-elements">
 
-										<a class="snapshot-button-abort button button-small button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
+										<a class="snapshot-button-abort button button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
 										<span class="wps-spinner hidden"></span>
 
 										<div class="wps-loading-status">
@@ -151,7 +151,7 @@
 								<td class="wps-log-progress">
 									<div class="wps-log-progress-elements">
 
-										<a class="snapshot-button-abort hidden button button-small button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
+										<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 										<span class="wps-spinner hidden"></span>
 
@@ -183,7 +183,7 @@
 								<td class="wps-log-progress">
 									<div class="wps-log-progress-elements">
 
-										<a class="snapshot-button-abort hidden button button-small button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
+										<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 										<span class="wps-spinner hidden"></span>
 

@@ -9,8 +9,6 @@
 	height: 20px;
 	display: block;
 	margin: 0 auto;
-	background: url("../img/sprite.png") no-repeat transparent;
-	background-image: url("../img/sprite.svg"), none;
 	&.amazon, &.aws {
 		background-position: -940px -443px;
 	}

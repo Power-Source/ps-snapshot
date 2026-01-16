@@ -13,21 +13,19 @@ Domain Path: languages
 Network: true
  */
 
-/*  Copyright 2016-2025 PSOURCE (https://github.com/Power-Source)
+/*  Copyright 2016-2026 PSOURCE (https://github.com/Power-Source)
 
-This program is free software; you can redistribute it and/or modify
+This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 */
 
 // PS Update Manager - Hinweis wenn nicht installiert
@@ -434,7 +432,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				'<div class="%%1$s snapshot-three wps-message wps-%%2$s-message" title="%s">
 					<div class="wps-%%2$s-message-wrap"><p>%%3$s</p></div>
 				</div>',
-				esc_attr__( 'Click to dismiss', SNAPSHOT_I18N_DOMAIN )
+				esc_attr__( 'Zum Schließen klicken', SNAPSHOT_I18N_DOMAIN )
 			);
 
 			if ( $message_text && $message_type ) {
@@ -505,8 +503,8 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			);
 			$this->_pagehooks['snapshots-newui-destinations'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Destinations', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Destinations', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Ziele', 'page label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Ziele', 'menu label', SNAPSHOT_I18N_DOMAIN ),
 				'manage_options',
 				'snapshot_destinations',
 				array( $this->_new_ui_tester, 'destinations' )
@@ -1164,7 +1162,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				}
 
 				add_screen_option( 'per_page', array(
-					'label' => __( 'per Page', SNAPSHOT_I18N_DOMAIN ),
+					'label' => __( 'pro Seite', SNAPSHOT_I18N_DOMAIN ),
 					'default' => $per_page,
 				) );
 
@@ -1317,29 +1315,29 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$screen = get_current_screen();
 
 			$screen_help_text = array();
-			$screen_help_text['snapshot-help-overview'] = '<p>' . __( 'The Snapshot plugin provides the ability to create quick on-demand snapshot of your WordPress site database and files. You can create as many snapshots as needed. The Snapshot plugin also provides the ability to restore a snapshot backup.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshot-help-overview'] = '<p>' . __( 'Das Snapshot-Plugin ermöglicht das schnelle Erstellen von Snapshots Deiner WordPress-Webseite-Datenbank und -Dateien. Du kannst beliebig viele Snapshots erstellen. Das Plugin bietet außerdem die Möglichkeit, ein Snapshot-Backup wiederherzustellen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
-			$screen_help_text['snapshots_new_panel'] = '<p>' . __( '<strong>Name</strong> - Provide a custom name for this snapshot. Default name is "snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Notes</strong> - Add some optional notes about the snapshot. Maybe some details on what plugins or theme were active. Or some note before you activate some new plugin.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>What to Backup</strong> - This section lists all tables for your site. Select the table you want to include in the backup. The tables are grouped by WordPress Core and Other tables. These Other tables could have been created and used by some of the plugins you installed.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>When to Archive</strong> - This section shows a dropdown where you can select how often to create a backup of the selected tables. The default is "Manual". If selected will create a one time on demand backup. You can also select to schedule the backup by selecting one of the many options available. If the backup is scheduled you will also be able to set the number of archives to keep.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Where to save the Archive</strong> - The only available option at this time is local. This means the files will be stored on the local server. Future options will be remote systems like Dropbox, Amazon S3, FTP, etc.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_new_panel'] = '<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Was soll gesichert werden?</strong> – In diesem Abschnitt werden alle Tabellen Deiner Webseite aufgelistet. Wähle die Tabelle aus, die Du sichern möchtest. Die Tabellen sind in WordPress-Kerntabellen und Sonstige Tabellen unterteilt. Diese Sonstigen Tabellen wurden möglicherweise von installierten Plugins erstellt und verwendet.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Backupzeitpunkt</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du die Häufigkeit der Sicherung der ausgewählten Tabellen festlegen kannst. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung planen, indem Du eine der verfügbaren Optionen auswählen. Bei geplanter Sicherung kannst Du außerdem die Anzahl der aufzubewahrenden Backups festlegen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Speicherort für das Backup</strong> – Du kannst zwischen lokaler Speicherung, Dropbox, Amazon S3, FTP usw. wählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['edit'] = '<p>' . __( 'On the Edit Snapshot panel you can rename or add notes to the snapshot item. Also provided is a link to the snapshot file which you can download and archive to your local system.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Name</strong> - Provide a custom name for this snapshot. Default name is "snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Notes</strong> - Add some optional notes about the snapshot. Maybe some details on what plugins or theme were active. Or some note before you activate some new plugin.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>When to Archive</strong> - This section shows a dropdown where you can select how often to create a backup of the selected tables. The default is "Manual". If selected will create a one time on demand backup. You can also select to schedule the backup by selecting one of the many options available.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Tables in Archive</strong> - This sections lists the tables included in the snapshot archives. The table selection is set when you create a new snapshot configuration.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Where to save the Archive</strong> - The only available option at this time is local. This means the files will be stored on the local server. Future options will be remote systems like Dropbox, Amazon S3, FTP, etc.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>All Archives</strong> - This section lists the various archive files creates from this snapshot configuration. Here you can click the archive filename to download. On the same row you will also see a link to view the log entries related to the creation of this archive instance. At the bottom is a link to download the full snapshot log file.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_edit_panel']['edit'] = '<p>' . __( 'Im Bearbeitungsfenster für Snapshots kannst Du den Snapshot umbenennen oder Notizen hinzufügen. Außerdem findest Du dort einen Link zur Snapshot-Datei, die Du herunterladen und auf Deinem lokalen System archivieren kannst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Wann archivieren</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du festlegen kannst, wie oft die ausgewählten Tabellen gesichert werden sollen. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung auch planen, indem Du eine der zahlreichen verfügbaren Optionen auswählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Tabellen im Archiv</strong> – Dieser Abschnitt listet die in den Snapshot-Archiven enthaltenen Tabellen auf. Die Tabellenauswahl wird beim Erstellen einer neuen Snapshot-Konfiguration festgelegt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Speicherort für das Archiv</strong> – Die Dateien werden standardmäßig auf dem lokalen Server gespeichert. Alternativ ist auch Dropbox, Amazon S3, FTP usw. unterstützt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Klicke hier auf den Dateinamen, um die Datei herunterzuladen. In derselben Zeile findest Du außerdem einen Link zu den Protokolleinträgen, die mit der Erstellung dieser Archivinstanz zusammenhängen. Am Ende befindet sich ein Link zum Herunterladen der vollständigen Snapshot-Protokolldatei.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['restore-panel'] = '<p>' . __( 'From this screen you can restore a snapshot. The restore will reload the database export into you current live site. Each table selected during the snapshot creation will be emptied before the snapshot information is loaded. It is important to understand this restore will be removing and new information added since the snapshot.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( 'On the restore screen you will see a section for "Restore Option". The details for each option are discussed below', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Turn off all plugins</strong> - As part of the restore process you can automatically deactivate all plugins. This is helpful if you had trouble with a plugin and are trying to return your site back to some stable state.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Set a theme to active</strong> - Similar to the Plugins option you can select to have a specific theme set to active as part of the restore process. Again, this is helpful if you installed a new theme that broke your site and you want to return your site back to a stable state.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>All Archives</strong> - This section lists the various archive files creates from this snapshot configuration. From the listing select the archive to be used for the restore.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_edit_panel']['restore-panel'] = '<p>' . __( 'Auf diesem Bildschirm kannst Du einen Snapshot wiederherstellen. Die Wiederherstellung lädt den Datenbankexport in Deine aktuelle Live-Umgebung. Alle während der Snapshot-Erstellung ausgewählten Tabellen werden vor dem Laden der Snapshot-Informationen geleert. Beachte, dass bei dieser Wiederherstellung seit dem Snapshot vorhandene und neue Informationen entfernt bzw. hinzugefügt werden.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( 'Auf dem Wiederherstellungsbildschirm findest Du den Abschnitt Wiederherstellungsoptionen. Die Details zu den einzelnen Optionen werden im Folgenden erläutert.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Alle Plugins deaktivieren</strong> – Im Rahmen des Wiederherstellungsprozesses kannst Du alle Plugins automatisch deaktivieren. Dies ist hilfreich, wenn Du Probleme mit einem Plugin hattest und Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Design aktivieren</strong> – Ähnlich wie bei der Option Plugins kannst Du ein bestimmtes Design auswählen, das im Rahmen des Wiederherstellungsprozesses aktiviert wird. Dies ist hilfreich, wenn Du ein neues Design installiert hast, das Deine Webseite beschädigt hat, und Du Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Wähle aus der Liste das Archiv aus, das für die Wiederherstellung verwendet werden soll.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['default'] = '<p>' . __( 'All of your snapshots are listed here. Within the listing there are a number of options you can take.', SNAPSHOT_I18N_DOMAIN ) . '</p><p>' . __( '<strong>Delete</strong> - On each row you will see a checkbox. To delete one or more existing Snapshots click checkbox then click the "Delete Snapshots" button below the listing.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			$screen_help_text['snapshots_edit_panel']['default'] = '<p>' . __( 'Hier sind alle Snapshots aufgelistet. Innerhalb der Liste stehen Dir verschiedene Optionen zur Verfügung.', SNAPSHOT_I18N_DOMAIN ) . '</p><p>' . __( '<strong>Delete</strong> - On each row you will see a checkbox. To delete one or more existing Snapshots click checkbox then click the "Delete Snapshots" button below the listing.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Edit/Restore/Delete</strong> - Hover over the Name to reveal options for Edit, Restore, Delete. The Edit option will show the Snapshot detail form where you can change many of the configuration options. The Restore option will show a form where you can select from the various restore options. The Delete option will delete this snapshot only', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Notes</strong> - The Notes columns shows the description you assigned to the Snapshot. Also in this column are the tabls included in this snapshot.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Interval</strong> - The Interval column shows how often the snapshot will be generated. When you created the snapshot instance you had the option to create a manual snapshot or schedule the snapshot to be created on certain interval (once an hour, once a day, etc.). If the interval is scheduled this column will show the estimated time for the next backup.', SNAPSHOT_I18N_DOMAIN ) . '</p>
@@ -1356,7 +1354,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 				$screen->add_help_tab( array(
 						'id' => 'snapshot-help-overview',
-						'title' => __( 'Overview', SNAPSHOT_I18N_DOMAIN ),
+						'title' => __( 'Übersicht', SNAPSHOT_I18N_DOMAIN ),
 						'content' => $screen_help_text['snapshot-help-overview'],
 					)
 				);
@@ -1365,7 +1363,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 					$screen->add_help_tab( array(
 							'id' => 'snapshot-help-new',
-							'title' => __( 'New Snapshot', SNAPSHOT_I18N_DOMAIN ),
+							'title' => __( 'Neuer Snapshot', SNAPSHOT_I18N_DOMAIN ),
 							'content' => $screen_help_text['snapshots_new_panel'],
 						)
 					);
@@ -1375,7 +1373,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 					if ( ( isset( $_REQUEST['action'] ) ) && ( $_REQUEST['action'] == 'edit' ) ) {
 						$screen->add_help_tab( array(
 								'id' => 'snapshot-help-edit',
-								'title' => __( 'Edit Snapshot', SNAPSHOT_I18N_DOMAIN ),
+								'title' => __( 'Snapshot Bearbeiten', SNAPSHOT_I18N_DOMAIN ),
 								'content' => $screen_help_text['snapshots_edit_panel']['edit'],
 							)
 						);
@@ -1383,7 +1381,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 						$screen->add_help_tab( array(
 								'id' => 'snapshot-help-edit',
-								'title' => __( 'Restore Snapshot', SNAPSHOT_I18N_DOMAIN ),
+								'title' => __( 'Snapshot Wiederherstellen', SNAPSHOT_I18N_DOMAIN ),
 								'content' => $screen_help_text['snapshots_edit_panel']['restore-panel'],
 							)
 						);

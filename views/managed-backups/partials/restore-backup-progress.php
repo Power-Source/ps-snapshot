@@ -7,7 +7,7 @@
 			<div class="wps-title-progress">
 				<h3><?php _e('Restore Wizard', SNAPSHOT_I18N_DOMAIN); ?></h3>
 
-				<button  id="wps-show-full-log" class="button button-small button-outline button-gray"><?php _e('Show Full Log', SNAPSHOT_I18N_DOMAIN); ?></button>
+				<button  id="wps-show-full-log" class="button button-outline button-gray"><?php _e('Show Full Log', SNAPSHOT_I18N_DOMAIN); ?></button>
 
 			</div>
 
@@ -115,7 +115,7 @@
 
 											<td class="wps-log-progress">
 
-												<a class="snapshot-button-abort button button-small button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort button button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
 
 												<div class="wps-loading-status wps-spinner">
 
@@ -144,7 +144,7 @@
 
 											<td class="wps-log-progress">
 
-												<a class="snapshot-button-abort hidden button button-small button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
 
 												<div class="wps-loading-status">
 
@@ -172,7 +172,7 @@
 
 											<td class="wps-log-progress">
 
-												<a class="snapshot-button-abort hidden button button-small button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Cancel', SNAPSHOT_I18N_DOMAIN); ?></a>
 
 												<div class="wps-loading-status">
 

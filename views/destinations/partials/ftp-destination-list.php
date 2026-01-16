@@ -54,7 +54,7 @@
 
                 <td class="wps-destination-config">
 
-                    <a class="button button-small button-outline button-gray" href="<?php echo add_query_arg( array(
+                    <a class="button button-outline button-gray" href="<?php echo add_query_arg( array(
 						'snapshot-action' => 'edit',
 						'type'            => urlencode( $destination['type'] ),
 						'item'            => urlencode( $id )

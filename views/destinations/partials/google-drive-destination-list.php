@@ -49,7 +49,7 @@
 
 					<td class="wps-destination-config">
 
-						<a class="button button-small button-outline button-gray" href="<?php
+						<a class="button button-outline button-gray" href="<?php
 						echo esc_url( add_query_arg(
 							array(
 								'snapshot-action' => 'edit',

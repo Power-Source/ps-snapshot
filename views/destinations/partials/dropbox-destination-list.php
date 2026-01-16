@@ -46,7 +46,7 @@
                 <td class="wps-destination-dir" data-text="Dir:"><?php echo $destination['directory'] ?></td>
                 <td class="wps-destination-shots"><?php Snapshot_Model_Destination::show_destination_item_count( $id ); ?></td>
                 <td class="wps-destination-config">
-                    <a class="button button-small button-outline button-gray" href="<?php
+                    <a class="button button-outline button-gray" href="<?php
 					echo esc_url( add_query_arg(
 						array(
 							'snapshot-action' => 'edit',

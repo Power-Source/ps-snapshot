@@ -152,9 +152,6 @@
 			flex: 0 128px;
 			align-self: center;
 			margin-bottom: 20px;
-			background: url("../img/sprite.png") no-repeat transparent;
-			background-image: url("../img/sprite.svg"), none;
-			background-position: -410px -335px;
 			@include screen('medium') {
 				height: 183px;
 				flex: 0 213px;
@@ -348,9 +345,6 @@
 			width: 118px;
 			height: 166px;
 			flex: 0 166px;
-			background: url('../img/sprite.png') no-repeat transparent;
-			background-image: url('../img/sprite.svg'), none;
-			background-position: -680px -335px;
 			@include screen("small") {
 				flex: 0 118px;
 			}
@@ -480,9 +474,6 @@
 			max-width: 500px;
 			height: 178px;
 			margin: 0 auto -20px;
-			background: url('../img/sprite.png') no-repeat transparent;
-			background-image: url('../img/sprite.svg'), none;
-			background-position: -940px -716px;
 			@include screen('medium') {
 				max-width: 100%;
 				margin-bottom: -30px;

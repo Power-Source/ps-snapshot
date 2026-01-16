@@ -57,7 +57,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 
             <h3><?php _e( 'Destination Info', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 
-            <a class="button button-small button-outline button-gray"
+            <a class="button button-outline button-gray"
                href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ); ?>">
                 <?php _e( 'Back', SNAPSHOT_I18N_DOMAIN ); ?></a>
 

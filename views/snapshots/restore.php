@@ -47,7 +47,7 @@ $warning = $requirements_test['warning'];
 
 			<div class="wpmud-box-title has-button">
 				<h3><?php _e( 'Restore Wizard', SNAPSHOT_I18N_DOMAIN ); ?></h3>
-				<a class="button button-small button-outline button-gray"
+				<a class="button button-outline button-gray"
 				   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ) ); ?>">
 					<?php _e( 'Back', SNAPSHOT_I18N_DOMAIN ); ?>
 				</a>
@@ -388,7 +388,7 @@ $warning = $requirements_test['warning'];
 
 													</div>
 
-													<label for="snapshot-restore-<?php echo $data_item['timestamp']; ?>"><?php echo Snapshot_Helper_Utility::show_date_time( $data_item['timestamp'], 'F j, Y @ g:i a' ); ?></label>
+													<label for="snapshot-restore-<?php echo $data_item['timestamp']; ?>"><?php echo Snapshot_Helper_Utility::show_date_time( $data_item['timestamp'], 'd.m.Y@ g:i a' ); ?></label>
 
 												</div>
 											<?php endforeach; ?>

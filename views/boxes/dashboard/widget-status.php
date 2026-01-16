@@ -47,12 +47,12 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 
 			<div class="wps-backups-summary-align">
 
-				<h3><?php printf( __( 'Hello, %s!', SNAPSHOT_I18N_DOMAIN ), wp_get_current_user()->display_name ); ?></h3>
+				<h3><?php printf( __( 'Hallo, %s!', SNAPSHOT_I18N_DOMAIN ), wp_get_current_user()->display_name ); ?></h3>
 
 				<?php if ( $is_client ) : ?>
-					<p><?php _e( 'Welcome to the Dashboard. Here you can manage all your snapshots and backups.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php _e( 'Willkommen im Dashboard. Hier kannst Du alle Deine Snapshots und Backups verwalten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 				<?php else : ?>
-					<p><?php _e( 'Welcome to the Dashboard. Here you can manage all your snapshots.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php _e( 'Willkommen im Dashboard. Hier kannst Du alle Deine Snapshots verwalten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 				<?php endif; ?>
 
 			</div>
@@ -62,24 +62,24 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 			<table cellpadding="0" cellspacing="0">
 				<tbody>
 				<tr>
-					<th><?php _e( 'Last Snapshot', SNAPSHOT_I18N_DOMAIN ); ?></th>
+					<th><?php _e( 'Letztes Backup', SNAPSHOT_I18N_DOMAIN ); ?></th>
 
 					<?php if ( isset( $latest_snapshot['timestamp'] ) ) : ?>
 						<td class="fancy-date-time">
-							<?php echo Snapshot_Helper_Utility::show_date_time( $latest_snapshot['timestamp'], 'F j, Y ' ) ?>
+							<?php echo Snapshot_Helper_Utility::show_date_time( $latest_snapshot['timestamp'], 'd.m.Y' ) ?>
 							<span><?php
 								printf(
-									esc_html__( 'at %s', SNAPSHOT_I18N_DOMAIN ),
-									Snapshot_Helper_Utility::show_date_time( $latest_snapshot['timestamp'], 'g:ia' )
+									esc_html__( 'um %s', SNAPSHOT_I18N_DOMAIN ),
+									Snapshot_Helper_Utility::show_date_time( $latest_snapshot['timestamp'], 'H:i' )
 								); ?></span>
 						</td>
 					<?php else: ?>
-						<td><?php esc_html_e( 'Never', SNAPSHOT_I18N_DOMAIN ); ?></span></td>
+						<td><?php esc_html_e( 'Noch keine', SNAPSHOT_I18N_DOMAIN ); ?></span></td>
 					<?php endif; ?>
 				</tr>
 
 				<tr>
-					<th><?php _e( 'Available Destinations', SNAPSHOT_I18N_DOMAIN ); ?></th>
+					<th><?php _e( 'Verfügbare Speicherorte', SNAPSHOT_I18N_DOMAIN ); ?></th>
 					<td>
 						<span class="wps-count"><?php echo count( PSOURCESnapshot::instance()->config_data['destinations'] ); ?></span>
 					</td>
@@ -87,18 +87,18 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 
 				<?php if ( $is_client ) : ?>
 					<tr>
-						<th><?php _e( 'Managed Backups Schedule', SNAPSHOT_I18N_DOMAIN ); ?></th>
+						<th><?php _e( 'Managed Backups Zeitplan', SNAPSHOT_I18N_DOMAIN ); ?></th>
 
 						<?php if ( ! $has_snapshot_key ) { ?>
 							<td>
-								<a id="view-snapshot-key" class="button button-small button-blue"><?php _e( 'Activate', SNAPSHOT_I18N_DOMAIN ) ?></a>
+								<a id="view-snapshot-key" class="button button-small button-blue"><?php _e( 'Aktivieren', SNAPSHOT_I18N_DOMAIN ) ?></a>
 							</td>
 						<?php } elseif ( $model->get_config( 'disable_cron', false ) ) { ?>
 
 							<td>
 								<a id="wps-managed-backups-configure" class="button button-outline button-small button-gray"
 								   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' ) . '#wps-backups-settings-schedule' ); ?>">
-									<?php esc_html_e( 'Enable', SNAPSHOT_I18N_DOMAIN ); ?>
+									<?php esc_html_e( 'Aktivieren', SNAPSHOT_I18N_DOMAIN ); ?>
 								</a>
 							</td>
 
@@ -109,7 +109,7 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 								<span><?php
 									$schedule_times = $model->get_schedule_times();
 									printf(
-										esc_html__( 'at %s', SNAPSHOT_I18N_DOMAIN ),
+										esc_html__( 'um %s', SNAPSHOT_I18N_DOMAIN ),
 										$schedule_times[$model->get_schedule_time()]
 									);
 

@@ -43,7 +43,7 @@ $cron_disabled = $model->get_config( 'disable_cron', false );
 
 				<h3><?php _e( 'Backups Wizard', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 
-				<a href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' ) ); ?>" class="button button-small button-gray button-outline"><?php _e( 'Back', SNAPSHOT_I18N_DOMAIN ); ?></a>
+				<a href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' ) ); ?>" class="button button-gray button-outline"><?php _e( 'Back', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 			</div>
 

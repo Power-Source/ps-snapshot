@@ -8,9 +8,9 @@
 
 	<div class="row">
 
-		<p><img class="hero-circle"><br>The performance test didn't return any results. This probably means you're on a local website (which we can't scan) or something went wrong trying to access PSOURCE. Try again and if this error continues to appear please open a ticket with our support heroes</p>
+		<p><img class="hero-circle"><br>Der Leistungstest lieferte keine Ergebnisse. Dies bedeutet wahrscheinlich, dass Du dich auf einer lokalen Webseite befindest (die wir nicht scannen können) oder dass beim Zugriff auf PSOURCE ein Fehler aufgetreten ist. Versuche es erneut. Sollte der Fehler weiterhin bestehen, wende Dich bitte an unseren Support.</p>
 
-		<a href="http://snapshot.psource.dev/wp-admin/admin.php?page=wphb&amp;run=true&amp;type=performance&amp;_wpnonce=0360bdece0#wphb-box-dashboard-performance-running-test" class="button button-blue">Create Snapshot</a>
+		<a href="http://snapshot.psource.dev/wp-admin/admin.php?page=wphb&amp;run=true&amp;type=performance&amp;_wpnonce=0360bdece0#wphb-box-dashboard-performance-running-test" class="button button-blue">Snapshot erstellen</a>
 
 	</div>
 
