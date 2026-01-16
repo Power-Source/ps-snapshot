@@ -556,7 +556,8 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				'snapshots_destinations_panel' => 'snapshots-newui-destinations',
 				'snapshots_import_panel' => 'snapshots-newui-import',
 				'snapshots_settings_panel' => 'snapshots-newui-settings',
-				'snapshots_full_backup_panel' => 'snapshots-newui-managed-backups',
+				// Map legacy managed backups slug to snapshots list
+				'snapshots_full_backup_panel' => 'snapshots-newui-snapshots',
 			);
 
 			if ( isset( $page_map[ $_GET['page'] ] ) ) {

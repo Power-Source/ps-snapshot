@@ -13,9 +13,7 @@ $has_backups = !empty( $backups );
 <div id="container" class="snapshot-three wps-page-destinations">
 	<?php
 
-	if ( $has_backups ) {
-		$this->render( "boxes/widget-notification-managed-backups", false, array(), false, false );
-	}
+	// removed managed backups promo widget
 
 	$destination_types = array( 'dropbox', 'google', 'amazon', 'sftp', 'local' );
 

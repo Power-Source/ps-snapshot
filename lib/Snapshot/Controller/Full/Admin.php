@@ -154,7 +154,7 @@ class Snapshot_Controller_Full_Admin extends Snapshot_Controller_Full {
 			// Backups deleted successfully
 		}
 
-		$url = PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' );
+		$url = PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' );
 		$url = ! empty( $status )
 			? remove_query_arg( 'error', $url )
 			: add_query_arg( 'error', self::CODE_ERROR_BULK_DELETE, $url );

@@ -49,7 +49,7 @@ $warning = $requirements_test['warning'];
 
 			<?php else : ?>
 
-				<div class="wpmud-box-title has-button>">
+				<div class="wpmud-box-title has-button">
 					<h3><?php _e( 'Snapshot-Assistent', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 
 					<a href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ) ); ?>"
@@ -875,9 +875,26 @@ $warning = $requirements_test['warning'];
 												$timestamp = $default_time->format( 'U' ) + ( get_option( 'gmt_offset' ) * 3600 );
 												$localtime = localtime( $timestamp, true );
 
-												// Check if 'interval-offset' is set
-												if ( isset( $item['interval-offset'] ) ) {
-													?>
+												// Ensure defaults for interval offsets so selectors are always visible on new snapshots
+												if ( ! isset( $item['interval-offset'] ) || ! is_array( $item['interval-offset'] ) ) {
+													$item['interval-offset'] = array();
+												}
+												if ( ! isset( $item['interval-offset']['snapshot-daily']['tm_hour'] ) ) {
+													$item['interval-offset']['snapshot-daily']['tm_hour'] = $localtime['tm_hour'];
+												}
+												if ( ! isset( $item['interval-offset']['snapshot-weekly']['tm_wday'] ) ) {
+													$item['interval-offset']['snapshot-weekly']['tm_wday'] = $localtime['tm_wday'];
+												}
+												if ( ! isset( $item['interval-offset']['snapshot-weekly']['tm_hour'] ) ) {
+													$item['interval-offset']['snapshot-weekly']['tm_hour'] = $localtime['tm_hour'];
+												}
+												if ( ! isset( $item['interval-offset']['snapshot-monthly']['tm_mday'] ) ) {
+													$item['interval-offset']['snapshot-monthly']['tm_mday'] = 1;
+												}
+												if ( ! isset( $item['interval-offset']['snapshot-monthly']['tm_hour'] ) ) {
+													$item['interval-offset']['snapshot-monthly']['tm_hour'] = $localtime['tm_hour'];
+												}
+												?>
 
 													<div id="interval-offset">
 														<!-- Daily -->
@@ -891,7 +908,7 @@ $warning = $requirements_test['warning'];
 															<select id="snapshot-interval-offset-daily-hour"
 																	name="snapshot-interval-offset[snapshot-daily][tm_hour]">
 																<?php
-																if ( isset( $item['interval-offset']['snapshot-daily']['tm_hour'] ) ) {
+																if ( ! isset( $item['interval-offset']['snapshot-daily']['tm_hour'] ) ) {
 																	$item['interval-offset']['snapshot-daily']['tm_hour'] = $localtime['tm_hour'];
 																}
 
@@ -966,7 +983,6 @@ $warning = $requirements_test['warning'];
 															</select>&nbsp;&nbsp;
 														</div>
 													</div>
-												<?php } ?>
 												<?php endif; ?>
 											</div>
 

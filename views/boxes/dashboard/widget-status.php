@@ -92,7 +92,7 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 
 							<td>
 								<a id="wps-managed-backups-configure" class="button button-outline button-small button-gray"
-								   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-managed-backups' ) . '#wps-backups-settings-schedule' ); ?>">
+								   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ) . '#wps-backups-settings-schedule' ); ?>">
 									<?php esc_html_e( 'Aktivieren', SNAPSHOT_I18N_DOMAIN ); ?>
 								</a>
 							</td>

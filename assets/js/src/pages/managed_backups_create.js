@@ -27,6 +27,13 @@
 			}
 		}).change();
 
+		// Handle frequency dropdown changes to show/hide interval-offset options
+		jQuery('select[name="frequency"]').on('change', function () {
+			var selected_frequency = jQuery(this).val();
+			jQuery('#interval-offset > div').hide();
+			jQuery('.interval-offset-' + selected_frequency).show();
+		}).change();
+
 		jQuery('#wps-build-error-again').on('click', function (e) {
 			e.preventDefault();
 			jQuery('#wps-build-error').addClass('hidden');

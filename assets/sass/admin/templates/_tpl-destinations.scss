@@ -789,43 +789,7 @@
 	}
 }
 
-// Widget: Try Managed Backups
-.wpmud #container.wps-page-destinations .try-managed-backups-box {
-	.wpmud-box-content {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 30px 30px 0;
-		&:before {
-			content: " ";
-			width: 141px;
-			height: 180px;
-			flex: 0 141px;
-			align-self: flex-end;
-		}
-	}
-	.wpmud-box-content-wrap {
-		flex: 1;
-		padding-left: 29px;
-		p {
-			margin-bottom: 20px;
-			a:not(.button) {
-				position: relative;
-				top: -1px;
-				margin-left: 17px;
-				color: $color--taupegray;
-				&:hover, &:focus, &:active {
-					color: $color--steel;
-				}
-			}
-			&:last-child {
-				margin-bottom: 20px;
-				@include screen(large) {
-					margin-bottom: 30px;
-				}
-			}
-		}
-	}
-}
+// Widget: Try Managed Backups (removed)
 
 // Widget: Dropbox
 .wpmud #container.wps-page-destinations .wpsd-widget-dropbox {

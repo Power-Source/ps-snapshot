@@ -191,7 +191,7 @@ $cron_disabled = $model->get_config( 'disable_cron', false );
 
 											<div class="wps-new-backups-schedule schedule-inline-form">
 
-												<select id="frequency" name="frequency" <?php echo $disabled; ?> >
+												<select name="frequency" id="frequency" <?php echo $disabled; ?> >
 													<?php foreach ( $model->get_frequencies() as $key => $label ) { ?>
 														<option
 																value="<?php echo esc_attr( $key ); ?>"

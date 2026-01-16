@@ -72,7 +72,7 @@ Dieses Modul ermöglicht dir, auszuwählen, welche Dateien PS Snapshot in dein B
 **Allgemeine Dateien einbeziehen** – Bezieht alle Designs, Plugins und Mediendateien in den wp-content- und uploads-Ordnern ein.
 **Nur ausgewählte Dateien einbeziehen** – Wähle diese Option, um eine Liste anzuzeigen, aus der du auswählen kannst, welche Dateien in dein Backup aufgenommen werden sollen.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-4.png)
+![](assets/img/Snapshot-image-4.png)
 
 #### Nur Dropbox Option
 
@@ -82,7 +82,7 @@ Standardmäßig werden alle Snapshots mit der traditionellen Archiv-Option erste
 
 Jede Datei im WordPress-Verzeichnis hat eine eigene URL. Du kannst jede einzelne Datei von deinem Backup ausschließen, indem du die URL in das bereitgestellte Feld eingibst. URLs müssen zeilenweise eingegeben werden.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapchat-image-5.png)
+![](assets/img/Snapshot-image-5.png)
 
 #### Datenbank
 
@@ -90,7 +90,7 @@ Dieses Modul ermöglicht dir, auszuwählen, welche Datenbanktabellen in dein Bac
 
 Um eine benutzerdefinierte Auswahl von Tabellen zu sichern, wähle **Nur ausgewählte Datenbanktabellen einbeziehen** und dann die Tabellen aus, die du sichern möchtest, aus dem angezeigten Menü.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapchat-database-table-menu-1.png)
+![](assets/img/Snapshot-database-table-menu-1.png)
 
 #### Häufigkeit
 
@@ -98,7 +98,7 @@ Standardmäßig ist Snapshot auf „Einmalig" eingestellt, was einfach ein einma
 
 Verwende die Dropdown-Menüs, um die Häufigkeit (täglich, wöchentlich, monatlich), den Wochentag und die Tageszeit auszuwählen, zu der dein Backup stattfinden soll.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-6-1.png)
+![](assets/img/Snapshot-image-6-1.png)
 
 **Remote-Speicherlimit**
 
@@ -106,19 +106,17 @@ Wenn du wiederkehrende Backups für Remote-Speicherorte planst, hast du die Opti
 
 Wähle „Alle Snapshots behalten", um alle von Snapshot erstellten Backups zu speichern. Wähle „Eine bestimmte Anzahl von Snapshots behalten und die ältesten entfernen" und gib dann die gewünschte Anzahl von Backups in das bereitgestellte Feld ein.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-remote-storage-limit.png)
+![](assets/img/Snapshot-remote-storage-limit.png)
 
 **Lokales Speicherlimit**
 
 Du hast die Option, alle in der Cloud gespeicherten Backups zu behalten oder sie auf eine bestimmte Anzahl zu begrenzen. Sobald das Limit erreicht ist, ersetzt Snapshot die älteste gespeicherte Kopie durch die neue Kopie.
 
-Bedenke, dass für jedes Mitgliedskonto 10 GB Cloud-Speicher für Snapshot-Backups zugeteilt werden. Wenn du die Anzahl der in der Cloud gespeicherten Backups begrenzt, wird dies helfen, die Rate zu minimieren, mit der diese 10 GB genutzt werden.
-
 Wähle „Alle Snapshots behalten", um alle lokalen Backups zu speichern, die Snapshot erstellt, oder wähle „Eine bestimmte Anzahl von Snapshots behalten und die ältesten entfernen" und gib dann die gewünschte Anzahl von Backups in das bereitgestellte Feld ein.
 
 Aktiviere auch \"Jetzt ein Backup ausführen\", um ein sofortiges Backup auszuführen, oder deaktiviere die Funktion, um das Backup bis zur geplanten Zeit zu verzögern.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/local-stoarge-plus-also-run.png)
+![](assets/img/local-stoarge-plus-also-run.png)
 
 #### Name, Speichern, Ausführen
 
@@ -126,7 +124,7 @@ Gib einen Namen für den aktuellen Snapshot in das bereitgestellte Feld ein, wob
 
 Die Zeit zum Abschluss des Backups variiert zwischen wenigen Minuten und einigen Stunden, je nach Größe der Website.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/Create-Snapshot-in-progress.png)
+![](assets/img/Create-Snapshot-in-progress.png)
 
 Wenn das Backup abgeschlossen ist, wird eine ZIP-Datei zum ausgewählten Ziel hochgeladen.
 
@@ -136,7 +134,7 @@ Nachdem du deinen ersten Snapshot erstellt hast, erscheint ein neues Modul – V
 
 Verwende den Filter oben im Fenster, um Snapshots nach Ziel zu sortieren.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/Avalable-snapshots-module.png)
+![](assets/img/Avalable-snapshots-module.png)
 
 ##### Optionsmenü
 
@@ -163,18 +161,18 @@ Das Standard-Ziel ist „Lokal". Lokale Backups werden auf demselben Server wie 
 
 Lokale Backups werden auf deinem Server hier gespeichert: public_html/wp-content/uploads/snapshots/.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/Local-directory.png)
+![](assets/img/Local-directory.png)
 
 Du kannst das Verzeichnis, in dem deine Snapshot-Backups gespeichert werden, ändern, indem du auf **Konfigurieren** im lokalen Modul klickst.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/configure-local.png)
+![](assets/img/configure-local.png)
 
 Der Name des lokalen Verzeichnisses „Lokaler Snapshot" kann nicht geändert werden, aber der Verzeichnispfad kann in jeden Ordner auf deinem Server geändert werden, indem du den Pfad in das bereitgestellte Feld eingibst und auf \"Ziel speichern\" klickst.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/Change-local-directory.png)
+![](assets/img/Change-local-directory.png)
 
 ### Remote-Speicherorte
 
 PS Snapshot unterstützt vier Remote-Speicherziele, die mit den Anweisungen in diesem Abschnitt verbunden werden können: Dropbox, Google Drive, AmazonS3 und FTP/SFTP.
 
-![](https://wpmudev.com/wp-content/uploads/2020/01/default-remotes.png)
+![](assets/img/default-remotes.png)

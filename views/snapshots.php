@@ -48,7 +48,7 @@ $data = array(
 
 		</section>
 
-		<?php $this->render( "boxes/widget-notification-managed-backups", false, array(), false, false ); ?>
+		<?php /* removed managed backups promo widget */ ?>
 
 	<?php } else { ?>
 

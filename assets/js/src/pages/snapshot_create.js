@@ -20,6 +20,25 @@
 			}
 		}).change();
 
+		// Handle snapshot-interval select changes to show/hide interval-offset options
+		jQuery('select#snapshot-interval').on('change', function () {
+			var selected_interval = jQuery(this).val();
+			var interval_class = '';
+			
+			if (selected_interval === 'snapshot-daily' || selected_interval === 'snapshot-twicedaily') {
+				interval_class = 'interval-offset-daily';
+			} else if (selected_interval === 'snapshot-weekly' || selected_interval === 'snapshot-twiceweekly') {
+				interval_class = 'interval-offset-weekly';
+			} else if (selected_interval === 'snapshot-monthly' || selected_interval === 'snapshot-twicemonthly') {
+				interval_class = 'interval-offset-monthly';
+			}
+			
+			jQuery('#interval-offset > div').hide();
+			if (interval_class) {
+				jQuery('.' + interval_class).show();
+			}
+		}).change();
+
 		jQuery("#checkbox-run-backup-now").on('change', function () {
 			if ($(this).is(':checked') && jQuery("input[name='frequency']:checked").val() !== "once") {
 				jQuery('#snapshot-add-update-submit').text(jQuery('#snapshot-add-update-submit').data('title-save-and-run'));

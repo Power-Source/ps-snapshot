@@ -103,24 +103,7 @@ window.SS_PAGES = {};
 			});
 		});
 
-		// Remove 'try managed backups' box.
-		$('#disable-notif').on('click', function (e) {
-			e.preventDefault();
-			var data = {
-				security: $(this).data('security'),
-				action: 'snapshot_disable_notif_ajax'
-			};
-
-			jQuery.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: data,
-				dataType: 'json',
-				success: function () {
-					$('.try-managed-backups-box').remove();
-				}
-			});
-		});
+		// (removed) Managed backups promo box and disable-notif handler
 
 		// Dismiss floating notifications when they are clicked or after two seconds
 		$('.wps-message').on('click', function (e) {

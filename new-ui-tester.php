@@ -225,10 +225,10 @@ class PSOURCESnapshot_New_Ui_Tester {
 	public function render( $file, $deprecated = false, $params = array(), $return = false, $footer = true ) {
 
 		$template_filename = "views/$file.php";
-		$template_file = plugin_dir_url( plugin_basename( __FILE__ ) ) . $template_filename;
+		$template_file = trailingslashit( dirname( __FILE__ ) ) . $template_filename;
 
 		if ( ! file_exists( $template_file ) ) {
-			$template_file = trailingslashit( dirname( __FILE__ ) ) . $template_filename;
+			wp_die( 'Template not found: ' . esc_html( $template_file ) );
 		}
 
 		if ( $return ) {

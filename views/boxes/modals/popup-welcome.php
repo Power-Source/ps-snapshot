@@ -41,14 +41,7 @@ $plugin->save_config();
 
 						<?php if ( $is_client && ! $has_snapshot_key) : ?>
 
-							<div class="wps-welcome-message-pro">
-								<h3><?php _e('PSOURCE Managed Backups', SNAPSHOT_I18N_DOMAIN); ?></h3>
-								<p><a class="button button-blue button-small wps-dismiss-welcome"
-									  href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-managed-backups') ); ?>">
-										<?php _e( 'Verwaltete Backups aktivieren', SNAPSHOT_I18N_DOMAIN ); ?>
-									</a>
-								</p>
-							</div>
+							<!-- Managed Backups removed in local-only version -->
 
 							<div class="wps-welcome-message-pro">
 								<h3><?php _e('Snapshots', SNAPSHOT_I18N_DOMAIN); ?></h3>
