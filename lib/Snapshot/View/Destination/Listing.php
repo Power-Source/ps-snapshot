@@ -196,7 +196,7 @@ if ( ! class_exists( 'Snapshot_View_Destination_Listing' ) ) {
 
 				$message .= '<p>Snapshot currently integrates with the following reliable services: Amazon AWS (S3 Buckets), Dropbox, Google Drive, Green Qloud and standard FTP.</p>';
 
-				$message .= '<p>Destinations are available to you in Snapshot Pro from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
+				$message .= '<p>Destinations are available to you in PS Snapshot from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
 
 				$message = sprintf( __( $message, SNAPSHOT_I18N_DOMAIN ), esc_url( 'https://premium.psource.org/project/snapshot' ) );
 

@@ -2029,7 +2029,7 @@ if ( ! class_exists( 'Snapshot_Helper_Utility' ) ) {
 		}
 
 		/**
-		 * Is this Snapshot Pro?
+		 * Is this PS Snapshot?
 		 *
 		 * @since 1.0.0
 		 *

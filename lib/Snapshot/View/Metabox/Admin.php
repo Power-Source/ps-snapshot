@@ -704,7 +704,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									</ul>
 								</div>
 								<?php } else {
-									$message = '<p>Additional options are available for the \'Dropbox\' destination.</p><p>Destinations are available to you in Snapshot Pro from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
+									$message = '<p>Additional options are available for the \'Dropbox\' destination.</p><p>Destinations are available to you in PS Snapshot from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
 									$message = sprintf( __( $message, SNAPSHOT_I18N_DOMAIN ), esc_url( 'https://premium.psource.org/project/snapshot' ) );
 
 									echo $message;

@@ -6,175 +6,175 @@ title: "PS SnapShot"
 <h2 align="center" style="color:#38c2bb;">📚 PS SnapShot</h2>
 
 <div class="menu">
-  <a href="https://github.com/Power-Source/cp-snapshot/discussions" style="color:#38c2bb;">💬 Forum</a>
-  <a href="https://github.com/Power-Source/cp-snapshot/releases" style="color:#38c2bb;">📝 Download</a>
+  <a href="https://github.com/Power-Source/cp-snapshot/releases" style="color:#38c2bb;">DOWNLOAD</a>
+  <a href="https://github.com/Power-Source/ps-snapshot-installer/releases/tag/1.0.1" style="color:#38c2bb;">RESTORE TOOL</a>
 </div>
 
 ## 1.1 Dashboard
 
-The Snapshot Pro Dashboard provides an overview of your scheduled backups, what third-party destinations you’re linked to, and when your last backup was taken.
+Das PS Snapshot Dashboard gibt dir einen Überblick über deine geplanten Backups, mit welchen Drittanbieter-Zielen du verbunden bist und wann dein letztes Backup erstellt wurde.
 
-**Last Snapshot** – Lists the date and time of your most recent successful backup
-**Available Destinations** – Is the number of locations your backups can be saved to. A full explanation of what destinations are and how to configure them can be found under the Destinations section of this guide.
-**Backups Schedule** – Shows what time your backups are scheduled to take place each day.
+**Letzter Snapshot** – Zeigt das Datum und die Uhrzeit deines letzten erfolgreichen Backups an
+**Verfügbare Speicherorte** – Die Anzahl der Orte, wo deine Backups gespeichert werden können. Eine ausführliche Erklärung zu den Zielen und wie du sie konfigurierst, findest du im Abschnitt „Ziele" in dieser Anleitung.
+**Backup-Plan** – Zeigt an, zu welcher Tageszeit deine Backups täglich geplant sind.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-Dashboard-overview.png)
 
 ## 1.2 Snapshots
 
-Snapshots is where backups are configured and executed, on demand or at scheduled intervals, to include all or a custom selection of files and database tables.
+In Snapshots konfigurierst und führst du Backups aus – entweder auf Abruf oder in regelmäßigen Abständen – um alle oder eine benutzerdefinierte Auswahl von Dateien und Datenbanktabellen einzubeziehen.
 
-Click the **Create Snapshot** button to open the Snapshot Wizard.
+Klick auf die Schaltfläche **Snapshot erstellen**, um den Snapshot-Assistenten zu öffnen.
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-Create-Snapsot.png)
 
-### Requirements Check
+### Anforderungen überprüfen
 
-Snapshots cannot be created for a site that has not passed the Requirements Check, which verifies that the required apps and settings are present and up-to-date, and which provides recommended actions if the minimum requirements are not met:
+Snapshots können nicht für eine Website erstellt werden, die die Anforderungsprüfung nicht bestanden hat. Diese Prüfung verifiziert, dass die erforderlichen Apps und Einstellungen vorhanden und auf dem neuesten Stand sind, und bietet empfohlene Maßnahmen, wenn die Mindestanforderungen nicht erfüllt sind:
 
-**PHP Version** – Snapshot Pro requires PHP version 5.5 or later. If your host is using an older version of PHP Snapshot Pro will display a low PHP version or PHP version is out of date warning. You’ll need to update your PHP version to proceed.
-**Max Execution Time** – A minimum execution time of 150 seconds is recommended to give the backup process the best chance of succeeding. If you use a managed host, contact them directly to have it updated.
-**MySQLi** – Snapshot needs the MySQLi module to be installed and enabled on the target server. If you use a managed host, contact them directly to have this module installed and enabled.
-**PHP Zip** – To unpack the zip file created by Snapshot, the PHP Zip module will need to be installed and enabled. If you use a managed host, contact them directly to have it added or updated.
-If your site fails the check, correct the deficiencies, then click Re-check. Once the Requirements Check is passed, proceed with configuring a Snapshot.
+**PHP-Version** – PS Snapshot benötigt PHP Version 5.5 oder höher. Wenn dein Host eine ältere PHP-Version verwendet, zeigt PS Snapshot eine Warnung zur niedrigen oder veralteten PHP-Version an. Du musst deine PHP-Version aktualisieren, um fortzufahren.
+**Max. Ausführungszeit** – Eine Mindestausführungszeit von 150 Sekunden wird empfohlen, um dem Backup-Prozess die beste Chance zum Erfolg zu geben. Wenn du einen verwalteten Host verwendest, kontaktiere ihn direkt, um es aktualisieren zu lassen.
+**MySQLi** – Snapshot benötigt das MySQLi-Modul, das auf dem Zielserver installiert und aktiviert sein muss. Wenn du einen verwalteten Host verwendest, kontaktiere ihn direkt, um dieses Modul installieren und aktivieren zu lassen.
+**PHP Zip** – Um die von Snapshot erstellte ZIP-Datei zu entpacken, muss das PHP-Zip-Modul installiert und aktiviert sein. Wenn du einen verwalteten Host verwendest, kontaktiere ihn direkt, um es hinzufügen oder aktualisieren zu lassen.
+Wenn deine Website die Prüfung nicht besteht, behebe die Mängel und klick auf „Erneut überprüfen". Sobald die Anforderungsprüfung bestanden ist, fahre mit der Konfiguration eines Snapshots fort.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-wizard-Image-2.png)
 
 
-### Configuration
+### Konfiguration
 
-#### Destination
+#### Ziel
 
-A destination is a location where Snapshot backups are stored, and come in two forms: local and remote (third-party). Snapshot creates a default local destination when the plugin is activated, but remote destinations must be connected to Snapshot before backups can be stored there.
+Ein Ziel ist ein Ort, wo Snapshot-Backups gespeichert werden. Es gibt zwei Formen: lokal und remote (Drittanbieter). Snapshot erstellt beim Aktivieren des Plugins automatisch ein lokales Standardziel, aber Remote-Speicherorte müssen mit Snapshot verbunden werden, bevor Backups dort gespeichert werden können.
 
-Connected destinations appear as options within the snapshot configuration screen. Multiple destinations can be connected, but only one destination can be used for any given snapshot.
+Verbundene Speicherorte erscheinen als Optionen auf dem Snapshot-Konfigurationsbildschirm. Es können mehrere Speicherorte verbunden werden, aber für jeden Snapshot kann nur ein Ziel verwendet werden.
 
 #### Lokaler Snapshot
 
-The default local destination created by Snapshot is a directory on the same server that houses your site. See our guidance in the Destinations section below for details on using and modifying this default local destination.
+Das von Snapshot erstellte Standardziel für lokale Backups ist ein Verzeichnis auf demselben Server, auf dem deine Website gehostet ist. Weitere Informationen zum Verwenden und Ändern dieses Standard-Lokalziels findest du in unserem Leitfaden im Abschnitt „Ziele" unten.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-3.png)
 
-We do not recommend using your local server as your sole backup location, for security reasons discussed in the Destination section of this guide. Instead, we recommend connecting at least one remote destination and using it as your primary backup destination.
+Wir empfehlen nicht, deinen lokalen Server als einzigen Backup-Speicherort zu verwenden, aus Sicherheitsgründen, die im Abschnitt „Ziel" in dieser Anleitung erörtert werden. Stattdessen empfehlen wir, mindestens ein Remote-Ziel zu verbinden und es als dein primäres Backup-Ziel zu verwenden.
 
-See this guide’s Destinations section below if you wish to change where your local backups are stored or need to connect a remote destination before proceeding.
+Siehe den Abschnitt „Ziele" in dieser Anleitung unten, wenn du ändern möchtest, wo deine lokalen Backups gespeichert werden, oder wenn du ein Remote-Ziel verbinden musst, bevor du fortfährst.
 
-#### Directory
+#### Verzeichnis
 
-This field is optional and can be used to change the folder in which your backup will be stored or to add dynamic values for customizing the bucket/directory, site domain, or ID.
+Dieses Feld ist optional und kann verwendet werden, um den Ordner zu ändern, in dem dein Backup gespeichert wird, oder um dynamische Werte hinzuzufügen, um den Bucket/das Verzeichnis, die Website-Domain oder die ID anzupassen.
 
-The default local directory is set to public_html/wp-content/uploads/snapshots/, but this can be modified during configuration to store a backup elsewhere on your local server by selecting Use Custom Directory and entering the preferred directory in the field provided.
+Das Standard-Lokalverzeichnis ist auf public_html/wp-content/uploads/snapshots/ eingestellt, kann aber während der Konfiguration geändert werden, um ein Backup an anderer Stelle auf deinem lokalen Server zu speichern, indem du „Benutzerdefiniertes Verzeichnis verwenden" wählst und das bevorzugte Verzeichnis in das bereitgestellte Feld eingibst.
 
-#### Files
+#### Dateien
 
-This module allows you to choose what files Snapshot Pro includes in your backup. These options apply to files only, and not the database. Similar options for database tables are located in the Database section.
+Dieses Modul ermöglicht dir, auszuwählen, welche Dateien PS Snapshot in dein Backup aufnimmt. Diese Optionen gelten nur für Dateien, nicht für die Datenbank. Ähnliche Optionen für Datenbanktabellen findest du im Abschnitt „Datenbank".
 
-**Don’t include any files** – This option will only backup the database and will exclude all theme, plugin, and media files.
-**Include common files** – Includes all themes, plugins, media files in the wp-content and uploads folders.
-**Only included selected files** – Select this option to reveal a list from which you can choose what files should be included in your backup.
+**Keine Dateien einbeziehen** – Diese Option sichert nur die Datenbank und schließt alle Design-, Plugin- und Mediendateien aus.
+**Allgemeine Dateien einbeziehen** – Bezieht alle Designs, Plugins und Mediendateien in den wp-content- und uploads-Ordnern ein.
+**Nur ausgewählte Dateien einbeziehen** – Wähle diese Option, um eine Liste anzuzeigen, aus der du auswählen kannst, welche Dateien in dein Backup aufgenommen werden sollen.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-4.png)
 
-#### Dropbox-only Option
+#### Nur Dropbox Option
 
-By default, all Snapshots are created using the traditional Archive option, which creates a single zip version of your website including all the files and database tables. However, if Dropbox is the destination, the Mirror/Sync option will replicate the site’s file structure so it can be viewed in Dropbox. Only the database will be zipped. It is important to know that Mirror/Sync backups cannot be restored using Snapshot’s one-click restore feature, but must be restored manually.
+Standardmäßig werden alle Snapshots mit der traditionellen Archiv-Option erstellt, die eine einzelne ZIP-Version deiner Website mit allen Dateien und Datenbanktabellen erstellt. Wenn Dropbox allerdings das Ziel ist, repliziert die Spiegel-/Sync-Option die Dateistruktur der Website, damit sie in Dropbox angezeigt werden kann. Nur die Datenbank wird gezippt. Es ist wichtig zu wissen, dass Spiegel-/Sync-Backups nicht mit der One-Click-Restore-Funktion von Snapshot wiederhergestellt werden können, sondern manuell wiederhergestellt werden müssen.
 
-#### URL Exclusions
+#### URL-Ausschlüsse
 
-Every file in the WordPress directory has a unique URL. You can exclude any individual file from your backup by adding the URL to the field provided. URLs must be added one per line.
+Jede Datei im WordPress-Verzeichnis hat eine eigene URL. Du kannst jede einzelne Datei von deinem Backup ausschließen, indem du die URL in das bereitgestellte Feld eingibst. URLs müssen zeilenweise eingegeben werden.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapchat-image-5.png)
 
-#### Database
+#### Datenbank
 
-This module lets you select which database tables to include in your backup. The Include all and Don’t include any options are self-explanatory.
+Dieses Modul ermöglicht dir, auszuwählen, welche Datenbanktabellen in dein Backup aufgenommen werden sollen. Die Optionen „Alles einbeziehen" und „Nichts einbeziehen" erklären sich selbst.
 
-To select a custom array of tables to backup, select **Only include selected database tables**, then select the tables you want backed up from the menu that appears.
+Um eine benutzerdefinierte Auswahl von Tabellen zu sichern, wähle **Nur ausgewählte Datenbanktabellen einbeziehen** und dann die Tabellen aus, die du sichern möchtest, aus dem angezeigten Menü.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapchat-database-table-menu-1.png)
 
-#### Frequency
+#### Häufigkeit
 
-By default, Snapshot is set to Once-off, which simply is a one-time, on demand backup. Select **Run daily, weekly or monthly** if you want to schedule automatic backups that occur on a regular basis.
+Standardmäßig ist Snapshot auf „Einmalig" eingestellt, was einfach ein einmaliges Backup auf Abruf ist. Wähle **Täglich, wöchentlich oder monatlich ausführen**, wenn du automatische Backups in regelmäßigen Abständen planen möchtest.
 
-Use the drop-down menus to choose the frequency (daily, weekly, monthly), the day of the week, and the time of day you want the backup to occur.
+Verwende die Dropdown-Menüs, um die Häufigkeit (täglich, wöchentlich, monatlich), den Wochentag und die Tageszeit auszuwählen, zu der dein Backup stattfinden soll.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-6-1.png)
 
-**Remote Storage Limit**
+**Remote-Speicherlimit**
 
-When scheduling recurring backups destined for remote destinations you have the option to keep all the backups Snapshot creates or limit them to a specific number. Once the limit is met, Snapshot will begin overwriting the oldest stored copy with the new backup.
+Wenn du wiederkehrende Backups für Remote-Speicherorte planst, hast du die Option, alle von Snapshot erstellten Backups zu behalten oder sie auf eine bestimmte Anzahl zu begrenzen. Sobald das Limit erreicht ist, beginnt Snapshot, die älteste gespeicherte Kopie durch das neue Backup zu überschreiben.
 
-Select Keep all snapshots to retain every backup Snapshot creates. Select Keep a certain number of snapshots and remove the oldest and then set the desired number of backups in the field provided.
+Wähle „Alle Snapshots behalten", um alle von Snapshot erstellten Backups zu speichern. Wähle „Eine bestimmte Anzahl von Snapshots behalten und die ältesten entfernen" und gib dann die gewünschte Anzahl von Backups in das bereitgestellte Feld ein.
 
 ![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-remote-storage-limit.png)
 
-**Local Storage Limit**
+**Lokales Speicherlimit**
 
-You have the option to keep all the backups Snapshot stores in the cloud or limit them to a specific number. Once the limit is met, Snapshot will replace the oldest stored copy with the new copy.
+Du hast die Option, alle in der Cloud gespeicherten Backups zu behalten oder sie auf eine bestimmte Anzahl zu begrenzen. Sobald das Limit erreicht ist, ersetzt Snapshot die älteste gespeicherte Kopie durch die neue Kopie.
 
-Keep in mind that 10gb of cloud storage is allocated for Snapshot backups for every member account. Limiting the number of backups stored in the cloud will help minimize the rate at which those 10gb are used.
+Bedenke, dass für jedes Mitgliedskonto 10 GB Cloud-Speicher für Snapshot-Backups zugeteilt werden. Wenn du die Anzahl der in der Cloud gespeicherten Backups begrenzt, wird dies helfen, die Rate zu minimieren, mit der diese 10 GB genutzt werden.
 
-Select Keep all snapshots to retain every local backup Snapshot creates, or select Keep a certain number of snapshots and remove the oldest and then set the desired number of backups in the field provided.
+Wähle „Alle Snapshots behalten", um alle lokalen Backups zu speichern, die Snapshot erstellt, oder wähle „Eine bestimmte Anzahl von Snapshots behalten und die ältesten entfernen" und gib dann die gewünschte Anzahl von Backups in das bereitgestellte Feld ein.
 
-Enable Also run a backup now to execute an immediate backup or disable the feature to delay the backup until it’s scheduled time.
+Aktiviere auch \"Jetzt ein Backup ausführen\", um ein sofortiges Backup auszuführen, oder deaktiviere die Funktion, um das Backup bis zur geplanten Zeit zu verzögern.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/local-stoarge-plus-also-run.png)
 
-#### Name, Save, Run
+#### Name, Speichern, Ausführen
 
-Enter a name for the current Snapshot into the field provided, keeping in mind that Snapshot automatically adds a date and ID to that name. If you are satisfied with the current configuration, click Save & Run Backup to execute the Snapshot.
+Gib einen Namen für den aktuellen Snapshot in das bereitgestellte Feld ein, wobei du bedenken solltest, dass Snapshot automatisch ein Datum und eine ID zu diesem Namen hinzufügt. Wenn du mit der aktuellen Konfiguration zufrieden bist, klick auf \"Speichern und Backup ausführen\", um den Snapshot auszuführen.
 
-The time it takes to complete the backup ranges from a few minutes to a few hours depending on the size of the site.
+Die Zeit zum Abschluss des Backups variiert zwischen wenigen Minuten und einigen Stunden, je nach Größe der Website.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/Create-Snapshot-in-progress.png)
 
-When the backup is complete, a zip file will be uploaded to the chosen destination.
+Wenn das Backup abgeschlossen ist, wird eine ZIP-Datei zum ausgewählten Ziel hochgeladen.
 
-#### Available Snapshots
+#### Verfügbare Snapshots
 
-After you’ve created your first Snapshot, a new module — Available Snapshots — will appear in the Snapshots tab and display a list of snapshots created for the configured site, along with other key data.
+Nachdem du deinen ersten Snapshot erstellt hast, erscheint ein neues Modul – Verfügbare Snapshots – im Reiter Snapshots und zeigt eine Liste der für die konfigurierte Website erstellten Snapshots zusammen mit anderen wichtigen Daten an.
 
-Use the filter located at the top of the panel to sort snapshots by destination.
+Verwende den Filter oben im Fenster, um Snapshots nach Ziel zu sortieren.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/Avalable-snapshots-module.png)
 
-##### Options Menu
+##### Optionsmenü
 
-The three dots to the right of a backup opens the Options Menu. The options menu includes:
+Die drei Punkte rechts neben einem Backup öffnen das Optionsmenü. Das Optionsmenü enthält:
 
-**Edit** – Click to access and modify a snapshot’s configuration.
-**Regenerate** – Click to overwrite the last backup created with a fresh copy.
-**Restore** – Click to open the Restore Wizard and begin restoring a site from backup, as discussed in the Restoring a Backup section below.
-**Delete** – Click to delete a backup.
+**Bearbeiten** – Klick, um auf die Konfiguration eines Snapshots zuzugreifen und diese zu ändern.
+**Neu generieren** – Klick, um das zuletzt erstellte Backup mit einer aktuellen Kopie zu überschreiben.
+**Wiederherstellen** – Klick, um den Restore-Assistenten zu öffnen und mit der Wiederherstellung einer Website aus einem Backup zu beginnen, wie im Abschnitt „Wiederherstellen eines Backups" unten erläutert.
+**Löschen** – Klick, um ein Backup zu löschen.
 
-Use bulk actions to delete multiple Snapshots at the same time.
+Verwende Massenaktionen, um mehrere Snapshots gleichzeitig zu löschen.
 
-## 1.3 Destinations
+## 1.3 Speicherorte
 
-### Understanding Destinations
+### Speicherorte verstehen
 
-A destination is a location where Snapshot backups are stored, and come in two forms: local and remote (third-party).
+Ein Ziel ist ein Ort, wo Snapshot-Backups gespeichert werden, und es gibt zwei Formen: lokal und remote (Drittanbieter).
 
-### Local Destination
+### Lokales Ziel
 
-The default destination is Local. Local backups are stored on the same server as your live site, and are great for quickly rolling back changes, which is useful during development. Local backups are not recommended for recovering after being hacked. Because the server that houses your site has been compromised, every backup on that server could be infected.
+Das Standard-Ziel ist „Lokal". Lokale Backups werden auf demselben Server wie deine Live-Website gespeichert und eignen sich perfekt zum schnellen Zurückrollen von Änderungen, was während der Entwicklung nützlich ist. Lokale Backups werden nicht für die Wiederherstellung nach einem Hack empfohlen. Da der Server, auf dem deine Website gehostet ist, kompromittiert wurde, könnte jedes Backup auf diesem Server infiziert sein.
 
-### Configure
+### Konfigurieren
 
-Local backups are stored on your server here: public_html/wp-content/uploads/snapshots/.
+Lokale Backups werden auf deinem Server hier gespeichert: public_html/wp-content/uploads/snapshots/.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/Local-directory.png)
 
-You can change the directory where your snapshot backups are stored by clicking **Configure** in the local module.
+Du kannst das Verzeichnis, in dem deine Snapshot-Backups gespeichert werden, ändern, indem du auf **Konfigurieren** im lokalen Modul klickst.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/configure-local.png)
 
-The name of the local directory, Lokaler Snapshot, cannot be modified, but the directory path can be changed to any folder on your server by entering the path into the field provided and clicking Save Destination.
+Der Name des lokalen Verzeichnisses „Lokaler Snapshot" kann nicht geändert werden, aber der Verzeichnispfad kann in jeden Ordner auf deinem Server geändert werden, indem du den Pfad in das bereitgestellte Feld eingibst und auf \"Ziel speichern\" klickst.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/Change-local-directory.png)
 
-### Remote Destinations
+### Remote-Speicherorte
 
-Snapshot Pro supports four remote storage destinations which can be connected using the instructions in this section: Dropbox, Google Drive, AmazonS3, and FTP/SFTP.
+PS Snapshot unterstützt vier Remote-Speicherziele, die mit den Anweisungen in diesem Abschnitt verbunden werden können: Dropbox, Google Drive, AmazonS3 und FTP/SFTP.
 
 ![](https://wpmudev.com/wp-content/uploads/2020/01/default-remotes.png)

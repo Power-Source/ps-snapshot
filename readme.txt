@@ -8,48 +8,118 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Dieses Plugin ermöglicht es Dir, bei Bedarf schnelle Backup-Snapshots Deiner funktionierenden ClassicPress-Datenbank zu erstellen.
-
-Speichere Backups einmalig oder nach einem Zeitplan und entscheide wo Du die Backup-Daten sicherst.
-Du kannst Backupdaten lokal auf dem eigenen Server speichern, per FTP/sFTP hochladen, auf Google Drive, Amazon s3 oder DropBox als Speicherort für Deine Backups wählen.
-Durch die Importier-Funktion kannst Du so auch eine Seite auf einen neuen Webspace umziehen.
-
-= Multisite =
-
-Du kannst einzelne Seiten im Netzwerk sichern.
-
-Wir planen für die Zukunft:
-
-Zentrale Multisite-Sicherung
-Möglichkeiten das Admins von Unterseiten selbstständig ihre Webseiten sichern können.
-
-Du hast weitere Ideen und Vorschläge oder einen Fehler gefunden?
-
-* [PS SnapShot auf GitHub](https://github.com/Power-Source/ps-snapshot) - Hier kannst Dich am Quellcode beteiligen
-* [Melde Fehler](https://github.com/Power-Source/ps-snapshot/issues) - Damit hilfst Du uns wirklich enorm!
+Erstelle blitzschnell Backup-Snapshots deiner ClassicPress-Datenbank auf Knopfdruck – wann immer du sie brauchst!
 
 == Description ==
 
-PS Snapshot legt auf Knopfdruck ein Backup Deiner ClassicPress Webseite an. Wenn alles schiefgeht kannst Du so Deine Webseite wieder in den gesicherten Zustand bringen.
+Dieses Plugin ermöglicht es dir, bei Bedarf schnelle Backup-Snapshots deiner funktionierenden ClassicPress-Datenbank zu erstellen.
 
-= Restore Skript =
+= Flexible Speicherung =
 
-Wenn nichts mehr geht, stellt [dieses Skript](https://github.com/Power-Source/ps-snapshot-installer) Deinen CP-Snapshot wieder her
+Speichere deine Backups einmalig oder nach einem Zeitplan an deinem bevorzugten Ort:
 
-Um ein Snapshot Archiv wiederherzustellen, benötigen wir zwei Dinge:
+* Lokal auf deinem Server
+* Per FTP/SFTP auf externe Server
+* Google Drive
+* Amazon S3
+* Dropbox
 
-snapshot-installer.php
-Aktuelles Backup-Archiv :)
-Sobald Du beide hast, kopiere sie in ein Zielverzeichnis Deiner Wahl (natürlich in Deinem Webroot). Der Installer erwartet das Sicherungsarchiv im selben Verzeichnis und benannt nach dem vollständigen Backup-Archiv von Snapshot v3 Dateikonvention (z. B. [0-9a-f]{12}\.zip oder full_*.zip).
+Mit der Importier-Funktion kannst du deine Website auch auf einen neuen Webspace umziehen.
 
-Rufe anschliessend snapshot-installer.php über Deinen Browser auf (z.B: https://meinehompage/snapshot-installer.php)
+= Multisite Support =
 
-[RESTORE SCRIPT](https://github.com/Power-Source/snapshot-installer-1.0.1)
+Du kannst einzelne Seiten im Netzwerk sichern und wiederherstellen.
 
+**Geplante Features:**
+* Zentrale Multisite-Sicherung
+* Ermöglichung für Admins von Unterseiten, ihre Websites eigenständig zu sichern
 
+= Notsituation? =
+
+Wenn nichts mehr geht, stellt das [Restore Skript](https://github.com/Power-Source/ps-snapshot-installer) deinen ClassicPress-Snapshot wieder her.
+
+== Installation ==
+
+1. Lade das Plugin herunter und entpacke es
+2. Lade den Ordner `ps-snapshot` in das Verzeichnis `/wp-content/plugins/`
+3. Aktiviere das Plugin über das „Plugins"-Menü in WordPress/ClassicPress
+4. Navigiere zum neuen PS Snapshot Menü und konfiguriere deine Backup-Ziele
+
+== Usage ==
+
+= Ein Backup erstellen =
+
+1. Gehe zu PS Snapshot → Snapshots
+2. Klick auf „Snapshot erstellen"
+3. Konfiguriere dein Backup (Dateien, Datenbank, Ziel, Häufigkeit)
+4. Klick auf „Speichern und Backup ausführen"
+
+= Ein Backup wiederherstellen =
+
+1. Gehe zu PS Snapshot → Snapshots
+2. Klick auf die drei Punkte neben deinem Backup
+3. Wähle „Wiederherstellen" und folge dem Assistenten
+
+= Mit dem Restore Skript arbeiten =
+
+Wenn du über das WordPress-Admin-Interface nicht zugreifen kannst:
+
+1. Lade das [snapshot-installer.php Skript](https://github.com/Power-Source/ps-snapshot-installer) herunter
+2. Lade sowohl das Installer-Skript als auch dein Backup-Archiv in dein Webroot-Verzeichnis hoch
+3. Rufe `https://deinedomain.de/snapshot-installer.php` in deinem Browser auf
+4. Folge den Anweisungen auf dem Bildschirm
+
+**Wichtig:** Das Installer-Skript erwartet das Backup-Archiv im selben Verzeichnis, benannt nach der Snapshot v3 Dateikonvention (z.B. `[0-9a-f]{12}\.zip` oder `full_*.zip`).
+
+== Beiträge & Bug Reports ==
+
+Wir freuen uns über deine Mitarbeit!
+
+* [GitHub Repository](https://github.com/Power-Source/ps-snapshot) – Beteilige dich am Quellcode
+* [Bug Reports](https://github.com/Power-Source/ps-snapshot/issues) – Melde Fehler und Probleme
+
+== Frequently Asked Questions ==
+
+= Kann ich mehrere Backup-Ziele gleichzeitig verwenden? =
+
+Derzeit kannst du pro Snapshot nur ein Ziel auswählen. Du kannst aber mehrere verschiedene Snapshots mit unterschiedlichen Zielen erstellen.
+
+= Ist mein Backup verschlüsselt? =
+
+Nein, die Backups werden nicht verschlüsselt. Wenn du sensible Daten hast, solltest du deine Backup-Speicherorte sichern.
+
+= Wie lange dauert ein Backup? =
+
+Die Dauer hängt von der Größe deiner Website ab. Von wenigen Minuten bis zu mehreren Stunden sind möglich.
+
+= Was ist die Mindest-Ausführungszeit? =
+
+Wir empfehlen eine Mindest-Ausführungszeit von 150 Sekunden. Kontaktiere deinen Hosting-Provider, wenn er niedriger eingestellt ist.
+
+== Anforderungen ==
+
+* PHP 7.4 oder höher
+* MySQLi-Modul
+* PHP Zip-Modul
+* Mindestens 150 Sekunden PHP-Ausführungszeit
+* WordPress 4.9+ oder ClassicPress 2.0+
 
 == ChangeLog ==
 
 = 1.0.0 =
 
-* release
+* Erste öffentliche Version
+* Basis-Backup-Funktionalität
+* Unterstützung für lokale und Remote-Speicher
+* Multisite-Unterstützung
+
+== License ==
+
+PS Snapshot ist lizenziert unter der GPLv2 oder später.
+Weitere Informationen: https://www.gnu.org/licenses/gpl-2.0.html
+
+== Weitere Ressourcen ==
+
+* [Dokumentation](https://github.com/Power-Source/ps-snapshot/docs)
+* [GitHub Repository](https://github.com/Power-Source/ps-snapshot)
+* [Restore Skript](https://github.com/Power-Source/ps-snapshot-installer)
