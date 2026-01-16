@@ -18,14 +18,14 @@ Das PS Snapshot Dashboard gibt dir einen Überblick über deine geplanten Backup
 **Verfügbare Speicherorte** – Die Anzahl der Orte, wo deine Backups gespeichert werden können. Eine ausführliche Erklärung zu den Zielen und wie du sie konfigurierst, findest du im Abschnitt „Ziele" in dieser Anleitung.
 **Backup-Plan** – Zeigt an, zu welcher Tageszeit deine Backups täglich geplant sind.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-Dashboard-overview.png)
+![](assets/img/Snapshot-Dashboard-overview.png)
 
 ## 1.2 Snapshots
 
 In Snapshots konfigurierst und führst du Backups aus – entweder auf Abruf oder in regelmäßigen Abständen – um alle oder eine benutzerdefinierte Auswahl von Dateien und Datenbanktabellen einzubeziehen.
 
 Klick auf die Schaltfläche **Snapshot erstellen**, um den Snapshot-Assistenten zu öffnen.
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-Create-Snapsot.png)
+![](assets/img/Snapshot-Create-Snapshot.png)
 
 ### Anforderungen überprüfen
 
@@ -37,7 +37,7 @@ Snapshots können nicht für eine Website erstellt werden, die die Anforderungsp
 **PHP Zip** – Um die von Snapshot erstellte ZIP-Datei zu entpacken, muss das PHP-Zip-Modul installiert und aktiviert sein. Wenn du einen verwalteten Host verwendest, kontaktiere ihn direkt, um es hinzufügen oder aktualisieren zu lassen.
 Wenn deine Website die Prüfung nicht besteht, behebe die Mängel und klick auf „Erneut überprüfen". Sobald die Anforderungsprüfung bestanden ist, fahre mit der Konfiguration eines Snapshots fort.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-wizard-Image-2.png)
+![](assets/img/Snapshot-wizard-Image-2.png)
 
 
 ### Konfiguration
@@ -52,7 +52,7 @@ Verbundene Speicherorte erscheinen als Optionen auf dem Snapshot-Konfigurationsb
 
 Das von Snapshot erstellte Standardziel für lokale Backups ist ein Verzeichnis auf demselben Server, auf dem deine Website gehostet ist. Weitere Informationen zum Verwenden und Ändern dieses Standard-Lokalziels findest du in unserem Leitfaden im Abschnitt „Ziele" unten.
 
-![](https://n3rds.work/wp-content/uploads/2023/03/Snapshot-image-3.png)
+![](assets/img/Snapshot-image-3.png)
 
 Wir empfehlen nicht, deinen lokalen Server als einzigen Backup-Speicherort zu verwenden, aus Sicherheitsgründen, die im Abschnitt „Ziel" in dieser Anleitung erörtert werden. Stattdessen empfehlen wir, mindestens ein Remote-Ziel zu verbinden und es als dein primäres Backup-Ziel zu verwenden.
 
