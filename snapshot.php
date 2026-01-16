@@ -5,7 +5,7 @@ Version: 1.0.1
 Description: Dieses Plugin ermöglicht es Dir, bei Bedarf schnelle Backup-Snapshots Deiner funktionierenden ClassicPress-Datenbank zu erstellen. Du kannst aus den standardmäßigen ClassicPress-Tabellen sowie benutzerdefinierten Plugin-Tabellen innerhalb der Datenbankstruktur auswählen. Alle Snapshots werden protokolliert und Du kannst den Snapshot nach Bedarf wiederherstellen.
 Author: PSOURCE
 Author URI: https://github.com/Power-Source
-Plugin URI: https://cp-psource.github.io/cp-snapshot
+Plugin URI: https://cp-psource.github.io/ps-snapshot
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: snapshot
