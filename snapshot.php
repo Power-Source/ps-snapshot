@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: PS Snapshot
-Version: 1.0.1
+Version: 1.0.2
 Description: Dieses Plugin ermöglicht es Dir, bei Bedarf schnelle Backup-Snapshots Deiner funktionierenden ClassicPress-Datenbank zu erstellen. Du kannst aus den standardmäßigen ClassicPress-Tabellen sowie benutzerdefinierten Plugin-Tabellen innerhalb der Datenbankstruktur auswählen. Alle Snapshots werden protokolliert und Du kannst den Snapshot nach Bedarf wiederherstellen.
 Author: PSOURCE
 Author URI: https://github.com/Power-Source
@@ -26,45 +26,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 */
-
-// PS Update Manager - Hinweis wenn nicht installiert
-add_action( 'admin_notices', function() {
-    // Prüfe ob Update Manager aktiv ist
-    if ( ! function_exists( 'ps_register_product' ) && current_user_can( 'install_plugins' ) ) {
-        $screen = get_current_screen();
-        if ( $screen && in_array( $screen->id, array( 'plugins', 'plugins-network' ) ) ) {
-            // Prüfe ob bereits installiert aber inaktiv
-            $plugin_file = 'ps-update-manager/ps-update-manager.php';
-            $all_plugins = get_plugins();
-            $is_installed = isset( $all_plugins[ $plugin_file ] );
-            
-            echo '<div class="notice notice-warning is-dismissible"><p>';
-            echo '<strong>PS Chat:</strong> ';
-            
-            if ( $is_installed ) {
-                // Installiert aber inaktiv - Aktivierungs-Link
-                $activate_url = wp_nonce_url(
-                    admin_url( 'plugins.php?action=activate&plugin=' . urlencode( $plugin_file ) ),
-                    'activate-plugin_' . $plugin_file
-                );
-                echo sprintf(
-                    __( 'Aktiviere den <a href="%s">PS Update Manager</a> für automatische Updates von GitHub.', 'psource-chat' ),
-                    esc_url( $activate_url )
-                );
-            } else {
-                // Nicht installiert - Download-Link
-                echo sprintf(
-                    __( 'Installiere den <a href="%s" target="_blank">PS Update Manager</a> für automatische Updates aller PSource Plugins & Themes.', 'psource-chat' ),
-                    'https://github.com/Power-Source/ps-update-manager/releases/latest'
-                );
-            }
-            
-            echo '</p></div>';
-        }
-    }
-});
 
 if ( ! defined( 'SNAPSHOT_I18N_DOMAIN' ) ) {
 	define( 'SNAPSHOT_I18N_DOMAIN', 'snapshot' );
@@ -125,7 +87,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$this->plugin_url = plugin_dir_url( __FILE__ );
 
 			$this->DEBUG = false;
-			$this->_settings['SNAPSHOT_VERSION'] = '1.0.1';
+			$this->_settings['SNAPSHOT_VERSION'] = '1.0.2';
 
 			if ( is_multisite() ) {
 				$this->_settings['SNAPSHOT_MENU_URL'] = network_admin_url() . 'admin.php?page=';

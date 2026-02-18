@@ -3,7 +3,7 @@ Contributors: PSOURCE
 Tags: multisite, snapshot, backups, classicpress-plugin
 Requires at least: 4.9
 Tested up to: WordPress 6.8.1, ClassicPress 2.6.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,11 @@ Wir empfehlen eine Mindest-Ausführungszeit von 150 Sekunden. Kontaktiere deinen
 * WordPress 4.9+ oder ClassicPress 2.0+
 
 == ChangeLog ==
+
+= 1.0.2 =
+
+* Hinzugefügt: Netzwerk-Backup
+* Einige Bugfixes
 
 = 1.0.1 =
 

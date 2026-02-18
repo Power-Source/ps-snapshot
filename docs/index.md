@@ -7,7 +7,7 @@ title: "PS SnapShot"
 
 <div class="menu">
   <a href="https://github.com/Power-Source/ps-snapshot/releases" style="color:#38c2bb;">DOWNLOAD</a>
-  <a href="https://github.com/Power-Source/ps-snapshot-installer/releases/tag/1.0.1" style="color:#38c2bb;">RESTORE TOOL</a>
+  <a href="https://github.com/Power-Source/ps-snapshot-installer/releases/tag/1.0.1" style="color:#38c2bb;">RESTORE SKRIPT</a>
 </div>
 
 ## 1.1 Dashboard
