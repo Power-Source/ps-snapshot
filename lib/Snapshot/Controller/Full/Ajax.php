@@ -518,8 +518,17 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * @return void
 	 */
 	public function json_check_backup_status() {
-		if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+		// Basic capability check
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json( array(
+				'running' => false,
+				'id' => null,
+				'current' => 0,
+				'total' => 0,
+				'start_time' => 0,
+				'debug' => 'No manage_options capability',
+			) );
+			return;
 		}
 
 		$backup_id = get_site_option( 'snapshot_network_backup_current_id' );
@@ -527,33 +536,57 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			wp_send_json( array(
 				'running' => false,
 				'id' => null,
+				'current' => 0,
+				'total' => 0,
+				'start_time' => 0,
+				'debug' => 'No backup_id in options',
 			) );
 			return;
 		}
 
 		// Check if backup with this ID still exists and is running
 		$backup = Snapshot_Helper_Backup::load( $backup_id );
-		if ( ! $backup || $backup->is_finished() ) {
+		if ( ! $backup ) {
 			delete_site_option( 'snapshot_network_backup_current_id' );
 			delete_site_option( 'snapshot_network_backup_start_time' );
 			wp_send_json( array(
 				'running' => false,
 				'id' => null,
+				'current' => 0,
+				'total' => 0,
+				'start_time' => 0,
+				'debug' => 'Backup cannot be loaded',
+			) );
+			return;
+		}
+
+		$is_done = $backup->is_done();
+		if ( $is_done ) {
+			delete_site_option( 'snapshot_network_backup_current_id' );
+			delete_site_option( 'snapshot_network_backup_start_time' );
+			wp_send_json( array(
+				'running' => false,
+				'id' => null,
+				'current' => 0,
+				'total' => 0,
+				'start_time' => 0,
+				'debug' => 'Backup is finished',
 			) );
 			return;
 		}
 
 		// Get progress info
-		$total_steps = $backup->get_total_steps_estimate();
-		$current_steps = $backup->get_processed_count();
-		$start_time = get_site_option( 'snapshot_network_backup_start_time' );
+		$total_steps = (int) $backup->get_total_steps_estimate();
+		$current_steps = (int) $backup->get_processed_steps();
+		$start_time = (int) get_site_option( 'snapshot_network_backup_start_time', 0 );
 
 		wp_send_json( array(
 			'running' => true,
 			'id' => $backup_id,
 			'current' => $current_steps,
 			'total' => $total_steps,
-			'start_time' => $start_time ? (int) $start_time : 0,
+			'start_time' => $start_time,
+			'debug' => 'Backup running normally',
 		) );
 	}
 

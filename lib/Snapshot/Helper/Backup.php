@@ -257,6 +257,25 @@ class Snapshot_Helper_Backup {
 	}
 
 	/**
+	 * Get the number of steps already processed
+	 *
+	 * @return int Number of completed steps
+	 */
+	public function get_processed_steps () {
+		$processed = 0;
+		if (empty($this->_queues)) return $processed;
+
+		foreach ($this->_queues as $queue) {
+			if ($queue->is_done()) {
+				// This queue is complete, add all its steps
+				$processed += $queue->get_total_steps();
+			}
+		}
+
+		return $processed;
+	}
+
+	/**
 	 * Call clear on all queues
 	 *
 	 * @return bool
