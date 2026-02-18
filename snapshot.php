@@ -8312,6 +8312,9 @@ function snapshot_handle_network_backup_cron( $schedule = array() ) {
 		return;
 	}
 
+	// Get destination from schedule
+	$destination = ! empty( $schedule['destination'] ) ? $schedule['destination'] : 'local';
+
 	// Start the backup
 	$backup_model = Snapshot_Model_Full_Backup::get();
 	if ( ! $backup_model ) {
@@ -8322,6 +8325,8 @@ function snapshot_handle_network_backup_cron( $schedule = array() ) {
 	try {
 		$backup_id = $backup_model->start_backup();
 		if ( $backup_id ) {
+			// Save destination with backup
+			update_site_option( 'snapshot_network_backup_destination', $destination );
 			do_action( 'snapshot_network_backup_started', $backup_id, $schedule );
 		}
 	} catch ( Exception $e ) {

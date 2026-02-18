@@ -74,7 +74,7 @@
 				</div>
 				<div class="wpmud-box-content" style="padding:15px;">
 					<p style="margin:0 0 12px 0;">
-						<?php esc_html_e( 'Falls Deine WordPress-Seite nicht mehr erreichbar ist und Du nicht auf das Dashboard zugreifen kannst, kannst Du die Seite mit unserem Recovery-Skript wiederherstellen.', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php esc_html_e( 'Falls Deine Webseite nicht mehr erreichbar ist und Du nicht auf das Dashboard zugreifen kannst, kannst Du die Seite mit unserem Recovery-Skript wiederherstellen.', SNAPSHOT_I18N_DOMAIN ); ?>
 					</p>
 					<ol style="margin:12px 0; padding-left:20px;">
 						<li style="margin-bottom:8px;">
@@ -92,7 +92,7 @@
 					</ol>
 					<p style="margin:12px 0 0 0;">
 						<strong><?php esc_html_e( '💾 Recovery-Skript herunterladen:', SNAPSHOT_I18N_DOMAIN ); ?></strong><br>
-						<a href="<?php echo esc_url( plugins_url( 'snapshot-recovery.php', dirname( dirname( __FILE__ ) ) ) ); ?>" class="button button-secondary" style="margin-top:8px;" download>
+						<a href="https://github.com/Power-Source/ps-snapshot-installer/releases" class="button button-secondary" style="margin-top:8px;" target="_blank">
 							<?php esc_html_e( '📥 snapshot-recovery.php herunterladen', SNAPSHOT_I18N_DOMAIN ); ?>
 						</a>
 					</p>

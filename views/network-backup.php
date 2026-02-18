@@ -26,6 +26,34 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 		</div>
 		<div class="wpmud-box-content">
 			<p><?php esc_html_e( 'Diese Aktion erstellt ein vollständiges Backup des gesamten Netzwerks (Dateien + Datenbanktabellen).', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			
+			<div style="margin-bottom:15px;">
+				<label for="snapshot-network-backup-destination" style="display:block; margin-bottom:8px; font-weight:bold;">
+					<?php esc_html_e( 'Speicherort:', SNAPSHOT_I18N_DOMAIN ); ?>
+				</label>
+				<select id="snapshot-network-backup-destination" style="padding:8px; min-width:250px; border:1px solid #ddd; border-radius:3px;">
+					<option value="local"><?php esc_html_e( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN ); ?></option>
+					<?php
+					$models = new Snapshot_Model_Full_Backup();
+					$destinations = PSOURCESnapshot::instance()->config_data['destinations'];
+					if ( ! empty( $destinations ) ) {
+						foreach ( $destinations as $key => $destination ) {
+							// Get the destination class to get type name
+							$all_destination_classes = PSOURCESnapshot::instance()->get_setting( 'destinationClasses' );
+							$type_name = isset( $all_destination_classes[ $destination['type'] ] ) 
+								? $all_destination_classes[ $destination['type'] ]->name_display 
+								: $destination['type'];
+							?>
+							<option value="<?php echo esc_attr( $key ); ?>">
+								<?php echo esc_html( $destination['name'] . ' (' . $type_name . ')' ); ?>
+							</option>
+							<?php
+						}
+					}
+					?>
+				</select>
+			</div>
+
 			<p>
 				<button id="snapshot-network-backup-start" class="button button-blue"><?php esc_html_e( 'Netzwerk-Backup jetzt starten', SNAPSHOT_I18N_DOMAIN ); ?></button>
 				<button id="snapshot-network-backup-abort" class="button button-secondary" style="display:none;margin-left:10px;"><?php esc_html_e( 'Backup abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></button>
@@ -50,11 +78,11 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 			<h3><?php esc_html_e( 'Wöchentliche Zeitplanung', SNAPSHOT_I18N_DOMAIN ); ?></h3>
 		</div>
 		<div class="wpmud-box-content">
-			<p><?php esc_html_e( 'Konfigurieren Sie an welchen Wochentagen und um welche Uhrzeit automatische Backups durchgeführt werden sollen. Das Backup läuft im Hintergrund ohne dass der Browser-Tab offen sein muss.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Konfiguriere an welchen Wochentagen und um welche Uhrzeit automatische Backups durchgeführt werden sollen. Das Backup läuft im Hintergrund ohne dass der Browser-Tab offen sein muss.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 			
 			<div>
 				<fieldset>
-					<legend style="font-weight:bold;margin-bottom:10px;"><?php esc_html_e( 'Backup-Tage (Wählen Sie mindestens einen Tag aus)', SNAPSHOT_I18N_DOMAIN ); ?></legend>
+					<legend style="font-weight:bold;margin-bottom:10px;"><?php esc_html_e( 'Backup-Tage (Wähle mindestens einen Tag aus)', SNAPSHOT_I18N_DOMAIN ); ?></legend>
 					<div style="margin-left:10px;">
 						<label><input type="checkbox" name="snapshot-schedule-day" value="1" class="snapshot-schedule-day"> Montag</label><br>
 						<label><input type="checkbox" name="snapshot-schedule-day" value="2" class="snapshot-schedule-day"> Dienstag</label><br>
@@ -71,7 +99,24 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 				<label for="snapshot-schedule-time"><strong><?php esc_html_e( 'Uhrzeit für Backup-Start', SNAPSHOT_I18N_DOMAIN ); ?></strong></label><br>
 				<input type="time" id="snapshot-schedule-time" value="02:00" style="margin-top:5px;">
 				<p style="font-size:11px;color:#888;">
-					<?php esc_html_e( 'Wählen Sie eine Uhrzeit mit niedrigerem Serveraufkommen, z.B. nachts.', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php esc_html_e( 'Wähle eine Uhrzeit mit niedrigerem Serveraufkommen, z.B. nachts.', SNAPSHOT_I18N_DOMAIN ); ?>
+				</p>
+			</div>
+
+			<div style="margin-top:20px;">
+				<label for="snapshot-schedule-destination"><strong><?php esc_html_e( 'Speicherort für geplante Backups', SNAPSHOT_I18N_DOMAIN ); ?></strong></label><br>
+				<select id="snapshot-schedule-destination" style="margin-top:5px;max-width:400px;">
+					<option value="local"><?php esc_html_e( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN ); ?></option>
+					<?php foreach ( $destinations as $key => $destination ) {
+						$type_name = isset( $destination_classes[ $destination['type'] ] ) ? $destination_classes[ $destination['type'] ] : $destination['type'];
+					?>
+						<option value="<?php echo esc_attr( $key ); ?>">
+							<?php echo esc_html( $destination['name'] . ' (' . $type_name . ')' ); ?>
+						</option>
+					<?php } ?>
+				</select>
+				<p style="font-size:11px;color:#888;margin-top:5px;">
+					<?php esc_html_e( 'Backups werden immer lokal erstellt und dann zu diesem Speicherort hochgeladen.', SNAPSHOT_I18N_DOMAIN ); ?>
 				</p>
 			</div>
 
@@ -294,8 +339,12 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 		$('#snapshot-network-backup-start').prop('disabled', true);
 		$('#snapshot-network-backup-abort').show().prop('disabled', false);
 		var startedAt = Date.now();
+		var selectedDestination = $('#snapshot-network-backup-destination').val() || 'local';
 
-		$.post(ajaxurl, { action: 'snapshot-full_backup-start' })
+		$.post(ajaxurl, { 
+			action: 'snapshot-full_backup-start',
+			destination: selectedDestination
+		})
 			.done(function(resp){
 				debugLog('Backup start response:', resp);
 				if (!resp || !resp.id) {
@@ -536,6 +585,9 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					if (schedule.time) {
 						$('#snapshot-schedule-time').val(schedule.time);
 					}
+					if (schedule.destination) {
+						$('#snapshot-schedule-destination').val(schedule.destination);
+					}
 					displayScheduleInfo(schedule);
 				}
 			});
@@ -592,10 +644,13 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 			return;
 		}
 
+		var destination = $('#snapshot-schedule-destination').val() || 'local';
+
 		var data = {
 			action: 'snapshot-network_backup-save_schedule',
 			days: days,
 			time: time,
+			destination: destination,
 			security: '<?php echo wp_create_nonce( 'snapshot-network-backup-schedule' ); ?>'
 		};
 
@@ -625,7 +680,15 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 
 		var dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 		var daysText = schedule.days.map(function(d){ return dayNames[d]; }).join(', ');
-		$('#snapshot-schedule-info-text').html('Täglich ' + daysText + ' um ' + schedule.time + ' Uhr');
+		var destinationText = '';
+		if (schedule.destination && schedule.destination !== 'local') {
+			var destSelect = $('#snapshot-schedule-destination');
+			var destLabel = destSelect.find('option[value="' + schedule.destination + '"]').text();
+			if (destLabel) {
+				destinationText = ' (Speicherort: ' + destLabel + ')';
+			}
+		}
+		$('#snapshot-schedule-info-text').html('Täglich ' + daysText + ' um ' + schedule.time + ' Uhr' + destinationText);
 		
 		if (schedule.next_backup) {
 			$('#snapshot-next-backup-time').text(schedule.next_backup);

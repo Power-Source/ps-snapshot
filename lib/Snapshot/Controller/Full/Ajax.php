@@ -409,6 +409,11 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		update_site_option('snapshot_network_backup_current_id', $idx);
 		update_site_option('snapshot_network_backup_start_time', time());
 
+		// Save selected destination
+		$data = stripslashes_deep($_POST);
+		$destination = !empty($data['destination']) ? sanitize_text_field($data['destination']) : 'local';
+		update_site_option('snapshot_network_backup_destination', $destination);
+
 		// Calculate and save total backup size
 		$backup = Snapshot_Helper_Backup::load($idx);
 		$total_size = $backup ? $backup->get_total_size_bytes() : 0;
@@ -672,12 +677,14 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$schedule = get_site_option( 'snapshot_network_backup_schedule', array() );
 		$days = isset( $schedule['days'] ) ? $schedule['days'] : array();
 		$time = isset( $schedule['time'] ) ? $schedule['time'] : '02:00';
+		$destination = isset( $schedule['destination'] ) ? $schedule['destination'] : 'local';
 		$next_backup = isset( $schedule['next_backup'] ) ? $schedule['next_backup'] : '';
 
 		wp_send_json( array(
 			'schedule' => array(
 				'days' => is_array( $days ) ? $days : array(),
 				'time' => $time,
+				'destination' => $destination,
 				'next_backup' => $next_backup,
 			),
 		) );
@@ -697,6 +704,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 
 		$days = isset( $_POST['days'] ) ? (array) $_POST['days'] : array();
 		$time = isset( $_POST['time'] ) ? sanitize_text_field( wp_unslash( $_POST['time'] ) ) : '02:00';
+		$destination = isset( $_POST['destination'] ) ? sanitize_text_field( wp_unslash( $_POST['destination'] ) ) : 'local';
 
 		// Validate days
 		$allowed_days = array( 0, 1, 2, 3, 4, 5, 6 );
@@ -724,6 +732,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$schedule = array(
 			'days' => $days,
 			'time' => $time,
+			'destination' => $destination,
 			'next_backup' => $next_backup,
 		);
 
