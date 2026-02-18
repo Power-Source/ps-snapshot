@@ -213,6 +213,24 @@ class PSOURCESnapshot_New_Ui_Tester {
 		$this->render( 'settings' );
 	}
 
+	public function network_backup() {
+		$model = new Snapshot_Model_Full_Backup();
+		$backups = $model->get_backups();
+
+		if ( is_array( $backups ) && count( $backups ) ) {
+			$timestamps = array();
+			foreach ( $backups as $idx => $backup_item ) {
+				$timestamps[ $idx ] = isset( $backup_item['timestamp'] ) ? intval( $backup_item['timestamp'] ) : 0;
+			}
+			array_multisort( $timestamps, SORT_DESC, $backups );
+		}
+
+		$this->render( 'network-backup', false, array(
+			'model' => $model,
+			'backups' => $backups,
+		) );
+	}
+
 	/**
 	 * @param string $file
 	 * @param bool   $deprecated

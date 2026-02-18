@@ -131,6 +131,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		if (!$this->_is_backup_processing_ready()) die;
 
 		$data = stripslashes_deep($_POST);
+				$delete_archive = !empty($data['delete_archive']) && $data['delete_archive'] === '1';
 		$timestamp = !empty($data['idx']) && is_numeric($data['idx'])
 			? $data['idx']
 			: false
@@ -280,6 +281,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	public function json_start_restore () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die; // Only some users can restore
 		if (!$this->_is_backup_processing_ready()) die;
+		check_ajax_referer('snapshot-full-backup-restore', 'security');
 
 		$data = stripslashes_deep($_POST);
 		$archive = !empty($data['archive']) && is_numeric($data['archive'])
@@ -348,8 +350,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			: $restore->process_files()
 		;
 
-		// TODO: this should be handled separately
-		if ('clearing' === $task) {
+		if ('clearing' === $task && $delete_archive) {
 			@unlink($archive_path);
 		}
 
@@ -384,6 +385,12 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * First in the cascade of requests actually performing the backup
 	 */
 	public function json_start_backup () {
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+
+		if (!$this->_model->is_active()) {
+			$this->_model->set_config('active', true);
+		}
+
 		if (!$this->_is_backup_processing_ready()) die;
 
 		// Signal intent - starting action
@@ -405,6 +412,8 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * This will get called repeatedly, as long as the backup isn't ready
 	 */
 	public function json_process_backup () {
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+
 		$data = stripslashes_deep($_POST);
 		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();
 
@@ -445,6 +454,8 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * The last in the cascade of requests actually performing the backup
 	 */
 	public function json_finish_backup () {
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+
 		$data = stripslashes_deep($_POST);
 		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();
 

@@ -527,6 +527,17 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				array( $this->_new_ui_tester, 'settings' )
 			);
 
+			if ( is_multisite() && is_network_admin() ) {
+				$this->_pagehooks['snapshots-newui-network-backup'] = add_submenu_page(
+					'snapshot_dashboard',
+					_x( 'Netzwerk-Backup', 'page label', SNAPSHOT_I18N_DOMAIN ),
+					_x( 'Netzwerk-Backup', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+					'manage_options',
+					'snapshot_network_backup',
+					array( $this->_new_ui_tester, 'network_backup' )
+				);
+			}
+
 			// Hook into the WordPress load page action for our new nav items. This is better then checking page query_str values.
 			$panels = array( 'dashboard', 'snapshots', 'destinations', 'import', 'settings' );
 			$extra_actions = array( 'destinations' => 'on_load_destination_panels' );
@@ -556,8 +567,6 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				'snapshots_destinations_panel' => 'snapshots-newui-destinations',
 				'snapshots_import_panel' => 'snapshots-newui-import',
 				'snapshots_settings_panel' => 'snapshots-newui-settings',
-				// Map legacy managed backups slug to snapshots list
-				'snapshots_full_backup_panel' => 'snapshots-newui-snapshots',
 			);
 
 			if ( isset( $page_map[ $_GET['page'] ] ) ) {
@@ -7874,7 +7883,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$item_files = array();
 			$home_path = apply_filters( 'snapshot_home_path', get_home_path() );
 
-			if ( ! isset( $item['files-option'] ) || ! is_array( $item['files-option'] ) || ! count( $item['files-option'] ) ) {
+			if ( ! isset( $item['files-option'] ) || ! is_string( $item['files-option'] ) || ! strlen( $item['files-option'] ) ) {
 				return $item_files;
 			}
 
