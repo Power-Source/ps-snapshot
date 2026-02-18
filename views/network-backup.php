@@ -10,16 +10,14 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 
 <section id="header">
 	<h1><?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?></h1>
-	<div style="margin-top:10px;">
-		<button id="snapshot-debug-toggle" class="button button-secondary" style="font-size:11px; padding:2px 8px;"><?php esc_html_e( 'Debug aktivieren', SNAPSHOT_I18N_DOMAIN ); ?></button>
-	</div>
 </section>
 
-<div style="display:none; background:#f0f0f0; padding:10px; margin:10px 0; border:1px solid #ccc; font-family:monospace; font-size:11px; max-height:200px; overflow-y:auto;" id="snapshot-debug-panel">
+<?php if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) : ?>
+<div style="background:#f0f0f0; padding:10px; margin:10px 0; border:1px solid #ccc; font-family:monospace; font-size:11px; max-height:200px; overflow-y:auto;" id="snapshot-debug-panel">
 	<strong>Debug-Log:</strong>
 	<div id="snapshot-debug-log" style="margin-top:5px;"></div>
-	<button onclick="document.getElementById('snapshot-debug-panel').style.display='none';" style="margin-top:5px;">Schließen</button>
 </div>
+<?php endif; ?>
 
 <div id="container" class="snapshot-three wps-page-settings">
 	<section class="wpmud-box">
@@ -30,22 +28,13 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 			<p><?php esc_html_e( 'Diese Aktion erstellt ein vollständiges Backup des gesamten Netzwerks (Dateien + Datenbanktabellen).', SNAPSHOT_I18N_DOMAIN ); ?></p>
 			<p>
 				<button id="snapshot-network-backup-start" class="button button-blue"><?php esc_html_e( 'Netzwerk-Backup jetzt starten', SNAPSHOT_I18N_DOMAIN ); ?></button>
+				<button id="snapshot-network-backup-abort" class="button button-secondary" style="display:none;margin-left:10px;"><?php esc_html_e( 'Backup abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></button>
 			</p>
 			<div id="snapshot-network-progress" style="display:none;max-width:760px;">
-				<style>
-					@keyframes backup-loading {
-						0% { background-position: 0% 50%; }
-						50% { background-position: 100% 50%; }
-						100% { background-position: 0% 50%; }
-					}
-					.backup-progress-bar {
-						background: linear-gradient(90deg, #2ea2cc, #1e90ff, #2ea2cc);
-						background-size: 200% 100%;
-						animation: backup-loading 2s ease-in-out infinite;
-					}
-				</style>
-				<div style="background:#e5e5e5;border-radius:4px;height:10px;overflow:hidden;">
-					<div class="backup-progress-bar" style="height:10px;width:100%;"></div>
+				<div style="background:#e5e5e5;border-radius:4px;height:20px;overflow:hidden;position:relative;">
+					<div id="snapshot-network-progress-bar" style="height:20px;width:0%;background:#2ea2cc;transition:width 0.3s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;">
+						<span id="snapshot-network-progress-percent" style="color:white;font-size:11px;font-weight:bold;text-shadow:0 1px 2px rgba(0,0,0,0.3);">0%</span>
+					</div>
 				</div>
 				<div style="margin-top:8px;font-size:12px;">
 					<strong id="snapshot-network-status-text">Backup läuft …</strong>
@@ -188,6 +177,9 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 	var currentBackupTotal = 0;
 	var currentBackupId = null;
 	var currentBackupStartTime = 0;
+	var currentBackupTotalSize = 0; // in bytes
+	var currentBackupProcessedSize = 0; // in bytes
+	var backupStatusCheckCounter = 0; // Counter for periodic status checks
 
 	function setStatus(message, type) {
 		var $status = $('#snapshot-network-backup-status');
@@ -219,6 +211,31 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 		var elapsed = (Date.now() - startedAt) / 1000; // in seconds
 		var elapsedText = 'Laufzeit: ' + formatTime(elapsed);
 		$('#snapshot-network-time-elapsed').text(elapsedText);
+		
+		// Show progress based on size if available
+		if (currentBackupTotalSize > 0) {
+			var percent = Math.round((currentBackupProcessedSize / currentBackupTotalSize) * 100);
+			percent = Math.min(100, Math.max(1, percent)); // Between 1% and 100%
+			
+			// Update progress bar width and percentage text
+			$('#snapshot-network-progress-bar').css('width', percent + '%');
+			$('#snapshot-network-progress-percent').text(percent + '%');
+			
+			var sizeText = formatBytes(currentBackupProcessedSize) + ' / ' + formatBytes(currentBackupTotalSize);
+			$('#snapshot-network-status-text').text('Backup läuft … ' + sizeText);
+		} else {
+			$('#snapshot-network-status-text').text('Backup läuft …');
+			$('#snapshot-network-progress-bar').css('width', '0%');
+			$('#snapshot-network-progress-percent').text('0%');
+		}
+	}
+
+	function formatBytes(bytes) {
+		if (bytes === 0) return '0 B';
+		var k = 1024;
+		var sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+		var i = Math.floor(Math.log(bytes) / Math.log(k));
+		return Math.round(bytes / Math.pow(k, i) * 10) / 10 + ' ' + sizes[i];
 	}
 
 
@@ -239,12 +256,43 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 	function ajaxError(xhr) {
 		var text = (xhr && xhr.responseText) ? xhr.responseText : 'Unbekannter Fehler';
 		setStatus('Fehler: ' + text, 'notice-error');
+		$('#snapshot-network-backup-start').prop('disabled', false);
+		$('#snapshot-network-backup-abort').hide();
+	}
+
+	function abortBackup() {
+		if (!currentBackupId) return;
+		
+		if (!confirm('Möchten Sie das laufende Backup wirklich abbrechen?')) {
+			return;
+		}
+		
+		debugLog('Aborting backup:', currentBackupId);
+		$('#snapshot-network-backup-abort').prop('disabled', true);
+		
+		$.post(ajaxurl, { action: 'snapshot-full_backup-abort', idx: currentBackupId })
+			.done(function(resp){
+				debugLog('Abort response:', resp);
+				setStatus('Backup abgebrochen.', 'notice-warning');
+				$('#snapshot-network-progress').hide();
+				$('#snapshot-network-backup-start').prop('disabled', false);
+				$('#snapshot-network-backup-abort').hide();
+				currentBackupId = null;
+				currentBackupTotalSize = 0;
+				currentBackupProcessedSize = 0;
+			})
+			.fail(function(xhr){
+				debugLog('Abort failed:', xhr);
+				ajaxError(xhr);
+				$('#snapshot-network-backup-abort').prop('disabled', false);
+			});
 	}
 
 	function doStartBackup() {
 		debugLog('Starting new backup...');
 		setStatus('Backup wird gestartet …', 'notice-info');
 		$('#snapshot-network-backup-start').prop('disabled', true);
+		$('#snapshot-network-backup-abort').show().prop('disabled', false);
 		var startedAt = Date.now();
 
 		$.post(ajaxurl, { action: 'snapshot-full_backup-start' })
@@ -257,6 +305,17 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					return;
 				}
 				debugLog('Backup started with ID:', resp.id);
+				
+				// Store total size
+				currentBackupTotalSize = resp.total_size ? parseInt(resp.total_size, 10) : 0;
+				currentBackupProcessedSize = 0;
+				if (currentBackupTotalSize > 0) {
+					debugLog('Backup size: ' + formatBytes(currentBackupTotalSize));
+				}
+				
+				// Force first size check immediately
+				backupStatusCheckCounter = 2;
+				
 				// Estimate total steps and start processing
 				fetchEstimate(function(totalSteps){
 					debugLog('Backup estimate:', totalSteps);
@@ -295,10 +354,24 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 		$.post(ajaxurl, { action: 'snapshot-full_backup-process', idx: id })
 			.done(function(resp){
 				debugLog('Backup process response:', resp);
+				
+				// Check again if backup was aborted
+				if (!currentBackupId || currentBackupId !== id) {
+					debugLog('Backup was aborted, stopping AJAX loop');
+					return;
+				}
+				
 				if (!resp) {
 					debugLog('ERROR: Invalid response from backup process');
 					setStatus('Ungültige Antwort beim Backup-Prozess.', 'notice-error');
 					$('#snapshot-network-backup-start').prop('disabled', false);
+					$('#snapshot-network-backup-abort').hide();
+					return;
+				}
+
+				// Check if server says backup was aborted
+				if (resp.error && resp.error === 'Backup was aborted') {
+					debugLog('Server confirms backup was aborted');
 					return;
 				}
 
@@ -306,6 +379,22 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					debugLog('Backup done, finishing...');
 					doFinishBackup(id, startedAt);
 					return;
+				}
+
+// Every 3 calls, check status for size updates
+			backupStatusCheckCounter++;
+			if (backupStatusCheckCounter >= 3) {
+				backupStatusCheckCounter = 0;
+				$.post(ajaxurl, { action: 'snapshot-network_backup-check_status' })
+					.done(function(statusResp){
+						if (statusResp && statusResp.total_size !== undefined) {
+							currentBackupTotalSize = parseInt(statusResp.total_size, 10) || 0;
+							currentBackupProcessedSize = parseInt(statusResp.processed_size, 10) || 0;
+							debugLog('Size update: ' + formatBytes(currentBackupProcessedSize) + ' / ' + formatBytes(currentBackupTotalSize));
+							// Trigger progress update immediately
+							updateProgress(step, totalSteps, startedAt);
+							}
+						});
 				}
 
 				setTimeout(function(){ doProcessBackup(id, step + 1, totalSteps, startedAt); }, 400);
@@ -320,11 +409,15 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 	function doFinishBackup(id, startedAt) {
 		setStatus('Backup wird abgeschlossen …', 'notice-info');
 		updateProgress(1, 1, startedAt || Date.now());
+		$('#snapshot-network-backup-abort').hide();
 
 		$.post(ajaxurl, { action: 'snapshot-full_backup-finish', idx: id })
 			.done(function(resp){
 				if (resp && resp.status) {
 					setStatus('Netzwerk-Backup erfolgreich erstellt.', 'notice-success');
+					currentBackupId = null;
+					currentBackupTotalSize = 0;
+					currentBackupProcessedSize = 0;
 					setTimeout(function(){
 						window.location.reload();
 					}, 2000);
@@ -333,10 +426,12 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 
 				setStatus('Backup abgeschlossen, aber Status ist unklar.', 'notice-error');
 				$('#snapshot-network-backup-start').prop('disabled', false);
+				$('#snapshot-network-backup-abort').hide();
 			})
 			.fail(function(xhr){
 				ajaxError(xhr);
 				$('#snapshot-network-backup-start').prop('disabled', false);
+				$('#snapshot-network-backup-abort').hide();
 			});
 	}
 
@@ -455,9 +550,14 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					debugLog('Found running backup, resuming AJAX loop...:', resp.id);
 					// A backup is running - resume the AJAX processing loop
 					$('#snapshot-network-backup-start').prop('disabled', true);
+					$('#snapshot-network-backup-abort').show().prop('disabled', false);
 					var startTime = resp.start_time ? resp.start_time * 1000 : Date.now();
 					var totalSteps = parseInt(resp.total, 10) || 0;
 					var currentStep = parseInt(resp.current, 10) || 1;
+					
+					// Restore size information
+					currentBackupTotalSize = resp.total_size ? parseInt(resp.total_size, 10) : 0;
+					currentBackupProcessedSize = resp.processed_size ? parseInt(resp.processed_size, 10) : 0;
 					
 					setStatus('Backup läuft …', 'notice-info');
 					$('#snapshot-network-progress').show();
@@ -545,6 +645,11 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 		$('#snapshot-network-backup-start').on('click', function(e){
 			e.preventDefault();
 			doStartBackup();
+		});
+
+		$('#snapshot-network-backup-abort').on('click', function(e){
+			e.preventDefault();
+			abortBackup();
 		});
 
 		$(document).on('click', '.snapshot-network-restore', function(e){

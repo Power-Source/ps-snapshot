@@ -276,6 +276,101 @@ class Snapshot_Helper_Backup {
 	}
 
 	/**
+	 * Estimate total backup size in bytes
+	 *
+	 * Scans the files that will be backed up and estimates their total size
+	 *
+	 * @return int Total size in bytes
+	 */
+	public function get_total_size_bytes () {
+		$total_size = 0;
+		if (empty($this->_queues)) return $total_size;
+
+		foreach ($this->_queues as $queue) {
+			// Only process file queues, not table queues
+			if (stripos(get_class($queue), 'Fileset') === false) continue;
+
+			$sources = $queue->get_sources();
+			if (empty($sources) || !is_array($sources)) continue;
+
+			foreach ($sources as $source) {
+				$source_obj = Snapshot_Model_Fileset::get_source($source);
+				if (!$source_obj) continue;
+
+				// Get all files for this source
+				$files = $source_obj->get_files();
+				if (empty($files) || !is_array($files)) continue;
+
+				foreach ($files as $file) {
+					if (is_file($file) && !is_link($file)) {
+						$size = @filesize($file);
+						if ($size !== false) {
+							$total_size += $size;
+						}
+					}
+				}
+			}
+		}
+
+		return $total_size;
+	}
+
+	/**
+	 * Get the size of files already created in the backup
+	 *
+	 * Counts actual files written to the backup directory
+	 *
+	 * @return int Size in bytes
+	 */
+	public function get_backup_directory_size () {
+		$backup_size = 0;
+		$path = $this->get_path($this->_idx);
+		if (empty($path) || !is_dir($path)) return $backup_size;
+
+		// Recursively count all file sizes in the backup directory
+		$files = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+			RecursiveIteratorIterator::CHILD_FIRST
+		);
+
+		foreach ($files as $fileinfo) {
+			if ($fileinfo->isFile()) {
+				$size = @filesize($fileinfo->getRealPath());
+				if ($size !== false) {
+					$backup_size += $size;
+				}
+			}
+		}
+
+		return $backup_size;
+	}
+
+	/**
+	 * Update backup size incrementally with caching
+	 * Only performs full scan every N calls to reduce I/O
+	 *
+	 * @return int Updated backup size in bytes
+	 */
+	public function update_backup_size_incremental () {
+		$backup_id = $this->_idx;
+		$process_counter = (int)get_site_option('snapshot_backup_process_counter_' . $backup_id, 0);
+		$process_counter++;
+
+		// Only do full scan every 10 calls to reduce filesystem load
+		if ($process_counter >= 10 || $process_counter === 1) {
+			// Full scan
+			$current_size = $this->get_backup_directory_size();
+			update_site_option('snapshot_network_backup_processed_size', $current_size);
+			update_site_option('snapshot_backup_process_counter_' . $backup_id, 0); // Reset counter
+			return $current_size;
+		} else {
+			// No scan needed this call, keep using cached size
+			update_site_option('snapshot_backup_process_counter_' . $backup_id, $process_counter);
+			return (int)get_site_option('snapshot_network_backup_processed_size', 0);
+		}
+	}
+
+	/**
 	 * Call clear on all queues
 	 *
 	 * @return bool

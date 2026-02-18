@@ -43,7 +43,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		add_action( 'wp_ajax_snapshot-full_backup-estimate', array( $this, 'json_estimate_backup' ) );
 		add_action( 'wp_ajax_snapshot-full_backup-process', array( $this, 'json_process_backup' ) );
 		add_action( 'wp_ajax_snapshot-full_backup-finish', array( $this, 'json_finish_backup' ) );
-		add_action( 'wp_ajax_snapshot-full_backup-abort', array( $this, 'json_finish_backup' ) );
+		add_action( 'wp_ajax_snapshot-full_backup-abort', array( $this, 'json_abort_backup' ) );
 
 		add_action( 'wp_ajax_snapshot-full_backup-restore', array( $this, 'json_start_restore' ) );
 
@@ -409,8 +409,18 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		update_site_option('snapshot_network_backup_current_id', $idx);
 		update_site_option('snapshot_network_backup_start_time', time());
 
+		// Calculate and save total backup size
+		$backup = Snapshot_Helper_Backup::load($idx);
+		$total_size = $backup ? $backup->get_total_size_bytes() : 0;
+		update_site_option('snapshot_network_backup_total_size', $total_size);
+		update_site_option('snapshot_network_backup_processed_size', 0);
+		// Initialize process counter for incremental size tracking
+		update_site_option('snapshot_backup_process_counter_' . $idx, 0);
+
 		wp_send_json(array(
 			'id' => $idx,
+			'total_size' => $total_size,
+			'total_size_formatted' => size_format($total_size),
 		));
 	}
 
@@ -424,6 +434,16 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 
 		$data = stripslashes_deep($_POST);
 		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();
+
+		// Check if backup was aborted (current_id option will be deleted)
+		$current_id = get_site_option('snapshot_network_backup_current_id');
+		if (!$current_id || $current_id !== $idx) {
+			// Backup was aborted, return error
+			wp_send_json(array(
+				'done' => true,
+				'error' => 'Backup was aborted'
+			));
+		}
 
 		$status = false;
 		try {
@@ -449,6 +469,12 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			do_action($this->get_filter('ajax-error-stop'), 'process', $key, $msg); // Notify anyone interested
 
 			die(esc_js($msg));
+		}
+
+		// Update processed size incrementally with caching (only scan every 10 calls)
+		$backup = Snapshot_Helper_Backup::load($idx);
+		if ($backup) {
+			$backup->update_backup_size_incremental();
 		}
 
 		wp_send_json(array(
@@ -497,6 +523,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		delete_site_option(self::OPTIONS_FLAG);
 		delete_site_option('snapshot_network_backup_current_id');
 		delete_site_option('snapshot_network_backup_start_time');
+		delete_site_option('snapshot_backup_process_counter_' . $idx);
 
 		if (!$status && !$this->_model->has_api_info()) {
 			$response = array(
@@ -510,6 +537,40 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		}
 
 		wp_send_json($response);
+	}
+
+	/**
+	 * Abort the current backup and remove all temporary data
+	 *
+	 * @return void
+	 */
+	public function json_abort_backup() {
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) {
+			wp_send_json_error(array('message' => 'Insufficient permissions'));
+		}
+
+		$data = stripslashes_deep($_POST);
+		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();
+
+		// Load the backup and stop it
+		$backup = Snapshot_Helper_Backup::load($idx);
+		if ($backup) {
+			$backup->stop_and_remove();
+			Snapshot_Helper_Log::info("Backup {$idx} was aborted by user");
+		}
+
+		// Clean up site options
+		delete_site_option(self::OPTIONS_FLAG);
+		delete_site_option('snapshot_network_backup_current_id');
+		delete_site_option('snapshot_network_backup_start_time');
+		delete_site_option('snapshot_network_backup_total_size');
+		delete_site_option('snapshot_network_backup_processed_size');
+		delete_site_option('snapshot_backup_process_counter_' . $idx);
+
+		wp_send_json(array(
+			'status' => true,
+			'message' => 'Backup abgebrochen'
+		));
 	}
 
 	/**
@@ -579,6 +640,10 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$total_steps = (int) $backup->get_total_steps_estimate();
 		$current_steps = (int) $backup->get_processed_steps();
 		$start_time = (int) get_site_option( 'snapshot_network_backup_start_time', 0 );
+		
+		// Get size information
+		$total_size = (int) get_site_option( 'snapshot_network_backup_total_size', 0 );
+		$processed_size = (int) get_site_option( 'snapshot_network_backup_processed_size', 0 );
 
 		wp_send_json( array(
 			'running' => true,
@@ -586,6 +651,10 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			'current' => $current_steps,
 			'total' => $total_steps,
 			'start_time' => $start_time,
+			'total_size' => $total_size,
+			'total_size_formatted' => size_format( $total_size ),
+			'processed_size' => $processed_size,
+			'processed_size_formatted' => size_format( $processed_size ),
 			'debug' => 'Backup running normally',
 		) );
 	}
