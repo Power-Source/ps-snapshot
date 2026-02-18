@@ -50,6 +50,11 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		add_action( 'wp_ajax_snapshot-full_backup-exchange_key', array( $this, 'json_remote_key_exchange' ) );
 		add_action( 'wp_ajax_snapshot-full_backup-deactivate', array( $this, 'json_deactivate' ) );
 
+		// Network backup schedule actions
+		add_action( 'wp_ajax_snapshot-network_backup-load_schedule', array( $this, 'json_load_network_backup_schedule' ) );
+		add_action( 'wp_ajax_snapshot-network_backup-save_schedule', array( $this, 'json_save_network_backup_schedule' ) );
+		add_action( 'wp_ajax_snapshot-network_backup-check_status', array( $this, 'json_check_backup_status' ) );
+
 		add_site_option( self::OPTIONS_FLAG, '' );
 	}
 
@@ -400,6 +405,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$this->_start_backup($idx);
 
 		update_site_option(self::OPTIONS_FLAG, true);
+		// Save current backup ID and start time for status tracking
+		update_site_option('snapshot_network_backup_current_id', $idx);
+		update_site_option('snapshot_network_backup_start_time', time());
 
 		wp_send_json(array(
 			'id' => $idx,
@@ -469,6 +477,8 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			Snapshot_Helper_Log::note($msg);
 
 			delete_site_option(self::OPTIONS_FLAG);
+			delete_site_option('snapshot_network_backup_current_id');
+			delete_site_option('snapshot_network_backup_start_time');
 
 			/**
 			 * Automatic backup processing encountered too many errors
@@ -485,6 +495,8 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		}
 
 		delete_site_option(self::OPTIONS_FLAG);
+		delete_site_option('snapshot_network_backup_current_id');
+		delete_site_option('snapshot_network_backup_start_time');
 
 		if (!$status && !$this->_model->has_api_info()) {
 			$response = array(
@@ -500,4 +512,198 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		wp_send_json($response);
 	}
 
+	/**
+	 * Check if a backup is currently running and get its status
+	 *
+	 * @return void
+	 */
+	public function json_check_backup_status() {
+		if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+		}
+
+		$backup_id = get_site_option( 'snapshot_network_backup_current_id' );
+		if ( ! $backup_id ) {
+			wp_send_json( array(
+				'running' => false,
+				'id' => null,
+			) );
+			return;
+		}
+
+		// Check if backup with this ID still exists and is running
+		$backup = Snapshot_Helper_Backup::load( $backup_id );
+		if ( ! $backup || $backup->is_finished() ) {
+			delete_site_option( 'snapshot_network_backup_current_id' );
+			delete_site_option( 'snapshot_network_backup_start_time' );
+			wp_send_json( array(
+				'running' => false,
+				'id' => null,
+			) );
+			return;
+		}
+
+		// Get progress info
+		$total_steps = $backup->get_total_steps_estimate();
+		$current_steps = $backup->get_processed_count();
+		$start_time = get_site_option( 'snapshot_network_backup_start_time' );
+
+		wp_send_json( array(
+			'running' => true,
+			'id' => $backup_id,
+			'current' => $current_steps,
+			'total' => $total_steps,
+			'start_time' => $start_time ? (int) $start_time : 0,
+		) );
+	}
+
+	/**
+	 * Load network backup schedule settings
+	 *
+	 * @return void
+	 */
+	public function json_load_network_backup_schedule() {
+		if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+		}
+
+		$schedule = get_site_option( 'snapshot_network_backup_schedule', array() );
+		$days = isset( $schedule['days'] ) ? $schedule['days'] : array();
+		$time = isset( $schedule['time'] ) ? $schedule['time'] : '02:00';
+		$next_backup = isset( $schedule['next_backup'] ) ? $schedule['next_backup'] : '';
+
+		wp_send_json( array(
+			'schedule' => array(
+				'days' => is_array( $days ) ? $days : array(),
+				'time' => $time,
+				'next_backup' => $next_backup,
+			),
+		) );
+	}
+
+	/**
+	 * Save network backup schedule settings
+	 *
+	 * @return void
+	 */
+	public function json_save_network_backup_schedule() {
+		if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+		}
+
+		check_ajax_referer( 'snapshot-network-backup-schedule' );
+
+		$days = isset( $_POST['days'] ) ? (array) $_POST['days'] : array();
+		$time = isset( $_POST['time'] ) ? sanitize_text_field( wp_unslash( $_POST['time'] ) ) : '02:00';
+
+		// Validate days
+		$allowed_days = array( 0, 1, 2, 3, 4, 5, 6 );
+		$days = array_filter( $days, function( $d ) use ( $allowed_days ) {
+			$d = (int) $d;
+			return in_array( $d, $allowed_days, true );
+		} );
+
+		if ( empty( $days ) ) {
+			wp_send_json_error( array( 'message' => 'Keine gültigen Tage ausgewählt' ) );
+		}
+
+		// Sort and deduplicate days
+		$days = array_values( array_unique( array_map( 'intval', $days ) ) );
+		sort( $days );
+
+		// Validate time format (HH:MM)
+		if ( ! preg_match( '/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/', $time ) ) {
+			wp_send_json_error( array( 'message' => 'Ungültiges Zeitformat' ) );
+		}
+
+		// Calculate next backup time
+		$next_backup = self::calculate_next_backup_time( $days, $time );
+
+		$schedule = array(
+			'days' => $days,
+			'time' => $time,
+			'next_backup' => $next_backup,
+		);
+
+		// Save schedule
+		update_site_option( 'snapshot_network_backup_schedule', $schedule );
+
+		// Reschedule WP-Cron if needed
+		self::schedule_network_backup_cron( $schedule );
+
+		wp_send_json( array(
+			'status' => true,
+			'schedule' => $schedule,
+		) );
+	}
+
+	/**
+	 * Calculate next backup time based on schedule
+	 *
+	 * @param array  $days Days of week (0-6)
+	 * @param string $time Time in HH:MM format
+	 * @return string Formatted datetime string
+	 */
+	private static function calculate_next_backup_time( $days, $time ) {
+		$time_parts = explode( ':', $time );
+		$hour = (int) $time_parts[0];
+		$minute = (int) $time_parts[1];
+
+		$current_time = current_time( 'timestamp' );
+		$current_date = date( 'Y-m-d', $current_time );
+		$current_dow = (int) date( 'w', $current_time );
+
+		// Check if today is a backup day and time hasn't passed
+		if ( in_array( $current_dow, $days, true ) ) {
+			$today_backup = strtotime( $current_date . ' ' . $time );
+			if ( $today_backup > $current_time ) {
+				return date_i18n( 'd.m.Y H:i', $today_backup );
+			}
+		}
+
+		// Find next backup day
+		for ( $i = 1; $i <= 7; $i++ ) {
+			$check_time = $current_time + ( $i * 86400 );
+			$check_dow = (int) date( 'w', $check_time );
+			if ( in_array( $check_dow, $days, true ) ) {
+				$backup_time = strtotime( date( 'Y-m-d', $check_time ) . ' ' . $time );
+				return date_i18n( 'd.m.Y H:i', $backup_time );
+			}
+		}
+
+		return '';
+	}
+
+	/**
+	 * Schedule WP-Cron for network backup
+	 *
+	 * @param array $schedule Schedule configuration
+	 * @return void
+	 */
+	private static function schedule_network_backup_cron( $schedule ) {
+		// Clear any existing scheduled backups
+		wp_clear_scheduled_hook( 'snapshot_network_backup_cron_event' );
+
+		if ( empty( $schedule['days'] ) ) {
+			return;
+		}
+
+		// Schedule daily check at the specified time
+		$time_parts = explode( ':', $schedule['time'] );
+		$hour = (int) $time_parts[0];
+		$minute = (int) $time_parts[1];
+
+		// Get next occurrence of the scheduled time today
+		$current_time = current_time( 'timestamp' );
+		$today = date( 'Y-m-d', $current_time );
+		$scheduled_time = strtotime( $today . ' ' . sprintf( '%02d:%02d:00', $hour, $minute ) );
+
+		// If time has passed today, schedule for tomorrow at that time
+		if ( $scheduled_time <= $current_time ) {
+			$scheduled_time = strtotime( '+1 day', $scheduled_time );
+		}
+
+		// Schedule the event
+		wp_schedule_event( $scheduled_time, 'daily', 'snapshot_network_backup_cron_event', array( $schedule ) );
+	}
 }

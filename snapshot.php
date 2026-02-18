@@ -8273,3 +8273,59 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 }
 
 $psource_snapshot = PSOURCESnapshot::instance();
+
+// Register network backup cron event handler
+add_action( 'snapshot_network_backup_cron_event', 'snapshot_handle_network_backup_cron', 10, 1 );
+
+/**
+ * Handle scheduled network backup via WP-Cron
+ *
+ * @param array $schedule Schedule configuration
+ * @return void
+ */
+function snapshot_handle_network_backup_cron( $schedule = array() ) {
+	if ( ! is_multisite() ) {
+		return;
+	}
+
+	// Get schedule from site option if not provided
+	if ( empty( $schedule ) ) {
+		$schedule = get_site_option( 'snapshot_network_backup_schedule', array() );
+	}
+
+	if ( empty( $schedule['days'] ) || empty( $schedule['time'] ) ) {
+		return;
+	}
+
+	// Check if today is a backup day
+	$current_dow = (int) date_i18n( 'w' );
+	if ( ! in_array( $current_dow, (array) $schedule['days'], true ) ) {
+		return;
+	}
+
+	// Check if we're close to the scheduled time (within 2 hours window)
+	$time_parts = explode( ':', $schedule['time'] );
+	$scheduled_hour = (int) $time_parts[0];
+	$current_hour = (int) date_i18n( 'H' );
+
+	if ( $current_hour !== $scheduled_hour ) {
+		return;
+	}
+
+	// Start the backup
+	$backup_model = Snapshot_Model_Full_Backup::get();
+	if ( ! $backup_model ) {
+		return;
+	}
+
+	// Trigger backup start without user interaction
+	try {
+		$backup_id = $backup_model->start_backup();
+		if ( $backup_id ) {
+			do_action( 'snapshot_network_backup_started', $backup_id, $schedule );
+		}
+	} catch ( Exception $e ) {
+		// Log error
+		error_log( 'Snapshot Network Backup Cron Error: ' . $e->getMessage() );
+	}
+}
