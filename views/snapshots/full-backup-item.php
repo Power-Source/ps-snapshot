@@ -248,26 +248,42 @@ $backup_path = $model->local()->get_backup( $timestamp );
 			
 			$button.text('<?php echo esc_js( __( 'Wiederherstellung läuft...', SNAPSHOT_I18N_DOMAIN ) ); ?>').prop('disabled', true);
 			
-			$.ajax({
-				url: ajaxurl,
-				type: 'POST',
-				data: {
-					action: 'snapshot-full_backup-restore',
-					archive: timestamp,
-					security: '<?php echo wp_create_nonce( 'snapshot-full-backup-restore' ); ?>'
-				},
-				success: function(response) {
-					if (response.success) {
-						alert('<?php echo esc_js( __( 'Wiederherstellung erfolgreich gestartet! Die Seite wird neu geladen.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
-						window.location.reload();
-					} else {
-						alert(response.data || '<?php echo esc_js( __( 'Fehler bei der Wiederherstellung des Backups.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+			function processRestore() {
+				$.ajax({
+					url: ajaxurl,
+					type: 'POST',
+					data: {
+						action: 'snapshot-full_backup-restore',
+						archive: timestamp,
+						security: '<?php echo wp_create_nonce( 'snapshot-full-backup-restore' ); ?>'
+					},
+					success: function(response) {
+						if (response.success) {
+							// Check if restore is complete or still in progress
+							if (response.data && response.data.task === 'restoring') {
+								// Continue processing
+								setTimeout(processRestore, 2000);
+							} else {
+								// Restore complete
+								alert('<?php echo esc_js( __( 'Wiederherstellung erfolgreich abgeschlossen! Die Seite wird neu geladen.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+								window.location.reload();
+							}
+						} else {
+							var errorMsg = response.data || '<?php echo esc_js( __( 'Fehler bei der Wiederherstellung des Backups.', SNAPSHOT_I18N_DOMAIN ) ); ?>';
+							console.error('Restore error:', response);
+							alert(errorMsg);
+							$button.text(originalText).prop('disabled', false);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error('AJAX error:', xhr.responseText, status, error);
+						alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
 						$button.text(originalText).prop('disabled', false);
 					}
-				},
-				error: function() {
-					alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
-					$button.text(originalText).prop('disabled', false);
+				});
+			}
+			
+			processRestore();
 				}
 			});
 		});

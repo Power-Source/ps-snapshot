@@ -284,8 +284,16 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 * Process restore requests
 	 */
 	public function json_start_restore () {
-		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die; // Only some users can restore
-		if (!$this->_is_backup_processing_ready()) die;
+		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) {
+			Snapshot_Helper_Log::error(__('Keine Berechtigung für Wiederherstellung', SNAPSHOT_I18N_DOMAIN));
+			wp_send_json_error(__('Sie haben keine Berechtigung, Backups wiederherzustellen.', SNAPSHOT_I18N_DOMAIN));
+		}
+		
+		if (!$this->_is_backup_processing_ready()) {
+			Snapshot_Helper_Log::error(__('Backup-Verarbeitung nicht bereit', SNAPSHOT_I18N_DOMAIN));
+			wp_send_json_error(__('Die Backup-Verarbeitung ist derzeit nicht verfügbar.', SNAPSHOT_I18N_DOMAIN));
+		}
+		
 		check_ajax_referer('snapshot-full-backup-restore', 'security');
 
 		$data = stripslashes_deep($_POST);
@@ -302,22 +310,20 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			? stripslashes_deep($data['credentials'])
 			: true
 		;
+		
+		$delete_archive = !empty($data['delete_archive']) ? (bool)$data['delete_archive'] : false;
 
 		// Signal intent - starting action
 		Snapshot_Helper_Log::start();
 
 		if (!WP_Filesystem($credentials)) {
-			wp_send_json(array(
-				'task' => 'clearing',
-				'status' => false,
-			));
+			Snapshot_Helper_Log::error(__('WP_Filesystem Initialisierung fehlgeschlagen', SNAPSHOT_I18N_DOMAIN));
+			wp_send_json_error(__('Dateisystem-Initialisierung fehlgeschlagen. Bitte prüfen Sie die Dateiberechtigungen.', SNAPSHOT_I18N_DOMAIN));
 		}
 
 		if (empty($archive)) {
-			wp_send_json(array(
-				'task' => 'clearing',
-				'status' => false,
-			));
+			Snapshot_Helper_Log::error(__('Kein Archiv-Zeitstempel angegeben', SNAPSHOT_I18N_DOMAIN));
+			wp_send_json_error(__('Kein gültiges Backup ausgewählt.', SNAPSHOT_I18N_DOMAIN));
 		}
 
 		if (empty($restore_path)) {
@@ -325,21 +331,19 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		}
 
 		if (empty($restore_path) || !file_exists($restore_path)) {
-			wp_send_json(array(
-				'task' => 'clearing',
-				'status' => false,
-			));
+			Snapshot_Helper_Log::error(sprintf(__('Wiederherstellungspfad nicht gefunden: %s', SNAPSHOT_I18N_DOMAIN), $restore_path));
+			wp_send_json_error(__('Der Ziel-Ordner für die Wiederherstellung existiert nicht.', SNAPSHOT_I18N_DOMAIN));
 		}
 
 		$archive_path = $this->_model->get_backup($archive);
 
 		// If we don't have the full archive path yet, we're still fetching the file
 		if (!file_exists($archive_path)) {
-			wp_send_json(array(
-				'task' => 'fetching',
-				'error' => !!$this->_model->has_errors(),
-				'status' => false,
-			));
+			$error_msg = $this->_model->has_errors() 
+				? __('Fehler beim Abrufen des Backups.', SNAPSHOT_I18N_DOMAIN)
+				: __('Backup-Archiv wird noch heruntergeladen.', SNAPSHOT_I18N_DOMAIN);
+			Snapshot_Helper_Log::error(sprintf(__('Archiv nicht gefunden: %s', SNAPSHOT_I18N_DOMAIN), $archive_path));
+			wp_send_json_error($error_msg);
 		}
 
 		$restore = Snapshot_Helper_Restore::from($archive_path);
@@ -359,9 +363,17 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			@unlink($archive_path);
 		}
 
-		wp_send_json(array(
+		if (!$status && 'restoring' === $task) {
+			Snapshot_Helper_Log::error(__('Wiederherstellung fehlgeschlagen', SNAPSHOT_I18N_DOMAIN));
+			wp_send_json_error(__('Die Wiederherstellung ist fehlgeschlagen. Bitte überprüfen Sie die Logs.', SNAPSHOT_I18N_DOMAIN));
+		}
+
+		wp_send_json_success(array(
 			'task' => $task,
 			'status' => $status,
+			'message' => 'restoring' === $task 
+				? __('Wiederherstellung läuft...', SNAPSHOT_I18N_DOMAIN)
+				: __('Wiederherstellung abgeschlossen.', SNAPSHOT_I18N_DOMAIN)
 		));
 	}
 

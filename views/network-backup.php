@@ -565,17 +565,28 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 			security: '<?php echo esc_js( $restore_nonce ); ?>'
 		})
 		.done(function(resp){
-			if (!resp || !resp.task) {
+			if (!resp || typeof resp.success === 'undefined') {
 				setStatus('Ungültige Antwort bei der Wiederherstellung.', 'notice-error');
+				console.error('Invalid response:', resp);
 				return;
 			}
 
-			if (resp.task === 'restoring' && resp.status) {
+			if (!resp.success) {
+				var errorMsg = resp.data || 'Wiederherstellung fehlgeschlagen.';
+				setStatus(errorMsg, 'notice-error');
+				console.error('Restore error:', resp);
+				return;
+			}
+
+			var task = resp.data && resp.data.task ? resp.data.task : null;
+			var status = resp.data && resp.data.status ? resp.data.status : null;
+
+			if (task === 'restoring' && status) {
 				setTimeout(function(){ runRestoreStep(archive, restorePath, step + 1, startedAt); }, 500);
 				return;
 			}
 
-			if (resp.task === 'clearing' && resp.status) {
+			if (task === 'clearing' && status) {
 				updateRestoreProgress(step, startedAt, true);
 				setStatus('Wiederherstellung abgeschlossen.', 'notice-success');
 				window.location.reload();
