@@ -10,7 +10,7 @@ class Snapshot_Helper_Zip_Archive extends Snapshot_Helper_Zip_Abstract {
 		if (!is_array($files)) $files = array($files);
 		if (empty($files)) return false;
 
-		$flags = null;
+		$flags = 0;
 		if (!file_exists($this->_path)) $flags = ZipArchive::CREATE;
 
 		$handle = $this->_zip->open($this->_path, $flags);
@@ -43,7 +43,7 @@ class Snapshot_Helper_Zip_Archive extends Snapshot_Helper_Zip_Abstract {
 		$path = $this->_to_root_relative($path);
 		if (empty($path)) return false;
 
-		$handle = $this->_zip->open($this->_path);
+		$handle = $this->_zip->open($this->_path, 0);
 		if (!$handle) return false;
 
 		$status = $this->_zip->locateName($path);
@@ -58,7 +58,7 @@ class Snapshot_Helper_Zip_Archive extends Snapshot_Helper_Zip_Abstract {
 		$destination = wp_normalize_path($destination);
 		if (empty($destination) || !file_exists($destination)) return false;
 
-		$handle = $this->_zip->open($this->_path);
+		$handle = $this->_zip->open($this->_path, 0);
 		if (!$handle) return false;
 
 		$status = $this->_zip->extractTo($destination);
@@ -76,7 +76,7 @@ class Snapshot_Helper_Zip_Archive extends Snapshot_Helper_Zip_Abstract {
 		$destination = wp_normalize_path($destination);
 		if (empty($destination) || !file_exists($destination)) return false;
 
-		$handle = $this->_zip->open($this->_path);
+		$handle = $this->_zip->open($this->_path, 0);
 		if (!$handle) return false;
 
 		$status = $this->_zip->extractTo($destination, $files);
