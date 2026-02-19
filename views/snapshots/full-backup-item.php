@@ -243,8 +243,8 @@ $backup_path = $model->local()->get_backup( $timestamp );
 			}
 			
 			var timestamp = $(this).data('item');
-			// Weiterleiten zur Netzwerk-Backup Seite mit restore Parameter
-			window.location.href = '<?php echo esc_url( network_admin_url( 'admin.php?page=snapshot-network-backup' ) ); ?>&snapshot-restore=' + timestamp;
+			// Weiterleiten zur Netzwerk-Backup Seite mit restore Parameter (UNTERSTRICH im Slug!)
+			window.location.href = '<?php echo esc_url( network_admin_url( 'admin.php?page=snapshot_network_backup' ) ); ?>&snapshot-restore=' + timestamp;
 		});
 	});
 })(jQuery);
