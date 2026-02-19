@@ -32,7 +32,6 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					<?php esc_html_e( 'Speicherort:', SNAPSHOT_I18N_DOMAIN ); ?>
 				</label>
 				<select id="snapshot-network-backup-destination" style="padding:8px; min-width:250px; border:1px solid #ddd; border-radius:3px;">
-					<option value="local"><?php esc_html_e( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN ); ?></option>
 					<?php
 					$models = new Snapshot_Model_Full_Backup();
 					$destinations = PSOURCESnapshot::instance()->config_data['destinations'];
@@ -43,9 +42,13 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 							$type_name = isset( $all_destination_classes[ $destination['type'] ] ) 
 								? $all_destination_classes[ $destination['type'] ]->name_display 
 								: $destination['type'];
+							$label = $destination['name'] . ' (' . $type_name . ')';
+							if ( 'local' === $key || 'local' === $destination['type'] ) {
+								$label = __( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN );
+							}
 							?>
 							<option value="<?php echo esc_attr( $key ); ?>">
-								<?php echo esc_html( $destination['name'] . ' (' . $type_name . ')' ); ?>
+								<?php echo esc_html( $label ); ?>
 							</option>
 							<?php
 						}
@@ -109,9 +112,13 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 					<option value="local"><?php esc_html_e( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN ); ?></option>
 					<?php foreach ( $destinations as $key => $destination ) {
 						$type_name = isset( $destination_classes[ $destination['type'] ] ) ? $destination_classes[ $destination['type'] ] : $destination['type'];
+						$label = $destination['name'] . ' (' . $type_name . ')';
+						if ( 'local' === $key || 'local' === $destination['type'] ) {
+							$label = __( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN );
+						}
 					?>
 						<option value="<?php echo esc_attr( $key ); ?>">
-							<?php echo esc_html( $destination['name'] . ' (' . $type_name . ')' ); ?>
+							<?php echo esc_html( $label ); ?>
 						</option>
 					<?php } ?>
 				</select>

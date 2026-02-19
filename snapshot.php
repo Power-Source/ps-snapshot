@@ -191,8 +191,8 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			// Fix PATH_CURRENT_SITE if not configured
 			add_filter( 'snapshot_current_path', array( $this, 'snapshot_check_current_path' ) );
 
-			// Run the compat layer for Cron jobs
-			Snapshot_Controller_Full_Cron::get()->run_compat();
+			// Run the Cron controller
+			Snapshot_Controller_Full_Cron::get()->run();
 
 			// Run the Hub integration controller
 			Snapshot_Controller_Full_Hub::get()->run();
