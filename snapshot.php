@@ -132,7 +132,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$this->_settings['remote_file_cron_interval'] = "snapshot-5minutes";
 			$this->_admin_header_error = "";
 
-			add_action( 'admin_head', array( $this, 'enqueue_shared_ui' ) );
+add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_icon_admin_style' ) );
 
 			/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
