@@ -167,9 +167,9 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Zeitpunkt', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th><?php esc_html_e( 'Datei', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php esc_html_e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
 							<th><?php esc_html_e( 'Größe', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php esc_html_e( 'Erstellt am', SNAPSHOT_I18N_DOMAIN ); ?></th>
 							<th><?php esc_html_e( 'Aktion', SNAPSHOT_I18N_DOMAIN ); ?></th>
 						</tr>
 					</thead>
@@ -178,13 +178,14 @@ $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
 						$timestamp = isset( $backup_item['timestamp'] ) ? intval( $backup_item['timestamp'] ) : 0;
 						$name = isset( $backup_item['name'] ) ? $backup_item['name'] : '';
 						$size = isset( $backup_item['size'] ) ? size_format( intval( $backup_item['size'] ) ) : '-';
+						$detail_url = add_query_arg( array( 'page' => 'snapshot_snapshots', 'item' => $timestamp, 'full-backup' => 'true' ), network_admin_url( 'admin.php' ) );
 						?>
 						<tr>
-							<td><?php echo $timestamp ? esc_html( date_i18n( 'd.m.Y H:i:s', $timestamp ) ) : '-'; ?></td>
-							<td><?php echo esc_html( $name ); ?></td>
+							<td><a href="<?php echo esc_url( $detail_url ); ?>"><?php echo esc_html( $name ); ?></a></td>
 							<td><?php echo esc_html( $size ); ?></td>
+							<td><?php echo $timestamp ? esc_html( date_i18n( 'd.m.Y H:i:s', $timestamp ) ) : '-'; ?></td>
 							<td>
-								<button class="button snapshot-network-restore" data-archive="<?php echo esc_attr( $timestamp ); ?>"><?php esc_html_e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></button>
+								<a href="<?php echo esc_url( $detail_url ); ?>" class="button"><?php esc_html_e( 'Details', SNAPSHOT_I18N_DOMAIN ); ?></a>
 							</td>
 						</tr>
 					<?php endforeach; ?>

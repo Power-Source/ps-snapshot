@@ -121,14 +121,3 @@ Wir empfehlen eine Mindest-Ausführungszeit von 150 Sekunden. Kontaktiere deinen
 * Basis-Backup-Funktionalität
 * Unterstützung für lokale und Remote-Speicher
 * Multisite-Unterstützung
-
-== License ==
-
-PS Snapshot ist lizenziert unter der GPLv2 oder später.
-Weitere Informationen: https://www.gnu.org/licenses/gpl-2.0.html
-
-== Weitere Ressourcen ==
-
-* [Dokumentation](https://github.com/Power-Source/ps-snapshot/docs)
-* [GitHub Repository](https://github.com/Power-Source/ps-snapshot)
-* [Restore Skript](https://github.com/Power-Source/ps-snapshot-installer)

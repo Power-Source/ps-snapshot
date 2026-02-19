@@ -234,6 +234,54 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 	}
 
 	/**
+	 * Send backup to remote destination
+	 *
+	 * @param Snapshot_Helper_Backup $backup Backup instance to send
+	 *
+	 * @return bool True on success, false on failure
+	 */
+	public function send_backup( $backup ) {
+		// Apply filter to allow remote sending implementation
+		return apply_filters(
+			$this->get_filter( 'send_backup' ),
+			true,
+			$backup
+		);
+	}
+
+	/**
+	 * Continue uploading a backup item
+	 *
+	 * @param int $timestamp Backup timestamp
+	 *
+	 * @return bool True when upload is complete, false if still in progress
+	 */
+	public function continue_item_upload( $timestamp ) {
+		// Apply filter to allow remote upload continuation implementation
+		return apply_filters(
+			$this->get_filter( 'continue_item_upload' ),
+			true,
+			$timestamp
+		);
+	}
+
+	/**
+	 * Update remote schedule with backup timestamp
+	 *
+	 * @param int $timestamp Backup timestamp
+	 *
+	 * @return bool True on success, false on failure
+	 */
+	public function update_remote_schedule( $timestamp ) {
+		// Apply filter to allow remote schedule update implementation
+		return apply_filters(
+			$this->get_filter( 'update_remote_schedule' ),
+			true,
+			$timestamp
+		);
+	}
+
+	/**
 	 * Filter/action name getter
 	 *
 	 * @param string $filter Filter name to convert

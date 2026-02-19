@@ -53,7 +53,7 @@ $backups = array_slice( $backups, 0, 3 );
 
 <tr>
 
-<th class="wss-name"><?php esc_html_e( 'Größe', SNAPSHOT_I18N_DOMAIN ); ?></th>
+<th class="wss-name"><?php esc_html_e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
 
 <th class="wss-date"><?php esc_html_e( 'Datum', SNAPSHOT_I18N_DOMAIN ); ?></th>
 
@@ -73,18 +73,20 @@ $backups = array_slice( $backups, 0, 3 );
 
 <p>
 
-<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup', 'backup' => $backup['timestamp'] ), network_admin_url( 'admin.php' ) ) ); ?>">
+<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_snapshots', 'item' => $backup['timestamp'], 'full-backup' => 'true' ), network_admin_url( 'admin.php' ) ) ); ?>">
 <?php 
-if ( isset( $backup['size'] ) ) { 
-echo '<strong>' . esc_html( size_format( $backup['size'] ) ) . '</strong>';
-} else { 
-echo '<strong>-</strong>';
+if ( isset( $backup['name'] ) ) { 
+	echo '<strong>' . esc_html( $backup['name'] ) . '</strong>';
+} else if ( isset( $backup['timestamp'] ) ) { 
+	echo '<strong>' . esc_html( 'Backup vom ' . date_i18n( 'j. M Y H:i', $backup['timestamp'] ) ) . '</strong>';
+} else {
+	echo '<strong>-</strong>';
 }
 ?>
 </a>
 
-<?php if ( isset( $backup['timestamp'] ) ) { ?>
-<small><?php echo esc_html( 'Backup vom ' . date_i18n( 'j. M Y H:i', $backup['timestamp'] ) ); ?></small>
+<?php if ( isset( $backup['size'] ) ) { ?>
+<small><?php echo esc_html( size_format( $backup['size'] ) ); ?></small>
 <?php } ?>
 
 </p>

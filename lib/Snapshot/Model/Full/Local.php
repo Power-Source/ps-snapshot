@@ -156,8 +156,12 @@ class Snapshot_Model_Full_Local extends Snapshot_Model_Full_Abstract {
 			$timestamp = $this->_get_file_timestamp_from_name(basename($raw));
 			if (empty($timestamp)) continue;
 
+			$filename = basename($raw);
+			$display_name = $this->_generate_backup_display_name($filename, $timestamp);
+
 			$result[] = array(
-				'name' => basename($raw),
+				'name' => $display_name,
+				'filename' => $filename,
 				'size' => filesize($raw),
 				'timestamp' => $timestamp,
 				'local' => true,
@@ -165,6 +169,39 @@ class Snapshot_Model_Full_Local extends Snapshot_Model_Full_Abstract {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Generate a user-friendly display name for a backup file
+	 *
+	 * @param string $filename The backup filename
+	 * @param int    $timestamp The backup timestamp
+	 *
+	 * @return string The display name
+	 */
+	private function _generate_backup_display_name( $filename, $timestamp ) {
+		// Extract type from filename: full_backup-{timestamp}-{type}-{checksum}.zip
+		$type = 'full';
+		if ( preg_match( '/^' . preg_quote( Snapshot_Helper_Backup::FINAL_PREFIX, '/' ) . '-[0-9]+-([^-]+)-.*\.zip$/', $filename, $matches ) ) {
+			$type = $matches[1];
+		}
+
+		// Translate type to display text
+		switch ( $type ) {
+			case 'automated':
+				$type_label = __( 'Automatisches Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				break;
+			case 'full':
+				$type_label = __( 'Manuelles Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				break;
+			default:
+				$type_label = __( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				break;
+		}
+
+		// Format: "Type - Date Time"
+		$date_formatted = date_i18n( 'j. M Y H:i', $timestamp );
+		return sprintf( '%s - %s', $type_label, $date_formatted );
 	}
 
 }

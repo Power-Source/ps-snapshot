@@ -165,6 +165,10 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			add_action( 'wp_ajax_snapshot_disable_notif_ajax', array( $this, 'snapshot_ajax_disable_notif_proc' ) );
 
 			add_action( 'wp_ajax_snapshot_save_key', array( $this, 'snapshot_save_key_proc' ) );
+			
+			// Full Backup AJAX handlers
+			add_action( 'wp_ajax_snapshot_full_backup_delete', array( $this, 'snapshot_ajax_full_backup_delete' ) );
+			add_action( 'admin_init', array( $this, 'snapshot_full_backup_download_handler' ) );
 
 			/* Cron related functions */
 			add_filter( 'cron_schedules', array( 'Snapshot_Helper_Utility', 'add_cron_schedules' ), 99 );
@@ -4150,7 +4154,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 				// echo out the finished message so the user knows we are done.
 				$snapshot_url = $this->_settings['SNAPSHOT_MENU_URL'] . 'snapshot_snapshots';
-				$error_status['responseText'] = __( "Your snapshot has been successfully created and stored!", SNAPSHOT_I18N_DOMAIN ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "View Snapshot", SNAPSHOT_I18N_DOMAIN ) . '</a>';
+				$error_status['responseText'] = __( "Dein Snapshot wurde erfolgreich erstellt und gespeichert!", SNAPSHOT_I18N_DOMAIN ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "View Snapshot", SNAPSHOT_I18N_DOMAIN ) . '</a>';
 
 				//}
 
@@ -8211,6 +8215,73 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 		 */
 		public function get_plugin_path() {
 			return $this->plugin_path;
+		}
+
+		/**
+		 * AJAX handler for deleting full backups
+		 */
+		public function snapshot_ajax_full_backup_delete() {
+			check_ajax_referer( 'snapshot-full-backup-delete' );
+			
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( __( 'Sie haben keine Berechtigung für diese Aktion.', SNAPSHOT_I18N_DOMAIN ) );
+			}
+			
+			$timestamp = isset( $_POST['timestamp'] ) ? intval( $_POST['timestamp'] ) : 0;
+			
+			if ( ! $timestamp ) {
+				wp_send_json_error( __( 'Ungültiger Zeitstempel.', SNAPSHOT_I18N_DOMAIN ) );
+			}
+			
+			$model = new Snapshot_Model_Full_Backup();
+			$success = $model->delete_backup( $timestamp );
+			
+			if ( $success ) {
+				wp_send_json_success( __( 'Backup erfolgreich gelöscht.', SNAPSHOT_I18N_DOMAIN ) );
+			} else {
+				wp_send_json_error( __( 'Fehler beim Löschen des Backups.', SNAPSHOT_I18N_DOMAIN ) );
+			}
+		}
+
+		/**
+		 * Handler for downloading full backup archives
+		 */
+		public function snapshot_full_backup_download_handler() {
+			if ( ! isset( $_GET['snapshot-full-backup-action'] ) || 'download-archive' !== $_GET['snapshot-full-backup-action'] ) {
+				return;
+			}
+			
+			if ( ! isset( $_GET['snapshot-item'] ) ) {
+				return;
+			}
+			
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( __( 'Sie haben keine Berechtigung für diese Aktion.', SNAPSHOT_I18N_DOMAIN ) );
+			}
+			
+			$timestamp = intval( $_GET['snapshot-item'] );
+			
+			$model = new Snapshot_Model_Full_Backup();
+			$backup_path = $model->local()->get_backup( $timestamp );
+			
+			if ( ! $backup_path || ! file_exists( $backup_path ) ) {
+				wp_die( __( 'Backup-Datei nicht gefunden.', SNAPSHOT_I18N_DOMAIN ) );
+			}
+			
+			$filename = basename( $backup_path );
+			
+			header( 'Content-Description: Snapshot Archive File' );
+			header( 'Content-Type: application/zip' );
+			header( 'Content-Disposition: attachment; filename=' . $filename );
+			header( 'Content-Transfer-Encoding: binary' );
+			header( 'Expires: 0' );
+			header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+			header( 'Pragma: public' );
+			header( 'Content-Length: ' . filesize( $backup_path ) );
+			
+			Snapshot_Helper_Utility::file_output_stream_chunked( $backup_path );
+			flush();
+			die();
 		}
 
 		/**

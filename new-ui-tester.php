@@ -17,6 +17,13 @@ class PSOURCESnapshot_New_Ui_Tester {
 			return;
 		}
 
+		// Check if this is a full backup request
+		if ( isset( $_REQUEST['item'] ) && isset( $_REQUEST['full-backup'] ) && 'true' === $_REQUEST['full-backup'] ) {
+			$timestamp = intval( sanitize_text_field( $_REQUEST['item'] ) );
+			$this->render_full_backup_item( $timestamp );
+			return;
+		}
+
 		if ( isset( $_REQUEST['item'], PSOURCESnapshot::instance()->config_data['items'][ sanitize_text_field( $_REQUEST['item'] ) ] ) ) {
 
 			$item = PSOURCESnapshot::instance()->config_data['items'][ sanitize_text_field( $_REQUEST['item'] ) ];
@@ -229,6 +236,32 @@ class PSOURCESnapshot_New_Ui_Tester {
 			'model' => $model,
 			'backups' => $backups,
 		) );
+	}
+
+	/**
+	 * Render a full backup item in snapshot-style view
+	 *
+	 * @param int $timestamp The backup timestamp
+	 */
+	private function render_full_backup_item( $timestamp ) {
+		$model = new Snapshot_Model_Full_Backup();
+		$backups = $model->get_backups();
+		
+		$backup_item = null;
+		foreach ( $backups as $backup ) {
+			if ( isset( $backup['timestamp'] ) && intval( $backup['timestamp'] ) === $timestamp ) {
+				$backup_item = $backup;
+				break;
+			}
+		}
+		
+		if ( ! $backup_item ) {
+			// Backup not found, redirect to network backup page
+			wp_redirect( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-network-backup' ) );
+			exit;
+		}
+		
+		$this->render( 'snapshots/full-backup-item', false, array( 'item' => $backup_item ) );
 	}
 
 	/**
