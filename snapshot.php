@@ -191,8 +191,8 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			// Fix PATH_CURRENT_SITE if not configured
 			add_filter( 'snapshot_current_path', array( $this, 'snapshot_check_current_path' ) );
 
-			// Run the Hub integration controller
-			Snapshot_Controller_Full_Hub::get()->run();
+		// Run the Cron controller
+		Snapshot_Controller_Full_Cron::get()->run();
 
 			add_filter( 'admin_body_class', array( $this, 'snapshot_maybe_add_body_classes' ) );
 
