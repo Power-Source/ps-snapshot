@@ -46,6 +46,9 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 					$destinations = PSOURCESnapshot::instance()->config_data['destinations'];
 					if ( ! empty( $destinations ) ) {
 						foreach ( $destinations as $key => $destination ) {
+							if ( isset( $destination['type'] ) && 'aws' === $destination['type'] ) {
+								continue;
+							}
 							// Get the destination class to get type name
 							$all_destination_classes = PSOURCESnapshot::instance()->get_setting( 'destinationClasses' );
 							$type_name = isset( $all_destination_classes[ $destination['type'] ] ) 

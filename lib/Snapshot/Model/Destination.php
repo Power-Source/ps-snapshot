@@ -73,6 +73,9 @@ abstract class Snapshot_Model_Destination {
 			if ( $plugin[0] == '_' ) {
 				continue;
 			}    // Ignore this starting with underscore
+			if ( $plugin === 'aws' ) {
+				continue;
+			}
 
 			$_destination_dir = $dir . '/' . $plugin;
 			if ( is_dir( $_destination_dir ) ) {
@@ -155,7 +158,6 @@ abstract class Snapshot_Model_Destination {
 
 		$nice_names = array(
 			'dropbox'      => __( 'Dropbox', SNAPSHOT_I18N_DOMAIN ),
-			'aws'          => __( 'Amazon AWS', SNAPSHOT_I18N_DOMAIN ),
 			'google-drive' => __( 'Google Drive', SNAPSHOT_I18N_DOMAIN ),
 			'ftp'          => __( 'FTP/SFTP', SNAPSHOT_I18N_DOMAIN ),
 		);

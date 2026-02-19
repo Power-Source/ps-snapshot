@@ -106,6 +106,14 @@ Wir empfehlen eine Mindest-Ausführungszeit von 150 Sekunden. Kontaktiere deinen
 
 == ChangeLog ==
 
+= 1.0.3 =
+
+* Fix Netzwerk-Wiederherstellungsroutine
+* Einige Bugfixes
+* Security Fixes
+* Performance Fixes
+* PhP 8 Fixes
+
 = 1.0.2 =
 
 * Hinzugefügt: Netzwerk-Backup

@@ -15,7 +15,7 @@ $has_backups = !empty( $backups );
 
 	// removed managed backups promo widget
 
-	$destination_types = array( 'dropbox', 'google', 'amazon', 'sftp', 'local' );
+	$destination_types = array( 'dropbox', 'google', 'sftp', 'local' );
 
 	foreach ( $destination_types as $destination_type ) {
 		$this->render( 'boxes/destinations/widget-' . $destination_type, false, array(), false, false );

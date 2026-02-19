@@ -77,7 +77,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 							$type = sanitize_text_field( $_REQUEST['type'] );
 						}
 
-						if ( ! in_array( $type, array( 'aws', 'dropbox', 'google-drive', 'ftp' ) ) ) {
+						if ( ! in_array( $type, array( 'dropbox', 'google-drive', 'ftp' ) ) ) {
 							$type = 'local';
 						}
 						$target = 'target="_self"';
