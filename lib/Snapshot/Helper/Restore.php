@@ -140,8 +140,6 @@ class Snapshot_Helper_Restore {
 		$chunk = (int)$this->_get_session_value('fileset', 'chunk', 0);
 		$start = $chunk * $chunk_size;
 
-		$status = true;
-
 		$prefix = $q->get_prefix();
 		$source = untrailingslashit($this->get_intermediate_destination() . $prefix);
 		$destination = trailingslashit(wp_normalize_path($this->_destination));
@@ -150,6 +148,9 @@ class Snapshot_Helper_Restore {
 		if (empty($all_files)) return false;
 
 		$files = array_slice($all_files, $start, $chunk_size);
+		$failed_files = array();
+		$success_count = 0;
+		
 		foreach ($files as $file) {
 			$filepath = preg_replace('/^' . preg_quote($source, '/') . '/i', '', $file);
 			$path = trim(wp_normalize_path(dirname($filepath)), '/');
@@ -157,20 +158,50 @@ class Snapshot_Helper_Restore {
 
 			if (!is_dir($fullpath)) wp_mkdir_p($fullpath);
 
-			// Attempt regular copy first
-			if (!copy($file, $fullpath . basename($file))) {
-				$status = false;
+			$destination_file = $fullpath . basename($file);
+			$file_copied = false;
+			
+			// Attempt regular copy first (suppress warnings, we handle them)
+			if (@copy($file, $destination_file)) {
+				$file_copied = true;
+				$success_count++;
+			} else {
+				// Copy failed, try WP Filesystem API
 				global $wp_filesystem;
-				// Fall back to WP stuff
 				if (is_callable(array($wp_filesystem, 'copy'))) {
-					$res = $wp_filesystem->copy($file, $fullpath . basename($file));
-					if ($res) $status = true;
+					$res = $wp_filesystem->copy($file, $destination_file);
+					if ($res) {
+						$file_copied = true;
+						$success_count++;
+					}
 				}
 			}
+			
+			// Track failures for logging (non-critical)
+			if (!$file_copied) {
+				$relative_path = str_replace($source, '', $file);
+				$failed_files[] = $relative_path;
+			}
+		}
+		
+		// Log failed files as warnings (but don't stop restore)
+		if (!empty($failed_files)) {
+			foreach ($failed_files as $failed_file) {
+				Snapshot_Helper_Log::warn("Could not restore file: {$failed_file} - Permission denied or file locked");
+			}
+			Snapshot_Helper_Log::info("Chunk {$chunk}: Restored {$success_count} files, skipped " . count($failed_files) . " files");
+		} else if ($success_count > 0) {
+			Snapshot_Helper_Log::info("Chunk {$chunk}: Restored {$success_count} files successfully");
 		}
 
+		// Always continue to next chunk (failures are logged but non-critical)
+		// Only return false if there are no files to process at all
+		$status = true;
+
 		if ($status) {
-			Snapshot_Helper_Log::info("Restored fileset chunk {$chunk}");
+			if ($success_count > 0) {
+				Snapshot_Helper_Log::info("Restored fileset chunk {$chunk}");
+			}
 
 			$chunk += 1;
 			$done = !!($start + $chunk_size >= count($all_files));
@@ -179,7 +210,9 @@ class Snapshot_Helper_Restore {
 
 			$this->_set_session_value('fileset', 'chunk', $chunk);
 			$this->_set_session_value('fileset', 'done', $done);
-		} else Snapshot_Helper_Log::warn("There has been an issue restoring fileset chunk {$chunk}");
+		} else {
+			Snapshot_Helper_Log::error("CRITICAL: Could not restore any files in chunk {$chunk} - restore aborted");
+		}
 
 		return $status;
 	}
