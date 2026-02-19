@@ -727,6 +727,19 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 
 	$(function(){
 		debugLog('Network Backup page loaded, initializing...');
+		
+		// Prüfe ob auto-restore Parameter vorhanden ist
+		var urlParams = new URLSearchParams(window.location.search);
+		var autoRestoreTimestamp = urlParams.get('snapshot-restore');
+		
+		if (autoRestoreTimestamp) {
+			debugLog('Auto-restore requested for timestamp:', autoRestoreTimestamp);
+			// Warte kurz bis Seite geladen ist, dann starte restore
+			setTimeout(function() {
+				doRestore(autoRestoreTimestamp);
+			}, 500);
+		}
+		
 		// Load schedule on page load
 		loadSchedule();
 		// Check if a backup is currently running
