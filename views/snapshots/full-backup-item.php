@@ -284,8 +284,6 @@ $backup_path = $model->local()->get_backup( $timestamp );
 			}
 			
 			processRestore();
-				}
-			});
 		});
 	});
 })(jQuery);
