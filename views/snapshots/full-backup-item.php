@@ -64,6 +64,9 @@ $backup_path = $model->local()->get_backup( $timestamp );
 						</li>
 						<?php endif; ?>
 						<li>
+							<a href="#" class="snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+						</li>
+						<li>
 							<a href="#" class="snapshot-full-backup-delete" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Löschen', SNAPSHOT_I18N_DOMAIN ); ?></a>
 						</li>
 
@@ -170,6 +173,8 @@ $backup_path = $model->local()->get_backup( $timestamp );
 							</td>
 							<td>
 
+								<a href="#" class="button button-green snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+
 								<?php if ( $backup_path && file_exists( $backup_path ) ) : ?>
 									<a class="button button-blue" href="<?php echo esc_url( add_query_arg( array(
 										'snapshot-full-backup-action' => 'download-archive',
@@ -226,6 +231,43 @@ $backup_path = $model->local()->get_backup( $timestamp );
 				},
 				error: function() {
 					alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+				}
+			});
+		});
+
+		$('.snapshot-full-backup-restore').on('click', function(e) {
+			e.preventDefault();
+			
+			if (!confirm('<?php echo esc_js( __( 'Möchten Sie dieses Backup wirklich wiederherstellen? Dies wird alle aktuellen Dateien und Datenbanken überschreiben!', SNAPSHOT_I18N_DOMAIN ) ); ?>')) {
+				return;
+			}
+			
+			var timestamp = $(this).data('item');
+			var $button = $(this);
+			var originalText = $button.text();
+			
+			$button.text('<?php echo esc_js( __( 'Wiederherstellung läuft...', SNAPSHOT_I18N_DOMAIN ) ); ?>').prop('disabled', true);
+			
+			$.ajax({
+				url: ajaxurl,
+				type: 'POST',
+				data: {
+					action: 'snapshot-full_backup-restore',
+					archive: timestamp,
+					security: '<?php echo wp_create_nonce( 'snapshot-full-backup-restore' ); ?>'
+				},
+				success: function(response) {
+					if (response.success) {
+						alert('<?php echo esc_js( __( 'Wiederherstellung erfolgreich gestartet! Die Seite wird neu geladen.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+						window.location.reload();
+					} else {
+						alert(response.data || '<?php echo esc_js( __( 'Fehler bei der Wiederherstellung des Backups.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+						$button.text(originalText).prop('disabled', false);
+					}
+				},
+				error: function() {
+					alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+					$button.text(originalText).prop('disabled', false);
 				}
 			});
 		});
