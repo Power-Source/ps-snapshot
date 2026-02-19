@@ -42,7 +42,7 @@ if ( ! class_exists( 'Snapshot_Helper_Session' ) ) {
 						$data = Snapshot_Helper_String::reveal_string($data);
 					}
 					if ( is_serialized( $data ) ) {
-						$this->data = unserialize( $data );
+					$this->data = unserialize( $data, [ 'allowed_classes' => false ] );
 					}
 				} else {
 					$this->data = array();

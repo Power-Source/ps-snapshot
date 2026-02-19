@@ -61,11 +61,9 @@ class Snapshot_Process_Import_Archives {
 
 		echo '<div class="wps-notice"><p>', sprintf( __( 'Importiere Archive von: %s', SNAPSHOT_I18N_DOMAIN ), $dir ), '</p></div>';
 
-		$dh = opendir( $dir );
-
-		if ( ! $dh ) {
-			return false;
-		}
+			if ( ! $dh ) {
+				return false;
+			}
 
 		$restore_folder = trailingslashit( PSOURCESnapshot::instance()->get_setting( 'backupRestoreFolderFull' ) ) . '_imports';
 

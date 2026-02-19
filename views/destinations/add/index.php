@@ -98,8 +98,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
                                 <input type="hidden" name="snapshot-action" value="update"/>
 
                                 <input type="hidden" name="item"
-                                       value="<?php echo sanitize_text_field( $_GET['item'] ); ?>"/>
-
+									       value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['item'] ) ) ); ?>"/>
 								<?php wp_nonce_field( 'snapshot-update-destination', 'snapshot-noonce-field' ); ?>
 
 							<?php elseif ( 'add' == $snapshot_action ) : ?>

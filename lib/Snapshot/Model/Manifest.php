@@ -216,7 +216,7 @@ class Snapshot_Model_Manifest {
 
 	private function _consume_manifest ($path) {
 		$fullpath = realpath($path);
-		if (empty($fullpath) || !is_readable($fullpath)) return false;
+		if (empty($fullpath) || !is_readable($fullpath) || !is_file($fullpath)) return false;
 
 		$raw = file_get_contents($fullpath);
 		if (empty($raw)) return false;

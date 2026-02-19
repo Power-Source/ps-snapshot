@@ -4,6 +4,10 @@ $timestamp = isset( $item['timestamp'] ) ? intval( $item['timestamp'] ) : 0;
 $name = isset( $item['name'] ) ? $item['name'] : 'Netzwerk-Backup';
 $filename = isset( $item['filename'] ) ? $item['filename'] : '';
 $size = isset( $item['size'] ) ? intval( $item['size'] ) : 0;
+$download_nonce = wp_create_nonce( 'snapshot-full-backup-download' );
+$download_error = isset( $_GET['snapshot-full-backup-error'] )
+	? sanitize_text_field( wp_unslash( $_GET['snapshot-full-backup-error'] ) )
+	: '';
 
 // Get the actual file path
 $model = new Snapshot_Model_Full_Backup();
@@ -13,6 +17,12 @@ $backup_path = $model->local()->get_backup( $timestamp );
 <section id="header">
 	<h1><?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?></h1>
 </section>
+
+<?php if ( 'invalid_nonce' === $download_error ) : ?>
+	<div class="notice notice-error">
+		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+	</div>
+<?php endif; ?>
 
 <div id="container" class="snapshot-three wps-page-snapshots">
 
@@ -49,7 +59,8 @@ $backup_path = $model->local()->get_backup( $timestamp );
 							<a href="<?php echo esc_url( add_query_arg( array(
 								'snapshot-full-backup-action' => 'download-archive',
 								'snapshot-item' => $timestamp,
-							), network_admin_url( 'admin-ajax.php' ) ) ); ?>"><?php _e( 'Herunterladen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								'snapshot-full-backup-nonce' => $download_nonce,
+							), admin_url( 'admin.php' ) ) ); ?>"><?php _e( 'Herunterladen', SNAPSHOT_I18N_DOMAIN ); ?></a>
 						</li>
 						<?php endif; ?>
 						<li>
@@ -90,7 +101,8 @@ $backup_path = $model->local()->get_backup( $timestamp );
 										<a href="<?php echo esc_url( add_query_arg( array(
 											'snapshot-full-backup-action' => 'download-archive',
 											'snapshot-item' => $timestamp,
-										), network_admin_url( 'admin-ajax.php' ) ) ); ?>" title="<?php esc_attr_e( 'Lade das Backup-Archiv herunter', SNAPSHOT_I18N_DOMAIN ); ?>">
+											'snapshot-full-backup-nonce' => $download_nonce,
+										), admin_url( 'admin.php' ) ) ); ?>" title="<?php esc_attr_e( 'Lade das Backup-Archiv herunter', SNAPSHOT_I18N_DOMAIN ); ?>">
 											<?php echo esc_html( $filename ); ?>
 										</a>
 									<?php else : ?>
@@ -162,7 +174,8 @@ $backup_path = $model->local()->get_backup( $timestamp );
 									<a class="button button-blue" href="<?php echo esc_url( add_query_arg( array(
 										'snapshot-full-backup-action' => 'download-archive',
 										'snapshot-item' => $timestamp,
-									), network_admin_url( 'admin-ajax.php' ) ) ); ?>">
+										'snapshot-full-backup-nonce' => $download_nonce,
+									), admin_url( 'admin.php' ) ) ); ?>">
 										<?php _e( 'Herunterladen', SNAPSHOT_I18N_DOMAIN ); ?>
 									</a>
 								<?php endif; ?>

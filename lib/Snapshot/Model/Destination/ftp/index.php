@@ -475,21 +475,7 @@ if ( ( ! class_exists( 'SnapshotDestinationFTP' ) )
 			if ( ( isset( $d_info['protocol'] ) ) && ( strlen( $d_info['protocol'] ) ) ) {
 				$this->destination_info['protocol'] = esc_attr( $d_info['protocol'] );
 			} else {
-				// If we don't have the 'protocol' setting then this is a legacy destination. So check the 'ssl' value.
-				if ( ( isset( $d_info['ssl'] ) ) && ( strlen( $d_info['ssl'] ) ) ) {
-					$this->destination_info['ssl'] = esc_attr( $d_info['ssl'] );
-				} else {
-					$this->destination_info['ssl'] = "no";
-				}
-
-				if ( $this->destination_info['ssl'] == "no" ) {
-					$this->destination_info['protocol'] = "ftp";
-				} else {
-					$this->destination_info['protocol'] = "sftp";
-				}
-
-				// We no longer need the 'ssl' setting.
-				unset( $this->destination_info['ssl'] );
+				$this->destination_info['protocol'] = "ftp";
 			}
 
 			if ( ( isset( $d_info['passive'] ) ) && ( strlen( $d_info['passive'] ) ) ) {

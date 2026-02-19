@@ -154,7 +154,8 @@ $item = array_merge( array(
 
 				foreach ( $query_vars as $query_var ) {
 					if ( isset( $_GET[ $query_var ] ) ) {
-						$item['redirecturi'] = add_query_arg( $query_var, $_GET[ $query_var ], $item['redirecturi'] );
+						$query_value = sanitize_text_field( wp_unslash( $_GET[ $query_var ] ) );
+						$item['redirecturi'] = add_query_arg( $query_var, $query_value, $item['redirecturi'] );
 
 					}
 				}

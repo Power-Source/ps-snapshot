@@ -1198,88 +1198,6 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 
 		/**
-		 * Metabox Content for Snapshot Migration
-		 * This is used to migrate snapshot files and logs from version 1.0.1 and earlier to the centralized 1.0.2 Multisite format
-		 * @since 1.0.0
-		 * @uses metaboxes setup in $this->admin_menu_proc()
-		 * @uses $this->config_data['items']
-		 *
-		 * @param none
-		 *
-		 * @return none
-		 */
-		function snapshot_metaboxes_show_migration() {
-
-			$config_data = get_option( 'snapshot_1.0' );
-			if ( ( $config_data ) && ( isset( $config_data['items'] ) ) && ( count( $config_data['items'] ) ) ) {
-
-				?>
-				<form action="?page=snapshots_settings_panel" method="post">
-					<input type="hidden" name="snapshot-action" value="settings-update"/>
-					<input type="hidden" name="snapshot-sub-action" value="migration"/>
-					<input type="hidden" name="migration" value="true"/>
-					<?php wp_nonce_field( 'snapshot-settings', 'snapshot-noonce-field' ); ?>
-					<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-					<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
-
-					<p><?php _ex( "Migrate Snapshot files and logs created under previous version of the Snapshot plugin.",
-							'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
-
-					<table class="form-table snapshot-backup-migration">
-						<tr>
-							<th scope="row">
-								<label
-									for="snapshot-migrate-blog-id"><?php _e( 'Migrate old Snapshots', SNAPSHOT_I18N_DOMAIN ); ?></label>
-							</th>
-							<td><input class="button-primary" type="submit"
-							           value="<?php _e( 'Migrate Snapshots', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
-						</tr>
-					</table>
-
-					<p><?php _ex( "The following items will be converted to the new Snapshot format.",
-							'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
-					<table class="form-table snapshot-backup-migration">
-						<tr class="form-field">
-							<th scope="row" style="width: 10%;"><?php _e( "Name", SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th scope="row" style="width: 30%;"><?php _e( "Notes", SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th scope="row" style="width: 30%;"><?php _e( "Filename", SNAPSHOT_I18N_DOMAIN ); ?></th>
-						</tr>
-						<?php
-						foreach ( $config_data['items'] as $item ) {
-							if ( ! isset( $row_class ) ) {
-								$row_class = "";
-							}
-							$row_class = ( $row_class == '' ? 'alternate' : '' );
-
-							?>
-							<tr class="form-field <?php echo $row_class; ?>">
-								<td><?php echo $item['name']; ?></td>
-								<td><?php echo $item['notes'] . "<br />" . implode( ', ', $item['tables'] ); ?></td>
-								<td><?php
-									$backupFile = trailingslashit( PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ) . $item['file'];
-
-									if ( file_exists( $backupFile ) ) {
-
-										?><a
-										href="<?php echo trailingslashit( PSOURCESnapshot::instance()->get_setting( 'backupURLFull' ) ) .
-										                 $item['file']; ?>"><?php echo $item['file']; ?></a><?php
-									}
-									?></td>
-							</tr>
-						<?php
-						}
-						?>
-					</table>
-				</form>
-			<?php
-			} else {
-				?><p><?php _ex( "No legacy snapshot data found to convert.",
-					'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
-			}
-		}
-
-
-		/**
 		 * Metabox Content for Snapshot Item tables
 		 * @since 1.0.0
 		 * @uses metaboxes setup in $this->admin_menu_proc()
@@ -2147,8 +2065,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 			if ($this->_show_moved_server_info()) return false;
 
-// @TODO: deprecated, clean up below
-			global $wpdb, $wp_version;
+global $wpdb, $wp_version;
 
 			?>
 			<p><?php _e( 'The following table shows version information about your server. When contacting support it might be helpful to provide this information along with your specific issues.', SNAPSHOT_I18N_DOMAIN ); ?></p>

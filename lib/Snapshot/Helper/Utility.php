@@ -246,7 +246,11 @@ if ( ! class_exists( 'Snapshot_Helper_Utility' ) ) {
 				$wpdb_prefix = str_replace( '_', '\_', $wpdb->prefix );
 			}
 
-			$table_meta_sql = "SELECT * FROM information_schema.TABLES WHERE table_schema = '" . $db_name . "' AND table_name = '" . $table_name . "'";
+			$table_meta_sql = $wpdb->prepare(
+				"SELECT * FROM information_schema.TABLES WHERE table_schema = %s AND table_name = %s",
+				$db_name,
+				$table_name
+			);
 			//echo "table_meta_sql[". $table_meta_sql ."]<br />";
 			$result = $wpdb->get_row( $table_meta_sql );
 
@@ -268,7 +272,10 @@ if ( ! class_exists( 'Snapshot_Helper_Utility' ) ) {
 			global $wpdb;
 
 			if ( $show_counts_only == true ) {
-				$sql_str = "SELECT count(blog_id) as blogs_count FROM $wpdb->blogs WHERE archived = '0' AND spam = 0 AND deleted = 0";
+				$sql_str = $wpdb->prepare(
+					"SELECT count(blog_id) as blogs_count FROM {$wpdb->blogs} WHERE archived = %d AND spam = %d AND deleted = %d",
+					0, 0, 0
+				);
 				$result  = $wpdb->get_row( $sql_str );
 				if ( isset( $result->blogs_count ) ) {
 					return $result->blogs_count;
@@ -288,9 +295,15 @@ if ( ! class_exists( 'Snapshot_Helper_Utility' ) ) {
 					$blog_ids = $wpdb->get_col( $sql_str );
 					//echo "blog_ids<pre>"; print_r($blog_ids); echo "</pre>";
 					if ( $blog_ids ) {
+						$blog_ids_placeholders = implode( ',', array_fill( 0, count( $blog_ids ), '%d' ) );
+						$blogs_query = $wpdb->prepare(
+							"SELECT * FROM {$wpdb->blogs} WHERE blog_id IN (" . $blog_ids_placeholders . ")",
+							...$blog_ids
+						);
+						$blogs_data = $wpdb->get_results( $blogs_query, ARRAY_A );
 						$blogs = array();
-						foreach ( $blog_ids as $blog_id ) {
-							$blogs[ $blog_id ] = get_blog_details( $blog_id );
+						foreach ( $blogs_data as $blog ) {
+							$blogs[ $blog['blog_id'] ] = (object) $blog;
 						}
 						wp_cache_set( 'snapshot-blogs', $blogs, 'snapshot-plugin' );
 

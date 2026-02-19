@@ -731,8 +731,11 @@ if ( ! class_exists( 'Snapshot_Helper_Recovery' ) ) {
 			// some unseriliased data cannot be re-serialised eg. SimpleXMLElements
 			try {
 
-				if ( is_string( $data ) && ( $unserialized = @unserialize( $data ) ) !== false ) {
+			if ( is_string( $data ) && is_serialized( $data ) ) {
+				$unserialized = @unserialize( $data, [ 'allowed_classes' => false ] );
+				if ( $unserialized !== false ) {
 					$data = self::recursive_unserialize_replace( $from, $to, $unserialized, true );
+				}
 				} elseif ( is_array( $data ) ) {
 					$_tmp = array();
 					foreach ( $data as $key => $value ) {

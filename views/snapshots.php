@@ -81,8 +81,8 @@ $data = array(
 									<?php endforeach; ?>
 								</select>
 
-								<input type="hidden" name="paged" value="<?php echo $paged ?>">
-								<input type="hidden" name="page" value="<?php echo sanitize_text_field( $_GET['page'] ) ?>">
+<input type="hidden" name="paged" value="<?php echo esc_attr( $paged ) ?>">
+							<input type="hidden" name="page" value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ?>">
 
 								<button type="submit" class="button button-outline button-gray"><?php _e( 'Filter', SNAPSHOT_I18N_DOMAIN ); ?></button>
 

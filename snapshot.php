@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: PS Snapshot
-Version: 1.0.2
+Version: 1.0.3
 Description: Dieses Plugin ermöglicht es Dir, bei Bedarf schnelle Backup-Snapshots Deiner funktionierenden ClassicPress-Datenbank zu erstellen. Du kannst aus den standardmäßigen ClassicPress-Tabellen sowie benutzerdefinierten Plugin-Tabellen innerhalb der Datenbankstruktur auswählen. Alle Snapshots werden protokolliert und Du kannst den Snapshot nach Bedarf wiederherstellen.
 Author: PSOURCE
 Author URI: https://github.com/Power-Source
@@ -87,7 +87,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$this->plugin_url = plugin_dir_url( __FILE__ );
 
 			$this->DEBUG = false;
-			$this->_settings['SNAPSHOT_VERSION'] = '1.0.2';
+			$this->_settings['SNAPSHOT_VERSION'] = '1.0.3';
 
 			if ( is_multisite() ) {
 				$this->_settings['SNAPSHOT_MENU_URL'] = network_admin_url() . 'admin.php?page=';
@@ -190,9 +190,6 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 			// Fix PATH_CURRENT_SITE if not configured
 			add_filter( 'snapshot_current_path', array( $this, 'snapshot_check_current_path' ) );
-
-			// Run the Cron controller
-			Snapshot_Controller_Full_Cron::get()->run();
 
 			// Run the Hub integration controller
 			Snapshot_Controller_Full_Hub::get()->run();
@@ -795,7 +792,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 						break;
 
 					case 'delete-item':
-						if ( empty( $_GET ) || ( isset( $_POST['snapshot-noonce-field'] ) && ! wp_verify_nonce( $_GET['snapshot-noonce-field'], 'snapshot-delete-item' ) ) ) {
+						if ( empty( $_POST ) || ( isset( $_POST['snapshot-noonce-field'] ) && ! wp_verify_nonce( $_POST['snapshot-noonce-field'], 'snapshot-delete-item' ) ) ) {
 							return;
 						} else {
 							$this->snapshot_delete_item_action_proc();
@@ -835,7 +832,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 						break;
 
 					case 'runonce':
-						if ( empty( $_GET ) || ( isset( $_POST['snapshot-noonce-field'] ) && ! wp_verify_nonce( $_GET['snapshot-noonce-field'], 'snapshot-runonce' ) ) ) {
+						if ( empty( $_POST ) || ( isset( $_POST['snapshot-noonce-field'] ) && ! wp_verify_nonce( $_POST['snapshot-noonce-field'], 'snapshot-runonce' ) ) ) {
 							return;
 						} else {
 							if ( ! isset( $_GET['item'] ) ) {
@@ -883,7 +880,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 							break;
 						}
 
-						$timestamp = sanitize_text_field( $_GET['backup-item'] );
+						$item_key = intval( wp_unslash( $_GET['backup-item'] ) );
 
 						$model = new Snapshot_Model_Full_Backup();
 						$local_archive = $model->local()->get_backup( $timestamp );
@@ -918,11 +915,11 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 					case 'download-log':
 
 						if ( ( isset( $_GET['snapshot-item'] ) ) && ( isset( $_GET['snapshot-data-item'] ) ) ) {
-							$item_key = intval( $_GET['snapshot-item'] );
+							$item_key = intval( wp_unslash( $_GET['snapshot-item'] ) );
 							if ( isset( $this->config_data['items'][ $item_key ] ) ) {
 								$item = $this->config_data['items'][ $item_key ];
 
-								$data_item_key = intval( $_GET['snapshot-data-item'] );
+								$data_item_key = intval( wp_unslash( $_GET['snapshot-data-item'] ) );
 								if ( isset( $item['data'][ $data_item_key ] ) ) {
 
 									$data_item = $item['data'][ $data_item_key ];
@@ -992,7 +989,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 						$CONFIG_CHANGED = false;
 
-						$item_key = intval( $_GET['item'] );
+						$item_key = intval( wp_unslash( $_GET['item'] ) );
 						if ( isset( $this->config_data['items'][ $item_key ] ) ) {
 							$item = $this->config_data['items'][ $item_key ];
 
@@ -2115,12 +2112,6 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 				}
 			}
 
-			if ( isset( $_REQUEST['migration'] ) ) {
-				global $wpdb;
-
-				$CONFIG_CHANGED = $this->snapshot_migrate_config_proc( $wpdb->blogid );
-			}
-
 			if ( ( isset( $_REQUEST['errorReporting'] ) ) && ( count( $_REQUEST['errorReporting'] ) ) ) {
 				$this->config_data['config']['errorReporting'] = $_REQUEST['errorReporting'];
 				$CONFIG_CHANGED = true;
@@ -2191,25 +2182,6 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 		
 			if ( ! isset( $this->config_data['config'] ) ) {
 				$this->config_data['config'] = array();
-			}
-
-			if ( empty( $this->config_data ) ) {
-
-				$snapshot_legacy_versions = array( '2.0.3', '2.0.2', '2.0.1', '2.0', '1.0.2' );
-				foreach ( $snapshot_legacy_versions as $snapshot_legacy_version ) {
-					$snapshot_options_key = "snapshot_" . $snapshot_legacy_version;
-
-					if ( is_multisite() ) {
-						$this->config_data = get_blog_option( $wpdb->blogid, $snapshot_options_key );
-					} else {
-						$this->config_data = get_option( $snapshot_options_key );
-					}
-
-					if ( ! empty( $this->config_data ) ) {
-						$this->config_data['version'] = $snapshot_legacy_version;
-						break;
-					}
-				}
 			}
 
 			if ( ! isset( $this->config_data['items'] ) ) {
@@ -6255,120 +6227,6 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 		}
 
 		/**
-		 * Utility function to migrate previous snapshot items to new data structure and filename format
-		 *
-		 * @since 1.0.0
-		 * @see
-		 *
-		 * @param blog_id
-		 * @param IS_SUPER_BLOG true is for multisite primary blog ID 1
-		 *
-		 * @return void
-		 */
-
-		function snapshot_migrate_config_proc( $blog_id = 0 ) {
-
-			//		if (is_multisite()) {
-			//			if (!$blog_id) return;
-			//
-			//			$blog_id = intval($blog_id);
-			//			if ($IS_SUPER_BLOG == true) {
-			//
-			//				// If this is the Primary Blog and we already have the updated
-			//				$config_data = get_blog_option($blog_id, $this->_settings['options_key']);
-			//				if ($config_data)
-			//					return;
-			//			}
-			//
-			//		} else {
-			//
-			//			// Single WordPress (Not Multisite)
-			//			$config_data = get_option($this->_settings['options_key']);
-			//			if ($config_data)
-			//				return;
-			//		}
-			//
-			//		// else we need to pull the previous version and convert.
-			//		if (is_multisite())
-			//			$config_data = get_blog_option($blog_id, 'snapshot_1.0');
-			//		else
-			//			$config_data = get_option( 'snapshot_1.0');
-
-			$ret_value = false;
-			$config_data = get_option( 'snapshot_1.0' );
-			if ( $config_data ) {
-
-				foreach ( $config_data['items'] as $item_key => $item ) {
-
-					// Need to update filename to reflect new filename formats
-					$backupFile = trailingslashit( $this->_settings['backupBaseFolderFull'] ) . $item['file'];
-
-					if ( file_exists( $backupFile ) ) {
-						$path_filename = pathinfo( $item['file'], PATHINFO_FILENAME );
-						if ( ! $path_filename ) {
-							// PHP Not supported. Do it old school
-
-							$path_filename = substr( $item['file'], 0, strlen( $item['file'] ) - 4 );
-						}
-
-						$snapshot_file_parts = explode( '-', $path_filename );
-						if ( count( $snapshot_file_parts ) == 3 ) {
-							// Old style snapshot-yymmdd-hhmms format
-							// Need to convert to snapshot-{blog_id}-yymmdd-hhmmss-{checksum}.zip
-
-							while ( true ) {
-								$checksum = Snapshot_Helper_Utility::get_file_checksum( $backupFile );
-								$snapshot_new_filename = $snapshot_file_parts[0] . '-' . $item_key . '-' . $snapshot_file_parts[1] . '-' .
-								                         $snapshot_file_parts[2] . '-' . $checksum . '.zip';
-
-								$masterFile = trailingslashit( $this->_settings['backupBaseFolderFull'] ) . $snapshot_new_filename;
-
-								// File does not exist so break and save file.
-								if ( ! file_exists( $masterFile ) ) {
-									break;
-								}
-							}
-							rename( $backupFile, $masterFile );
-
-							$item['blog-id'] = $blog_id;
-							$item['interval'] = '';
-
-							unset( $item['file'] );
-
-							$item_data = array();
-							$item_data['filename'] = $snapshot_new_filename;
-							$item_data['timestamp'] = $item_key;
-							$item_data['tables'] = $item['tables'];
-
-							$item['data'] = array();
-							$item['data'][ $item_key ] = $item_data;
-
-							$this->config_data['items'][ $item_key ] = $item;
-						}
-					}
-				}
-				//echo "config_data<pre>"; print_r($this->config_data); echo "</pre>";
-				//exit;
-
-				if ( isset( $config_data['config']['tables'] ) ) {
-					$this->config_data['config']['tables_last'][ $blog_id ] = $config_data['config']['tables'];
-				}
-
-				// Now we want to archive the old style options to get them out of the database.
-				$configFile = trailingslashit( $this->_settings['backupBaseFolderFull'] ) . "_configs";
-				wp_mkdir_p( $configFile );
-				$configFile = trailingslashit( $this->_settings['backupBaseFolderFull'] ) . "_configs/blog_" . $blog_id . ".conf";
-				$fp = fopen( $configFile, 'w' );
-				fwrite( $fp, serialize( $config_data ) );
-				fclose( $fp );
-				$ret_value = true;
-				delete_option( 'snapshot_1.0' );
-			}
-
-			return $ret_value;
-		}
-
-		/**
 		 * Interface function provide access to the private _settings array to outside classes.
 		 *
 		 * @since 1.0.0
@@ -8253,6 +8111,19 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			
 			if ( ! isset( $_GET['snapshot-item'] ) ) {
 				return;
+			}
+			
+			$nonce = isset( $_GET['snapshot-full-backup-nonce'] )
+				? sanitize_text_field( wp_unslash( $_GET['snapshot-full-backup-nonce'] ) )
+				: '';
+			if ( ! $nonce || ! wp_verify_nonce( $nonce, 'snapshot-full-backup-download' ) ) {
+				$redirect = wp_get_referer();
+				if ( empty( $redirect ) ) {
+					$redirect = admin_url( 'admin.php?page=snapshot_network_backup' );
+				}
+				$redirect = add_query_arg( 'snapshot-full-backup-error', 'invalid_nonce', $redirect );
+				wp_safe_redirect( $redirect );
+				exit;
 			}
 			
 			if ( ! current_user_can( 'manage_options' ) ) {

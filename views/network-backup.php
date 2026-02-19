@@ -6,11 +6,20 @@ if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_opt
 $backups = ( isset( $backups ) && is_array( $backups ) ) ? $backups : array();
 $restore_path_default = apply_filters( 'snapshot_home_path', get_home_path() );
 $restore_nonce = wp_create_nonce( 'snapshot-full-backup-restore' );
+$download_error = isset( $_GET['snapshot-full-backup-error'] )
+	? sanitize_text_field( wp_unslash( $_GET['snapshot-full-backup-error'] ) )
+	: '';
 ?>
 
 <section id="header">
 	<h1><?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?></h1>
 </section>
+
+<?php if ( 'invalid_nonce' === $download_error ) : ?>
+	<div class="notice notice-error">
+		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+	</div>
+<?php endif; ?>
 
 <?php if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) : ?>
 <div style="background:#f0f0f0; padding:10px; margin:10px 0; border:1px solid #ccc; font-family:monospace; font-size:11px; max-height:200px; overflow-y:auto;" id="snapshot-debug-panel">

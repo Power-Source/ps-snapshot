@@ -80,41 +80,7 @@ $latest_snapshot = Snapshot_Helper_Utility::latest_backup( $snapshot );
 					</td>
 				</tr>
 
-				<?php if ( $is_client ) : ?>
-					<tr>
-						<th><?php _e( 'Managed Backups Zeitplan', SNAPSHOT_I18N_DOMAIN ); ?></th>
 
-						<?php if ( ! $has_snapshot_key ) { ?>
-							<td>
-								<a id="view-snapshot-key" class="button button-small button-blue"><?php _e( 'Aktivieren', SNAPSHOT_I18N_DOMAIN ) ?></a>
-							</td>
-						<?php } elseif ( $model->get_config( 'disable_cron', false ) ) { ?>
-
-							<td>
-								<a id="wps-managed-backups-configure" class="button button-outline button-small button-gray"
-								   href="<?php echo esc_url( PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ) . '#wps-backups-settings-schedule' ); ?>">
-									<?php esc_html_e( 'Aktivieren', SNAPSHOT_I18N_DOMAIN ); ?>
-								</a>
-							</td>
-
-						<?php } else { ?>
-
-							<td class="fancy-date-time">
-								<?php $frequencies = $model->get_frequencies(); echo esc_html( $frequencies[$model->get_frequency()] ); ?>
-								<span><?php
-									$schedule_times = $model->get_schedule_times();
-									printf(
-										esc_html__( 'um %s', SNAPSHOT_I18N_DOMAIN ),
-										$schedule_times[$model->get_schedule_time()]
-									);
-
-									?></span>
-							</td>
-
-						<?php } ?>
-
-					</tr>
-				<?php endif; ?>
 
 				</tbody>
 			</table>

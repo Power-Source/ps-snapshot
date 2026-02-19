@@ -63,28 +63,6 @@ class Snapshot_Controller_Full_Cron extends Snapshot_Controller_Full {
 	}
 
 	/**
-	 * Runs the compatibility layer, if needed
-	 *
-	 * @since 1.0.0
-	 * @deprecated v3.0.5-BETA-2
-	 *
-	 * @return bool Status
-	 */
-	public function run_compat () {
-		$status = false;
-
-		if (defined('WPE_APIKEY')) {
-			// Pretty ugly, so only do this if we really have to
-			add_filter('cron_request', array($this, 'set_auth_cookies')); // We don't do this anymore
-			// We now have cron requests dispatch the actual processings,
-			// so the cron jobs themselves don't need to auth at all
-			$status = true;
-		}
-
-		return $status;
-	}
-
-	/**
 	 * Stops and unschedules cron events
 	 *
 	 * @return bool
@@ -204,9 +182,7 @@ class Snapshot_Controller_Full_Cron extends Snapshot_Controller_Full {
 
 		if ($this->_model->get_config('disable_cron', false)) return false;
 
-		// Deprecated the schedule auto starting in favor of
-		// semi-automatic schedule setup with user action
-		//$this->_auto_schedule_backup_starting();
+
 
 		// Now the schedule action listeners here
 
@@ -664,8 +640,6 @@ class Snapshot_Controller_Full_Cron extends Snapshot_Controller_Full {
 	 * Schedule started backups start.
 	 *
 	 * This should happen only as set in settings.
-	 *
-	 * @deprecated since 3.0.1 Also renamed with `auto_` prefix
 	 *
 	 * @return bool
 	 */

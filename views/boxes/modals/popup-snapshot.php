@@ -33,14 +33,7 @@
 							<?php else : ?>
 
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-1">
-									<p><?php _e('To enable Managed Backups and your 10GB storage allowance on our PSOURCE cloud servers, you need to add your Snapshot key.', SNAPSHOT_I18N_DOMAIN); ?></p>
-
-									<p><a target="_blank" href="<?php echo $apiKeyUrl ?>" class="button button-blue"><?php _e('Get My Key', SNAPSHOT_I18N_DOMAIN); ?></a></p>
-
-									<p><?php _e('Once you\'ve got your key, enter it below:', SNAPSHOT_I18N_DOMAIN); ?></p>
-
-								</div>
-
+						<p><?php _e('Please enter your API key below to enable advanced features.', SNAPSHOT_I18N_DOMAIN); ?></p>
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-2 hidden">
 									<p><?php _e('Please wait while we verify your Snapshot key...', SNAPSHOT_I18N_DOMAIN); ?></p>
 								</div>

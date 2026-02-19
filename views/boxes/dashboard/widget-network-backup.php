@@ -45,7 +45,7 @@ $backups = array_slice( $backups, 0, 3 );
 
 <div class="col-xs-12">
 
-<p><?php esc_html_e( 'Sichern Sie Ihr gesamtes WordPress-Netzwerk (alle Seiten, Dateien und Datenbanken) mit einem Klick.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+<p><?php esc_html_e( 'Sichere Dein gesamtes Multisite-Netzwerk (alle Seiten, Dateien und Datenbanken) mit einem Klick.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 <table class="has-footer" cellpadding="0" cellspacing="0">
 
