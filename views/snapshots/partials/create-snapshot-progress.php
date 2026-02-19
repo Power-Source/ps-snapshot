@@ -101,7 +101,7 @@
 							</div>
 
 							<p>
-								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-snapshots'); ?>&amp;snapshot-action=view&amp;item=<?php echo $item['timestamp']; ?>" class="button button-gray"><?php _e('View Snapshot', SNAPSHOT_I18N_DOMAIN); ?></a>
+								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-snapshots'); ?>&amp;snapshot-action=view&amp;item=<?php echo $item['timestamp']; ?>" class="button button-gray"><?php _e('Snapshot anzeigen', SNAPSHOT_I18N_DOMAIN); ?></a>
 							</p>
 
 						</div>

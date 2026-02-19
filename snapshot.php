@@ -4154,7 +4154,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 				// echo out the finished message so the user knows we are done.
 				$snapshot_url = $this->_settings['SNAPSHOT_MENU_URL'] . 'snapshot_snapshots';
-				$error_status['responseText'] = __( "Dein Snapshot wurde erfolgreich erstellt und gespeichert!", SNAPSHOT_I18N_DOMAIN ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "View Snapshot", SNAPSHOT_I18N_DOMAIN ) . '</a>';
+				$error_status['responseText'] = __( "Dein Snapshot wurde erfolgreich erstellt und gespeichert!", SNAPSHOT_I18N_DOMAIN ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "Snapshot anzeigen", SNAPSHOT_I18N_DOMAIN ) . '</a>';
 
 				//}
 
