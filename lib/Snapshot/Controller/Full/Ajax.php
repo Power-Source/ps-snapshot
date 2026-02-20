@@ -238,6 +238,34 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$mysqli = (bool)function_exists('mysqli_connect');
 		if (!$mysqli) Snapshot_Helper_Log::note("We do not seem to have mysqli available");
 
+		// Check backup method
+		$backup_helper = new Snapshot_Helper_Backup();
+		$system_backup_available = $backup_helper->supports_system_backup();
+		$will_use_system = $backup_helper->will_do_system_backup();
+		
+		if ($will_use_system) {
+			Snapshot_Helper_Log::info("System backup (CLI) will be used - optimal for large sites");
+		} else if ($system_backup_available) {
+			Snapshot_Helper_Log::note("System backup available but not enabled");
+		}
+
+		// Detailed system backup requirements check
+		$system_requirements = array();
+		$system_requirements['escapeshellarg'] = Snapshot_Helper_System::is_available('escapeshellarg');
+		$system_requirements['escapeshellcmd'] = Snapshot_Helper_System::is_available('escapeshellcmd');
+		$system_requirements['exec'] = Snapshot_Helper_System::is_available('exec');
+		$system_requirements['zip'] = Snapshot_Helper_System::has_command('zip');
+		$system_requirements['mysqldump'] = Snapshot_Helper_System::has_command('mysqldump');
+		$system_requirements['ln'] = Snapshot_Helper_System::has_command('ln');
+		$system_requirements['rm'] = Snapshot_Helper_System::has_command('rm');
+
+		$missing_requirements = array();
+		foreach ($system_requirements as $req => $available) {
+			if (!$available) {
+				$missing_requirements[] = $req;
+			}
+		}
+
 		wp_send_json(array(
 			'webserver' => array(
 				'system' => array(
@@ -263,6 +291,24 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 				'version' => array(
 					'value' => get_bloginfo('version'),
 					'result' => (bool)$wp_state,
+				),
+			),
+			'backup' => array(
+				'method' => array(
+					'value' => $will_use_system 
+						? __('System (CLI)', SNAPSHOT_I18N_DOMAIN)
+						: __('PHP (ZipArchive)', SNAPSHOT_I18N_DOMAIN),
+					'result' => true,
+					'info' => $will_use_system 
+						? __('Optimiert für große Websites', SNAPSHOT_I18N_DOMAIN)
+						: ($system_backup_available 
+							? __('System-Backup verfügbar aber nicht aktiviert', SNAPSHOT_I18N_DOMAIN)
+							: __('System-Backup nicht verfügbar', SNAPSHOT_I18N_DOMAIN)
+						),
+					'system_available' => $system_backup_available,
+					'will_use_system' => $will_use_system,
+					'missing_requirements' => $missing_requirements,
+					'all_requirements' => $system_requirements,
 				),
 			),
 			'fileset' => array(
@@ -293,6 +339,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			Snapshot_Helper_Log::error(__('Backup-Verarbeitung nicht bereit', SNAPSHOT_I18N_DOMAIN));
 			wp_send_json_error(__('Die Backup-Verarbeitung ist derzeit nicht verfügbar.', SNAPSHOT_I18N_DOMAIN));
 		}
+		
+		// Extend execution time for restore operations
+		@set_time_limit(300); // 5 minutes per restore step
 		
 		check_ajax_referer('snapshot-full-backup-restore', 'security');
 
@@ -404,6 +453,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	public function json_start_backup () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
 
+		// Extend execution time for backup initialization
+		@set_time_limit(300); // 5 minutes
+
 		if (!$this->_model->is_active()) {
 			$this->_model->set_config('active', true);
 		}
@@ -434,10 +486,28 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		// Initialize process counter for incremental size tracking
 		update_site_option('snapshot_backup_process_counter_' . $idx, 0);
 
+		// Determine backup method for frontend display
+		$backup_instance = Snapshot_Helper_Backup::load($idx);
+		$will_use_system = $backup_instance ? $backup_instance->will_do_system_backup() : false;
+		$supports_system = $backup_instance ? $backup_instance->supports_system_backup() : false;
+		
+		$backup_method = $will_use_system 
+			? __('System (CLI)', SNAPSHOT_I18N_DOMAIN)
+			: __('PHP (ZipArchive)', SNAPSHOT_I18N_DOMAIN);
+		$backup_method_detail = $will_use_system
+			? __('Nutzt Shell-Befehle für optimale Performance', SNAPSHOT_I18N_DOMAIN)
+			: ($supports_system 
+				? __('System-Backup verfügbar aber nicht aktiviert', SNAPSHOT_I18N_DOMAIN)
+				: __('Standard PHP-Methode', SNAPSHOT_I18N_DOMAIN)
+			);
+
 		wp_send_json(array(
 			'id' => $idx,
 			'total_size' => $total_size,
 			'total_size_formatted' => size_format($total_size),
+			'backup_method' => $backup_method,
+			'backup_method_detail' => $backup_method_detail,
+			'will_use_system' => $will_use_system,
 		));
 	}
 
@@ -448,6 +518,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 */
 	public function json_process_backup () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+
+		// Extend execution time for large backup operations
+		@set_time_limit(300); // 5 minutes per AJAX call
 
 		$data = stripslashes_deep($_POST);
 		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();
@@ -506,6 +579,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 */
 	public function json_finish_backup () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
+
+		// Extend execution time for backup finalization
+		@set_time_limit(300); // 5 minutes
 
 		$data = stripslashes_deep($_POST);
 		$idx = !empty($data['idx']) ? $data['idx'] : $this->_get_backup_type();

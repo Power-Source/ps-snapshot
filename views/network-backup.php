@@ -66,6 +66,11 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 				</select>
 			</div>
 
+			<div id="snapshot-backup-method-info" style="margin-bottom:15px;padding:10px;background:#f0f6fc;border-left:3px solid #2271b1;display:none;">
+				<strong><?php esc_html_e( 'Backup-Methode:', SNAPSHOT_I18N_DOMAIN ); ?></strong> <span id="snapshot-method-name">-</span><br>
+				<small style="color:#666;"><span id="snapshot-method-detail">-</span></small>
+			</div>
+
 			<p>
 				<button id="snapshot-network-backup-start" class="button button-blue"><?php esc_html_e( 'Netzwerk-Backup jetzt starten', SNAPSHOT_I18N_DOMAIN ); ?></button>
 				<button id="snapshot-network-backup-abort" class="button button-secondary" style="display:none;margin-left:10px;"><?php esc_html_e( 'Backup abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></button>
@@ -379,6 +384,21 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 					debugLog('Backup size: ' + formatBytes(currentBackupTotalSize));
 				}
 				
+				// Show backup method
+				if (resp.backup_method) {
+					var methodHtml = '<div style="margin-top:10px;padding:8px;background:#f0f6fc;border-left:3px solid #2271b1;">';
+					methodHtml += '<strong>Backup-Methode:</strong> ' + resp.backup_method;
+					if (resp.backup_method_detail) {
+						methodHtml += '<br><small style="color:#666;">' + resp.backup_method_detail + '</small>';
+					}
+					if (resp.will_use_system) {
+						methodHtml += '<br><small style="color:#00a32a;">✓ Optimiert für große Websites</small>';
+					}
+					methodHtml += '</div>';
+					$('#snapshot-network-backup-status').html(methodHtml).removeClass('notice-error notice-warning').addClass('notice-info').show();
+					debugLog('Backup method:', resp.backup_method);
+				}
+				
 				// Force first size check immediately
 				backupStatusCheckCounter = 2;
 				
@@ -463,7 +483,8 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 						});
 				}
 
-				setTimeout(function(){ doProcessBackup(id, step + 1, totalSteps, startedAt); }, 400);
+				// Increase timeout for large backups to prevent request pile-up
+				setTimeout(function(){ doProcessBackup(id, step + 1, totalSteps, startedAt); }, 2000);
 			})
 			.fail(function(xhr){
 				debugLog('Backup process failed:', xhr);
@@ -728,6 +749,60 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 		$('#snapshot-schedule-info').show();
 	}
 
+	function loadBackupMethodInfo() {
+		debugLog('Loading backup method info...');
+		$.post(ajaxurl, { action: 'snapshot-full_backup-check_requirements' })
+			.done(function(resp){
+				debugLog('Requirements response:', resp);
+				if (resp && resp.backup && resp.backup.method) {
+					var method = resp.backup.method;
+					var info = method.info || '';
+					var isSystem = method.will_use_system === true;
+					var systemAvailable = method.system_available === true;
+					var missingReqs = method.missing_requirements || [];
+					
+					$('#snapshot-method-name').text(method.value);
+					
+					var detailHtml = info;
+					
+					// Show missing requirements if system backup is not available
+					if (!isSystem && !systemAvailable && missingReqs.length > 0) {
+						detailHtml += '<br><small style="color:#d63638;">Fehlende Shell-Befehle: ' + 
+							missingReqs.join(', ') + '</small>';
+						detailHtml += '<br><small style="color:#666;">System-Backups wären schneller, aber es fehlen Server-Tools.</small>';
+					}
+					
+					$('#snapshot-method-detail').html(detailHtml);
+					
+					var infoBox = $('#snapshot-backup-method-info');
+					if (isSystem) {
+						infoBox.css({
+							'background': '#f0f9ff',
+							'border-left-color': '#00a32a'
+						});
+						$('#snapshot-method-detail').after(
+							'<br><small style="color:#00a32a;">✓ Optimiert für große Websites</small>'
+						);
+					} else if (!systemAvailable && missingReqs.length > 0) {
+						// Yellow for PHP backup with missing system tools
+						infoBox.css({
+							'background': '#fff8e5',
+							'border-left-color': '#f0b849'
+						});
+					}
+					infoBox.slideDown();
+					debugLog('Backup method displayed:', method.value);
+					
+					if (missingReqs.length > 0) {
+						debugLog('Missing system requirements:', missingReqs);
+					}
+				}
+			})
+			.fail(function(xhr){
+				debugLog('Failed to load backup method info:', xhr);
+			});
+	}
+
 	$(function(){
 		debugLog('Network Backup page loaded, initializing...');
 		
@@ -748,6 +823,8 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 		// Check if a backup is currently running
 		debugLog('About to check for running backup...');
 		checkAndResumeBackup();
+		// Load and display backup method info
+		loadBackupMethodInfo();
 
 		$('#snapshot-network-backup-start').on('click', function(e){
 			e.preventDefault();

@@ -523,13 +523,20 @@ class Snapshot_Helper_Backup {
 	/**
 	 * Checks to determine if we're to do backup using syscalls
 	 *
-	 * @uses SNAPSHOT_ATTEMPT_SYSTEM_BACKUP define state to allow/disallow
+	 * Automatically uses system backups if available for better performance.
+	 * Use SNAPSHOT_NO_SYSTEM_BACKUP to force PHP-based backups.
+	 *
+	 * @uses SNAPSHOT_NO_SYSTEM_BACKUP define to explicitly disable system backups
 	 *
 	 * @return bool
 	 */
 	public function will_do_system_backup () {
-		// First up, are we expected to try system backup?
-		if (!(defined('SNAPSHOT_ATTEMPT_SYSTEM_BACKUP') && SNAPSHOT_ATTEMPT_SYSTEM_BACKUP)) return false;
+		// Allow explicit disabling of system backups
+		if (defined('SNAPSHOT_NO_SYSTEM_BACKUP') && SNAPSHOT_NO_SYSTEM_BACKUP) {
+			return false;
+		}
+		
+		// Auto-detect and use system backups if available (recommended for large sites)
 		return $this->supports_system_backup();
 	}
 
@@ -567,10 +574,39 @@ class Snapshot_Helper_Backup {
 	 */
 	public function process_files () {
 		if ($this->will_do_system_backup()) {
+			Snapshot_Helper_Log::info("Using system backup (CLI tools) for better performance");
 			return $this->process_archive_system();
 		} else {
-			Snapshot_Helper_Log::warn("Unable to perform requested system backup, proceeding with builtin");
-			// Carry on as normal...
+			$supports = $this->supports_system_backup();
+			if ($supports && defined('SNAPSHOT_NO_SYSTEM_BACKUP') && SNAPSHOT_NO_SYSTEM_BACKUP) {
+				Snapshot_Helper_Log::info("System backup available but disabled via SNAPSHOT_NO_SYSTEM_BACKUP. Using PHP backup.");
+			} else if (!$supports) {
+				Snapshot_Helper_Log::info("System backup not available (missing CLI tools). Using PHP backup.");
+			} else {
+				Snapshot_Helper_Log::info("Using PHP-based backup");
+			}
+		}
+
+		// Raise memory limit for large backup operations
+		if (function_exists('wp_raise_memory_limit')) {
+			wp_raise_memory_limit('admin');
+		}
+
+		// Extend time limit for large backup operations
+		if (!function_exists('ini_get')) {
+			Snapshot_Helper_Log::warn("Could not probe for safe mode");
+		} else {
+			if (!!ini_get('safe_mode')) {
+				Snapshot_Helper_Log::warn("Safe mode is on, will not attempt extending exec time");
+			} else {
+				if (!function_exists('set_time_limit')) {
+					Snapshot_Helper_Log::warn("Unable to extend exec time limit");
+				} else if (@set_time_limit(0)) {
+					Snapshot_Helper_Log::info("Removed exec time limit constraint");
+				} else {
+					Snapshot_Helper_Log::warn("Unable to remove exec time constraint");
+				}
+			}
 		}
 
 		$path = $this->get_archive_path($this->_idx);
