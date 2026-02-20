@@ -12,6 +12,26 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 // Get the actual file path
 $model = new Snapshot_Model_Full_Backup();
 $backup_path = $model->local()->get_backup( $timestamp );
+
+// Get actual file size from disk (not cached)
+if ( $backup_path && file_exists( $backup_path ) ) {
+	$actual_size = @filesize( $backup_path );
+	if ( $actual_size !== false ) {
+		$size = $actual_size; // Use actual size from disk
+	}
+}
+
+// Get actual file size from disk (not cached)
+if ( $backup_path && file_exists( $backup_path ) ) {
+	$actual_size = @filesize( $backup_path );
+	if ( $actual_size === false ) {
+		$actual_size = $size; // Fallback to stored size if we can't read the file
+	} else {
+		$size = $actual_size; // Use actual size
+	}
+} else {
+	// File doesn't exist, use the stored size
+}
 ?>
 
 <section id="header">
@@ -174,6 +194,12 @@ $backup_path = $model->local()->get_backup( $timestamp );
 							<td>
 
 								<a href="#" class="button button-green snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+
+								<a class="button button-outline button-gray thickbox" href="<?php echo esc_url( add_query_arg( array(
+									'action' => 'snapshot-full_backup-get_log',
+									'idx' => $timestamp,
+									'TB_iframe' => 'true',
+								), admin_url( 'admin-ajax.php' ) ) ); ?>" title="<?php esc_attr_e( 'Backup-Log', SNAPSHOT_I18N_DOMAIN ); ?>"><?php _e( 'Log ansehen', SNAPSHOT_I18N_DOMAIN ); ?></a>
 
 								<?php if ( $backup_path && file_exists( $backup_path ) ) : ?>
 									<a class="button button-blue" href="<?php echo esc_url( add_query_arg( array(
