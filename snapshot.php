@@ -2288,14 +2288,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				$this->config_data['config']['tables_last'][ $wpdb->blogid ] = $tables_last;
 			}
 
-			// If we don't have the 'version' config then assume it is the previous version.
-			if ( ! isset( $this->config_data['version'] ) ) {
-				$this->config_data['version'] = "1.0.2";
-			}
-
-			if ( version_compare( $this->config_data['version'], $this->_settings['SNAPSHOT_VERSION'], '<' ) ) {
-
-				//echo "config version<pre>"; print_r($this->config_data['version']); echo "</pre>";
+		if ( version_compare( $this->config_data['version'], $this->_settings['SNAPSHOT_VERSION'], '<' ) ) {
 				//echo "plugin version<pre>"; print_r($this->_settings['SNAPSHOT_VERSION']); echo "</pre>";
 				//die();
 
