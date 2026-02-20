@@ -21,7 +21,6 @@ Speichere deine Backups einmalig oder nach einem Zeitplan an deinem bevorzugten 
 * Lokal auf deinem Server
 * Per FTP/SFTP auf externe Server
 * Google Drive
-* Amazon S3
 * Dropbox
 
 Mit der Importier-Funktion kannst du deine Website auch auf einen neuen Webspace umziehen.

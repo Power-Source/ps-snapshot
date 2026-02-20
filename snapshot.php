@@ -1295,14 +1295,14 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Was soll gesichert werden?</strong> – In diesem Abschnitt werden alle Tabellen Deiner Webseite aufgelistet. Wähle die Tabelle aus, die Du sichern möchtest. Die Tabellen sind in WordPress-Kerntabellen und Sonstige Tabellen unterteilt. Diese Sonstigen Tabellen wurden möglicherweise von installierten Plugins erstellt und verwendet.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Backupzeitpunkt</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du die Häufigkeit der Sicherung der ausgewählten Tabellen festlegen kannst. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung planen, indem Du eine der verfügbaren Optionen auswählen. Bei geplanter Sicherung kannst Du außerdem die Anzahl der aufzubewahrenden Backups festlegen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Speicherort für das Backup</strong> – Du kannst zwischen lokaler Speicherung, Dropbox, Amazon S3, FTP usw. wählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			<p>' . __( '<strong>Speicherort für das Backup</strong> – Du kannst zwischen lokaler Speicherung, Dropbox, Google Drive oder FTP/SFTP wählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
 			$screen_help_text['snapshots_edit_panel']['edit'] = '<p>' . __( 'Im Bearbeitungsfenster für Snapshots kannst Du den Snapshot umbenennen oder Notizen hinzufügen. Außerdem findest Du dort einen Link zur Snapshot-Datei, die Du herunterladen und auf Deinem lokalen System archivieren kannst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Wann archivieren</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du festlegen kannst, wie oft die ausgewählten Tabellen gesichert werden sollen. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung auch planen, indem Du eine der zahlreichen verfügbaren Optionen auswählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Tabellen im Archiv</strong> – Dieser Abschnitt listet die in den Snapshot-Archiven enthaltenen Tabellen auf. Die Tabellenauswahl wird beim Erstellen einer neuen Snapshot-Konfiguration festgelegt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Speicherort für das Archiv</strong> – Die Dateien werden standardmäßig auf dem lokalen Server gespeichert. Alternativ ist auch Dropbox, Amazon S3, FTP usw. unterstützt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Speicherort für das Archiv</strong> – Die Dateien werden standardmäßig auf dem lokalen Server gespeichert. Alternativ sind auch Dropbox, Google Drive oder FTP/SFTP unterstützt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Klicke hier auf den Dateinamen, um die Datei herunterzuladen. In derselben Zeile findest Du außerdem einen Link zu den Protokolleinträgen, die mit der Erstellung dieser Archivinstanz zusammenhängen. Am Ende befindet sich ein Link zum Herunterladen der vollständigen Snapshot-Protokolldatei.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
 			$screen_help_text['snapshots_edit_panel']['restore-panel'] = '<p>' . __( 'Auf diesem Bildschirm kannst Du einen Snapshot wiederherstellen. Die Wiederherstellung lädt den Datenbankexport in Deine aktuelle Live-Umgebung. Alle während der Snapshot-Erstellung ausgewählten Tabellen werden vor dem Laden der Snapshot-Informationen geleert. Beachte, dass bei dieser Wiederherstellung seit dem Snapshot vorhandene und neue Informationen entfernt bzw. hinzugefügt werden.', SNAPSHOT_I18N_DOMAIN ) . '</p>
@@ -1315,7 +1315,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			<p>' . __( '<strong>Edit/Restore/Delete</strong> - Hover over the Name to reveal options for Edit, Restore, Delete. The Edit option will show the Snapshot detail form where you can change many of the configuration options. The Restore option will show a form where you can select from the various restore options. The Delete option will delete this snapshot only', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Notes</strong> - The Notes columns shows the description you assigned to the Snapshot. Also in this column are the tabls included in this snapshot.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Interval</strong> - The Interval column shows how often the snapshot will be generated. When you created the snapshot instance you had the option to create a manual snapshot or schedule the snapshot to be created on certain interval (once an hour, once a day, etc.). If the interval is scheduled this column will show the estimated time for the next backup.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Destination</strong> - The Destinations column shows where the archive is stored. This can be local, Amazon S3, Dropbox, or any custom destination.', SNAPSHOT_I18N_DOMAIN ) . '</p>
+			<p>' . __( '<strong>Destination</strong> - The Destinations column shows where the archive is stored. This can be local, Dropbox, Google Drive, or any custom destination.', SNAPSHOT_I18N_DOMAIN ) . '</p>
 			<p>' . __( '<strong>Archive</strong> - The Archives column shows the last snapshot archive created.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
 
 			$screen_help_text['snapshots_settings_panel'] = '<p>' . __( 'The Settings panel provides access to a number of configuration settings you can customize Snapshot to meet you site needs.', SNAPSHOT_I18N_DOMAIN ) . '</p>
@@ -2257,7 +2257,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				$this->config_data['config']['backupFolder'] = "snapshots";
 			}
 
-			// Container for Destinations S3, FTP, etc.
+			// Container for Destinations (FTP, etc.)
 			if ( ! isset( $this->config_data['destinations'] ) ) {
 				$this->config_data['destinations'] = array();
 			}
@@ -2539,6 +2539,30 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				//die();
 
 				$this->config_data['version'] = $this->_settings['SNAPSHOT_VERSION'];
+				$this->save_config();
+			}
+
+			$aws_removed = false;
+			$removed_destination_keys = array();
+			if ( isset( $this->config_data['destinations'] ) && is_array( $this->config_data['destinations'] ) ) {
+				foreach ( $this->config_data['destinations'] as $destination_key => $destination ) {
+					if ( isset( $destination['type'] ) && 'aws' === $destination['type'] ) {
+						unset( $this->config_data['destinations'][ $destination_key ] );
+						$removed_destination_keys[] = $destination_key;
+						$aws_removed = true;
+					}
+				}
+			}
+
+			if ( $aws_removed && isset( $this->config_data['items'] ) && is_array( $this->config_data['items'] ) ) {
+				foreach ( $this->config_data['items'] as $item_key => $item ) {
+					if ( isset( $item['destination'] ) && in_array( $item['destination'], $removed_destination_keys, true ) ) {
+						unset( $this->config_data['items'][ $item_key ] );
+					}
+				}
+			}
+
+			if ( $aws_removed ) {
 				$this->save_config();
 			}
 
@@ -3878,7 +3902,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 					$data_item['files-count'] = 0;
 				}
 
-				// If the master item destination is not empty, means we are connected to some external system (FTP, S3, Dropbox)
+				// If the master item destination is not empty, means we are connected to some external system (FTP, Dropbox, Google Drive)
 				if ( ( empty( $item['destination'] ) ) || ( $item['destination'] == "local" ) ) {
 					// Else if the master item destination is empty..
 					$data_item['destination'] = 'local';
@@ -5382,24 +5406,12 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				'Authenticate' => 'Authentifizieren',
 				'Directory' => 'Verzeichnis',
 				'Local' => 'Lokal',
-				'Bucket' => 'Bucket',
-				'Private' => 'Privat',
-				'Public Read' => 'Öffentlich lesen',
-				'Public Read/Write' => 'Öffentlich lesen/schreiben',
-				'Authenticated Read' => 'Authentifiziert lesen',
 				'Control who will have access to your backup files.' => 'Bestimme, wer auf deine Backup-Dateien zugreifen darf.',
 				'Test Connection' => 'Verbindung testen',
 				'This destination is authenticated and ready for use.' => 'Dieses Ziel ist authentifiziert und bereit.',
 				"You've authenticated this Dropbox destination. To finish adding this destination, please specify a folder to store the snapshots in and click Save Destination." => 'Du hast dieses Dropbox-Ziel authentifiziert. Wähle jetzt einen Ordner für die Snapshots und klicke auf „Ziel speichern“.',
 				'An error occurred when attempting to connect to Dropbox: ' => 'Beim Verbinden mit Dropbox ist ein Fehler aufgetreten: ',
-				'Amazon S3' => 'Amazon S3',
-				'AWS Access Key ID' => 'AWS Access Key ID',
-				'AWS Secret Access Key' => 'AWS Secret Access Key',
 				'Use SSL Connection' => 'SSL-Verbindung verwenden',
-				'AWS Region' => 'AWS-Region',
-				'Alternate Region host' => 'Alternativer Regions-Host',
-				'Storage Type' => 'Speichertyp',
-				'File Permissions' => 'Dateiberechtigungen',
 				'Directory (optional)' => 'Verzeichnis (optional)',
 				'Local' => 'Lokal',
 			);

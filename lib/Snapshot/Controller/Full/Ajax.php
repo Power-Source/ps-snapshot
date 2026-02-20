@@ -108,7 +108,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	}
 
 	/**
-	 * Forces S3 API info refresh
+	 * Forces API info refresh
 	 *
 	 * @since 1.0.0
 	 */

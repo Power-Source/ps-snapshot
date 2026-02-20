@@ -270,7 +270,7 @@ $warning = $requirements_test['warning'];
 									</p>
 									<p>
 										<code>[DEST_PATH]</code> -
-										<?php esc_html_e( 'Dies stellt das Verzeichnis/Bucket dar, das vom ausgewählten Sicherungsziel verwendet wird oder, wenn lokal, den Speicherort des Einstellungsordners. Dies kann verwendet werden, um den in diesem Snapshot eingegebenen Wert zu ergänzen. Wenn [DEST_PATH] nicht verwendet wird, überschreibt der Verzeichniswert hier den vollständigen Wert des ausgewählten Ziels.', SNAPSHOT_I18N_DOMAIN ); ?>
+										<?php esc_html_e( 'Dies stellt das Verzeichnis dar, das vom ausgewählten Sicherungsziel verwendet wird oder, wenn lokal, den Speicherort des Einstellungsordners. Dies kann verwendet werden, um den in diesem Snapshot eingegebenen Wert zu ergänzen. Wenn [DEST_PATH] nicht verwendet wird, überschreibt der Verzeichniswert hier den vollständigen Wert des ausgewählten Ziels.', SNAPSHOT_I18N_DOMAIN ); ?>
 									</p>
 									<p>
 										<code>[SITE_DOMAIN]</code> -

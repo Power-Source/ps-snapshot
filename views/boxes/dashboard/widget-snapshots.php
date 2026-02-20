@@ -48,7 +48,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 					<div class="wps-image img-snappie-one"></div>
 
-					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Wähle einfach aus, was Du sichern möchtest, und speichere es dann auf Zielen wie Dropbox, Amazon S3 und mehr.', SNAPSHOT_I18N_DOMAIN ) ?></p>
+					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Wähle einfach aus, was Du sichern möchtest, und speichere es dann auf Zielen wie Dropbox, Google Drive oder FTP/SFTP.', SNAPSHOT_I18N_DOMAIN ) ?></p>
 
 					<p>
 						<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-blue"><?php _e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ) ?></a>

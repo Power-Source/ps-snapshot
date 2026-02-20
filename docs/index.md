@@ -173,6 +173,6 @@ Der Name des lokalen Verzeichnisses „Lokaler Snapshot" kann nicht geändert we
 
 ### Remote-Speicherorte
 
-PS Snapshot unterstützt vier Remote-Speicherziele, die mit den Anweisungen in diesem Abschnitt verbunden werden können: Dropbox, Google Drive, AmazonS3 und FTP/SFTP.
+PS Snapshot unterstützt Remote-Speicherziele, die mit den Anweisungen in diesem Abschnitt verbunden werden können: Dropbox, Google Drive und FTP/SFTP.
 
 ![](assets/img/default-remotes.png)

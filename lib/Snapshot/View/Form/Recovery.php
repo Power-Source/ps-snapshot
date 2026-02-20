@@ -236,7 +236,7 @@ if ( ! class_exists( 'Snapshot_View_Form_Recovery' ) ) {
 						<h2>Snapshot Archive</h2>
 
 						<p>The Snapshot archive file can either be a file already on the server or on a remote system
-							like Dropbox or Amazon. As long
+							like Dropbox. As long
 							as it can be access via a simple URL.</p>
 
 						<?php

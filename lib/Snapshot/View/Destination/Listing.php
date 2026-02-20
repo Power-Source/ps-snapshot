@@ -23,7 +23,7 @@ if ( ! class_exists( 'Snapshot_View_Destination_Listing' ) ) {
 				<div id="snapshot-edit-destinations-panel" class="wrap snapshot-wrap">
 					<h2><?php _ex( "All Snapshot Destinations", "Snapshot Destination Page Title", SNAPSHOT_I18N_DOMAIN ); ?> </h2>
 
-					<p><?php _ex( "This page show all the destinations available for the Snapshot plugin. A destination is a remote system like Amazon S3, Dropbox or SFTP. Simply select the destination type from the drop down then will in the details. When you add or edit a Snapshot you will be able to assign it a destination. When the snapshot backup runs the archive file will be sent to the destination and local archive stored or deleted depending on <strong>Keep local archives?</strong> option.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php _ex( "This page show all the destinations available for the Snapshot plugin. A destination is a remote system like Dropbox, Google Drive or SFTP. Simply select the destination type from the drop down then will in the details. When you add or edit a Snapshot you will be able to assign it a destination. When the snapshot backup runs the archive file will be sent to the destination and local archive stored or deleted depending on <strong>Keep local archives?</strong> option.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
 					<?php
 					if ( session_id() == "" ) {
 						@session_start();
@@ -194,7 +194,7 @@ if ( ! class_exists( 'Snapshot_View_Destination_Listing' ) ) {
 				$message = '<p>A Snapshot destination is a great way to make sure you store your "Snapshots" somewhere else other than your website host. ';
 				$message .= 'This makes sure your backups are safely available from somewhere else ready when you need them.</p>';
 
-				$message .= '<p>Snapshot currently integrates with the following reliable services: Amazon AWS (S3 Buckets), Dropbox, Google Drive, Green Qloud and standard FTP.</p>';
+				$message .= '<p>Snapshot currently integrates with the following reliable services: Dropbox, Google Drive and standard FTP/SFTP.</p>';
 
 				$message .= '<p>Destinations are available to you in PS Snapshot from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
 

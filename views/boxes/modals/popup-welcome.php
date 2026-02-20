@@ -35,7 +35,7 @@ $plugin->save_config();
 
 						<?php else : ?>
 
-							<p><?php _e('Willkommen bei Snapshot, dem heißesten Backup-Plugin für ClassicPress! Mit diesem Plugin kannst Du Teile Deiner Webseite sichern und zu Drittanbietern wie Dropbox, Google Drive, Amazon S3 und mehr migrieren.', SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e('Willkommen bei Snapshot, dem heißesten Backup-Plugin für ClassicPress! Mit diesem Plugin kannst Du Teile Deiner Webseite sichern und zu Drittanbietern wie Dropbox, Google Drive und mehr migrieren.', SNAPSHOT_I18N_DOMAIN); ?></p>
 
 						<?php endif; ?>
 
@@ -73,17 +73,6 @@ $plugin->save_config();
 										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'google-drive' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
 											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
 											</a>
-									</td>
-								</tr>
-
-								<tr><?php // Amazon S3 ?>
-									<td class="start-icon"><i class="wps-typecon aws"></i></td>
-									<td class="start-name"><?php _e('Amazon S3', SNAPSHOT_I18N_DOMAIN); ?></td>
-									<td class="start-btn">
-										<a class="button button-blue button-small wps-dismiss-welcome"
-										   href="<?php echo esc_url( add_query_arg( array( 'snapshot-action' => 'add' , 'type' => 'aws' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ) ); ?>">
-											<?php _e('Speicherort hinzufügen', SNAPSHOT_I18N_DOMAIN); ?>
-										</a>
 									</td>
 								</tr>
 

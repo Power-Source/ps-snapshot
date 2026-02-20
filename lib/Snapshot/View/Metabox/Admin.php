@@ -1146,7 +1146,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									<p class="description"><?php _e( "This field support tokens you can use to create dynamic values. You can use any combination of the following tokens. Use the forward slash '/' to separate directory elements.", SNAPSHOT_I18N_DOMAIN ); ?></p>
 									<ul class="description">
 										<li>
-											<strong>[DEST_PATH]</strong> &ndash; <?php _e( "This represents the Directory/Bucket used by the selected Backup Destination or if local, the Settings Folder Location. This can be used to supplement a value entered into this Snapshot. If [DEST_PATH] is not used the Directory value here will override the complete value from the selected Destination." ); ?>
+											<strong>[DEST_PATH]</strong> &ndash; <?php _e( "This represents the Directory used by the selected Backup Destination or if local, the Settings Folder Location. This can be used to supplement a value entered into this Snapshot. If [DEST_PATH] is not used the Directory value here will override the complete value from the selected Destination." ); ?>
 										</li>
 										<li>
 											<strong>[SITE_DOMAIN]</strong> &ndash; <?php _e( 'This represents the full domain of the selected site per this snapshot' ); ?>
@@ -2174,7 +2174,7 @@ global $wpdb, $wp_version;
 					</th>
 					<td>
 						<?php
-						echo __( 'The OpenSSL Apache module is require to make secure connections with destinations like Dropbox and Amazon AWS.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+						echo __( 'The OpenSSL Apache module is require to make secure connections with destinations like Dropbox and Google Drive.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
 
 						if ( ! extension_loaded( 'openssl' ) ) {
 							echo '<span style="color:#FF0000">' . __( 'OpenSSL not installed.', SNAPSHOT_I18N_DOMAIN ) . '</span>';
@@ -2191,7 +2191,7 @@ global $wpdb, $wp_version;
 					</th>
 					<td>
 						<?php
-						echo __( 'cURL is used when connecting to remote destinations like Dropbox and Amazon AWS.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+						echo __( 'cURL is used when connecting to remote destinations like Dropbox and Google Drive.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
 
 						if ( ! extension_loaded( 'curl' ) ) {
 							echo '<span style="color:#FF0000">' . __( 'cURL not installed.', SNAPSHOT_I18N_DOMAIN ) . '</span>';
@@ -2952,12 +2952,11 @@ global $wpdb, $wp_version;
 
 						<li><strong><?php _e( 'Remote Archives', SNAPSHOT_I18N_DOMAIN ) ?></strong>:
 							<?php if ( function_exists( 'curl_version' ) ) { ?>
-								<p><?php _e( 'The import process can import an archive from a remote system server via FTP, Amazon S3 or Dropbox. The remote archive <strong>must</strong> by publicly accessible as this import process does not yet support authentication. See notes below on specific services.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'The import process can import an archive from a remote system server via FTP or Dropbox. The remote archive <strong>must</strong> by publicly accessible as this import process does not yet support authentication. See notes below on specific services.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 								<p class="description"><?php _e( '<strong>Remote FTP:</strong> When downloading from a remote FTP server you must ensure the file is moved to a location where it will be accessible via a simple http:// or https:// URL.', SNAPSHOT_I18N_DOMAIN ) ?></p>
 
 								<p class="description"><?php _e( '<strong>Dropbox:</strong> If you are attempting to download a Dropbox Snapshot archive written to the App/PSOURCE Snapshot you first need to copy the file to a public folder within your Dropbox account before grabbing the public link.', SNAPSHOT_I18N_DOMAIN ) ?></p>
-								<p class="description"><?php _e( '<strong>Amazon S3:</strong> When downloading a file from S3 you need to ensure the file is public. ', SNAPSHOT_I18N_DOMAIN ) ?></p>
 							<?php } else {
 								?><p>
 								<strong><?php echo sprintf( __( 'Import cannot be used to retreive remote files because your PHP install does not have cURL installed. This means you will need to manually upload the file to your server into the snapshot archives directory <em>%s</em>', SNAPSHOT_I18N_DOMAIN ), PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ) ?></strong>

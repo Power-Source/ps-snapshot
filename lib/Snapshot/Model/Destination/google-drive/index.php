@@ -76,7 +76,7 @@ if ( ! class_exists( 'SnapshotDestinationGoogleDrive' ) && version_compare( phpv
 			$this->error_array['errorArray'] = array();
 			$this->error_array['responseArray'] = array();
 
-			// Kill our instance of the AWS connection
+			// Reset prior client/connection state
 			if ( isset( $this->client ) ) {
 				unset( $this->client );
 			}
@@ -181,15 +181,6 @@ if ( ! class_exists( 'SnapshotDestinationGoogleDrive' ) && version_compare( phpv
 				echo json_encode( $this->error_array );
 				die();
 
-			} else if ( $_POST['snapshot_action'] == "aws-get-bucket-list" ) {
-
-				if ( ! $this->login() ) {
-					echo json_encode( $this->error_array );
-					die();
-				}
-
-				echo json_encode( $this->error_array );
-				die();
 			}
 
 			echo json_encode( $this->error_array );

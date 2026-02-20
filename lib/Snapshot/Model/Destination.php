@@ -73,9 +73,6 @@ abstract class Snapshot_Model_Destination {
 			if ( $plugin[0] == '_' ) {
 				continue;
 			}    // Ignore this starting with underscore
-			if ( $plugin === 'aws' ) {
-				continue;
-			}
 
 			$_destination_dir = $dir . '/' . $plugin;
 			if ( is_dir( $_destination_dir ) ) {

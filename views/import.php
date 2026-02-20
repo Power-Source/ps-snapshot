@@ -205,11 +205,11 @@ class Snapshot_Process_Import_Archives {
 						<div class="wps-notice">
 							<h4><?php _e( 'Importoptionen', SNAPSHOT_I18N_DOMAIN); ?></h4>
 							<h5><?php _e( 'Remote-Archive', SNAPSHOT_I18N_DOMAIN ); ?></h5>
-							<p><?php _e( 'Der Importvorgang kann ein Archiv von einem entfernten Systemserver via FTP, Amazon S3 oder Dropbox importieren. Das entfernte Archiv muss öffentlich zugänglich sein, da dieser Importvorgang noch keine Authentifizierung unterstützt. Hinweise zu den einzelnen Diensten findest Du weiter unten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+							<p><?php _e( 'Der Importvorgang kann ein Archiv von einem entfernten Systemserver via FTP oder Dropbox importieren. Das entfernte Archiv muss öffentlich zugänglich sein, da dieser Importvorgang noch keine Authentifizierung unterstützt. Hinweise zu den einzelnen Diensten findest Du weiter unten.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 							<ul>
 								<li><?php _e( '<strong>Remote-FTP:</strong> Beim Herunterladen von einem Remote-FTP-Server musst Du sicherstellen, dass die Datei an einen Ort verschoben wird, an dem sie über eine einfache http://- oder https://-URL erreichbar ist.', SNAPSHOT_I18N_DOMAIN ); ?></li>
 								<li><?php _e( '<strong>Dropbox:</strong> Wenn Du versuchst, ein Dropbox-Snapshot-Archiv herunterzuladen, das im Ordner <strong>App/PSOURCE Snapshot</strong> gespeichert ist, musst Du die Datei zuerst in einen öffentlichen Ordner innerhalb Deines Dropbox-Kontos kopieren, bevor Du den öffentlichen Link abrufst.', SNAPSHOT_I18N_DOMAIN ); ?></li>
-								<li><?php _e( '<strong>Amazon S3:</strong> Beim Herunterladen einer Datei von S3 musst Du sicherstellen, dass die Datei öffentlich ist.', SNAPSHOT_I18N_DOMAIN ); ?></li>
+								
 							</ul>
 							<h5><?php _e( 'Lokale Archive', SNAPSHOT_I18N_DOMAIN ); ?></h5>
 							<p><?php _e( 'Für Archive, die sich bereits auf Deinem Server befinden, aber nicht in der Liste ALLER Snapshots angezeigt werden, kannst Du dieses Formular einfach absenden, ohne unten einen Wert einzugeben. Dies durchsucht das Snapshot-Archivverzeichnis <strong>/media/storage/www/wp/snapshotold/wp-content/uploads/snapshots</strong> nach fehlenden Archiven und fügt sie der Liste hinzu.', SNAPSHOT_I18N_DOMAIN ); ?></p>
@@ -226,7 +226,6 @@ class Snapshot_Process_Import_Archives {
 					<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
 						<div class="wpmud-box-mask">
 							<p class="wps-integration-item"><span class="wps-typecon dropbox"></span>Dropbox</p>
-							<p class="wps-integration-item"><span class="wps-typecon amazon"></span>Amazon S3</p>
 						</div>
 					</div>
 

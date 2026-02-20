@@ -35,7 +35,7 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 			<div class="col-xs-12">
 
-				<p><?php _e( 'Speicherorte sind Orte, an denen Deine Snapshots hochgeladen und gespeichert werden. Speichere Dateien auf Dropbox, Google Drive, Amazon S3, FTP/SFTP oder Deinem lokalen Computer.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _e( 'Speicherorte sind Orte, an denen Deine Snapshots hochgeladen und gespeichert werden. Speichere Dateien auf Dropbox, Google Drive, FTP/SFTP oder Deinem lokalen Computer.', SNAPSHOT_I18N_DOMAIN ); ?></p>
 
 				<table class="has-footer" cellpadding="0" cellspacing="0">
 
