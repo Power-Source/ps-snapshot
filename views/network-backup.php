@@ -589,7 +589,10 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 			if (task === 'clearing' && status) {
 				updateRestoreProgress(step, startedAt, true);
 				setStatus('Wiederherstellung abgeschlossen.', 'notice-success');
-				window.location.reload();
+				// Remove snapshot-restore parameter before reload to prevent restart loop
+				var url = new URL(window.location.href);
+				url.searchParams.delete('snapshot-restore');
+				window.location.href = url.toString();
 				return;
 			}
 
