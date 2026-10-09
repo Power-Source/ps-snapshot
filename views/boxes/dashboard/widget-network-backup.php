@@ -28,14 +28,14 @@ $backups = array_slice( $backups, 0, 3 );
 <div class="wpmud-box-title">
 
 <h3>
-<?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?>
+<?php esc_html_e( 'Netzwerk-Backup', 'snapshot' ); ?>
 
 <?php if ( ! empty( $backups ) ) : ?>
 <span class="wps-count"><?php echo esc_html( $backups_count ); ?></span>
 <?php endif; ?>
 </h3>
 
-<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>" class="button button-small button-blue"><?php esc_html_e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>" class="button button-small button-blue"><?php esc_html_e( 'Erstellen', 'snapshot' ); ?></a>
 
 </div>
 
@@ -45,7 +45,7 @@ $backups = array_slice( $backups, 0, 3 );
 
 <div class="col-xs-12">
 
-<p><?php esc_html_e( 'Sichere Dein gesamtes Multisite-Netzwerk (alle Seiten, Dateien und Datenbanken) mit einem Klick.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+<p><?php esc_html_e( 'Sichere Dein gesamtes Multisite-Netzwerk (alle Seiten, Dateien und Datenbanken) mit einem Klick.', 'snapshot' ); ?></p>
 
 <table class="has-footer" cellpadding="0" cellspacing="0">
 
@@ -53,9 +53,9 @@ $backups = array_slice( $backups, 0, 3 );
 
 <tr>
 
-<th class="wss-name"><?php esc_html_e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
+<th class="wss-name"><?php esc_html_e( 'Name', 'snapshot' ); ?></th>
 
-<th class="wss-date"><?php esc_html_e( 'Datum', SNAPSHOT_I18N_DOMAIN ); ?></th>
+<th class="wss-date"><?php esc_html_e( 'Datum', 'snapshot' ); ?></th>
 
 </tr>
 
@@ -111,7 +111,7 @@ echo esc_html( date_i18n( 'M j, Y', $backup['timestamp'] ) );
 
 <td colspan="2" style="padding: 20px; text-align: center; color: #999;">
 
-<?php esc_html_e( 'Noch keine Netzwerk-Backups vorhanden.', SNAPSHOT_I18N_DOMAIN ); ?>
+<?php esc_html_e( 'Noch keine Netzwerk-Backups vorhanden.', 'snapshot' ); ?>
 
 </td>
 
@@ -127,7 +127,7 @@ echo esc_html( date_i18n( 'M j, Y', $backup['timestamp'] ) );
 
 <td colspan="2">
 
-<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>" class="button button-outline button-gray"><?php esc_html_e( 'Alle anzeigen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>" class="button button-outline button-gray"><?php esc_html_e( 'Alle anzeigen', 'snapshot' ); ?></a>
 
 </td>
 

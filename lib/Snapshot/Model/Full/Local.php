@@ -189,13 +189,13 @@ class Snapshot_Model_Full_Local extends Snapshot_Model_Full_Abstract {
 		// Translate type to display text
 		switch ( $type ) {
 			case 'automated':
-				$type_label = __( 'Automatisches Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				$type_label = __( 'Automatisches Netzwerk-Backup', 'snapshot' );
 				break;
 			case 'full':
-				$type_label = __( 'Manuelles Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				$type_label = __( 'Manuelles Netzwerk-Backup', 'snapshot' );
 				break;
 			default:
-				$type_label = __( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN );
+				$type_label = __( 'Netzwerk-Backup', 'snapshot' );
 				break;
 		}
 

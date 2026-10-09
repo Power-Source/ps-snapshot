@@ -14,7 +14,7 @@
 
 				<div class="wpmud-box-title can-close">
 
-					<h3><?php _e('Add Snapshot Key', SNAPSHOT_I18N_DOMAIN); ?></h3>
+					<h3><?php _e('Add Snapshot Key', 'snapshot'); ?></h3>
 
 					<i class="wps-icon i-close"></i>
 
@@ -28,24 +28,24 @@
 
 							<?php if (isset( $apiKey ) && !empty( $apiKey )) : ?>
 
-							<p><?php _e('This is your Snapshot API key. If you have any issues connecting to PSOURCE’s cloud servers, just reset your key. Don’t worry, resetting your key won’t affect your backups.', SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e('This is your Snapshot API key. If you have any issues connecting to PSOURCE’s cloud servers, just reset your key. Don’t worry, resetting your key won’t affect your backups.', 'snapshot'); ?></p>
 
 							<?php else : ?>
 
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-1">
-						<p><?php _e('Please enter your API key below to enable advanced features.', SNAPSHOT_I18N_DOMAIN); ?></p>
+						<p><?php _e('Please enter your API key below to enable advanced features.', 'snapshot'); ?></p>
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-2 hidden">
-									<p><?php _e('Please wait while we verify your Snapshot key...', SNAPSHOT_I18N_DOMAIN); ?></p>
+									<p><?php _e('Please wait while we verify your Snapshot key...', 'snapshot'); ?></p>
 								</div>
 
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-3 hidden">
 									<div class="wps-snapshot-error wpmud-box-gray">
-										<p><?php printf(__('We couldn’t verify your Snapshot key. Try entering it again, or reset it for this website in <a target="_blank" href="%s">The Hub</a> over at PSOURCE.', SNAPSHOT_I18N_DOMAIN ), 'https://premium.psource.org/hub/' );?></p>
+										<p><?php printf(__('We couldn’t verify your Snapshot key. Try entering it again, or reset it for this website in <a target="_blank" href="%s">The Hub</a> over at PSOURCE.', 'snapshot' ), 'https://premium.psource.org/hub/' );?></p>
 									</div>
 								</div>
 
 								<div class="wps-snapshot-popin-content wps-snapshot-popin-content-step-4 hidden">
-									<p><?php _e('This is your Snapshot API key. If you have any issues connecting to PSOURCE’s cloud servers, just reset your key. Don’t worry, resetting your key won’t affect your backups.', SNAPSHOT_I18N_DOMAIN); ?></p>
+									<p><?php _e('This is your Snapshot API key. If you have any issues connecting to PSOURCE’s cloud servers, just reset your key. Don’t worry, resetting your key won’t affect your backups.', 'snapshot'); ?></p>
 								</div>
 
 
@@ -55,11 +55,11 @@
 
 								<div class="wps-snapshot-key wpmud-box-gray">
 
-									<input type="text" name="secret-key" id="secret-key" value="<?php echo ( isset( $apiKey ) && !empty( $apiKey ) ) ? $apiKey : '' ?>"  data-url="<?php echo ( isset( $apiKeyUrl ) && !empty( $apiKeyUrl ) ) ? $apiKeyUrl : '' ?>" placeholder="<?php _e('Enter your key here', SNAPSHOT_I18N_DOMAIN); ?>">
+									<input type="text" name="secret-key" id="secret-key" value="<?php echo ( isset( $apiKey ) && !empty( $apiKey ) ) ? $apiKey : '' ?>"  data-url="<?php echo ( isset( $apiKeyUrl ) && !empty( $apiKeyUrl ) ) ? $apiKeyUrl : '' ?>" placeholder="<?php _e('Enter your key here', 'snapshot'); ?>">
 
 									<?php if ( !isset( $apiKey ) || empty( $apiKey )) : ?>
 
-									<button type="submit" name="activate" value="yes" class="button button-gray"><?php _e('Save Key', SNAPSHOT_I18N_DOMAIN); ?></button>
+									<button type="submit" name="activate" value="yes" class="button button-gray"><?php _e('Save Key', 'snapshot'); ?></button>
 
 								<?php endif; ?>
 

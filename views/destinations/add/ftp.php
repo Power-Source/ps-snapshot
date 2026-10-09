@@ -4,12 +4,12 @@
 
 	<div id="wps-destination-type" class="form-row">
 		<div class="form-col-left">
-			<label><?php _e('Typ', SNAPSHOT_I18N_DOMAIN); ?></label>
+			<label><?php _e('Typ', 'snapshot'); ?></label>
 		</div>
 
 		<div class="form-col">
 			<i class="wps-typecon sftp"></i>
-			<label><?php _e('FTP', SNAPSHOT_I18N_DOMAIN); ?></label>
+			<label><?php _e('FTP', 'snapshot'); ?></label>
 		</div>
 
 	</div>
@@ -17,7 +17,7 @@
 	<div id="wps-destination-name" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-name"><?php _e( "Name", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-name"><?php _e( "Name", 'snapshot' ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col upload-progress">
@@ -31,7 +31,7 @@
 	<div id="wps-destination-contype" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-protocol"><?php _e( "Verbindungstyp", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-protocol"><?php _e( "Verbindungstyp", 'snapshot' ); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -50,7 +50,7 @@
 
 			<?php $this->input_error_message( 'protocol' ); ?>
 
-			<p><small><?php echo sprintf( __( 'Die FTP-Option verwendet die Standard-PHP-Bibliotheksfunktionen. Die Wahl von FTPS verwendet die <a target="_blank" href="%s">PHP Secure Communications Library</a>. Diese Option funktioniert möglicherweise nicht, abhängig davon, wie deine PHP-Binärdateien kompiliert sind. FTPS mit TSL/SSL versucht eine sichere Verbindung herzustellen, funktioniert jedoch nur, wenn PHP und OpenSSL auf deinem Host und dem Zielhost ordnungsgemäß konfiguriert sind. Diese Option funktioniert auch nicht unter Windows mit den Standard-PHP-Binärdateien. Sieh dir die PHP-Dokumentation für ftp_ssl_connection an.', SNAPSHOT_I18N_DOMAIN ), esc_url( '#' ) ); ?></small></p>
+			<p><small><?php echo sprintf( __( 'Die FTP-Option verwendet die Standard-PHP-Bibliotheksfunktionen. Die Wahl von FTPS verwendet die <a target="_blank" href="%s">PHP Secure Communications Library</a>. Diese Option funktioniert möglicherweise nicht, abhängig davon, wie deine PHP-Binärdateien kompiliert sind. FTPS mit TSL/SSL versucht eine sichere Verbindung herzustellen, funktioniert jedoch nur, wenn PHP und OpenSSL auf deinem Host und dem Zielhost ordnungsgemäß konfiguriert sind. Diese Option funktioniert auch nicht unter Windows mit den Standard-PHP-Binärdateien. Sieh dir die PHP-Dokumentation für ftp_ssl_connection an.', 'snapshot' ), esc_url( '#' ) ); ?></small></p>
 
 		</div>
 
@@ -59,7 +59,7 @@
 	<div id="wps-destination-host" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-address"><?php _e('Host', SNAPSHOT_I18N_DOMAIN); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-address"><?php _e('Host', 'snapshot'); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -67,7 +67,7 @@
 			<input type="text" name="snapshot-destination[address]" id="snapshot-destination-address" class="<?php $this->input_error_class( 'address' ); ?>"
 			       value="<?php if ( isset( $item['address'] ) ) { echo esc_attr( $item['address'] ); } ?>" />
 
-			<span class="inbetween"><?php _e( 'Port', SNAPSHOT_I18N_DOMAIN ); ?></span>
+			<span class="inbetween"><?php _e( 'Port', 'snapshot' ); ?></span>
 
 			<input type="text" name="snapshot-destination[port]" id="snapshot-destination-port" class="<?php $this->input_error_class( 'port' ); ?>"
 			       value="<?php if ( isset( $item['port'] ) ) { echo esc_attr( $item['port'] ); } ?>" />
@@ -80,7 +80,7 @@
 	<div id="wps-destination-host" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-username"><?php _e('Benutzer', SNAPSHOT_I18N_DOMAIN); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-username"><?php _e('Benutzer', 'snapshot'); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -94,7 +94,7 @@
 	<div id="wps-destination-password" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-password"><?php _e('Passwort', SNAPSHOT_I18N_DOMAIN); ?> <span class="required">*</span></label>
+			<label for="snapshot-destination-password"><?php _e('Passwort', 'snapshot'); ?> <span class="required">*</span></label>
 		</div>
 
 		<div class="form-col">
@@ -108,7 +108,7 @@
 	<div id="wps-destination-dir" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-directory"><?php _e('Verzeichnis', SNAPSHOT_I18N_DOMAIN); ?></label>
+			<label for="snapshot-destination-directory"><?php _e('Verzeichnis', 'snapshot'); ?></label>
 		</div>
 
 		<div class="form-col">
@@ -117,7 +117,7 @@
 
 			<?php $this->input_error_message( 'directory' ); ?>
 
-			<p><small><?php _e( "Dieses Verzeichnis wird verwendet, um deine Snapshot-Archive zu speichern und muss bereits auf dem Server existieren. Wenn der Remote-Pfad leer gelassen wird, wird das FTP-Home-Verzeichnis als Ziel für deine Snapshot-Dateien verwendet.", SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+			<p><small><?php _e( "Dieses Verzeichnis wird verwendet, um deine Snapshot-Archive zu speichern und muss bereits auf dem Server existieren. Wenn der Remote-Pfad leer gelassen wird, wird das FTP-Home-Verzeichnis als Ziel für deine Snapshot-Dateien verwendet.", 'snapshot' ); ?></small></p>
 		</div>
 
 	</div>
@@ -130,7 +130,7 @@
 	<div id="wps-destination-mode" class="form-row">
 
 		<div class="form-col-left">
-			<label for="snapshot-destination-passive"><?php _e('Passiven Modus verwenden', SNAPSHOT_I18N_DOMAIN); ?></label>
+			<label for="snapshot-destination-passive"><?php _e('Passiven Modus verwenden', 'snapshot'); ?></label>
 		</div>
 
 		<div class="form-col">
@@ -145,7 +145,7 @@
 
 			</div>
 
-			<p><small><?php _e( "Im passiven Modus werden Datenverbindungen vom Client initiiert, anstatt vom Server. Dies kann erforderlich sein, wenn sich der Client hinter einer Firewall befindet. Der passive Modus ist standardmäßig deaktiviert.", SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+			<p><small><?php _e( "Im passiven Modus werden Datenverbindungen vom Client initiiert, anstatt vom Server. Dies kann erforderlich sein, wenn sich der Client hinter einer Firewall befindet. Der passive Modus ist standardmäßig deaktiviert.", 'snapshot' ); ?></small></p>
 
 		</div>
 
@@ -154,15 +154,15 @@
 	<div id="wps-destination-server" class="form-row">
 
 		<div class="form-col-left">
-			<label><?php _e('Server Timeout', SNAPSHOT_I18N_DOMAIN); ?></label>
+			<label><?php _e('Server Timeout', 'snapshot'); ?></label>
 		</div>
 
 		<div class="form-col">
 			<input type="text" name="snapshot-destination[timeout]" id="snapshot-destination-timeout" value="<?php echo ( isset( $item['timeout'] ) ) ? $item['timeout'] : 90 ;?>" style="min-width: 10%;" />
 
-			<p><small><?php _e( "Die Standard-Timeout-Einstellung für PHP-FTP-Verbindungen beträgt 90 Sekunden. Manchmal muss dieses Timeout für langsamere Verbindungen zu stark ausgelasteten Servern länger sein.", SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+			<p><small><?php _e( "Die Standard-Timeout-Einstellung für PHP-FTP-Verbindungen beträgt 90 Sekunden. Manchmal muss dieses Timeout für langsamere Verbindungen zu stark ausgelasteten Servern länger sein.", 'snapshot' ); ?></small></p>
 
-			<button id="snapshot-destination-test-connection" class="button button-gray"><?php _e( "Verbindung testen", SNAPSHOT_I18N_DOMAIN ); ?></button>
+			<button id="snapshot-destination-test-connection" class="button button-gray"><?php _e( "Verbindung testen", 'snapshot' ); ?></button>
 			<div id="snapshot-ajax-destination-test-result" style="display:none"></div>
 		</div>
 

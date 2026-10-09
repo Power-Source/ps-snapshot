@@ -62,10 +62,10 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 							<tr class="form-field">
 								<th scope="row">
 									<label
-										for="snapshot-blog-id-search"><?php _e( 'Blog', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										for="snapshot-blog-id-search"><?php _e( 'Blog', 'snapshot' ); ?></label>
 								</th>
 								<td>
-									<p class="snapshot-error"><?php _e( 'This archive is from a previous import action. The information from the archive did not match the current blog. So before you can change the configuration you need to assign it to an existing account.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+									<p class="snapshot-error"><?php _e( 'This archive is from a previous import action. The information from the archive did not match the current blog. So before you can change the configuration you need to assign it to an existing account.', 'snapshot' ); ?></p>
 									<input type="hidden" name="snapshot-blog-id" id="snapshot-blog-id" value=""/>
 
 									<?php if ( $display_only !== true ) { ?>
@@ -73,11 +73,11 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											<span id="snapshot-blog-name"><?php
 												echo $item['IMPORT']['WP_BLOG_DOMAIN'] . $item['IMPORT']['WP_BLOG_PATH'] ?></span>
 											<button
-												id="snapshot-blog-id-change"><?php _e( 'Change', SNAPSHOT_I18N_DOMAIN ); ?></button>
+												id="snapshot-blog-id-change"><?php _e( 'Change', 'snapshot' ); ?></button>
 										</div>
 										<div id="snapshot-blog-search" style="display:none">
 											<span id="snapshot-blog-search-error" style="color: #FF0000; display:none;"><?php
-												_e( 'Error on blog lookup. Try again', SNAPSHOT_I18N_DOMAIN ); ?>
+												_e( 'Error on blog lookup. Try again', 'snapshot' ); ?>
 												<br/></span>
 											<?php
 											if ( is_subdomain_install() ) {
@@ -86,19 +86,19 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 												         value="" style="width: 20%"/>.<?php echo network_site_url(); ?>
 												<span class="spinner"></span>
 												<button
-													id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+													id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 												<button
-													id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-												<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site.', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+													id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+												<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site.', 'snapshot' ); ?></p><?php
 											} else {
 												?><?php echo network_site_url(); ?>/<input
 													name="snapshot-blog-id-search" id="snapshot-blog-id-search" value=""
 													style="width: 40%"/> <span class="spinner"></span>
 												<button
-													id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+													id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 												<button
-													id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-												<p class="description"><?php _e( 'Enter the blog domain "myblog.com" or blog ID "22". Once the form is submitted this cannot be changed.', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+													id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+												<p class="description"><?php _e( 'Enter the blog domain "myblog.com" or blog ID "22". Once the form is submitted this cannot be changed.', 'snapshot' ); ?></p><?php
 											}
 											?>
 										</div>
@@ -128,14 +128,14 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									<tr class="form-field">
 										<th scope="row">
 											<label
-												for="snapshot-blog-id"><?php _e( 'Blog', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-blog-id"><?php _e( 'Blog', 'snapshot' ); ?></label>
 										</th>
 										<td>
 											<?php
 											if ( isset( $blog_info ) ) {
 												echo $blog_info->blogname . " (" . $blog_info->domain . ")";
 											} else {
-												_e( 'Unknown Blog', SNAPSHOT_I18N_DOMAIN );
+												_e( 'Unknown Blog', 'snapshot' );
 											}
 											?>
 											<?php /* ?><input type="hidden" id="snapshot-blog-id" name="snapshot-blog-id" value="<?php echo $item['blog-id'] ?>" /><?php */ ?>
@@ -149,7 +149,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									<tr class="form-field">
 										<th scope="row">
 											<label
-												for="snapshot-blog-id-search"><?php _e( 'Blog to backup', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-blog-id-search"><?php _e( 'Blog to backup', 'snapshot' ); ?></label>
 										</th>
 										<td>
 											<input type="hidden" name="snapshot-blog-id" id="snapshot-blog-id"
@@ -159,12 +159,12 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 												<span
 													id="snapshot-blog-name"><?php echo trailingslashit( site_url() ); ?></span>
 												<button
-													id="snapshot-blog-id-change"><?php _e( 'Change', SNAPSHOT_I18N_DOMAIN ); ?></button>
+													id="snapshot-blog-id-change"><?php _e( 'Change', 'snapshot' ); ?></button>
 											</div>
 											<div id="snapshot-blog-search" style="display:none">
 												<span id="snapshot-blog-search-error"
 												      style="color: #FF0000; display:none;"><?php
-													_e( 'Error on blog lookup. Try again', SNAPSHOT_I18N_DOMAIN ); ?>
+													_e( 'Error on blog lookup. Try again', 'snapshot' ); ?>
 													<br/></span>
 												<?php
 												if ( is_subdomain_install() ) {
@@ -176,19 +176,19 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													         value="" style="width: 20%"/>.<?php echo $blog_path; ?>
 													<span class="spinner"></span>
 													<button
-														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 													<button
-														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-													<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site. Once the form is submitted this cannot be changed.', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+													<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site. Once the form is submitted this cannot be changed.', 'snapshot' ); ?></p><?php
 												} else {
 													?><?php echo trailingslashit( site_url() ); ?>
 													<input name="snapshot-blog-id-search" id="snapshot-blog-id-search"
 													       value="" style="width: 20%"/> <span class="spinner"></span>
 													<button
-														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 													<button
-														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-													<p class="description"><?php _e( 'Enter the blog path or blog ID or blank for primary blog. Once the form is submitted this cannot be changed.', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+													<p class="description"><?php _e( 'Enter the blog path or blog ID or blank for primary blog. Once the form is submitted this cannot be changed.', 'snapshot' ); ?></p><?php
 
 												}
 												?>
@@ -206,7 +206,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 						<tr class="form-field">
 							<th scope="row">
-								<label for="snapshot-name"><?php _e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label for="snapshot-name"><?php _e( 'Name', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<?php
@@ -215,7 +215,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 								} else if ( isset( $item['name'] ) ) {
 									$snapshot_name = sanitize_text_field( $item['name'] );
 								} else {
-									$snapshot_name = __( "Snapshot" , SNAPSHOT_I18N_DOMAIN );
+									$snapshot_name = __( "Snapshot" , 'snapshot' );
 								}
 
 								if ( $display_only ) {
@@ -224,7 +224,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									?>
 									<input type="text" name="snapshot-name" id="snapshot-name"
 									       value="<?php echo stripslashes( $snapshot_name ); ?>"/>
-									<p class="description"><?php _e( 'Give this configuration a name', SNAPSHOT_I18N_DOMAIN ); ?></p>
+									<p class="description"><?php _e( 'Give this configuration a name', 'snapshot' ); ?></p>
 								<?php
 								}
 								?>
@@ -232,7 +232,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						</tr>
 						<tr class="form-field">
 							<th scope="row">
-								<label for="snapshot-notes"><?php _e( 'Notes', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label for="snapshot-notes"><?php _e( 'Notes', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<?php
@@ -250,7 +250,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									<textarea id="snapshot-notes" name="snapshot-notes" cols="20" rows="5"><?php
 										echo stripslashes( $snapshot_notes ); ?></textarea>
 									<p class="description"><?php _e( 'Description about this configuration.',
-											SNAPSHOT_I18N_DOMAIN ); ?></p>
+											'snapshot' ); ?></p>
 								<?php
 								}
 								?>
@@ -262,7 +262,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													?>
 													<tr class="form-field">
 														<th scope="row">
-															<label for="snapshot-created-by"><?php _e('Created by', SNAPSHOT_I18N_DOMAIN); ?></label>
+															<label for="snapshot-created-by"><?php _e('Created by', 'snapshot'); ?></label>
 														</th>
 														<td>
 															<?php
@@ -325,7 +325,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 					<table class="form-table snapshot-backup-tables">
 						<tr class="">
 							<td>
-								<p><?php _e( 'Select the database tables backup option for this Snapshot.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'Select the database tables backup option for this Snapshot.', 'snapshot' ); ?></p>
 								<ul>
 									<li><input type="radio" class="snapshot-tables-option"
 									           id="snapshot-tables-option-none" value="none"
@@ -334,7 +334,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											} ?>
 									           name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-none"><?php
-											_e( 'Do not include database tables in this Snapshot', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											_e( 'Do not include database tables in this Snapshot', 'snapshot' ); ?></label>
 									</li>
 
 									<li><input type="radio" class="snapshot-tables-option"
@@ -345,7 +345,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									           name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-all"><?php
 											_e( 'Include <strong>all</strong> blog database tables in this archive. This will automatically include new tables.',
-												SNAPSHOT_I18N_DOMAIN ); ?></label></li>
+												'snapshot' ); ?></label></li>
 
 									<li><input type="radio" class="snapshot-tables-option"
 									           id="snapshot-tables-option-selected" value="selected"
@@ -354,7 +354,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											} ?>
 									           name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-selected"><?php
-											_e( 'Include <strong>selected</strong> database tables in this Snapshot', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											_e( 'Include <strong>selected</strong> database tables in this Snapshot', 'snapshot' ); ?></label>
 
 										<div id="snapshot-selected-tables-container"
 										     style="margin-left: 30px; padding-top: 20px; <?php
@@ -363,11 +363,11 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										     } ?>">
 											<?php
 											$tables_sets_idx = array(
-												'global' => __( "WordPress Global Tables", SNAPSHOT_I18N_DOMAIN ),
-												'wp'     => __( "WordPress core Tables", SNAPSHOT_I18N_DOMAIN ),
-												'non'    => __( "Non-WordPress Tables", SNAPSHOT_I18N_DOMAIN ),
-												'other'  => __( "Other Tables", SNAPSHOT_I18N_DOMAIN ),
-												'error'  => __( "Error Tables - These tables are skipped for the noted reasons.", SNAPSHOT_I18N_DOMAIN )
+												'global' => __( "WordPress Global Tables", 'snapshot' ),
+												'wp'     => __( "WordPress core Tables", 'snapshot' ),
+												'non'    => __( "Non-WordPress Tables", 'snapshot' ),
+												'other'  => __( "Other Tables", 'snapshot' ),
+												'error'  => __( "Error Tables - These tables are skipped for the noted reasons.", 'snapshot' )
 											);
 
 											foreach ( $tables_sets_idx as $table_set_key => $table_set_title ) {
@@ -386,12 +386,12 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 														<a
 														class="button-link snapshot-table-select-all" href="#"
 														id="snapshot-table-<?php echo $table_set_key ?>-select-all"><?php
-														_e( 'Select all', SNAPSHOT_I18N_DOMAIN ); ?></a><?php } ?></p>
+														_e( 'Select all', 'snapshot' ); ?></a><?php } ?></p>
 
 												<?php
 												if ( $table_set_key == "global" ) {
 													?><p
-														class="description"><?php _e( 'These global user tables contain blog specific user information which can be included as part of the snapshot archive. Only users whose primary blog matches this selected blog will be included. <strong>Superadmin users will not be included in the sub-site archive.</strong>', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+														class="description"><?php _e( 'These global user tables contain blog specific user information which can be included as part of the snapshot archive. Only users whose primary blog matches this selected blog will be included. <strong>Superadmin users will not be included in the sub-site archive.</strong>', 'snapshot' ); ?></p><?php
 												}
 
 												?>
@@ -459,7 +459,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 														}
 													} else {
 														?>
-														<li><?php _e( 'No Tables', SNAPSHOT_I18N_DOMAIN ) ?></li><?php
+														<li><?php _e( 'No Tables', 'snapshot' ) ?></li><?php
 													}
 													?>
 												</ul>
@@ -518,7 +518,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 					<table class="form-table snapshot-backup-files">
 						<tr class="">
 							<td class="left">
-								<p><?php _e( 'Select the File backup option for this Snapshot.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'Select the File backup option for this Snapshot.', 'snapshot' ); ?></p>
 
 								<ul>
 									<li><input type="radio" class="snapshot-files-option"
@@ -528,7 +528,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											} ?>
 									           name="snapshot-files-option"> <label
 											for="snapshot-files-option-none"><?php
-											_e( 'Do not include files', SNAPSHOT_I18N_DOMAIN ); ?></label></li>
+											_e( 'Do not include files', 'snapshot' ); ?></label></li>
 
 									<?php
 									$blog_upload_path = Snapshot_Helper_Utility::get_blog_upload_path( $item['blog-id'] );
@@ -542,13 +542,13 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 												} ?>
 										           name="snapshot-files-option"> <label
 												for="snapshot-files-option-all"><?php
-												_e( 'Include <strong>common</strong> files:', SNAPSHOT_I18N_DOMAIN ); ?>
+												_e( 'Include <strong>common</strong> files:', 'snapshot' ); ?>
 												<span <?php if ( ! is_main_site( $item['blog-id'] ) ) {
 													echo ' style="display:none" ';
 												} ?>
-													class="snapshot-backup-files-sections-main-only"><?php _e( 'Themes, Plugins,', SNAPSHOT_I18N_DOMAIN );
+													class="snapshot-backup-files-sections-main-only"><?php _e( 'Themes, Plugins,', 'snapshot' );
 													?></span> <?php
-												_e( 'Media', SNAPSHOT_I18N_DOMAIN );
+												_e( 'Media', 'snapshot' );
 
 												?>
 												(<span style="font-weight: bold;"
@@ -568,7 +568,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										                                                            name="snapshot-files-option">
 											<label
 												for="snapshot-files-option-selected"><?php
-												_e( 'Include <strong>selected</strong> files:', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												_e( 'Include <strong>selected</strong> files:', 'snapshot' ); ?></label>
 
 											<div id="snapshot-selected-files-container"
 											     style="margin-left: 30px; padding-top: 10px; <?php
@@ -583,7 +583,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													id="snapshot-files-option-home" value="home"
 													name="snapshot-files-sections[home]"> <label
 													for="snapshot-files-option-home"><?php
-														_e('Home: Files in the home directory. Will automatically exclude .wp-config.php & .htaccess', SNAPSHOT_I18N_DOMAIN); ?></label></li>
+														_e('Home: Files in the home directory. Will automatically exclude .wp-config.php & .htaccess', 'snapshot'); ?></label></li>
 <?php */ ?>
 													<li><input type="checkbox" class="snapshot-backup-sub-options"
 															<?php if ( array_search( 'themes', $item['files-sections'] ) !== false ) {
@@ -592,7 +592,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 															   id="snapshot-files-option-themes" value="themes"
 															   name="snapshot-files-sections[themes]"> <label
 															for="snapshot-files-option-themes"><?php
-															_e( 'Themes: All active and inactive themes will be included', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															_e( 'Themes: All active and inactive themes will be included', 'snapshot' ); ?></label>
 													</li>
 
 													<li><input type="checkbox" class="snapshot-backup-sub-options"
@@ -602,7 +602,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 															   id="snapshot-files-option-plugins" value="plugins"
 															   name="snapshot-files-sections[plugins]"> <label
 															for="snapshot-files-option-plugins"><?php
-															_e( 'Plugins: All active and inactive plugins will be included', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															_e( 'Plugins: All active and inactive plugins will be included', 'snapshot' ); ?></label>
 													</li>
 
 													<?php if ( is_multisite() ) { ?>
@@ -611,7 +611,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													id="snapshot-files-option-mu-plugins" value="mu-plugins"
 													name="snapshot-files-sections[mu-plugins]"> <label
 													for="snapshot-files-option-mu-plugins"><?php
-														_e('MU-Plugins: All active and inactive plugins will be included', SNAPSHOT_I18N_DOMAIN); ?></label></li>
+														_e('MU-Plugins: All active and inactive plugins will be included', 'snapshot'); ?></label></li>
 													<?php } ?>
 
 													<li><input type="checkbox" class="snapshot-backup-sub-options"
@@ -621,7 +621,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 															   id="snapshot-files-option-media" value="media"
 															   name="snapshot-files-sections[media]"> <label
 															for="snapshot-files-option-media"><?php
-															_e( 'Media Files:', SNAPSHOT_I18N_DOMAIN ); ?> <span
+															_e( 'Media Files:', 'snapshot' ); ?> <span
 																style="font-weight: bold;"
 																class="snapshot-media-upload-path"><?php
 																echo Snapshot_Helper_Utility::get_blog_upload_path( $item['blog-id'] ); ?></span></label>
@@ -634,7 +634,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 															   id="snapshot-files-option-config" value="config"
 															   name="snapshot-files-sections[config]"> <label
 															for="snapshot-files-option-config"><?php
-															_e( 'wp-config.php - Your current wp-config.php file', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															_e( 'wp-config.php - Your current wp-config.php file', 'snapshot' ); ?></label>
 													</li>
 
 													<li><input type="checkbox" class="snapshot-backup-sub-options"
@@ -644,7 +644,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 															   id="snapshot-files-option-htaccess" value="htaccess"
 															   name="snapshot-files-sections[htaccess]"> <label
 															for="snapshot-files-option-htaccess"><?php
-															_e( '.htaccess - Your current root .htaccess / web.config file', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															_e( '.htaccess - Your current root .htaccess / web.config file', 'snapshot' ); ?></label>
 													</li>
 
 													<?php /* ?>
@@ -653,7 +653,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													id="snapshot-files-option-core" value="core"
 													name="snapshot-backup-files-sections[core]"> <label
 													for="snapshot-files-option-core"><?php
-														_e('WordPress core files', SNAPSHOT_I18N_DOMAIN); ?></label></li>
+														_e('WordPress core files', 'snapshot'); ?></label></li>
 <?php */ ?>
 												</ul>
 
@@ -668,7 +668,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 								<?php if ( Snapshot_Helper_Utility::is_pro() ) { ?>
 								<div id="snapshot-selected-files-sync-container">
-									<p><?php _e( 'Dropbox Only - Select Archive or Mirroring option for this Snapshot.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+									<p><?php _e( 'Dropbox Only - Select Archive or Mirroring option for this Snapshot.', 'snapshot' ); ?></p>
 									<ul>
 										<?php
 										$_is_mirror_disabled = ' disabled="disabled" ';
@@ -688,7 +688,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 												<?php if ( $item['destination-sync'] == "archive" ) {
 													echo ' checked="checked" ';
 												} ?> /> <label
-												for="snapshot-destination-sync-archive"><?php _e( '<strong>Archive</strong> - (Default) Selecting archive will produce a zip archive. This is standard method for backing up your site. A single zip archive will be created for files and database tables.', SNAPSHOT_I18N_DOMAIN ); ?>
+												for="snapshot-destination-sync-archive"><?php _e( '<strong>Archive</strong> - (Default) Selecting archive will produce a zip archive. This is standard method for backing up your site. A single zip archive will be created for files and database tables.', 'snapshot' ); ?>
 										</li>
 
 
@@ -699,13 +699,13 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 												<?php if ( $item['destination-sync'] == "mirror" ) {
 													echo ' checked="checked" ';
 												} ?>/> <label
-												for="snapshot-destination-sync-mirror"><?php _e( '<strong>Mirror/Sync</strong> - <strong>Dropbox ONLY</strong> Selecting mirroring if you want to replicate the file structure of this site to a Dropbox destination. You can include Database tables. If selected they will still be send as a zip archive to the destination root folder. <strong>There is currently no restore with this option</strong>', SNAPSHOT_I18N_DOMAIN ); ?>
+												for="snapshot-destination-sync-mirror"><?php _e( '<strong>Mirror/Sync</strong> - <strong>Dropbox ONLY</strong> Selecting mirroring if you want to replicate the file structure of this site to a Dropbox destination. You can include Database tables. If selected they will still be send as a zip archive to the destination root folder. <strong>There is currently no restore with this option</strong>', 'snapshot' ); ?>
 										</li>
 									</ul>
 								</div>
 								<?php } else {
 									$message = '<p>Additional options are available for the \'Dropbox\' destination.</p><p>Destinations are available to you in PS Snapshot from WPMU Dev: <a href="%s">Upgrade Now</a></p>';
-									$message = sprintf( __( $message, SNAPSHOT_I18N_DOMAIN ), esc_url( 'https://premium.psource.org/project/snapshot' ) );
+									$message = sprintf( __( $message, 'snapshot' ), esc_url( 'https://premium.psource.org/project/snapshot' ) );
 
 									echo $message;
 
@@ -713,14 +713,14 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 							</td>
 							<td class="right">
 								<label
-									for="snapshot-files-ignore"><?php _e( 'List files here to exclude from this snapshot. This is handy to exclude very large files like videos. Files should be listed one per line. You can also exclude files for all snapshots by using the Global File Exclusions on the Settings panel.', SNAPSHOT_I18N_DOMAIN ); ?></label><br/>
+									for="snapshot-files-ignore"><?php _e( 'List files here to exclude from this snapshot. This is handy to exclude very large files like videos. Files should be listed one per line. You can also exclude files for all snapshots by using the Global File Exclusions on the Settings panel.', 'snapshot' ); ?></label><br/>
 							<textarea name="snapshot-files-ignore" id="snapshot-files-ignore" cols="20" rows="5"><?php
 								if ( ( isset( $item['files-ignore'] ) ) && ( count( $item['files-ignore'] ) ) ) {
 									echo implode( "\n", $item['files-ignore'] );
 								}
 								?></textarea>
 
-								<p class="description"><?php _e( 'The exclude logic uses pattern matching. So instead of entering the complete server pathname for a file or directory you can simply use the filename of parent directory. For example to exclude the theme twentyten you could enter this one of many ways: twentyten,  themes/twentyten /wp-content/themes/twentyten, /www-data/wp-content/themes/twentyten. <strong>Regular Expression are not allowed at this time</strong>.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p class="description"><?php _e( 'The exclude logic uses pattern matching. So instead of entering the complete server pathname for a file or directory you can simply use the filename of parent directory. For example to exclude the theme twentyten you could enter this one of many ways: twentyten,  themes/twentyten /wp-content/themes/twentyten, /www-data/wp-content/themes/twentyten. <strong>Regular Expression are not allowed at this time</strong>.', 'snapshot' ); ?></p>
 							</td>
 						</tr>
 					</table>
@@ -754,16 +754,16 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 								<?php
 								if ( ( isset( $_GET['page'] ) ) && ( sanitize_text_field( $_GET['page'] ) == "snapshots_new_panel" ) ) {
 									?>
-									<p><?php _e( "Select a backup interval from the options below. If you select 'Immediate' the backup will start immediately and will only occur once. If you select any other value the initial backup will start within a few minutes then repeat on the selected interval.", SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+									<p><?php _e( "Select a backup interval from the options below. If you select 'Immediate' the backup will start immediately and will only occur once. If you select any other value the initial backup will start within a few minutes then repeat on the selected interval.", 'snapshot' ); ?></p><?php
 								} else {
 									?>
-									<p><?php _e( "You can change the interval when a backup occurs by selecting from the options below. If you select 'Suspend' the recurring backups will be stopped. If you select to schedule a backup or change the interval, the initial backup will start within a few minutes then repeat on the selected interval", SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+									<p><?php _e( "You can change the interval when a backup occurs by selecting from the options below. If you select 'Suspend' the recurring backups will be stopped. If you select to schedule a backup or change the interval, the initial backup will start within a few minutes then repeat on the selected interval", 'snapshot' ); ?></p><?php
 								}
 
 								if ( ( defined( 'DISABLE_WP_CRON' ) ) && ( DISABLE_WP_CRON == true ) ) {
 									?><p
 										style="color: #FF0000"><?php _e( 'Your site has disabled the WordPress Cron scheduler (WP_CRON). When scheduling an archive to be created it may not run. Check your wp-config.php for the DISABLE_WP_CRON define. If found either remove it or set the value to "false".',
-										SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+										'snapshot' ); ?></p><?php
 								}
 								?>
 							</td>
@@ -771,7 +771,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						<tr class="form-field">
 							<th>
 								<label
-									for="snapshot-interval"><?php _e( 'Backup Interval', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-interval"><?php _e( 'Backup Interval', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<?php
@@ -800,32 +800,32 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 								}
 								?>
 								<select name="snapshot-interval" id="snapshot-interval">
-									<optgroup label="<?php _e( "Immediate Options", SNAPSHOT_I18N_DOMAIN ); ?>">
+									<optgroup label="<?php _e( "Immediate Options", 'snapshot' ); ?>">
 										<?php
 										if ( ( isset( $_GET['page'] ) ) && ( sanitize_text_field( $_GET['page'] ) == "snapshots_new_panel" ) ) {
 											?>
 											<option
-												value="immediate"><?php _e( 'Run immediate', SNAPSHOT_I18N_DOMAIN ); ?></option><?php
+												value="immediate"><?php _e( 'Run immediate', 'snapshot' ); ?></option><?php
 										} else {
 											if ( ( ! empty( $item_interval ) ) && ( $item_interval != "immediate" ) ) {
 												?>
 												<option
-													value=""><?php _e( 'Manual', SNAPSHOT_I18N_DOMAIN ); ?></option><?php
+													value=""><?php _e( 'Manual', 'snapshot' ); ?></option><?php
 
 											} else {
 												?>
 												<option
-													value=""><?php _e( 'Save only', SNAPSHOT_I18N_DOMAIN ); ?></option><?php
+													value=""><?php _e( 'Save only', 'snapshot' ); ?></option><?php
 											}
 											?>
 											<option
-												value="immediate"><?php _e( 'Run immediate', SNAPSHOT_I18N_DOMAIN ); ?></option><?php
+												value="immediate"><?php _e( 'Run immediate', 'snapshot' ); ?></option><?php
 										}
 										?>
 									</optgroup>
 
 									<?php //if ( (!defined('DISABLE_WP_CRON')) || (DISABLE_WP_CRON == false)) { ?>
-									<optgroup label="<?php _e( "Scheduled Options", SNAPSHOT_I18N_DOMAIN ); ?>">
+									<optgroup label="<?php _e( "Scheduled Options", 'snapshot' ); ?>">
 										<?php
 										$scheds = (array) wp_get_schedules();
 										$managed = Snapshot_Controller_Full_Cron::get()->get_interval_ids();
@@ -851,7 +851,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 							<tr class="form-field">
 								<th>
 									<label
-										for="snapshot-interval-offset"><?php _e( 'Start Backup', SNAPSHOT_I18N_DOMAIN ); ?></label>
+										for="snapshot-interval-offset"><?php _e( 'Start Backup', 'snapshot' ); ?></label>
 								</th>
 								<td>
 									<?php
@@ -866,7 +866,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										} else {
 											echo ' style="display: none;" ';
 										} ?> ><?php
-											_e( "None", SNAPSHOT_I18N_DOMAIN ); ?>
+											_e( "None", 'snapshot' ); ?>
 										</div>
 										<div class="interval-offset-hourly" <?php
 										if ( $item_interval == "snapshot-hourly" ) {
@@ -875,7 +875,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											echo ' style="display: none;" ';
 										} ?> >
 											<label
-												for="snapshot-interval-offset-hourly-minute"><?php _e( 'Minute', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-hourly-minute"><?php _e( 'Minute', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-hourly-minute"
 											        name="snapshot-interval-offset[snapshot-hourly][tm_min]">
 												<?php
@@ -894,7 +894,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											echo ' style="display: none;" ';
 										} ?> >
 											<label
-												for="snapshot-interval-offset-daily-hour"><?php _e( 'Hour', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-daily-hour"><?php _e( 'Hour', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-daily-hour"
 											        name="snapshot-interval-offset[snapshot-daily][tm_hour]">
 												<?php
@@ -908,7 +908,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											</select>&nbsp;&nbsp;
 
 											<label
-												for="snapshot-interval-offset-daily-minute"><?php _e( 'Minute', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-daily-minute"><?php _e( 'Minute', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-daily-minute"
 											        name="snapshot-interval-offset[snapshot-daily][tm_min]">
 												<?php
@@ -927,7 +927,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											echo ' style="display: none;" ';
 										} ?> >
 											<label
-												for="snapshot-interval-offset-weekly-wday"><?php _e( 'Weekday', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-weekly-wday"><?php _e( 'Weekday', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-weekly-wday"
 											        name="snapshot-interval-offset[snapshot-weekly][tm_wday]">
 												<?php
@@ -940,7 +940,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											</select>&nbsp;&nbsp;
 
 											<label
-												for="snapshot-interval-offset-weekly-hour"><?php _e( 'Hour', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-weekly-hour"><?php _e( 'Hour', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-weekly-hour"
 											        name="snapshot-interval-offset[snapshot-weekly][tm_hour]">
 												<?php
@@ -954,7 +954,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											</select>&nbsp;&nbsp;
 
 											<label
-												for="snapshot-interval-offset-weekly-minute"><?php _e( 'Minute', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-weekly-minute"><?php _e( 'Minute', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-weekly-minute"
 											        name="snapshot-interval-offset[snapshot-weekly][tm_min]">
 												<?php
@@ -975,7 +975,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										} ?> >
 
 											<label
-												for="snapshot-interval-offset-monthly-mday"><?php _e( 'Day', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-monthly-mday"><?php _e( 'Day', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-monthly-mday"
 											        name="snapshot-interval-offset[snapshot-monthly][tm_mday]">
 												<?php
@@ -988,7 +988,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											</select>&nbsp;&nbsp;
 
 											<label
-												for="snapshot-interval-offset-monthly-hour"><?php _e( 'Hour', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-monthly-hour"><?php _e( 'Hour', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-monthly-hour"
 											        name="snapshot-interval-offset[snapshot-monthly][tm_hour]">
 												<?php
@@ -1001,7 +1001,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 											</select>&nbsp;&nbsp;
 
 											<label
-												for="snapshot-interval-offset-monthly-minutes"><?php _e( 'Minute', SNAPSHOT_I18N_DOMAIN ); ?></label>
+												for="snapshot-interval-offset-monthly-minutes"><?php _e( 'Minute', 'snapshot' ); ?></label>
 											<select id="snapshot-interval-offset-monthly-minutes"
 											        name="snapshot-interval-offset[snapshot-monthly][tm_min]">
 												<?php
@@ -1020,21 +1020,21 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 								<td scope="row" colspan="2">
 									<p><strong><sup>1</sup>
 											- <?php _e( "The Snapshot scheduling process uses the WordPress Cron (WPCron) system. This is the same process used to run daily checks for updates to core, plugins and themes. It should be understood this WPCron process is not precise. If you schedule a Snapshot for a specific minute of the hour WPCron may not execute at exactly that time. WPCron relies on regular front-end traffic to your website to kickoff the processing.",
-												SNAPSHOT_I18N_DOMAIN ); ?></strong></p>
+												'snapshot' ); ?></strong></p>
 								</td>
 							</tr>
 						<?php } ?>
 
 						<tr class="form-field">
 							<td scope="row" colspan="2">
-								<p><?php _e( "Control the total number of <strong>local</strong> archives to keep for this snapshot. Once the archive limit is reached, older locally stored archives will be removed. In common cases you may want to set the backup interval to once a week. Then set the number of archives to keep to 52 which would give you a year or backups. But keep in mind on a large site this will be a lot of extra disk space required.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( "Control the total number of <strong>local</strong> archives to keep for this snapshot. Once the archive limit is reached, older locally stored archives will be removed. In common cases you may want to set the backup interval to once a week. Then set the number of archives to keep to 52 which would give you a year or backups. But keep in mind on a large site this will be a lot of extra disk space required.", 'snapshot' ); ?></p>
 							</td>
 
 
 						<tr class="form-field">
 							<th scope="row">
 								<label
-									for="snapshot-name"><?php _e( 'Maximum number of local archives', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-name"><?php _e( 'Maximum number of local archives', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<?php
@@ -1047,7 +1047,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 								<input type="text" name="snapshot-archive-count" id="snapshot-archive-count"
 								       value="<?php echo stripslashes( $item['archive-count'] ); ?>"/>
 
-								<p class="description"><?php _e( 'Example: 10, 100. Enter 0 to keep all', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p class="description"><?php _e( 'Example: 10, 100. Enter 0 to keep all', 'snapshot' ); ?></p>
 							</td>
 						</tr>
 
@@ -1084,8 +1084,8 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						<tr class="form-field">
 							<th scope="row">
 								<label
-									for="snapshot-destination"><?php _e( 'Backup Destination', SNAPSHOT_I18N_DOMAIN ); ?></label><br/>
-								<a href="admin.php?page=snapshots_destinations_panel"><?php _e( 'Add more Destinations', SNAPSHOT_I18N_DOMAIN ); ?></a>
+									for="snapshot-destination"><?php _e( 'Backup Destination', 'snapshot' ); ?></label><br/>
+								<a href="admin.php?page=snapshots_destinations_panel"><?php _e( 'Add more Destinations', 'snapshot' ); ?></a>
 							</th>
 							<td>
 								<select name="snapshot-destination" id="snapshot-destination">
@@ -1099,33 +1099,33 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										PSOURCESnapshot::instance()->get_setting( 'destinationClasses' ) ) ?>
 								</select><br/>
 
-								<p class="description"><?php _e( "If you select a remote destination and the 'Interval' is set as Immediate, the snapshot backup file will not be sent during the normal backup step. Instead the transfer of the backup file will be scheduled at a later time. This is to prevent the screen from locking while the backup file is sent to the remote destination.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p class="description"><?php _e( "If you select a remote destination and the 'Interval' is set as Immediate, the snapshot backup file will not be sent during the normal backup step. Instead the transfer of the backup file will be scheduled at a later time. This is to prevent the screen from locking while the backup file is sent to the remote destination.", 'snapshot' ); ?></p>
 
 							</td>
 						</tr>
 						<tr class="form-field snapshot-store-local">
 							<th scope="row">
 								<label
-									for="snapshot-store-local"><?php _e( 'Keep local archives?', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-store-local"><?php _e( 'Keep local archives?', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<select name="snapshot-store-local" id="snapshot-store-local">
 									<option value="1" <?php if ( isset( $item['store-local'] ) && $item['store-local'] == "1" ) {
 									       echo 'selected';
-								       } ?>><?php _e( 'Yes', SNAPSHOT_I18N_DOMAIN ); ?></option>
+								       } ?>><?php _e( 'Yes', 'snapshot' ); ?></option>
 									<option value="0" <?php if ( isset( $item['store-local'] ) && $item['store-local'] == "0" ) {
 									       echo 'selected';
-								       } ?>><?php _e( 'No', SNAPSHOT_I18N_DOMAIN ); ?></option>
+								       } ?>><?php _e( 'No', 'snapshot' ); ?></option>
 								</select><br/>
 
-								<p class="description"><?php _e( "By default, Snapshot keeps a local copy of your backup, as well as uploading the archive to your chosen destination. Choose <strong>No</strong> if you wish just remove the local copy after the upload is complete.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p class="description"><?php _e( "By default, Snapshot keeps a local copy of your backup, as well as uploading the archive to your chosen destination. Choose <strong>No</strong> if you wish just remove the local copy after the upload is complete.", 'snapshot' ); ?></p>
 
 							</td>
 						</tr>
 						<tr class="form-field">
 							<th scope="row">
 								<label
-									for="snapshot-destination-directory"><?php _e( 'Directory (optional)', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-destination-directory"><?php _e( 'Directory (optional)', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<input type="text" name="snapshot-destination-directory"
@@ -1141,9 +1141,9 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									echo ' style="display:none" ';
 								} ?>>
 
-									<p class="description"><?php _e( "The optional Directory can be used to override or supplement the selected destination directory value. If 'local server' is selected and if the directory does not start with a forward slash '/' the directory will be relative to the site root.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+									<p class="description"><?php _e( "The optional Directory can be used to override or supplement the selected destination directory value. If 'local server' is selected and if the directory does not start with a forward slash '/' the directory will be relative to the site root.", 'snapshot' ); ?></p>
 
-									<p class="description"><?php _e( "This field support tokens you can use to create dynamic values. You can use any combination of the following tokens. Use the forward slash '/' to separate directory elements.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+									<p class="description"><?php _e( "This field support tokens you can use to create dynamic values. You can use any combination of the following tokens. Use the forward slash '/' to separate directory elements.", 'snapshot' ); ?></p>
 									<ul class="description">
 										<li>
 											<strong>[DEST_PATH]</strong> &ndash; <?php _e( "This represents the Directory used by the selected Backup Destination or if local, the Settings Folder Location. This can be used to supplement a value entered into this Snapshot. If [DEST_PATH] is not used the Directory value here will override the complete value from the selected Destination." ); ?>
@@ -1184,7 +1184,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									id="snapshot-destination-directory-description-google-drive" <?php if ( $snapshot_destination_selected_type != 'google-drive' ) {
 									echo ' style="display:none" ';
 								} ?>>
-									<p><?php echo sprintf( __( 'For Google Drive destinations this is not a normal directory path. Instead you must provide the Directory ID. Go to your %s. Navigate to or create a new directory where you want to upload the Snapshot archives. Make sure you are viewing the destination directory. The URL for the directory will be something similar to <em>https://drive.google.com/#folders/0B6GD66ctHXXCOWZKNDRIRGJJXS3</em>. The Directory ID would be the last part after /#folders/ <strong><em>0B6GD66ctHXXCOWZKNDRIRGJJXS3</em></strong>.', SNAPSHOT_I18N_DOMAIN ), '<a href="https://drive.google.com/#my-drive">' . __( 'Drive account', SNAPSHOT_I18N_DOMAIN ) . '</a>' ) ?></p>
+									<p><?php echo sprintf( __( 'For Google Drive destinations this is not a normal directory path. Instead you must provide the Directory ID. Go to your %s. Navigate to or create a new directory where you want to upload the Snapshot archives. Make sure you are viewing the destination directory. The URL for the directory will be something similar to <em>https://drive.google.com/#folders/0B6GD66ctHXXCOWZKNDRIRGJJXS3</em>. The Directory ID would be the last part after /#folders/ <strong><em>0B6GD66ctHXXCOWZKNDRIRGJJXS3</em></strong>.', 'snapshot' ), '<a href="https://drive.google.com/#my-drive">' . __( 'Drive account', 'snapshot' ) . '</a>' ) ?></p>
 								</div>
 							</td>
 						</tr>
@@ -1239,13 +1239,13 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 											if (count($wp_tables)) {
 												?><a class="snapshot-list-table-wp-show" href="#"><?php printf(__('show %d core',
-													 SNAPSHOT_I18N_DOMAIN), count($wp_tables)) ?></a><?php
+													 'snapshot'), count($wp_tables)) ?></a><?php
 											}
 
 											if (count($non_tables)) {
 												if (count($wp_tables)) { echo ", "; }
 												?><a class="snapshot-list-table-non-show" href="#"><?php printf(__('show %d non-core',
-													 SNAPSHOT_I18N_DOMAIN), count($non_tables)) ?></a><?php
+													 'snapshot'), count($non_tables)) ?></a><?php
 											}
 											?></p><?php
 
@@ -1293,12 +1293,12 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 				<div class="inside">
 					<?php
 					if ( $restore_option == true ) {
-						/* ?><p><?php _e('Select which archive to restore', SNAPSHOT_I18N_DOMAIN); ?></p><?php */
+						/* ?><p><?php _e('Select which archive to restore', 'snapshot'); ?></p><?php */
 					} else {
 						?>
-						<p><?php _e( 'Below is a listing of your archives showing at most the most recent 6 entries. If the archive is local you can click on the filename to download it. You can also view or download the load file the archive.', SNAPSHOT_I18N_DOMAIN ); ?>
+						<p><?php _e( 'Below is a listing of your archives showing at most the most recent 6 entries. If the archive is local you can click on the filename to download it. You can also view or download the load file the archive.', 'snapshot' ); ?>
 							<a href="?page=snapshots_edit_panel&amp;snapshot-action=item-archives&amp;item=<?php echo $item['timestamp'] ?>"><?php
-								_e( 'View all archives', SNAPSHOT_I18N_DOMAIN ); ?></a></p>
+								_e( 'View all archives', 'snapshot' ); ?></a></p>
 					<?php
 					}
 
@@ -1326,16 +1326,16 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						<tr class="form-field">
 							<?php if ( $restore_option == true ) { ?>
 								<th class="snapshot-col-restore"><?php
-								_e( 'Select', SNAPSHOT_I18N_DOMAIN ); ?></th><?php } ?>
-							<th class="snapshot-col-date"><?php _e( 'Date', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th class="snapshot-col-file"><?php _e( 'File', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th class="snapshot-col-notes"><?php _e( 'Notes', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th class="snapshot-col-size"><?php _e( 'Size', SNAPSHOT_I18N_DOMAIN ); ?></th>
+								_e( 'Select', 'snapshot' ); ?></th><?php } ?>
+							<th class="snapshot-col-date"><?php _e( 'Date', 'snapshot' ); ?></th>
+							<th class="snapshot-col-file"><?php _e( 'File', 'snapshot' ); ?></th>
+							<th class="snapshot-col-notes"><?php _e( 'Notes', 'snapshot' ); ?></th>
+							<th class="snapshot-col-size"><?php _e( 'Size', 'snapshot' ); ?></th>
 							<?php
 							if ( $restore_option != true ) {
 								if ( PSOURCESnapshot::instance()->config_data['config']['absoluteFolder'] != true ) {
 									?>
-									<th class="snapshot-col-logs"><?php _e( 'Logs', SNAPSHOT_I18N_DOMAIN ); ?></th><?php
+									<th class="snapshot-col-logs"><?php _e( 'Logs', 'snapshot' ); ?></th><?php
 								}
 							}
 							?>
@@ -1455,11 +1455,11 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									echo '<a href="' . admin_url()
 									     . 'admin-ajax.php?action=snapshot_view_log_ajax&amp;snapshot-item='
 									     . $item['timestamp']
-									     . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '" target="_blank" rel="noopener">' . __( 'view', SNAPSHOT_I18N_DOMAIN ) . '</a>';
+									     . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '" target="_blank" rel="noopener">' . __( 'view', 'snapshot' ) . '</a>';
 									echo " ";
 									echo '<a href="?page=snapshots_edit_panel&amp;snapshot-action=download-log&amp;snapshot-item=' . $item['timestamp']
 									     . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '">'
-									     . __( 'download', SNAPSHOT_I18N_DOMAIN ) . '</a>';
+									     . __( 'download', 'snapshot' ) . '</a>';
 
 
 								} else {
@@ -1474,7 +1474,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						?></tbody></table><?php
 
 					} else {
-						_e( 'No Archives', SNAPSHOT_I18N_DOMAIN );
+						_e( 'No Archives', 'snapshot' );
 					}
 					?>
 				</div>
@@ -1503,17 +1503,17 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 					<table class="form-table snapshot-restore-options">
 						<tr class="">
 							<th scope="row">
-								<label><?php _e( 'Plugins', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label><?php _e( 'Plugins', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<input type="checkbox" id="snapshot-restore-option-plugins"
 								       name="restore-option-plugins" value="yes"/> <label
-									for="snapshot-restore-option-plugins"><?php _e( 'Turn off all plugins', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-restore-option-plugins"><?php _e( 'Turn off all plugins', 'snapshot' ); ?></label>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">
-								<label><?php _e( 'Set a theme to active', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label><?php _e( 'Set a theme to active', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<?php
@@ -1613,7 +1613,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 				<div class="inside">
 					<?php if ( is_multisite() ) { ?>
-						<p class="snapshot-error"><?php _e( 'You can restore the backup to a different blog within your Multisite environment. Note: The destination blog MUST already exist. This migration logic is considered still in beta.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+						<p class="snapshot-error"><?php _e( 'You can restore the backup to a different blog within your Multisite environment. Note: The destination blog MUST already exist. This migration logic is considered still in beta.', 'snapshot' ); ?></p>
 					<?php } ?>
 
 					<table class="form-table snapshot-restore-blog-options">
@@ -1623,7 +1623,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 							?>
 							<tr>
 							<td colspan="2"><p
-									class="snapshot-error"><?php _e( 'Restore Note: URL mismatch!. The Snapshot archive does not appear made from the current WordPress system. Every attempt will be made to replace the source URL with the URL from the destination.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+									class="snapshot-error"><?php _e( 'Restore Note: URL mismatch!. The Snapshot archive does not appear made from the current WordPress system. Every attempt will be made to replace the source URL with the URL from the destination.', 'snapshot' ); ?></p>
 							</td></tr><?php
 							$restore_blog_id = '';
 						} else {
@@ -1634,7 +1634,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 						</tr>
 						<tr>
 							<td style="width: 50%">
-								<label><?php _e( 'Information from Archive', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label><?php _e( 'Information from Archive', 'snapshot' ); ?></label>
 								<ul>
 									<?php if ( is_multisite() ) { ?>
 										<?php
@@ -1645,7 +1645,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										}
 										?>
 										<li><span
-												class="snapshot-field-label"><?php _e( 'Blog ID:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+												class="snapshot-field-label"><?php _e( 'Blog ID:', 'snapshot' ); ?></span>
 											<span style="font-weight: bold" id="snapshot-org-blog-id"
 											      class="snapshot-field-value"><?php echo $item_blog_id; ?></span></li>
 									<?php } ?>
@@ -1657,11 +1657,11 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Site URL:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Site URL:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-org-site-url"
 										      class="snapshot-field-value"><?php echo $item_siteurl; ?></span></li>
 									<?php /* ?>
-								<li><span class="snapshot-field-label"><?php _e('Home URL:', SNAPSHOT_I18N_DOMAIN); ?></span> <span style="font-weight: bold" id="snapshot-org-site-url" class="snapshot-field-value"><?php echo $item['MANIFEST']['WP_HOME']; ?></span></li>
+								<li><span class="snapshot-field-label"><?php _e('Home URL:', 'snapshot'); ?></span> <span style="font-weight: bold" id="snapshot-org-site-url" class="snapshot-field-value"><?php echo $item['MANIFEST']['WP_HOME']; ?></span></li>
 								<?php */ ?>
 
 									<?php
@@ -1672,7 +1672,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Name:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Name:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-org-db-name"
 										      class="snapshot-field-value"><?php echo $item_db_name; ?></span></li>
 
@@ -1685,7 +1685,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Base Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Base Prefix:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-org-db-prefix"
 										      class="snapshot-field-value"><?php echo $item_db_base_prefix; ?></span>
 									</li>
@@ -1699,7 +1699,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Prefix:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-org-db-prefix"
 										      class="snapshot-field-value"><?php echo $item['MANIFEST']['WP_DB_PREFIX']; ?></span>
 									</li>
@@ -1712,13 +1712,13 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Upload Path:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Upload Path:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-org-upload-path"
 										      class="snapshot-field-value"><?php echo $item_upload_path; ?></span></li>
 								</ul>
 							</td>
 							<td style="width: 50%">
-								<label><?php _e( 'Will be restored to', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								<label><?php _e( 'Will be restored to', 'snapshot' ); ?></label>
 								<ul>
 									<?php if ( is_multisite() ) { ?>
 										<?php
@@ -1729,7 +1729,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 										}
 										?>
 										<li><span
-												class="snapshot-field-label"><?php _e( 'Blog ID:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+												class="snapshot-field-label"><?php _e( 'Blog ID:', 'snapshot' ); ?></span>
 											<span style="font-weight: bold" id="snapshot-new-blog-id"
 											      class="snapshot-field-value"><?php echo $item_blog_id; ?></span></li>
 									<?php } ?>
@@ -1746,18 +1746,18 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Site URL:', SNAPSHOT_I18N_DOMAIN ); ?></span> <span
+											class="snapshot-field-label"><?php _e( 'Site URL:', 'snapshot' ); ?></span> <span
 											id="snapshot-blog-search-success" style="display:inline"><span
 												style="font-weight: bold"
 												id="snapshot-blog-name"><?php echo $item_siteurl; ?></span><?php if ( is_multisite() ) { ?>
 												<button
-													id="snapshot-blog-id-change"><?php _e( 'Change', SNAPSHOT_I18N_DOMAIN ); ?></button>
+													id="snapshot-blog-id-change"><?php _e( 'Change', 'snapshot' ); ?></button>
 											<?php } ?>
 								</span>
 										<?php if ( is_multisite() ) { ?>
 											<span id="snapshot-blog-search" style="display:none">
 										<span id="snapshot-blog-search-error" style="color: #FF0000; display:none;"><?php
-											_e( 'Error on blog lookup. Try again', SNAPSHOT_I18N_DOMAIN ); ?>
+											_e( 'Error on blog lookup. Try again', 'snapshot' ); ?>
 											<br/></span>
 												<?php
 												if ( is_subdomain_install() ) {
@@ -1769,10 +1769,10 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													         style="width: 20%" />.<?php echo $site_domain; ?> <span
 														class="spinner"></span>
 													<button
-														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 													<button
-														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-													<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site.', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+													<p class="description"><?php _e( 'Enter the blog sub-domain prefix "site1" or blog ID "22" or mapped domain or leave blank for primary site.', 'snapshot' ); ?></p><?php
 												} else {
 													$current_domain_path = parse_url( $item_siteurl, PHP_URL_PATH );
 													if ( $current_domain_path[0] == "/" ) {
@@ -1784,16 +1784,16 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 													value="<?php echo $current_domain_path; ?>" style="width: 20%"/>
 													<span class="spinner"></span>
 													<button
-														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', SNAPSHOT_I18N_DOMAIN ); ?></button>
+														id="snapshot-blog-id-lookup"><?php _e( 'Lookup', 'snapshot' ); ?></button>
 													<button
-														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', SNAPSHOT_I18N_DOMAIN ); ?></button>
-													<p class="description"><?php _e( 'Enter the blog path "site1" or blog ID "22".', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+														id="snapshot-blog-id-cancel"><?php _e( 'Cancel', 'snapshot' ); ?></button>
+													<p class="description"><?php _e( 'Enter the blog path "site1" or blog ID "22".', 'snapshot' ); ?></p><?php
 												}
 												?>
 									</span>
 										<?php } ?></li>
 									<?php /* ?>
-								<li><span class="snapshot-field-label"><?php _e('Home URL:', SNAPSHOT_I18N_DOMAIN); ?></span> <span style="font-weight: bold" id="snapshot-new-blogurl"><?php echo get_option('home'); ?></span></li>
+								<li><span class="snapshot-field-label"><?php _e('Home URL:', 'snapshot'); ?></span> <span style="font-weight: bold" id="snapshot-new-blogurl"><?php echo get_option('home'); ?></span></li>
 								<?php */ ?>
 									<?php
 									if ( is_multisite() ) {
@@ -1807,7 +1807,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Name:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Name:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-new-db-name"
 										      class="snapshot-field-value"><?php echo $item_db_name; ?></span></li>
 
@@ -1823,7 +1823,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Base Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Base Prefix:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-new-db-base-prefix"
 										      class="snapshot-field-value"><?php echo $item_db_base_prefix; ?></span>
 									</li>
@@ -1840,7 +1840,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Database Prefix:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Database Prefix:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-new-db-prefix"
 										      class="snapshot-field-value"><?php echo $item_db_prefix;; ?></span></li>
 
@@ -1857,7 +1857,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 									}
 									?>
 									<li><span
-											class="snapshot-field-label"><?php _e( 'Upload Path:', SNAPSHOT_I18N_DOMAIN ); ?></span>
+											class="snapshot-field-label"><?php _e( 'Upload Path:', 'snapshot' ); ?></span>
 										<span style="font-weight: bold" id="snapshot-new-upload-path"
 										      class="snapshot-field-value"><?php echo $item_upload_path; ?></span></li>
 								</ul>
@@ -1892,29 +1892,29 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
 				<p>
-					<?php _ex( "Set a destination folder for your snapshots. This folder will be created inside your site's media upload folder.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php _ex( "Set a destination folder for your snapshots. This folder will be created inside your site's media upload folder.", 'Snapshot page description', 'snapshot' ); ?>
 					<code>/wp-content/uploads/<?php echo esc_html($default_folder); ?></code>
 				</p>
 
-				<p><?php _ex( "Optionally, you can attempt to set the snapshot folder to a directory outside of your web site. This may not be available depending on your hosting configuration. Check with your hosting provider. If you change the folder to be outside of your web site you may not be able to access the archive via this plugin. You will need to use FTP or some other solution provided by your hosting provider.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _ex( "Optionally, you can attempt to set the snapshot folder to a directory outside of your web site. This may not be available depending on your hosting configuration. Check with your hosting provider. If you change the folder to be outside of your web site you may not be able to access the archive via this plugin. You will need to use FTP or some other solution provided by your hosting provider.", 'Snapshot page description', 'snapshot' ); ?></p>
 
-				<p><?php _ex( "If you do change the Snapshot folder, the existing folder will be moved/renamed to the new value. <strong>The new folder must not already exist.</strong>", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _ex( "If you do change the Snapshot folder, the existing folder will be moved/renamed to the new value. <strong>The new folder must not already exist.</strong>", 'Snapshot page description', 'snapshot' ); ?></p>
 
 				<table class="form-table snapshot-settings-folder-locations">
 					<tr class="form-field">
 						<th scope="row">
 							<label
-								for="snapshot-settings-backupFolder"><?php _e( 'Backup Folder', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								for="snapshot-settings-backupFolder"><?php _e( 'Backup Folder', 'snapshot' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="backupFolder" id="snapshot-settings-backupFolder"
 							       value="<?php echo PSOURCESnapshot::instance()->config_data['config']['backupFolder']; ?>"/>
 
 							<p class="description"><?php
-								printf( __( 'Default folder is %s. If you change the folder name the previous snapshot files will be moved to the new folder.', SNAPSHOT_I18N_DOMAIN ),
+								printf( __( 'Default folder is %s. If you change the folder name the previous snapshot files will be moved to the new folder.', 'snapshot' ),
 									'<code>' . esc_html($default_folder) . '</code>' ); ?></p>
 
-							<p class="description"><?php _e( 'Current folder', SNAPSHOT_I18N_DOMAIN ); ?> <code><?php
+							<p class="description"><?php _e( 'Current folder', 'snapshot' ); ?> <code><?php
 									echo trailingslashit( PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ); ?></code>
 							</p>
 							<?php
@@ -1932,7 +1932,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 
 									echo '<p class="description snapshot-security">' .
 								         sprintf( '%s%s',
-									         __( 'Warning: Your Snapshot folder is publicly accessible. Please make sure you DO NOT use the default "snapshot" location. Although we attempt to disallow directory listing and are obscuring your backup names, having this folder public opens it up for exploitation. You may need to consult your hosting provider to move this folder outside of your website folder. Example path:', SNAPSHOT_I18N_DOMAIN ),
+									         __( 'Warning: Your Snapshot folder is publicly accessible. Please make sure you DO NOT use the default "snapshot" location. Although we attempt to disallow directory listing and are obscuring your backup names, having this folder public opens it up for exploitation. You may need to consult your hosting provider to move this folder outside of your website folder. Example path:', 'snapshot' ),
 											'<code>' . $example . '</code>'
 								         ) .
 								         '</p>';
@@ -1944,7 +1944,7 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 					<tr>
 						<td>&nbsp;</td>
 						<td><input class="button-primary" type="submit"
-						           value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+						           value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 				</table>
 			</form>
 			<?php
@@ -1983,29 +1983,29 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-				<p><?php _ex( "The Segment Size can be defined as the number of rows to backup per table per request. The Segment Size controls the backup processing when you create a new snapshot. During the backup processing Snapshot will make a request to the server to backup each table. You can see this in the progress meters when you create a new snapshot. In most situations this backup process will attempt to backup the table in one step. But on some server configurations the timeout is set very low or the table size is very large and prevents the backup process from finishing. To control this the Snapshot backup process will breakup the requests into smaller 'chunks of work' requested to the server.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?>
+				<p><?php _ex( "The Segment Size can be defined as the number of rows to backup per table per request. The Segment Size controls the backup processing when you create a new snapshot. During the backup processing Snapshot will make a request to the server to backup each table. You can see this in the progress meters when you create a new snapshot. In most situations this backup process will attempt to backup the table in one step. But on some server configurations the timeout is set very low or the table size is very large and prevents the backup process from finishing. To control this the Snapshot backup process will breakup the requests into smaller 'chunks of work' requested to the server.", 'Snapshot page description', 'snapshot' ); ?>
 
-				<p><?php _ex( "For example you have a table with 80,000 records. This would take more than the normal 3 minutes or less most servers allow for processing it attempted in a single request. By setting the segment size to 1000 the Snapshot process will breakup the table into 80 small parts. These 1000 records per request should complete within the allow server timeout period.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _ex( "For example you have a table with 80,000 records. This would take more than the normal 3 minutes or less most servers allow for processing it attempted in a single request. By setting the segment size to 1000 the Snapshot process will breakup the table into 80 small parts. These 1000 records per request should complete within the allow server timeout period.", 'Snapshot page description', 'snapshot' ); ?></p>
 
 				<table class="form-table snapshot-settings-segment-size">
 					<tr class="form-field">
 						<th scope="row">
 							<label
-								for="snapshot-settings-segment-size"><?php _e( 'Segment Size', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								for="snapshot-settings-segment-size"><?php _e( 'Segment Size', 'snapshot' ); ?></label>
 						</th>
 						<td>
 							<input type="text" name="segmentSize" id="snapshot-settings-segment-size" value="<?php
 							echo PSOURCESnapshot::instance()->config_data['config']['segmentSize']; ?>"/>
 
 							<p class="description"><?php
-								printf( __( 'The segment size is the number of database records to backup per request. It is recommended you keep this at least above 1000.<br />Default segment size is: %s.', SNAPSHOT_I18N_DOMAIN ),
+								printf( __( 'The segment size is the number of database records to backup per request. It is recommended you keep this at least above 1000.<br />Default segment size is: %s.', 'snapshot' ),
 									'<code>5000</code>' ); ?></p>
 						</td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
 						<td><input class="button-primary" type="submit"
-						           value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+						           value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 					</tr>
 				</table>
 			</form>
@@ -2036,20 +2036,20 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 					: network_admin_url('?page=psource-support&view=system');
 				;
 				$action = "<a class='snapshot-psource-dashboard button button-primary local' href='{$url}'>" .
-					__('Take me there now', SNAPSHOT_I18N_DOMAIN) .
+					__('Take me there now', 'snapshot') .
 				"</a>";
 				$user_can_view_dashboard = PSOURCE_Dashboard::$site->allowed_user();
 			} else {
 				$url = esc_url('http://premium.psource.org/project/dashboard/');
 				$action = "<a class='snapshot-psource-dashboard button button-primary remote' href='{$url}'>" .
-					__('Get Dashboard plugin now', SNAPSHOT_I18N_DOMAIN) .
+					__('Get Dashboard plugin now', 'snapshot') .
 				"</a>";
 			}
 
 			if (!$user_can_view_dashboard) return false;
 
 			$message = sprintf(
-				__('You can learn more about your server configuration in our <a href="%s">PSOURCE Dashboard plugin</a>.', SNAPSHOT_I18N_DOMAIN),
+				__('You can learn more about your server configuration in our <a href="%s">PSOURCE Dashboard plugin</a>.', 'snapshot'),
 				$url
 			);
 
@@ -2068,11 +2068,11 @@ if ( ! class_exists( "Snapshot_View_Metabox_Admin" ) ) {
 global $wpdb, $wp_version;
 
 			?>
-			<p><?php _e( 'The following table shows version information about your server. When contacting support it might be helpful to provide this information along with your specific issues.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php _e( 'The following table shows version information about your server. When contacting support it might be helpful to provide this information along with your specific issues.', 'snapshot' ); ?></p>
 			<table class="form-table snapshot-settings-server-info">
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'WordPress Version', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'WordPress Version', 'snapshot' ); ?>
 
 					</th>
 					<td>
@@ -2083,7 +2083,7 @@ global $wpdb, $wp_version;
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'PHP Version', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'PHP Version', 'snapshot' ); ?>
 
 					</th>
 					<td>
@@ -2092,7 +2092,7 @@ global $wpdb, $wp_version;
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'MySQL Version', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'MySQL Version', 'snapshot' ); ?>
 
 					</th>
 					<td>
@@ -2101,43 +2101,43 @@ global $wpdb, $wp_version;
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'Is Multisite', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'Is Multisite', 'snapshot' ); ?>
 
 					</th>
 					<td>
 						<?php
 						if ( is_multisite() ) {
 							$blogs_count = Snapshot_Helper_Utility::get_blogs( true );
-							echo __( 'Yes, Number of Sites', SNAPSHOT_I18N_DOMAIN ) . ": " . number_format( $blogs_count );
+							echo __( 'Yes, Number of Sites', 'snapshot' ) . ": " . number_format( $blogs_count );
 						} else {
-							_e( 'No', SNAPSHOT_I18N_DOMAIN );
+							_e( 'No', 'snapshot' );
 						}
 						?>
 					</td>
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'WP_CRON', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'WP_CRON', 'snapshot' ); ?>
 
 					</th>
 					<td>
 						<?php
-						echo __( 'Snapshot uses WP_CRON to run automated backups. If you have disabled WP_CRON via your wp-config.php you will not be able to schedule snapshots.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+						echo __( 'Snapshot uses WP_CRON to run automated backups. If you have disabled WP_CRON via your wp-config.php you will not be able to schedule snapshots.', 'snapshot' ) . "<br />";
 						if ( ( defined( 'DISABLE_WP_CRON' ) ) && ( DISABLE_WP_CRON == true ) ) {
-							echo '<span style="color:#FF0000">' . __( 'WP_CRON - Disabled. Check your wp-config.php for the DISABLE_WP_CRON define. When scheduling snapshots to run you will need to call the wp-cron.php file from an external source', SNAPSHOT_I18N_DOMAIN ) . '</span>';
+							echo '<span style="color:#FF0000">' . __( 'WP_CRON - Disabled. Check your wp-config.php for the DISABLE_WP_CRON define. When scheduling snapshots to run you will need to call the wp-cron.php file from an external source', 'snapshot' ) . '</span>';
 						} else {
-							echo __( 'WP_CRON Enabled.', SNAPSHOT_I18N_DOMAIN );
+							echo __( 'WP_CRON Enabled.', 'snapshot' );
 						}
 
 						if ( defined( 'WP_CRON_LOCK_TIMEOUT' ) ) {
-							echo "<br />" . __( 'WP_CRON Lock timeout: ', SNAPSHOT_I18N_DOMAIN ) . WP_CRON_LOCK_TIMEOUT;
+							echo "<br />" . __( 'WP_CRON Lock timeout: ', 'snapshot' ) . WP_CRON_LOCK_TIMEOUT;
 						}
 						?>
 					</td>
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'Folder Permissions', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'Folder Permissions', 'snapshot' ); ?>
 
 					</th>
 					<td>
@@ -2153,12 +2153,12 @@ global $wpdb, $wp_version;
 						foreach ( $folders_array as $folder ) {
 
 							if ( ! file_exists( $folder ) ) {
-								echo '<span class="snapshot-error">' . __( "Missing Folder", SNAPSHOT_I18N_DOMAIN ) . " &ndash; " . $folder . "</span><br />";
+								echo '<span class="snapshot-error">' . __( "Missing Folder", 'snapshot' ) . " &ndash; " . $folder . "</span><br />";
 							} else {
 								if ( ! is_writable( $folder ) ) {
-									echo __( "Not Writable ", SNAPSHOT_I18N_DOMAIN );
+									echo __( "Not Writable ", 'snapshot' );
 								} else {
-									echo __( "Writable ", SNAPSHOT_I18N_DOMAIN );
+									echo __( "Writable ", 'snapshot' );
 								}
 								echo "(" . substr( sprintf( '%o', fileperms( $folder ) ), - 4 ) . ") &ndash; " . str_replace( ABSPATH, '/', $folder ) . "<br />";
 							}
@@ -2169,40 +2169,40 @@ global $wpdb, $wp_version;
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'OpenSSL', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'OpenSSL', 'snapshot' ); ?>
 
 					</th>
 					<td>
 						<?php
-						echo __( 'The OpenSSL Apache module is require to make secure connections with destinations like Dropbox and Google Drive.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+						echo __( 'The OpenSSL Apache module is require to make secure connections with destinations like Dropbox and Google Drive.', 'snapshot' ) . "<br />";
 
 						if ( ! extension_loaded( 'openssl' ) ) {
-							echo '<span style="color:#FF0000">' . __( 'OpenSSL not installed.', SNAPSHOT_I18N_DOMAIN ) . '</span>';
+							echo '<span style="color:#FF0000">' . __( 'OpenSSL not installed.', 'snapshot' ) . '</span>';
 						} else {
-							echo __( "OpenSSL installed", SNAPSHOT_I18N_DOMAIN );
+							echo __( "OpenSSL installed", 'snapshot' );
 						}
 						?>
 					</td>
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<?php _e( 'cURL', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php _e( 'cURL', 'snapshot' ); ?>
 
 					</th>
 					<td>
 						<?php
-						echo __( 'cURL is used when connecting to remote destinations like Dropbox and Google Drive.', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+						echo __( 'cURL is used when connecting to remote destinations like Dropbox and Google Drive.', 'snapshot' ) . "<br />";
 
 						if ( ! extension_loaded( 'curl' ) ) {
-							echo '<span style="color:#FF0000">' . __( 'cURL not installed.', SNAPSHOT_I18N_DOMAIN ) . '</span>';
+							echo '<span style="color:#FF0000">' . __( 'cURL not installed.', 'snapshot' ) . '</span>';
 						} else {
-							echo __( "cURL installed", SNAPSHOT_I18N_DOMAIN ) . "<br />";
+							echo __( "cURL installed", 'snapshot' ) . "<br />";
 							$version = curl_version();
 
-							echo __( "Version", SNAPSHOT_I18N_DOMAIN ) . ": " . $version['version'] . "<br />";
-							echo __( "SSL Version", SNAPSHOT_I18N_DOMAIN ) . ": " . $version['ssl_version'] . "<br />";
-							echo __( "Libz Version", SNAPSHOT_I18N_DOMAIN ) . ": " . $version['libz_version'] . "<br />";
-							echo __( "Protocols", SNAPSHOT_I18N_DOMAIN ) . ": " . join( ', ', $version['protocols'] ) . "<br />";
+							echo __( "Version", 'snapshot' ) . ": " . $version['version'] . "<br />";
+							echo __( "SSL Version", 'snapshot' ) . ": " . $version['ssl_version'] . "<br />";
+							echo __( "Libz Version", 'snapshot' ) . ": " . $version['libz_version'] . "<br />";
+							echo __( "Protocols", 'snapshot' ) . ": " . join( ', ', $version['protocols'] ) . "<br />";
 
 							//echo "version<pre>"; print_r($version); echo "</pre>";
 							//$ssl_supported= ($version['features'] & CURL_VERSION_SSL);
@@ -2214,21 +2214,21 @@ global $wpdb, $wp_version;
 				</tr>
 				<tr class="form-field">
 					<th scope="row">
-						<strong><?php _e( 'PHP runtime information', SNAPSHOT_I18N_DOMAIN ); ?></strong>
+						<strong><?php _e( 'PHP runtime information', 'snapshot' ); ?></strong>
 					</th>
 					<td>&nbsp;</td>
 				</tr>
 				<?php
 				$php_vars_array = array(
-					'safe_mode'               => __( "Running PHP in Safe Mode", SNAPSHOT_I18N_DOMAIN ),
-					'max_execution_time'      => __( "Max Execution Time (seconds)", SNAPSHOT_I18N_DOMAIN ),
-					'magic_quotes_gpc'        => __( "Magic Quotes", SNAPSHOT_I18N_DOMAIN ),
-					'error_reporting'         => __( "Error Reporting", SNAPSHOT_I18N_DOMAIN ),
-					'display_errors'          => __( "Display Errors", SNAPSHOT_I18N_DOMAIN ),
-					'memory_limit'            => __( "Memory Limit", SNAPSHOT_I18N_DOMAIN ),
-					'zlib.output_compression' => __( "ZLib Compression", SNAPSHOT_I18N_DOMAIN ),
-					'open_basedir'            => __( "Open Basedir", SNAPSHOT_I18N_DOMAIN ),
-					'safe_mode'               => __( "Safe Mode", SNAPSHOT_I18N_DOMAIN )
+					'safe_mode'               => __( "Running PHP in Safe Mode", 'snapshot' ),
+					'max_execution_time'      => __( "Max Execution Time (seconds)", 'snapshot' ),
+					'magic_quotes_gpc'        => __( "Magic Quotes", 'snapshot' ),
+					'error_reporting'         => __( "Error Reporting", 'snapshot' ),
+					'display_errors'          => __( "Display Errors", 'snapshot' ),
+					'memory_limit'            => __( "Memory Limit", 'snapshot' ),
+					'zlib.output_compression' => __( "ZLib Compression", 'snapshot' ),
+					'open_basedir'            => __( "Open Basedir", 'snapshot' ),
+					'safe_mode'               => __( "Safe Mode", 'snapshot' )
 
 				);
 				asort( $php_vars_array );
@@ -2247,9 +2247,9 @@ global $wpdb, $wp_version;
 							if ( $php_var == "max_execution_time" ) {
 								echo $php_val;
 								if ( Snapshot_Helper_Utility::check_server_timeout() ) {
-									_e( " The value displayed can be adjusted by Snapshot PHP scripts.", SNAPSHOT_I18N_DOMAIN );
+									_e( " The value displayed can be adjusted by Snapshot PHP scripts.", 'snapshot' );
 								} else {
-									_e( " The value displayed cannot be adjusted by Snapshot PHP scripts.", SNAPSHOT_I18N_DOMAIN );
+									_e( " The value displayed cannot be adjusted by Snapshot PHP scripts.", 'snapshot' );
 								}
 							} else if ( $php_var == "memory_limit" ) {
 								//echo " - PHP 'memory_limit'";
@@ -2309,26 +2309,26 @@ global $wpdb, $wp_version;
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-				<p><?php _ex( "The Memory Limit setting can allow Snapshot to use more or limit the amount of memory used by Snapshot during the backup or restore processing. The value set here can be higher than the value you would define for WP_MEMORY_LIMIT in you wp-config.php. This is because working with zip archives takes more memory than just serving a web page. For any moderate size site this value should be at least <strong>256M</strong>.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _ex( "The Memory Limit setting can allow Snapshot to use more or limit the amount of memory used by Snapshot during the backup or restore processing. The value set here can be higher than the value you would define for WP_MEMORY_LIMIT in you wp-config.php. This is because working with zip archives takes more memory than just serving a web page. For any moderate size site this value should be at least <strong>256M</strong>.", 'Snapshot page description', 'snapshot' ); ?></p>
 
-				<p><?php _ex( "<strong>If left blank, Snapshot will compare the php.ini (memory_limit), WP_MEMORY_LIMIT and WP_MAX_MEMORY_LIMIT settings and use the largest value.</strong>", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _ex( "<strong>If left blank, Snapshot will compare the php.ini (memory_limit), WP_MEMORY_LIMIT and WP_MAX_MEMORY_LIMIT settings and use the largest value.</strong>", 'Snapshot page description', 'snapshot' ); ?></p>
 
 				<p><?php
 					$memory_limits                  = array();
 					$memory_limit                   = ini_get( 'memory_limit' );
 					$memory_limits[ $memory_limit ] = Snapshot_Helper_Utility::size_unformat( $memory_limit );
-					/* ?><br /><?php echo $memory_limit; ?>: <?php _e('php.ini (memory_limit)', SNAPSHOT_I18N_DOMAIN); */
+					/* ?><br /><?php echo $memory_limit; ?>: <?php _e('php.ini (memory_limit)', 'snapshot'); */
 
 					if ( defined( 'WP_MEMORY_LIMIT' ) ) {
 						$memory_limit                   = WP_MEMORY_LIMIT;
 						$memory_limits[ $memory_limit ] = Snapshot_Helper_Utility::size_unformat( $memory_limit );
-						/* ?><br /><?php echo $memory_limit; ?>: <?php _e('WP_MEMORY_LIMIT', SNAPSHOT_I18N_DOMAIN); */
+						/* ?><br /><?php echo $memory_limit; ?>: <?php _e('WP_MEMORY_LIMIT', 'snapshot'); */
 					}
 
 					if ( defined( 'WP_MAX_MEMORY_LIMIT' ) ) {
 						$memory_limit                   = WP_MAX_MEMORY_LIMIT;
 						$memory_limits[ $memory_limit ] = Snapshot_Helper_Utility::size_unformat( $memory_limit );
-						/* ?><br /><?php echo $memory_limit; ?>: <?php _e('WP_MAX_MEMORY_LIMIT', SNAPSHOT_I18N_DOMAIN); */
+						/* ?><br /><?php echo $memory_limit; ?>: <?php _e('WP_MAX_MEMORY_LIMIT', 'snapshot'); */
 					}
 
 					?></p><?php
@@ -2345,7 +2345,7 @@ global $wpdb, $wp_version;
 
 				if ( ini_get( 'memory_limit' ) !== $memoryLimit ) {
 					?>
-					<p style="color: #FF0000;"><?php _ex( "Warning: Unable to update the 'memory_limit' via the PHP function init_set. This means in order in to increased the allowed memory limit for Snapshot you will need to make the change directly in your php.ini file. Contact your host provider for details.", 'Snapshot page description', SNAPSHOT_I18N_DOMAIN ) ?></p>
+					<p style="color: #FF0000;"><?php _ex( "Warning: Unable to update the 'memory_limit' via the PHP function init_set. This means in order in to increased the allowed memory limit for Snapshot you will need to make the change directly in your php.ini file. Contact your host provider for details.", 'Snapshot page description', 'snapshot' ) ?></p>
 				<?php
 				} else {
 					if ( ( ! isset( PSOURCESnapshot::instance()->config_data['config']['memoryLimit'] ) ) || ( empty( PSOURCESnapshot::instance()->config_data['config']['memoryLimit'] ) ) ) {
@@ -2357,21 +2357,21 @@ global $wpdb, $wp_version;
 						<tr class="form-field">
 							<th scope="row">
 								<label
-									for="snapshot-settings-memory-limit"><?php _e( 'Memory Limit', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-settings-memory-limit"><?php _e( 'Memory Limit', 'snapshot' ); ?></label>
 							</th>
 							<td>
 								<input type="text" name="memoryLimit" id="snapshot-settings-memory-limit"
 								       value="<?php echo PSOURCESnapshot::instance()->config_data['config']['memoryLimit']; ?>"/>
 
 								<p class="description"><?php
-									echo __( 'Important to include the size M = Megabytes, G = Gigbytes as in 256M, 1G, etc.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+									echo __( 'Important to include the size M = Megabytes, G = Gigbytes as in 256M, 1G, etc.', 'snapshot' ); ?></p>
 							</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td>
 								<input class="button-primary" type="submit"
-								       value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+								       value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 						</tr>
 					</table>
 				<?php
@@ -2384,12 +2384,12 @@ global $wpdb, $wp_version;
 		function snapshot_metaboxes_show_config_export() {
 
 			?>
-			<p><?php _e( 'You can export your current Snapshot configuration to save offsite.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php _e( 'You can export your current Snapshot configuration to save offsite.', 'snapshot' ); ?></p>
 			<table class="form-table">
 				<tr>
-					<th><?php _e( 'Export', SNAPSHOT_I18N_DOMAIN ); ?></th>
+					<th><?php _e( 'Export', 'snapshot' ); ?></th>
 					<td><input class="button-primary" type="submit"
-					           value="<?php _e( 'Export', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+					           value="<?php _e( 'Export', 'snapshot' ); ?>"/></td>
 				</tr>
 			</table>
 		<?php
@@ -2405,11 +2405,11 @@ global $wpdb, $wp_version;
 						<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false ); ?>
 						<?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-						<p><?php _e('Scan your Snapshot base folder for extra archives. If you lost your Snapshot settings or need to import Snapshot archives. Place the zip archive into the Snapshot main folder. Then click the Scan button to import the archives.', SNAPSHOT_I18N_DOMAIN); ?></p>
+						<p><?php _e('Scan your Snapshot base folder for extra archives. If you lost your Snapshot settings or need to import Snapshot archives. Place the zip archive into the Snapshot main folder. Then click the Scan button to import the archives.', 'snapshot'); ?></p>
 						<table class="form-table">
 						<tr>
-							<th><?php _e('Import', SNAPSHOT_I18N_DOMAIN); ?></th>
-							<td><input class="button-primary" type="submit" value="<?php _e('Scan', SNAPSHOT_I18N_DOMAIN); ?>" /></td>
+							<th><?php _e('Import', 'snapshot'); ?></th>
+							<td><input class="button-primary" type="submit" value="<?php _e('Scan', 'snapshot'); ?>" /></td>
 						</tr>
 						</table>
 					</form>
@@ -2437,13 +2437,13 @@ global $wpdb, $wp_version;
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-				<p><?php _e( 'Use this setting to create global exclusions. This means the excluded files or directories will be excluded automatically from all snapshot configurations. You can also setup exclusions specific to a single snapshot via the configuration screen. The exclude logic uses pattern matching. So instead of entering the complete server pathname for a file or directory you can use simply use the filename of parent directory. For example to exclude the theme twentyten you could enter this one of many ways: twentyten,  themes/twentyten /wp-content/themes/twentyten, /www-data/wp-content/themes/twentyten. <strong>Regular Expression are not allowed at this time</strong>.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _e( 'Use this setting to create global exclusions. This means the excluded files or directories will be excluded automatically from all snapshot configurations. You can also setup exclusions specific to a single snapshot via the configuration screen. The exclude logic uses pattern matching. So instead of entering the complete server pathname for a file or directory you can use simply use the filename of parent directory. For example to exclude the theme twentyten you could enter this one of many ways: twentyten,  themes/twentyten /wp-content/themes/twentyten, /www-data/wp-content/themes/twentyten. <strong>Regular Expression are not allowed at this time</strong>.', 'snapshot' ); ?></p>
 
 				<table class="form-table snapshot-settings-segment-size">
 					<tr class="form-field">
 						<th scope="row">
 							<label
-								for="snapshot-files-ignore"><?php _e( 'Global Exclusions', SNAPSHOT_I18N_DOMAIN ); ?></label>
+								for="snapshot-files-ignore"><?php _e( 'Global Exclusions', 'snapshot' ); ?></label>
 						</th>
 						<td>
 						<textarea name="filesIgnore" id="filesIgnore" cols="20" rows="5"><?php
@@ -2456,14 +2456,14 @@ global $wpdb, $wp_version;
 							?></textarea>
 
 							<p class="description"><?php echo sprintf( __( 'The Snapshot directory %s is automatically excluded from all snapshots',
-									SNAPSHOT_I18N_DOMAIN ),
+									'snapshot' ),
 									'<code>' . trailingslashit( PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ) . '</code>' ); ?>
 						</td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
 						<td><input class="button-primary" type="submit"
-						           value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+						           value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 					</tr>
 				</table>
 			</form>
@@ -2473,9 +2473,9 @@ global $wpdb, $wp_version;
 
 		function snapshot_metaboxes_show_global_error_reporting() {
 			$error_reporting_errors = array(
-				E_ERROR   => __( 'Errors - Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.', SNAPSHOT_I18N_DOMAIN ),
-				E_WARNING => __( 'Warnings - Run-time warnings (non-fatal errors). Execution of the script is not halted.', SNAPSHOT_I18N_DOMAIN ),
-				E_NOTICE  => __( 'Notices - Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script.', SNAPSHOT_I18N_DOMAIN ),
+				E_ERROR   => __( 'Errors - Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.', 'snapshot' ),
+				E_WARNING => __( 'Warnings - Run-time warnings (non-fatal errors). Execution of the script is not halted.', 'snapshot' ),
+				E_NOTICE  => __( 'Notices - Run-time notices. Indicate that the script encountered something that could indicate an error, but could also happen in the normal course of running a script.', 'snapshot' ),
 			);
 
 			?>
@@ -2486,13 +2486,13 @@ global $wpdb, $wp_version;
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-				<p><?php _e( "This section controls how Snapshot will handle an error condition during the backup / restore processing. There are two columns for each type of error. The 'stop' column controls if Snapshot will abort the current process should that type of error be reached. The 'log' column controls if the type of error and details will be written to the processing log. In most cases you want to set 'stop' for Errors only. And set 'log' for all.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _e( "This section controls how Snapshot will handle an error condition during the backup / restore processing. There are two columns for each type of error. The 'stop' column controls if Snapshot will abort the current process should that type of error be reached. The 'log' column controls if the type of error and details will be written to the processing log. In most cases you want to set 'stop' for Errors only. And set 'log' for all.", 'snapshot' ); ?></p>
 
 				<table class="form-table snapshot-settings-error-reporting" width="100%">
 					<tr>
-						<th style="width:5%;"><?php _e( 'Stop', SNAPSHOT_I18N_DOMAIN ); ?></th>
-						<th style="width:5%;"><?php _e( 'Log', SNAPSHOT_I18N_DOMAIN ); ?></th>
-						<th style="width:90%;"><?php _e( 'Error Description', SNAPSHOT_I18N_DOMAIN ); ?></th>
+						<th style="width:5%;"><?php _e( 'Stop', 'snapshot' ); ?></th>
+						<th style="width:5%;"><?php _e( 'Log', 'snapshot' ); ?></th>
+						<th style="width:90%;"><?php _e( 'Error Description', 'snapshot' ); ?></th>
 					</tr>
 					<?php
 					foreach ( $error_reporting_errors as $error_key => $error_label ) {
@@ -2519,7 +2519,7 @@ global $wpdb, $wp_version;
 					?>
 					<tr colspan="3">
 						<td><input class="button-primary" type="submit"
-						           value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+						           value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 					</tr>
 				</table>
 			</form>
@@ -2535,11 +2535,11 @@ global $wpdb, $wp_version;
 				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-				<p><?php _e( "This section lets you select which zip compression library to use. The zip library is used during the backup and restore processing by Snapshot. Chose from the options below.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _e( "This section lets you select which zip compression library to use. The zip library is used during the backup and restore processing by Snapshot. Chose from the options below.", 'snapshot' ); ?></p>
 
 				<table class="form-table snapshot-settings-zip-library">
 					<tr>
-						<th><?php _e( 'Select Compression Option', SNAPSHOT_I18N_DOMAIN ); ?></th>
+						<th><?php _e( 'Select Compression Option', 'snapshot' ); ?></th>
 
 						<td>
 							<?php
@@ -2554,7 +2554,7 @@ global $wpdb, $wp_version;
 									echo ' checked="checked" ';
 								} ?> /> <?php
 								echo __( 'ZipArchive - In most cases ZipArchive is built into PHP and generally faster than PclZIP. This library primarily uses files instead of memory for temporary storage when compressing large files.',
-									SNAPSHOT_I18N_DOMAIN ); ?><br/>
+									'snapshot' ); ?><br/>
 							<?php
 							} else {
 								if ( ! isset( PSOURCESnapshot::instance()->config_data['config']['zipLibrary'] ) ) {
@@ -2568,7 +2568,7 @@ global $wpdb, $wp_version;
 								echo ' checked="checked" ';
 							} ?> /> <?php
 							echo __( 'PclZip - is part of the WordPress core libraries. It will be slower than built-in PHP functions like ZipArchive. This library  uses memory instead of files for temporary storage when compressing large files.',
-								SNAPSHOT_I18N_DOMAIN ); ?><br/>
+								'snapshot' ); ?><br/>
 
 						</td>
 					</tr>
@@ -2576,7 +2576,7 @@ global $wpdb, $wp_version;
 						<td>&nbsp;</td>
 						<td>
 							<input class="button-primary" type="submit"
-							       value="<?php _e( 'Save Settings', SNAPSHOT_I18N_DOMAIN ); ?>"/></td>
+							       value="<?php _e( 'Save Settings', 'snapshot' ); ?>"/></td>
 					</tr>
 				</table>
 			</form>
@@ -2631,28 +2631,28 @@ global $wpdb, $wp_version;
 					     && ( count( $item['data'][ $data_item_key ]['tables-sections']['global'] ) )
 					) {
 						?><p
-							class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the global database tables users and/or usermeta. Normally, you do not want to restore these tables unless your site is broken. To restore either of these database tables you must select them from the 'Restore selected database tables' section below. The data contained within these tables will be merged with the current global tables", SNAPSHOT_I18N_DOMAIN ); ?><?php
+							class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the global database tables users and/or usermeta. Normally, you do not want to restore these tables unless your site is broken. To restore either of these database tables you must select them from the 'Restore selected database tables' section below. The data contained within these tables will be merged with the current global tables", 'snapshot' ); ?><?php
 					}
 
 					if (( ! is_multisite() ) && ( $item['MANIFEST']['WP_DB_PREFIX'] != $wpdb->prefix )) {
 					?><p
-						class="snapshot-error"><?php printf( __( "Restore Note: The archive contains tables names with a different database prefix ( %s ) than this site ( %s ). The tables restored will automatically be renamed to the site prefix", SNAPSHOT_I18N_DOMAIN ), $item['MANIFEST']['WP_DB_PREFIX'], $wpdb->prefix ); ?><?php
+						class="snapshot-error"><?php printf( __( "Restore Note: The archive contains tables names with a different database prefix ( %s ) than this site ( %s ). The tables restored will automatically be renamed to the site prefix", 'snapshot' ), $item['MANIFEST']['WP_DB_PREFIX'], $wpdb->prefix ); ?><?php
 
 						}
 						?>
 					<table class="form-table snapshot-backup-tables">
 						<tr class="">
 							<td>
-								<p><?php _e( 'Select the database tables restore option.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'Select the database tables restore option.', 'snapshot' ); ?></p>
 								<ul>
 									<li><input type="radio" class="snapshot-tables-option"
 									           id="snapshot-tables-option-all" checked="checked"
 									           value="all" name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-all"><?php
 											if ( is_multisite() ) {
-												_e( 'Restore <strong>all</strong> blog database tables contained in this archive <strong>(excluding global tables users & usermeta)</strong>', SNAPSHOT_I18N_DOMAIN );
+												_e( 'Restore <strong>all</strong> blog database tables contained in this archive <strong>(excluding global tables users & usermeta)</strong>', 'snapshot' );
 											} else {
-												_e( 'Restore <strong>all</strong> blog database tables contained in this archive ', SNAPSHOT_I18N_DOMAIN );
+												_e( 'Restore <strong>all</strong> blog database tables contained in this archive ', 'snapshot' );
 											}
 											?></label></li>
 
@@ -2660,7 +2660,7 @@ global $wpdb, $wp_version;
 									           id="snapshot-tables-option-none"
 									           value="none" name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-none"><?php
-											_e( 'Do not restore any database tables', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											_e( 'Do not restore any database tables', 'snapshot' ); ?></label>
 									</li>
 
 
@@ -2668,16 +2668,16 @@ global $wpdb, $wp_version;
 									           id="snapshot-tables-option-selected" value="selected"
 									           name="snapshot-tables-option"> <label
 											for="snapshot-tables-option-selected"><?php
-											_e( 'Restore <strong>selected</strong> database tables', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											_e( 'Restore <strong>selected</strong> database tables', 'snapshot' ); ?></label>
 
 										<div id="snapshot-selected-tables-container"
 										     style="margin-left: 30px; padding-top: 20px; display: none;">
 											<?php
 											$tables_sets_idx = array(
-												'global' => __( "WordPress Global Tables", SNAPSHOT_I18N_DOMAIN ),
-												'wp'     => __( "WordPress Blog Tables", SNAPSHOT_I18N_DOMAIN ),
-												'non'    => __( "Non-WordPress Tables", SNAPSHOT_I18N_DOMAIN ),
-												'other'  => __( "Other Tables", SNAPSHOT_I18N_DOMAIN ),
+												'global' => __( "WordPress Global Tables", 'snapshot' ),
+												'wp'     => __( "WordPress Blog Tables", 'snapshot' ),
+												'non'    => __( "Non-WordPress Tables", 'snapshot' ),
+												'other'  => __( "Other Tables", 'snapshot' ),
 											);
 
 											//echo "item<pre>"; print_r($item); echo "</pre>";
@@ -2700,19 +2700,19 @@ global $wpdb, $wp_version;
 													) {
 														?> <a class="button-link snapshot-table-select-all" href="#"
 														      id="snapshot-table-<?php echo $table_set_key ?>-select-all"><?php
-														_e( 'Select all', SNAPSHOT_I18N_DOMAIN ); ?></a><?php
+														_e( 'Select all', 'snapshot' ); ?></a><?php
 													} ?>
 												</p>
 												<?php
 												if ( ( is_multisite() ) && ( $table_set_key == "global" ) ) {
 													?><p
-														class="snapshot-error"><?php _e( 'When restoring users and usermeta records under a Multisite environment there are a few limitations. Please read the following carefully', SNAPSHOT_I18N_DOMAIN ); ?></p>
+														class="snapshot-error"><?php _e( 'When restoring users and usermeta records under a Multisite environment there are a few limitations. Please read the following carefully', 'snapshot' ); ?></p>
 													<ol class="snapshot-error">
-														<li><?php _e( "If restoring to the primary blog ALL user entries will be replaced!", SNAPSHOT_I18N_DOMAIN ); ?></li>
-														<li><?php _e( "If restoring to a non-primary blog, the user's ID and user_name fields are checked against existing users.", SNAPSHOT_I18N_DOMAIN ); ?>
+														<li><?php _e( "If restoring to the primary blog ALL user entries will be replaced!", 'snapshot' ); ?></li>
+														<li><?php _e( "If restoring to a non-primary blog, the user's ID and user_name fields are checked against existing users.", 'snapshot' ); ?>
 															<ul>
-																<li><?php _e( "- If a match is not found a new user will be created. This means a new user ID will be assigned.", SNAPSHOT_I18N_DOMAIN ); ?></li>
-																<li><?php _e( "- If a match is found but the user ID is different. The found user ID will be used.", SNAPSHOT_I18N_DOMAIN ); ?></li>
+																<li><?php _e( "- If a match is not found a new user will be created. This means a new user ID will be assigned.", 'snapshot' ); ?></li>
+																<li><?php _e( "- If a match is found but the user ID is different. The found user ID will be used.", 'snapshot' ); ?></li>
 															</ul>
 														</li>
 														<li><?php _e( "If the restored user ID is changed, Snapshot will update usermeta, posts and comments records with the new user ID. A new usermeta record will be added with the key '_old_user_id' with the value of the previous user ID. Snapshot cannot attempt updates to other tables like BuddyPress where the user ID fields are not known. These will need to be updated manually." ); ?></li>
@@ -2756,7 +2756,7 @@ global $wpdb, $wp_version;
 													}
 													?></ul><?php
 												} else {
-													?><p><?php _e( 'No tables', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+													?><p><?php _e( 'No tables', 'snapshot' ); ?></p><?php
 												}
 												?>
 												</div><?php
@@ -2800,26 +2800,26 @@ global $wpdb, $wp_version;
 						     || ( array_search( 'htaccess', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 						) {
 							?><p
-								class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the .htaccess and/or the wp-config.php files. Normally you do not want to restore these files unless your site is broken. To restore either of these files you must select them from the'include selected files' section below.", SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+								class="snapshot-error"><?php _e( "Restore Note: The archive you are about to restore includes the .htaccess and/or the wp-config.php files. Normally you do not want to restore these files unless your site is broken. To restore either of these files you must select them from the'include selected files' section below.", 'snapshot' ); ?></p><?php
 						}
 					}
 					?>
 					<table class="form-table snapshot-backup-files">
 						<tr class="">
 							<td class="left">
-								<p><?php _e( 'Select the File sections to restore:', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'Select the File sections to restore:', 'snapshot' ); ?></p>
 
 								<ul>
 									<li><input type="radio" class="snapshot-files-option" id="snapshot-files-option-all"
 									           value="all"
 									           checked="checked" name="snapshot-files-option"> <label
-											for="snapshot-files-option-all"><?php _e( 'Restore all files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											for="snapshot-files-option-all"><?php _e( 'Restore all files', 'snapshot' ); ?></label>
 										<?php
 										if ( ( array_search( 'config', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 										     || ( array_search( 'htaccess', $item['data'][ $data_item_key ]['files-sections'] ) !== false )
 										) {
 											?> <span>
-											<strong><?php _e( '(excluding .htaccess & wp-config.php files)', SNAPSHOT_I18N_DOMAIN ); ?></strong>
+											<strong><?php _e( '(excluding .htaccess & wp-config.php files)', 'snapshot' ); ?></strong>
 											</span><?php
 										}
 										?>
@@ -2829,7 +2829,7 @@ global $wpdb, $wp_version;
 									           id="snapshot-files-option-none" value="none"
 									           name="snapshot-files-option"> <label
 											for="snapshot-files-option-none"><?php
-											_e( 'Do not include files', SNAPSHOT_I18N_DOMAIN ); ?></label></li>
+											_e( 'Do not include files', 'snapshot' ); ?></label></li>
 
 									<li class="snapshot-backup-files-sections-main-only"><input type="radio"
 									                                                            class="snapshot-files-option"
@@ -2838,13 +2838,13 @@ global $wpdb, $wp_version;
 									                                                            name="snapshot-files-option">
 										<label
 											for="snapshot-files-option-selected"><?php
-											_e( 'Include <strong>selected</strong> files:', SNAPSHOT_I18N_DOMAIN ); ?></label>
+											_e( 'Include <strong>selected</strong> files:', 'snapshot' ); ?></label>
 
 										<div id="snapshot-selected-files-container"
 										     style="margin-left: 30px; padding-top: 10px; display: none;">
 
 											<?php if ( is_multisite() ) { ?>
-												<p class="snapshot-error"><?php _e( "Restore Note: The files wp-config.php and .htaccess can only be restored for the primary site. Even then it is not advisable to restore these file for a working Multisite installation.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+												<p class="snapshot-error"><?php _e( "Restore Note: The files wp-config.php and .htaccess can only be restored for the primary site. Even then it is not advisable to restore these file for a working Multisite installation.", 'snapshot' ); ?></p>
 											<?php } ?>
 
 											<ul id="snapshot-select-files-option">
@@ -2856,7 +2856,7 @@ global $wpdb, $wp_version;
 													                                                value="themes"
 													                                                name="snapshot-files-sections[themes]">
 														<label
-															for="snapshot-files-option-themes"><?php _e( 'Themes', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															for="snapshot-files-option-themes"><?php _e( 'Themes', 'snapshot' ); ?></label>
 													</li>
 												<?php } ?>
 												<?php if ( array_search( 'plugins', $item['data'][ $data_item_key ]['files-sections'] ) !== false ) { ?>
@@ -2867,7 +2867,7 @@ global $wpdb, $wp_version;
 													                                                 value="plugins"
 													                                                 name="snapshot-files-sections[plugins]">
 														<label
-															for="snapshot-files-option-plugins"><?php _e( 'Plugins', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															for="snapshot-files-option-plugins"><?php _e( 'Plugins', 'snapshot' ); ?></label>
 													</li>
 												<?php } ?>
 												<?php if ( array_search( 'media', $item['data'][ $data_item_key ]['files-sections'] ) !== false ) { ?>
@@ -2878,7 +2878,7 @@ global $wpdb, $wp_version;
 													                                               value="media"
 													                                               name="snapshot-files-sections[media]">
 														<label
-															for="snapshot-files-option-media"><?php _e( 'Media Files', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															for="snapshot-files-option-media"><?php _e( 'Media Files', 'snapshot' ); ?></label>
 													</li>
 												<?php } ?>
 												<?php if ( array_search( 'config', $item['data'][ $data_item_key ]['files-sections'] ) !== false ) { ?>
@@ -2888,7 +2888,7 @@ global $wpdb, $wp_version;
 													                                                value="config"
 													                                                name="snapshot-files-sections[config]">
 														<label
-															for="snapshot-files-option-config"><?php _e( 'wp-config.php', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															for="snapshot-files-option-config"><?php _e( 'wp-config.php', 'snapshot' ); ?></label>
 													</li>
 												<?php } ?>
 												<?php if ( array_search( 'htaccess', $item['data'][ $data_item_key ]['files-sections'] ) !== false ) { ?>
@@ -2898,7 +2898,7 @@ global $wpdb, $wp_version;
 													                                                  value="htaccess"
 													                                                  name="snapshot-files-sections[htaccess]">
 														<label
-															for="snapshot-files-option-htaccess"><?php _e( '.htaccess', SNAPSHOT_I18N_DOMAIN ); ?></label>
+															for="snapshot-files-option-htaccess"><?php _e( '.htaccess', 'snapshot' ); ?></label>
 													</li>
 												<?php } ?>
 											</ul>
@@ -2950,24 +2950,24 @@ global $wpdb, $wp_version;
 				<div class="inside">
 					<ul>
 
-						<li><strong><?php _e( 'Remote Archives', SNAPSHOT_I18N_DOMAIN ) ?></strong>:
+						<li><strong><?php _e( 'Remote Archives', 'snapshot' ) ?></strong>:
 							<?php if ( function_exists( 'curl_version' ) ) { ?>
-								<p><?php _e( 'The import process can import an archive from a remote system server via FTP or Dropbox. The remote archive <strong>must</strong> by publicly accessible as this import process does not yet support authentication. See notes below on specific services.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'The import process can import an archive from a remote system server via FTP or Dropbox. The remote archive <strong>must</strong> by publicly accessible as this import process does not yet support authentication. See notes below on specific services.', 'snapshot' ); ?></p>
 
-								<p class="description"><?php _e( '<strong>Remote FTP:</strong> When downloading from a remote FTP server you must ensure the file is moved to a location where it will be accessible via a simple http:// or https:// URL.', SNAPSHOT_I18N_DOMAIN ) ?></p>
+								<p class="description"><?php _e( '<strong>Remote FTP:</strong> When downloading from a remote FTP server you must ensure the file is moved to a location where it will be accessible via a simple http:// or https:// URL.', 'snapshot' ) ?></p>
 
-								<p class="description"><?php _e( '<strong>Dropbox:</strong> If you are attempting to download a Dropbox Snapshot archive written to the App/PSOURCE Snapshot you first need to copy the file to a public folder within your Dropbox account before grabbing the public link.', SNAPSHOT_I18N_DOMAIN ) ?></p>
+								<p class="description"><?php _e( '<strong>Dropbox:</strong> If you are attempting to download a Dropbox Snapshot archive written to the App/PSOURCE Snapshot you first need to copy the file to a public folder within your Dropbox account before grabbing the public link.', 'snapshot' ) ?></p>
 							<?php } else {
 								?><p>
-								<strong><?php echo sprintf( __( 'Import cannot be used to retreive remote files because your PHP install does not have cURL installed. This means you will need to manually upload the file to your server into the snapshot archives directory <em>%s</em>', SNAPSHOT_I18N_DOMAIN ), PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ) ?></strong>
+								<strong><?php echo sprintf( __( 'Import cannot be used to retreive remote files because your PHP install does not have cURL installed. This means you will need to manually upload the file to your server into the snapshot archives directory <em>%s</em>', 'snapshot' ), PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ) ?></strong>
 								</p>
 							<?php } ?>
 						</li>
 						<li>
-							<strong><?php _e( 'Local Archives', SNAPSHOT_I18N_DOMAIN ) ?></strong>:
-							<p><?php echo sprintf( __( 'For archives already on your server but not showing in the All Snapshots listing you can simply submit this form without entering a value below. This will scan the snapshot archivs directory (<em>%s</em>) for any missing archives and add them to the listing.', SNAPSHOT_I18N_DOMAIN ), PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ); ?></p>
+							<strong><?php _e( 'Local Archives', 'snapshot' ) ?></strong>:
+							<p><?php echo sprintf( __( 'For archives already on your server but not showing in the All Snapshots listing you can simply submit this form without entering a value below. This will scan the snapshot archivs directory (<em>%s</em>) for any missing archives and add them to the listing.', 'snapshot' ), PSOURCESnapshot::instance()->get_setting( 'backupBaseFolderFull' ) ); ?></p>
 
-							<p><?php _e( 'If the missing archive is on the server but saved to a different path. Maybe you setup the archive to save to an alternate directory. Then you can enter the full server path to the <strong>directory</strong> where the archive resides.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+							<p><?php _e( 'If the missing archive is on the server but saved to a different path. Maybe you setup the archive to save to an alternate directory. Then you can enter the full server path to the <strong>directory</strong> where the archive resides.', 'snapshot' ); ?></p>
 						</li>
 					</ul>
 
@@ -2975,7 +2975,7 @@ global $wpdb, $wp_version;
 						<tr>
 							<td>
 								<label
-									for="snapshot-import-archive-remote-url"><?php _e( 'URL or local path to Snapshot Archive', SNAPSHOT_I18N_DOMAIN ); ?></label>
+									for="snapshot-import-archive-remote-url"><?php _e( 'URL or local path to Snapshot Archive', 'snapshot' ); ?></label>
 								<br/><?php
 								if ( ( isset( $_POST['snapshot-import-archive-remote-url'] ) ) && ( ! empty( $_POST['snapshot-import-archive-remote-url'] ) ) ) {
 									$remote_file = esc_attr( $_POST['snapshot-import-archive-remote-url'] );

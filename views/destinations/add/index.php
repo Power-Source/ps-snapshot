@@ -46,7 +46,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 ?>
 
 <section id="header">
-    <h1><?php esc_html_e( 'Speicherorte', SNAPSHOT_I18N_DOMAIN ); ?></h1>
+    <h1><?php esc_html_e( 'Speicherorte', 'snapshot' ); ?></h1>
 </section>
 
 <div id="container" class="snapshot-three wps-page-destinations">
@@ -55,11 +55,11 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 
         <div class="wpmud-box-title has-button">
 
-            <h3><?php _e( 'Speicherort-Info', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+            <h3><?php _e( 'Speicherort-Info', 'snapshot' ); ?></h3>
 
             <a class="button button-outline button-gray"
                href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ); ?>">
-                <?php _e( 'Zurück', SNAPSHOT_I18N_DOMAIN ); ?></a>
+                <?php _e( 'Zurück', 'snapshot' ); ?></a>
         </div>
 
         <div class="wpmud-box-content">
@@ -148,21 +148,21 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 
                                     <div class="form-col"><a id="wps-destination-delete"
                                                              class="button button-outline button-gray"
-                                                             href="#"><?php _e( 'Löschen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+                                                             href="#"><?php _e( 'Löschen', 'snapshot' ); ?></a>
                                     </div>
 
 									<?php
 									$popup_warning_data = array(
 										'popup_id'           => 'wps-destination-warning',
-										'popup_title'        => __( 'Speicherort entfernen', SNAPSHOT_I18N_DOMAIN ),
-										'popup_content'      => sprintf( __( "Du löschst das Zielverzeichnis <strong>%s</strong>. Dieses Zielverzeichnis enthält %d Archive. Möchtest du es wirklich löschen? Du kannst weiterhin über die %s-Schnittstelle auf alle Archive in den Zielverzeichnissen zugreifen.", SNAPSHOT_I18N_DOMAIN ), $item['name'], Snapshot_Model_Destination::get_destination_item_count( sanitize_text_field( $_GET['item'] ) ), Snapshot_Model_Destination::get_destination_nice_name( sanitize_text_field( $item['type'] ) ) ),
-										'popup_action_title' => __( 'Entfernen', SNAPSHOT_I18N_DOMAIN ),
+										'popup_title'        => __( 'Speicherort entfernen', 'snapshot' ),
+										'popup_content'      => sprintf( __( "Du löschst das Zielverzeichnis <strong>%s</strong>. Dieses Zielverzeichnis enthält %d Archive. Möchtest du es wirklich löschen? Du kannst weiterhin über die %s-Schnittstelle auf alle Archive in den Zielverzeichnissen zugreifen.", 'snapshot' ), $item['name'], Snapshot_Model_Destination::get_destination_item_count( sanitize_text_field( $_GET['item'] ) ), Snapshot_Model_Destination::get_destination_nice_name( sanitize_text_field( $item['type'] ) ) ),
+										'popup_action_title' => __( 'Entfernen', 'snapshot' ),
 										'popup_action_url'   => add_query_arg( array(
 											'snapshot-action'       => 'delete',
 											'item'                  => sanitize_text_field( $_GET['item'] ),
 											'snapshot-noonce-field' => wp_create_nonce( 'snapshot-delete-destination' ),
 										), PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ) ),
-										'popup_cancel_title' => __( 'Abbrechen', SNAPSHOT_I18N_DOMAIN ),
+										'popup_cancel_title' => __( 'Abbrechen', 'snapshot' ),
 										'popup_cancel_url'   => '#',
 									);
 
@@ -174,7 +174,7 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
                                     <div class="form-col">
 
                                         <a class="button button-outline button-gray"
-                                           href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ); ?>"><?php _e( 'Abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+                                           href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-destinations' ); ?>"><?php _e( 'Abbrechen', 'snapshot' ); ?></a>
 
                                     </div>
 
@@ -188,12 +188,12 @@ if ( 'dropbox' === $item['type'] && isset( $_GET['dropbox-authenticated'] ) ) {
 									if ( 'dropbox' == $type ) {
 										?>
                                         <input class="button button-blue" type="submit"
-                                               data-get-code-text="<?php _e( 'Code zur Autorisierung abrufen', SNAPSHOT_I18N_DOMAIN ); ?>"
-                                               data-save-text="<?php _e( 'Speicherort speichern', SNAPSHOT_I18N_DOMAIN ); ?>"
-                                               data-authenticate-text="<?php _e( 'Authentifizieren', SNAPSHOT_I18N_DOMAIN ); ?>"
-                                               value="<?php _e( 'Code zur Autorisierung abrufen', SNAPSHOT_I18N_DOMAIN ); ?>"/>
+                                               data-get-code-text="<?php _e( 'Code zur Autorisierung abrufen', 'snapshot' ); ?>"
+                                               data-save-text="<?php _e( 'Speicherort speichern', 'snapshot' ); ?>"
+                                               data-authenticate-text="<?php _e( 'Authentifizieren', 'snapshot' ); ?>"
+                                               value="<?php _e( 'Code zur Autorisierung abrufen', 'snapshot' ); ?>"/>
 									<?php } else { ?>
-                                        <input class="button button-blue" type="submit" value="<?php _e( 'Speicherort speichern', SNAPSHOT_I18N_DOMAIN ); ?>"/>
+                                        <input class="button button-blue" type="submit" value="<?php _e( 'Speicherort speichern', 'snapshot' ); ?>"/>
 									<?php } ?>
 
                                 </div>

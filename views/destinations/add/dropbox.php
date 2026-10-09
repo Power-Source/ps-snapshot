@@ -15,12 +15,12 @@ $item = array_merge( array(
 	<div id="wps-destination-type" class="form-row">
 
 		<div class="form-col-left">
-			<label><?php esc_html_e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php esc_html_e( 'Typ', 'snapshot' ); ?></label>
 		</div>
 
 		<div class="form-col">
 			<i class="wps-typecon dropbox"></i>
-			<label><?php esc_html_e( 'Dropbox', SNAPSHOT_I18N_DOMAIN ); ?></label>
+			<label><?php esc_html_e( 'Dropbox', 'snapshot' ); ?></label>
 		</div>
 
 	</div>
@@ -28,7 +28,7 @@ $item = array_merge( array(
 	<div id="wps-destination-name" class="form-row">
 		<div class="form-col-left">
 			<label for="snapshot-destination-name">
-				<?php esc_html_e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span>
+				<?php esc_html_e( 'Name', 'snapshot' ); ?> <span class="required">*</span>
 			</label>
 		</div>
 
@@ -45,7 +45,7 @@ $item = array_merge( array(
 		<div id="wps-destination-dir" class="form-row">
 			<div class="form-col-left">
 				<label for="snapshot-destination-directory">
-					<?php esc_html_e( 'Verzeichnis', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span>
+					<?php esc_html_e( 'Verzeichnis', 'snapshot' ); ?> <span class="required">*</span>
 				</label>
 			</div>
 
@@ -58,7 +58,7 @@ $item = array_merge( array(
 
 		<div id="wps-destination-auth" class="form-row">
 			<div class="form-col-left">
-				<label><?php esc_html_e( 'Authentifiziert', SNAPSHOT_I18N_DOMAIN ); ?></label>
+				<label><?php esc_html_e( 'Authentifiziert', 'snapshot' ); ?></label>
 			</div>
 
 			<div class="form-col">
@@ -89,15 +89,15 @@ $item = array_merge( array(
 
 					} catch ( Dropbox_Exception_Forbidden $e ) {
 						$auth_error = true;
-						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', SNAPSHOT_I18N_DOMAIN ), '</p>';
+						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', 'snapshot' ), '</p>';
 						printf( '<div class="wps-auth-message error"><p>%s</p></div>', $e->getMessage() );
 					} catch ( Kunnu\Dropbox\Exceptions\DropboxClientException $e ) {
 						$auth_error = true;
-						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', SNAPSHOT_I18N_DOMAIN ), '</p>';
+						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', 'snapshot' ), '</p>';
 						printf( '<div class="wps-auth-message error"><p>%s</p></div>', $e->getMessage() );
 					} catch ( Exception $e ) {
 						$auth_error = true;
-						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', SNAPSHOT_I18N_DOMAIN ), '</p>';
+						echo '<p>', esc_html__( 'An error occurred when attempting to connect to Dropbox: ', 'snapshot' ), '</p>';
 						printf( '<div class="wps-auth-message error"><p>%s</p></div>', $e->getMessage() );
 					}
 					?>
@@ -105,16 +105,16 @@ $item = array_merge( array(
 					<?php if ( ! $auth_error ) {
 						if ( empty( $item['directory'] ) && isset( $item['tokens']['access']['access_token'] ) && ! empty( $item['tokens']['access']['access_token'] ) ) { ?>
 						<div class="wps-auth-message wps-notice">
-							<p><?php esc_html_e( "Du hast dieses Dropbox-Ziel authentifiziert. Um das Hinzufügen dieses Ziels abzuschließen, gib bitte einen Ordner an, in dem die Snapshots gespeichert werden sollen, und klicke auf Ziel speichern.", SNAPSHOT_I18N_DOMAIN ); ?></p>
+							<p><?php esc_html_e( "Du hast dieses Dropbox-Ziel authentifiziert. Um das Hinzufügen dieses Ziels abzuschließen, gib bitte einen Ordner an, in dem die Snapshots gespeichert werden sollen, und klicke auf Ziel speichern.", 'snapshot' ); ?></p>
 						</div>
 						<?php } else { ?>
 						<div class="wps-auth-message success">
-							<p><?php esc_html_e( 'Dieses Ziel ist authentifiziert und einsatzbereit.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+							<p><?php esc_html_e( 'Dieses Ziel ist authentifiziert und einsatzbereit.', 'snapshot' ); ?></p>
 						</div>
 						<?php } ?>
 					<?php } ?>
 
-				<p><small><?php esc_html_e("Du kannst dich jederzeit erneut authentifizieren, wenn du die Details dieses Ziels ändern möchtest.", SNAPSHOT_I18N_DOMAIN); ?></small></p>
+				<p><small><?php esc_html_e("Du kannst dich jederzeit erneut authentifizieren, wenn du die Details dieses Ziels ändern möchtest.", 'snapshot'); ?></small></p>
 
 				<div class="wps-label--checkbox">
 					<div class="wps-input--checkbox">
@@ -122,13 +122,13 @@ $item = array_merge( array(
 						<label for="snapshot-destination-force-authorize"></label>
 					</div>
 
-					<label for="snapshot-destination-force-authorize"><?php esc_html_e( 'Erneut mit Dropbox authentifizieren', SNAPSHOT_I18N_DOMAIN ); ?></label>
+					<label for="snapshot-destination-force-authorize"><?php esc_html_e( 'Erneut mit Dropbox authentifizieren', 'snapshot' ); ?></label>
 				</div>
 
 				<div id="wps-destination-token-checkbox" class="form-row">
 					<div class="form-col-left">
 						<label for="snapshot-destination-token">
-							<?php esc_html_e( 'Autorisierungscode', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span>
+							<?php esc_html_e( 'Autorisierungscode', 'snapshot' ); ?> <span class="required">*</span>
 						</label>
 					</div>
 
@@ -150,7 +150,7 @@ $item = array_merge( array(
 			<div id="wps-destination-account" class="form-row">
 
 				<div class="form-col-left">
-					<label><?php esc_html_e( 'Konto', SNAPSHOT_I18N_DOMAIN ); ?></label>
+					<label><?php esc_html_e( 'Konto', 'snapshot' ); ?></label>
 				</div>
 
 				<div class="form-col">
@@ -159,7 +159,7 @@ $item = array_merge( array(
 
 							<?php if ( !empty( $account_info->getDisplayName() ) ) : ?>
 								<tr>
-									<th><?php esc_html_e('Name', SNAPSHOT_I18N_DOMAIN); ?></th>
+									<th><?php esc_html_e('Name', 'snapshot'); ?></th>
 
 									<td>
 									<?php echo esc_html( $account_info->getDisplayName() ); ?>
@@ -170,7 +170,7 @@ $item = array_merge( array(
 
 								<tr>
 
-									<th><?php esc_html_e('Email', SNAPSHOT_I18N_DOMAIN); ?></th>
+									<th><?php esc_html_e('Email', 'snapshot'); ?></th>
 
 									<td>
 									<?php echo esc_html( $account_info->getEmail() ); ?>
@@ -184,7 +184,7 @@ $item = array_merge( array(
 							<?php if ( !empty( $account_info->getAccountId() ) ) : ?>
 								<tr>
 
-									<th><?php esc_html_e('UID', SNAPSHOT_I18N_DOMAIN); ?></th>
+									<th><?php esc_html_e('UID', 'snapshot'); ?></th>
 
 									<td>
 									<?php echo esc_html( $account_info->getAccountId() ); ?>
@@ -197,7 +197,7 @@ $item = array_merge( array(
 							<?php if ( !empty( $account_info->getCountry() ) ) : ?>
 								<tr>
 
-									<th><?php esc_html_e('Land', SNAPSHOT_I18N_DOMAIN); ?></th>
+									<th><?php esc_html_e('Land', 'snapshot'); ?></th>
 									<td>
 									<?php echo esc_html( $account_info->getCountry() ); ?>
 									<input type="hidden" name="snapshot-destination[account_info][country]" value="<?php echo esc_attr( $account_info->getCountry() ); ?>" />
@@ -218,7 +218,7 @@ $item = array_merge( array(
 
 				<div class="form-col-left">
 
-					<label><?php esc_html_e( 'Speicherplatz verwendet', SNAPSHOT_I18N_DOMAIN ); ?></label>
+					<label><?php esc_html_e( 'Speicherplatz verwendet', 'snapshot' ); ?></label>
 
 				</div>
 
@@ -242,7 +242,7 @@ $item = array_merge( array(
 
 			<div class="form-col-left">
 
-				<label><?php esc_html_e( 'Authentifiziert', SNAPSHOT_I18N_DOMAIN ); ?></label>
+				<label><?php esc_html_e( 'Authentifiziert', 'snapshot' ); ?></label>
 
 			</div>
 
@@ -251,10 +251,10 @@ $item = array_merge( array(
 			<div class="form-col">
 
 				<div class="wps-auth-message error">
-					<p><?php esc_html_e( 'Dieses Ziel verwendet das alte Dropbox-Authentifizierungssystem, bitte authentifiziere dich erneut.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php esc_html_e( 'Dieses Ziel verwendet das alte Dropbox-Authentifizierungssystem, bitte authentifiziere dich erneut.', 'snapshot' ); ?></p>
 				</div>
 
-				<p><small><?php esc_html_e( 'Der erste Schritt bei der Dropbox-Einrichtung besteht darin, Snapshot zu autorisieren, mit deinem Dropbox-Konto zu kommunizieren. Dropbox verlangt, dass du Snapshot Zugriff auf dein Konto gewährst. Dies ist erforderlich, damit Snapshot Dateien in deinem Dropbox-Konto hochladen kann.', SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+				<p><small><?php esc_html_e( 'Der erste Schritt bei der Dropbox-Einrichtung besteht darin, Snapshot zu autorisieren, mit deinem Dropbox-Konto zu kommunizieren. Dropbox verlangt, dass du Snapshot Zugriff auf dein Konto gewährst. Dies ist erforderlich, damit Snapshot Dateien in deinem Dropbox-Konto hochladen kann.', 'snapshot' ); ?></small></p>
 
 			</div>
 
@@ -266,10 +266,10 @@ $item = array_merge( array(
 			<div class="form-col">
 
 				<div class="wps-auth-message error">
-					<p><?php esc_html_e( 'Dieses Ziel ist noch nicht authentifiziert.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php esc_html_e( 'Dieses Ziel ist noch nicht authentifiziert.', 'snapshot' ); ?></p>
 				</div>
 
-				<p><small><?php esc_html_e( 'Der erste Schritt bei der Dropbox-Einrichtung besteht darin, Snapshot zu autorisieren, mit deinem Dropbox-Konto zu kommunizieren. Dropbox verlangt, dass du Snapshot Zugriff auf dein Konto gewährst. Dies ist erforderlich, damit Snapshot Dateien in deinem Dropbox-Konto hochladen kann.', SNAPSHOT_I18N_DOMAIN ); ?></small></p>
+				<p><small><?php esc_html_e( 'Der erste Schritt bei der Dropbox-Einrichtung besteht darin, Snapshot zu autorisieren, mit deinem Dropbox-Konto zu kommunizieren. Dropbox verlangt, dass du Snapshot Zugriff auf dein Konto gewährst. Dies ist erforderlich, damit Snapshot Dateien in deinem Dropbox-Konto hochladen kann.', 'snapshot' ); ?></small></p>
 
 			</div>
 
@@ -281,7 +281,7 @@ $item = array_merge( array(
 		<div id="wps-destination-token" class="form-row">
 			<div class="form-col-left">
 				<label for="snapshot-destination-token">
-					<?php esc_html_e( 'Autorisierungscode', SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span>
+					<?php esc_html_e( 'Autorisierungscode', 'snapshot' ); ?> <span class="required">*</span>
 				</label>
 			</div>
 

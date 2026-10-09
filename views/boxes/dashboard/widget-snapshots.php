@@ -24,7 +24,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 	<div class="wpmud-box-title<?php echo empty( $snapshots ) ? ' has-button' : ''; ?>">
 
 		<h3<?php echo empty( $snapshots ) ? ' class="has-count"' : ''; ?>>
-			<?php _e( 'Snapshots', SNAPSHOT_I18N_DOMAIN ); ?>
+			<?php _e( 'Snapshots', 'snapshot' ); ?>
 
 			<?php if ( ! empty( $snapshots ) ) : ?>
 				<span class="wps-count"><?php echo $snapshots_counts ?></span>
@@ -32,7 +32,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 		<?php if ( ! empty( $snapshots ) ) : ?>
 
-			<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-small button-blue"><?php _e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ) ?></a>
+			<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-small button-blue"><?php _e( 'Erstellen', 'snapshot' ) ?></a>
 
 		<?php endif; ?>
 
@@ -48,15 +48,15 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 					<div class="wps-image img-snappie-one"></div>
 
-					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Wähle einfach aus, was Du sichern möchtest, und speichere es dann auf Zielen wie Dropbox, Google Drive oder FTP/SFTP.', SNAPSHOT_I18N_DOMAIN ) ?></p>
+					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Wähle einfach aus, was Du sichern möchtest, und speichere es dann auf Zielen wie Dropbox, Google Drive oder FTP/SFTP.', 'snapshot' ) ?></p>
 
 					<p>
-						<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-blue"><?php _e( 'Erstellen', SNAPSHOT_I18N_DOMAIN ) ?></a>
+						<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ); ?>" class="button button-blue"><?php _e( 'Erstellen', 'snapshot' ) ?></a>
 					</p>
 
 				<?php else : ?>
 
-					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Hier sind Deine neuesten Snapshots.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+					<p><?php _e( 'Snapshots sind Wiederherstellungspunkte für Deine Webseite. Hier sind Deine neuesten Snapshots.', 'snapshot' ); ?></p>
 
 					<table class="has-footer" cellpadding="0" cellspacing="0">
 
@@ -64,9 +64,9 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 						<tr>
 
-							<th class="wss-name"><?php _e( 'Name', SNAPSHOT_I18N_DOMAIN ) ?></th>
+							<th class="wss-name"><?php _e( 'Name', 'snapshot' ) ?></th>
 
-							<th class="wss-date"><?php _e( 'Datum', SNAPSHOT_I18N_DOMAIN ) ?></th>
+							<th class="wss-date"><?php _e( 'Datum', 'snapshot' ) ?></th>
 
 						</tr>
 
@@ -160,7 +160,7 @@ $snapshots = array_slice( $snapshots, 0, 3 );
 
 							<td colspan="2">
 
-								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ); ?>" class="button button-outline button-gray"><?php _e( 'Alle anzeigen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url( 'snapshots-newui-snapshots' ); ?>" class="button button-outline button-gray"><?php _e( 'Alle anzeigen', 'snapshot' ); ?></a>
 
 							</td>
 

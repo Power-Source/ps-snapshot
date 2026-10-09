@@ -6,15 +6,15 @@
 
 			<div class="wps-title-progress">
 
-				<h3><?php _e('Snapshot erstellen', SNAPSHOT_I18N_DOMAIN); ?></h3>
+				<h3><?php _e('Snapshot erstellen', 'snapshot'); ?></h3>
 
-				<button  id="wps-show-full-log" data-wps-show-title="<?php _e('Vollständiges Protokoll anzeigen', SNAPSHOT_I18N_DOMAIN); ?>" data-wps-hide-title="<?php _e('Vollständiges Protokoll ausblenden', SNAPSHOT_I18N_DOMAIN); ?>" class="button button-outline button-gray"><?php _e('Vollständiges Protokoll anzeigen', SNAPSHOT_I18N_DOMAIN); ?></button>
+				<button  id="wps-show-full-log" data-wps-show-title="<?php _e('Vollständiges Protokoll anzeigen', 'snapshot'); ?>" data-wps-hide-title="<?php _e('Vollständiges Protokoll ausblenden', 'snapshot'); ?>" class="button button-outline button-gray"><?php _e('Vollständiges Protokoll anzeigen', 'snapshot'); ?></button>
 
 			</div>
 
 			<div class="wps-title-result hidden">
 
-				<h3><?php _e('Snapshot Ergebnis', SNAPSHOT_I18N_DOMAIN); ?></h3>
+				<h3><?php _e('Snapshot Ergebnis', 'snapshot'); ?></h3>
 
 			</div>
 
@@ -36,9 +36,9 @@
 
 							<p>
 
-								<a href="#" id="wps-build-error-back" class="button button-outline button-gray"><?php _e('Zurück', SNAPSHOT_I18N_DOMAIN); ?></a>
+								<a href="#" id="wps-build-error-back" class="button button-outline button-gray"><?php _e('Zurück', 'snapshot'); ?></a>
 
-								<a href="#" id="wps-build-error-again" class="button button-gray"><?php _e('Erneut versuchen', SNAPSHOT_I18N_DOMAIN); ?></a>
+								<a href="#" id="wps-build-error-again" class="button button-gray"><?php _e('Erneut versuchen', 'snapshot'); ?></a>
 
 							</p>
 
@@ -46,7 +46,7 @@
 
 						<div id="wps-build-progress">
 
-							<p><?php _e('Dein Snapshot wird erstellt. <strong> Du musst diese Seite geöffnet lassen, damit die Sicherung abgeschlossen werden kann. </strong> Sobald Deine Webseite gesichert wurde, wird sie an Ihr Ziel hochgeladen. Wenn Deine Webseite klein ist, dauert dies nur wenige Minuten, kann aber bei größeren Webseiten einige Stunden dauern.', SNAPSHOT_I18N_DOMAIN); ?></p>
+							<p><?php _e('Dein Snapshot wird erstellt. <strong> Du musst diese Seite geöffnet lassen, damit die Sicherung abgeschlossen werden kann. </strong> Sobald Deine Webseite gesichert wurde, wird sie an Ihr Ziel hochgeladen. Wenn Deine Webseite klein ist, dauert dies nur wenige Minuten, kann aber bei größeren Webseiten einige Stunden dauern.', 'snapshot'); ?></p>
 
 							<div class="wpmud-box-gray">
 
@@ -68,7 +68,7 @@
 
 							</div>
 
-							<p><a id="wps-cancel" class="button button-outline button-gray"><?php _e('Abbrechen', SNAPSHOT_I18N_DOMAIN); ?></a></p>
+							<p><a id="wps-cancel" class="button button-outline button-gray"><?php _e('Abbrechen', 'snapshot'); ?></a></p>
 
 						</div>
 
@@ -76,7 +76,7 @@
 
 							<div class="wps-auth-message success">
 
-								<p><?php _e('Dein Snapshot wurde erfolgreich erstellt und gespeichert! <a href="">Snapshot anzeigen</a>.', SNAPSHOT_I18N_DOMAIN); ?></p>
+								<p><?php _e('Dein Snapshot wurde erfolgreich erstellt und gespeichert! <a href="">Snapshot anzeigen</a>.', 'snapshot'); ?></p>
 
 							</div>
 
@@ -101,32 +101,32 @@
 							</div>
 
 							<p>
-								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-snapshots'); ?>&amp;snapshot-action=view&amp;item=<?php echo $item['timestamp']; ?>" class="button button-gray"><?php _e('Snapshot anzeigen', SNAPSHOT_I18N_DOMAIN); ?></a>
+								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-snapshots'); ?>&amp;snapshot-action=view&amp;item=<?php echo $item['timestamp']; ?>" class="button button-gray"><?php _e('Snapshot anzeigen', 'snapshot'); ?></a>
 							</p>
 
 						</div>
 
 						<div id="wps-log" class="hidden">
 
-							<h4><?php _e('Snapshot Protokoll', SNAPSHOT_I18N_DOMAIN); ?></h4>
+							<h4><?php _e('Snapshot Protokoll', 'snapshot'); ?></h4>
 
 							<div id="wps-log-resume" class="wpmud-box-gray">
 
 								<div class="log-memory">
 
-									<p><strong><?php _e('Speicherlimit', SNAPSHOT_I18N_DOMAIN); ?>:</strong><span class="number"><?php echo ini_get( 'memory_limit' ); ?></span></p>
+									<p><strong><?php _e('Speicherlimit', 'snapshot'); ?>:</strong><span class="number"><?php echo ini_get( 'memory_limit' ); ?></span></p>
 
 								</div>
 
 								<div class="log-usage">
 
-									<p><strong><?php _e('Speichernutzung', SNAPSHOT_I18N_DOMAIN); ?>:</strong><span class="number"><?php echo Snapshot_Helper_Utility::size_format( memory_get_usage( true ) ); ?></span></p>
+									<p><strong><?php _e('Speichernutzung', 'snapshot'); ?>:</strong><span class="number"><?php echo Snapshot_Helper_Utility::size_format( memory_get_usage( true ) ); ?></span></p>
 
 								</div>
 
 								<div class="log-peak">
 
-									<p><strong><?php _e('Spitzenwert', SNAPSHOT_I18N_DOMAIN); ?>:</strong><span class="number"><?php echo Snapshot_Helper_Utility::size_format( memory_get_peak_usage( true ) ); ?></span></p>
+									<p><strong><?php _e('Spitzenwert', 'snapshot'); ?>:</strong><span class="number"><?php echo Snapshot_Helper_Utility::size_format( memory_get_peak_usage( true ) ); ?></span></p>
 
 								</div>
 
@@ -138,9 +138,9 @@
 
 									<tr>
 
-										<th class="wps-log-process"><?php _e('Prozess', SNAPSHOT_I18N_DOMAIN); ?></th>
+										<th class="wps-log-process"><?php _e('Prozess', 'snapshot'); ?></th>
 
-										<th class="wps-log-progress"><?php _e('Fortschritt', SNAPSHOT_I18N_DOMAIN); ?></th>
+										<th class="wps-log-progress"><?php _e('Fortschritt', 'snapshot'); ?></th>
 
 									</tr>
 
@@ -150,13 +150,13 @@
 
 									<tr id="wps-log-process-init">
 
-										<td class="wps-log-process"><?php _e('Snapshot Initialisierung', SNAPSHOT_I18N_DOMAIN); ?></td>
+										<td class="wps-log-process"><?php _e('Snapshot Initialisierung', 'snapshot'); ?></td>
 
 										<td class="wps-log-progress">
 
 											<div class="wps-log-progress-elements">
 
-												<a class="snapshot-button-abort button button-outline button-gray"><?php _e('Abbrechen', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort button button-outline button-gray"><?php _e('Abbrechen', 'snapshot'); ?></a>
 
 												<span class="wps-spinner hidden"></span>
 
@@ -191,7 +191,7 @@
 
 											<div class="wps-log-progress-elements">
 
-												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Abbrechen', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Abbrechen', 'snapshot'); ?></a>
 
 												<span class="wps-spinner hidden"></span>
 
@@ -219,13 +219,13 @@
 
 									<tr id="wps-log-process-finish">
 
-										<td class="wps-log-process"><?php _e('Snapshot Fertigstellung (Erstellen des Zip-Archivs der Tabellen)', SNAPSHOT_I18N_DOMAIN); ?></td>
+										<td class="wps-log-process"><?php _e('Snapshot Fertigstellung (Erstellen des Zip-Archivs der Tabellen)', 'snapshot'); ?></td>
 
 										<td class="wps-log-progress">
 
 											<div class="wps-log-progress-elements">
 
-												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Abbrechen', SNAPSHOT_I18N_DOMAIN); ?></a>
+												<a class="snapshot-button-abort hidden button button-outline button-gray"><?php _e('Abbrechen', 'snapshot'); ?></a>
 
 												<span class="wps-spinner hidden"></span>
 

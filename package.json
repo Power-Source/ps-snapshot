@@ -5,6 +5,7 @@
   "main": "snapshot.php",
   "scripts": {
     "build": "npm run build:js && npm run build:sass",
+    "i18n": "wp i18n make-pot . languages/snapshot.pot --domain=snapshot --exclude=node_modules,vendor --skip-js",
     "build:js": "terser assets/js/src/main.js assets/js/src/pages/*.js assets/js/src/utils.js -o assets/js/admin.min.js -c -m --source-map",
     "build:js:watch": "nodemon --watch assets/js/src --ext .js --exec npm run build:js",
     "build:sass": "sass assets/sass/admin.scss css/snapshots-admin-styles.css && sass assets/sass/menu-icon.scss css/snapshots-menu-icon.css",

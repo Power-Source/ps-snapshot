@@ -76,7 +76,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	public function json_get_log () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die; // Only some users can reload
 
-		$response = __('Your log file is empty', SNAPSHOT_I18N_DOMAIN);
+		$response = __('Your log file is empty', 'snapshot');
 		$content = Snapshot_Helper_Log::get()->get_log();
 		if (!empty($content)) {
 			$response = '<textarea readonly style="width:100%; height:100%">' . esc_textarea($content) . '</textarea>';
@@ -92,7 +92,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) die;
 		
 		// Remote key exchange removed - no longer using remote storage
-		return wp_send_json_error(__('Remote storage not available', SNAPSHOT_I18N_DOMAIN));
+		return wp_send_json_error(__('Remote storage not available', 'snapshot'));
 	}
 
 	/**
@@ -275,7 +275,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			),
 			'php' => array(
 				'basedir' => array(
-					'value' => $open_basedir ? __('Enabled', SNAPSHOT_I18N_DOMAIN) : __('Disabled', SNAPSHOT_I18N_DOMAIN),
+					'value' => $open_basedir ? __('Enabled', 'snapshot') : __('Disabled', 'snapshot'),
 					'result' => !$open_basedir,
 				),
 				'maxtime' => array(
@@ -296,14 +296,14 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 			'backup' => array(
 				'method' => array(
 					'value' => $will_use_system 
-						? __('System (CLI)', SNAPSHOT_I18N_DOMAIN)
-						: __('PHP (ZipArchive)', SNAPSHOT_I18N_DOMAIN),
+						? __('System (CLI)', 'snapshot')
+						: __('PHP (ZipArchive)', 'snapshot'),
 					'result' => true,
 					'info' => $will_use_system 
-						? __('Optimiert für große Websites', SNAPSHOT_I18N_DOMAIN)
+						? __('Optimiert für große Websites', 'snapshot')
 						: ($system_backup_available 
-							? __('System-Backup verfügbar aber nicht aktiviert', SNAPSHOT_I18N_DOMAIN)
-							: __('System-Backup nicht verfügbar', SNAPSHOT_I18N_DOMAIN)
+							? __('System-Backup verfügbar aber nicht aktiviert', 'snapshot')
+							: __('System-Backup nicht verfügbar', 'snapshot')
 						),
 					'system_available' => $system_backup_available,
 					'will_use_system' => $will_use_system,
@@ -331,13 +331,13 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 	 */
 	public function json_start_restore () {
 		if (!current_user_can(Snapshot_View_Full_Backup::get()->get_page_role())) {
-			Snapshot_Helper_Log::error(__('Keine Berechtigung für Wiederherstellung', SNAPSHOT_I18N_DOMAIN));
-			wp_send_json_error(__('Sie haben keine Berechtigung, Backups wiederherzustellen.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(__('Keine Berechtigung für Wiederherstellung', 'snapshot'));
+			wp_send_json_error(__('Sie haben keine Berechtigung, Backups wiederherzustellen.', 'snapshot'));
 		}
 		
 		if (!$this->_is_backup_processing_ready()) {
-			Snapshot_Helper_Log::error(__('Backup-Verarbeitung nicht bereit', SNAPSHOT_I18N_DOMAIN));
-			wp_send_json_error(__('Die Backup-Verarbeitung ist derzeit nicht verfügbar.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(__('Backup-Verarbeitung nicht bereit', 'snapshot'));
+			wp_send_json_error(__('Die Backup-Verarbeitung ist derzeit nicht verfügbar.', 'snapshot'));
 		}
 		
 		// Extend execution time for restore operations
@@ -366,13 +366,13 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		Snapshot_Helper_Log::start();
 
 		if (!WP_Filesystem($credentials)) {
-			Snapshot_Helper_Log::error(__('WP_Filesystem Initialisierung fehlgeschlagen', SNAPSHOT_I18N_DOMAIN));
-			wp_send_json_error(__('Dateisystem-Initialisierung fehlgeschlagen. Bitte prüfen Sie die Dateiberechtigungen.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(__('WP_Filesystem Initialisierung fehlgeschlagen', 'snapshot'));
+			wp_send_json_error(__('Dateisystem-Initialisierung fehlgeschlagen. Bitte prüfen Sie die Dateiberechtigungen.', 'snapshot'));
 		}
 
 		if (empty($archive)) {
-			Snapshot_Helper_Log::error(__('Kein Archiv-Zeitstempel angegeben', SNAPSHOT_I18N_DOMAIN));
-			wp_send_json_error(__('Kein gültiges Backup ausgewählt.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(__('Kein Archiv-Zeitstempel angegeben', 'snapshot'));
+			wp_send_json_error(__('Kein gültiges Backup ausgewählt.', 'snapshot'));
 		}
 
 		if (empty($restore_path)) {
@@ -380,8 +380,8 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		}
 
 		if (empty($restore_path) || !file_exists($restore_path)) {
-			Snapshot_Helper_Log::error(sprintf(__('Wiederherstellungspfad nicht gefunden: %s', SNAPSHOT_I18N_DOMAIN), $restore_path));
-			wp_send_json_error(__('Der Ziel-Ordner für die Wiederherstellung existiert nicht.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(sprintf(__('Wiederherstellungspfad nicht gefunden: %s', 'snapshot'), $restore_path));
+			wp_send_json_error(__('Der Ziel-Ordner für die Wiederherstellung existiert nicht.', 'snapshot'));
 		}
 
 		$archive_path = $this->_model->get_backup($archive);
@@ -389,9 +389,9 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		// If we don't have the full archive path yet, we're still fetching the file
 		if (!file_exists($archive_path)) {
 			$error_msg = $this->_model->has_errors() 
-				? __('Fehler beim Abrufen des Backups.', SNAPSHOT_I18N_DOMAIN)
-				: __('Backup-Archiv wird noch heruntergeladen.', SNAPSHOT_I18N_DOMAIN);
-			Snapshot_Helper_Log::error(sprintf(__('Archiv nicht gefunden: %s', SNAPSHOT_I18N_DOMAIN), $archive_path));
+				? __('Fehler beim Abrufen des Backups.', 'snapshot')
+				: __('Backup-Archiv wird noch heruntergeladen.', 'snapshot');
+			Snapshot_Helper_Log::error(sprintf(__('Archiv nicht gefunden: %s', 'snapshot'), $archive_path));
 			wp_send_json_error($error_msg);
 		}
 
@@ -413,16 +413,16 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		}
 
 		if (!$status && 'restoring' === $task) {
-			Snapshot_Helper_Log::error(__('Wiederherstellung fehlgeschlagen', SNAPSHOT_I18N_DOMAIN));
-			wp_send_json_error(__('Die Wiederherstellung ist fehlgeschlagen. Bitte überprüfen Sie die Logs.', SNAPSHOT_I18N_DOMAIN));
+			Snapshot_Helper_Log::error(__('Wiederherstellung fehlgeschlagen', 'snapshot'));
+			wp_send_json_error(__('Die Wiederherstellung ist fehlgeschlagen. Bitte überprüfen Sie die Logs.', 'snapshot'));
 		}
 
 		wp_send_json_success(array(
 			'task' => $task,
 			'status' => $status,
 			'message' => 'restoring' === $task 
-				? __('Wiederherstellung läuft...', SNAPSHOT_I18N_DOMAIN)
-				: __('Wiederherstellung abgeschlossen.', SNAPSHOT_I18N_DOMAIN)
+				? __('Wiederherstellung läuft...', 'snapshot')
+				: __('Wiederherstellung abgeschlossen.', 'snapshot')
 		));
 	}
 
@@ -492,13 +492,13 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		$supports_system = $backup_instance ? $backup_instance->supports_system_backup() : false;
 		
 		$backup_method = $will_use_system 
-			? __('System (CLI)', SNAPSHOT_I18N_DOMAIN)
-			: __('PHP (ZipArchive)', SNAPSHOT_I18N_DOMAIN);
+			? __('System (CLI)', 'snapshot')
+			: __('PHP (ZipArchive)', 'snapshot');
 		$backup_method_detail = $will_use_system
-			? __('Nutzt Shell-Befehle für optimale Performance', SNAPSHOT_I18N_DOMAIN)
+			? __('Nutzt Shell-Befehle für optimale Performance', 'snapshot')
 			: ($supports_system 
-				? __('System-Backup verfügbar aber nicht aktiviert', SNAPSHOT_I18N_DOMAIN)
-				: __('Standard PHP-Methode', SNAPSHOT_I18N_DOMAIN)
+				? __('System-Backup verfügbar aber nicht aktiviert', 'snapshot')
+				: __('Standard PHP-Methode', 'snapshot')
 			);
 
 		wp_send_json(array(
@@ -621,7 +621,7 @@ class Snapshot_Controller_Full_Ajax extends Snapshot_Controller_Full {
 		if (!$status && !$this->_model->has_api_info()) {
 			$response = array(
 				'status' => true,
-				'msg' => __('Could not communicate with remote service', SNAPSHOT_I18N_DOMAIN),
+				'msg' => __('Could not communicate with remote service', 'snapshot'),
 			);
 		} else {
 			$response = array(

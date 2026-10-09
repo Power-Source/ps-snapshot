@@ -14,8 +14,8 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 
 			//Set parent defaults
 			parent::__construct( array(
-				'singular' => __( 'Archive', SNAPSHOT_I18N_DOMAIN ),     //singular name of the listed records
-				'plural'   => __( 'Archive', SNAPSHOT_I18N_DOMAIN ),    //plural name of the listed records
+				'singular' => __( 'Archive', 'snapshot' ),     //singular name of the listed records
+				'plural'   => __( 'Archive', 'snapshot' ),    //plural name of the listed records
 				'ajax'     => false        //does this table support ajax?
 			) );
 		}
@@ -30,10 +30,10 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 
 		function get_bulk_actions() {
 			$actions = array(
-				'delete' => __( 'Delete', SNAPSHOT_I18N_DOMAIN ),
+				'delete' => __( 'Delete', 'snapshot' ),
 			);
 			if ( ( isset( $this->item['destination'] ) ) && ( ! empty( $this->item['destination'] ) ) && ( $this->item['destination'] !== "local" ) ) {
-				$actions['resend'] = __( 'Resend Archive', SNAPSHOT_I18N_DOMAIN );
+				$actions['resend'] = __( 'Resend Archive', 'snapshot' );
 			}
 
 
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 					if ( $_HAS_FILE_RESTORE == true ) {
 						echo "<br />";
 					}
-					echo Snapshot_Helper_Utility::data_item_file_processed_count( $data_item ) . " " . __( 'files synced to destination', SNAPSHOT_I18N_DOMAIN ) . "<br />";
+					echo Snapshot_Helper_Utility::data_item_file_processed_count( $data_item ) . " " . __( 'files synced to destination', 'snapshot' ) . "<br />";
 				}
 			}
 			?>
@@ -138,18 +138,18 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 							}
 							$row_actions .= '<a href="?page=snapshots_edit_panel&amp;snapshot-action=restore-panel&amp;item=' .
 							                $this->item['timestamp'] . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '">' .
-							                __( 'restore', SNAPSHOT_I18N_DOMAIN ) . '</a></span>';
+							                __( 'restore', 'snapshot' ) . '</a></span>';
 
 						}
 					}
 					if ( $data_item['destination-sync'] == "mirror" ) {
-						echo '<span style="color:#FF0000">' . __( "File sync has no restore at this time", SNAPSHOT_I18N_DOMAIN ) . '</span>';
+						echo '<span style="color:#FF0000">' . __( "File sync has no restore at this time", 'snapshot' ) . '</span>';
 					}
 				} else {
 					if ( $_HAS_FILE_RESTORE == true ) {
 						$row_actions .= '<a href="?page=snapshots_edit_panel&amp;snapshot-item=' . $this->item['timestamp']
 						                . '&snapshot-data-item=' . $data_item['timestamp']
-						                . '&snapshot-action=download-archive">' . __( 'download', SNAPSHOT_I18N_DOMAIN ) . '</a>';
+						                . '&snapshot-action=download-archive">' . __( 'download', 'snapshot' ) . '</a>';
 					}
 
 					if ( $_HAS_FILE_RESTORE == true ) {
@@ -159,7 +159,7 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 							}
 							$row_actions .= '<a href="?page=snapshots_edit_panel&amp;snapshot-action=restore-panel&amp;item=' .
 							                $this->item['timestamp'] . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '">' .
-							                __( 'restore', SNAPSHOT_I18N_DOMAIN ) . '</a></span>';
+							                __( 'restore', 'snapshot' ) . '</a></span>';
 
 						}
 					}
@@ -171,7 +171,7 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 						$row_actions .= '<span class="delete"><a href="?page=snapshots_edit_panel&amp;snapshot-action=item-archives&amp;item=' .
 						                $this->item['timestamp'] . '&amp;action=delete&amp;data-item=' . $data_item['timestamp'] .
 						                '&amp;snapshot-noonce-field=' . wp_create_nonce( 'snapshot-delete-item' )
-						                . '">' . __( 'delete', SNAPSHOT_I18N_DOMAIN ) . '</a></span>';
+						                . '">' . __( 'delete', 'snapshot' ) . '</a></span>';
 					}
 
 					if ( ( isset( $this->item['destination'] ) ) && ( ! empty( $this->item['destination'] ) ) && ( $this->item['destination'] !== "local" ) ) {
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 						$row_actions .= '<span class="resend"><a href="?page=snapshots_edit_panel&amp;snapshot-action=item-archives&amp;item=' .
 						                $this->item['timestamp'] . '&amp;action=resend&amp;data-item=' . $data_item['timestamp'] .
 						                '&amp;snapshot-noonce-field=' . wp_create_nonce( 'snapshot-delete-item' )
-						                . '">' . __( 'resend', SNAPSHOT_I18N_DOMAIN ) . '</a></span>';
+						                . '">' . __( 'resend', 'snapshot' ) . '</a></span>';
 					}
 
 				}
@@ -230,11 +230,11 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 
 				echo '<a href="' . admin_url()
 			     . 'admin-ajax.php?action=snapshot_view_log_ajax&amp;snapshot-item=' . $this->item['timestamp'] .
-			     '&amp;snapshot-data-item=' . $data_item['timestamp'] . '" target="_blank" rel="noopener">' . __( 'view', SNAPSHOT_I18N_DOMAIN ) . '</a>';
+			     '&amp;snapshot-data-item=' . $data_item['timestamp'] . '" target="_blank" rel="noopener">' . __( 'view', 'snapshot' ) . '</a>';
 				echo " ";
 				echo '<a href="?page=snapshots_edit_panel&amp;snapshot-action=download-log&amp;snapshot-item=' . $this->item['timestamp']
 			     . '&amp;snapshot-data-item=' . $data_item['timestamp'] . '">'
-			     . __( 'download', SNAPSHOT_I18N_DOMAIN ) . '</a>';
+			     . __( 'download', 'snapshot' ) . '</a>';
 
 			} else {
 				echo "&nbsp;";
@@ -300,29 +300,29 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Pending', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Pending', 'snapshot' );
 						break;
 
 					case 'fail':
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Fail', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Fail', 'snapshot' );
 						break;
 
 					case 'complete':
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Complete', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Complete', 'snapshot' );
 						break;
 				}
 			}
 
 			if ( strlen( $status_output ) ) {
-				echo __( 'Archives:', SNAPSHOT_I18N_DOMAIN ) . " " . $status_output . "<br />";
+				echo __( 'Archives:', 'snapshot' ) . " " . $status_output . "<br />";
 			} else {
-				echo __( 'Archives:', SNAPSHOT_I18N_DOMAIN ) . " " . $status_output . "<br />";
+				echo __( 'Archives:', 'snapshot' ) . " " . $status_output . "<br />";
 			}
 			//echo "status_output=[". $status_output ."]<br />";
 
@@ -338,30 +338,30 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Pending', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Pending', 'snapshot' );
 						break;
 
 					case 'fail':
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Fail', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Fail', 'snapshot' );
 						break;
 
 					case 'complete':
 						if ( strlen( $status_output ) ) {
 							$status_output .= ', ';
 						}
-						$status_output .= __( 'Complete', SNAPSHOT_I18N_DOMAIN );
+						$status_output .= __( 'Complete', 'snapshot' );
 						break;
 				}
 			}
 
 			if ( strlen( $status_output ) ) {
-				echo __( 'Destination:', SNAPSHOT_I18N_DOMAIN ) . " " . $status_output . "<br />";
+				echo __( 'Destination:', 'snapshot' ) . " " . $status_output . "<br />";
 			}
 			//else
-			//	echo __('Archives:', SNAPSHOT_I18N_DOMAIN) ." ".$status_output ."<br />";
+			//	echo __('Archives:', 'snapshot') ." ".$status_output ."<br />";
 			//echo "status_output=[". $status_output ."]<br />";
 		}
 
@@ -370,12 +370,12 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 			$columns = array();
 
 			$columns['cb']     = '<input type="checkbox" />';
-			$columns['file']   = __( 'File', SNAPSHOT_I18N_DOMAIN );
-			$columns['date']   = __( 'Date', SNAPSHOT_I18N_DOMAIN );
-			$columns['notes']  = __( 'Notes', SNAPSHOT_I18N_DOMAIN );
-			$columns['size']   = __( 'Size', SNAPSHOT_I18N_DOMAIN );
-			$columns['logs']   = __( 'Logs', SNAPSHOT_I18N_DOMAIN );
-			$columns['status'] = __( 'Status', SNAPSHOT_I18N_DOMAIN );
+			$columns['file']   = __( 'File', 'snapshot' );
+			$columns['date']   = __( 'Date', 'snapshot' );
+			$columns['notes']  = __( 'Notes', 'snapshot' );
+			$columns['size']   = __( 'Size', 'snapshot' );
+			$columns['logs']   = __( 'Logs', 'snapshot' );
+			$columns['status'] = __( 'Status', 'snapshot' );
 
 			return $columns;
 		}
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Snapshot_View_Table_Archives' ) ) {
 			extract( $args );
 
 			if ( ( isset( $_GET['snapshot-action-sub'] ) ) && ( sanitize_text_field( $_GET['snapshot-action-sub'] ) == "restore" ) ) {
-				?><p><?php _e( 'Select the snapshot item to restore', SNAPSHOT_I18N_DOMAIN ); ?></p><?php
+				?><p><?php _e( 'Select the snapshot item to restore', 'snapshot' ); ?></p><?php
 			} else {
 				$this->display_tablenav( 'top' );
 			}

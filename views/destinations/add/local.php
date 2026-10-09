@@ -4,7 +4,7 @@
 
         <div class="form-col-left">
 
-            <label><?php _e( "Typ", SNAPSHOT_I18N_DOMAIN ); ?></label>
+            <label><?php _e( "Typ", 'snapshot' ); ?></label>
 
         </div>
 
@@ -12,7 +12,7 @@
 
             <i class="wps-typecon local"></i>
 
-            <label><?php _e( 'Lokal', SNAPSHOT_I18N_DOMAIN ); ?></label>
+            <label><?php _e( 'Lokal', 'snapshot' ); ?></label>
 
         </div>
 
@@ -22,7 +22,7 @@
 
         <div class="form-col-left">
 
-            <label><?php _e( "Name", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+            <label><?php _e( "Name", 'snapshot' ); ?> <span class="required">*</span></label>
 
         </div>
 
@@ -38,7 +38,7 @@
 
         <div class="form-col-left">
 
-            <label><?php _e( "Verzeichnis", SNAPSHOT_I18N_DOMAIN ); ?> <span class="required">*</span></label>
+            <label><?php _e( "Verzeichnis", 'snapshot' ); ?> <span class="required">*</span></label>
 
         </div>
 

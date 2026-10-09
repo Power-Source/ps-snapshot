@@ -35,12 +35,12 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 ?>
 
 <section id="header">
-	<h1><?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?></h1>
+	<h1><?php esc_html_e( 'Netzwerk-Backup', 'snapshot' ); ?></h1>
 </section>
 
 <?php if ( 'invalid_nonce' === $download_error ) : ?>
 	<div class="notice notice-error">
-		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', 'snapshot' ); ?></p>
 	</div>
 <?php endif; ?>
 
@@ -51,9 +51,9 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 		<div class="wpmud-box-title has-button">
 
 			<h3 class="has-button">
-				<?php _e( 'Backup Info', SNAPSHOT_I18N_DOMAIN ); ?>
+				<?php _e( 'Backup Info', 'snapshot' ); ?>
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>" class="button button-outline button-small button-gray">
-					<?php _e( 'Zurück', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php _e( 'Zurück', 'snapshot' ); ?>
 				</a>
 			</h3>
 
@@ -73,21 +73,21 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 
 					<ul class="wps-menu-list">
 
-						<li class="wps-menu-list-title"><?php _e( 'Optionen', SNAPSHOT_I18N_DOMAIN ); ?></li>
+						<li class="wps-menu-list-title"><?php _e( 'Optionen', 'snapshot' ); ?></li>
 						<?php if ( $backup_path && file_exists( $backup_path ) ) : ?>
 						<li>
 							<a href="<?php echo esc_url( add_query_arg( array(
 								'snapshot-full-backup-action' => 'download-archive',
 								'snapshot-item' => $timestamp,
 								'snapshot-full-backup-nonce' => $download_nonce,
-							), admin_url( 'admin.php' ) ) ); ?>"><?php _e( 'Herunterladen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+							), admin_url( 'admin.php' ) ) ); ?>"><?php _e( 'Herunterladen', 'snapshot' ); ?></a>
 						</li>
 						<?php endif; ?>
 						<li>
-							<a href="#" class="snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+							<a href="#" class="snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', 'snapshot' ); ?></a>
 						</li>
 						<li>
-							<a href="#" class="snapshot-full-backup-delete" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Löschen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+							<a href="#" class="snapshot-full-backup-delete" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Löschen', 'snapshot' ); ?></a>
 						</li>
 
 					</ul>
@@ -109,7 +109,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 						<tbody>
 
 						<tr>
-							<th><?php _e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Name', 'snapshot' ); ?></th>
 							<td>
 								<p><?php echo esc_html( $name ); ?></p>
 							</td>
@@ -117,7 +117,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 
 						<?php if ( $filename ) : ?>
 						<tr>
-							<th><?php _e( 'Dateiname', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Dateiname', 'snapshot' ); ?></th>
 							<td>
 								<p>
 									<?php if ( $backup_path && file_exists( $backup_path ) ) : ?>
@@ -125,7 +125,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 											'snapshot-full-backup-action' => 'download-archive',
 											'snapshot-item' => $timestamp,
 											'snapshot-full-backup-nonce' => $download_nonce,
-										), admin_url( 'admin.php' ) ) ); ?>" title="<?php esc_attr_e( 'Lade das Backup-Archiv herunter', SNAPSHOT_I18N_DOMAIN ); ?>">
+										), admin_url( 'admin.php' ) ) ); ?>" title="<?php esc_attr_e( 'Lade das Backup-Archiv herunter', 'snapshot' ); ?>">
 											<?php echo esc_html( $filename ); ?>
 										</a>
 									<?php else : ?>
@@ -137,12 +137,12 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 						<?php endif; ?>
 
 						<tr>
-							<th><?php _e( 'Erstellt am', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Erstellt am', 'snapshot' ); ?></th>
 							<td>
 								<p>
 									<?php
 									if ( $timestamp ) {
-										$date_time_format = get_option( 'date_format' ) . _x( ' @ ', 'date and time separator', SNAPSHOT_I18N_DOMAIN ) . get_option( 'time_format' );
+										$date_time_format = get_option( 'date_format' ) . _x( ' @ ', 'date and time separator', 'snapshot' ) . get_option( 'time_format' );
 										echo esc_html( date_i18n( $date_time_format, $timestamp ) );
 									} else {
 										echo "-";
@@ -153,16 +153,16 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 						</tr>
 
 						<tr>
-							<th><?php _e( 'Speicherort', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Speicherort', 'snapshot' ); ?></th>
 							<td>
 								<p class="has-typecon">
-									<span class="wps-typecon local"></span> <?php _e( 'Local Snapshot (Netzwerk-Backup)', SNAPSHOT_I18N_DOMAIN ); ?>
+									<span class="wps-typecon local"></span> <?php _e( 'Local Snapshot (Netzwerk-Backup)', 'snapshot' ); ?>
 								</p>
 							</td>
 						</tr>
 
 						<tr>
-							<th><?php _e( 'Dateigröße', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Dateigröße', 'snapshot' ); ?></th>
 							<td>
 								<p><?php
 									if ( $size > 0 ) {
@@ -175,9 +175,9 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 						</tr>
 
 						<tr>
-							<th><?php _e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php _e( 'Typ', 'snapshot' ); ?></th>
 							<td>
-								<p><?php _e( 'Komplettes Netzwerk-Backup (alle Seiten, Dateien und Datenbanken)', SNAPSHOT_I18N_DOMAIN ); ?></p>
+								<p><?php _e( 'Komplettes Netzwerk-Backup (alle Seiten, Dateien und Datenbanken)', 'snapshot' ); ?></p>
 							</td>
 						</tr>
 
@@ -188,18 +188,18 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 						<tr>
 							<td>
 
-								<a href="#" class="button button-outline button-gray snapshot-full-backup-delete" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Löschen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								<a href="#" class="button button-outline button-gray snapshot-full-backup-delete" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Löschen', 'snapshot' ); ?></a>
 
 							</td>
 							<td>
 
-								<a href="#" class="button button-green snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								<a href="#" class="button button-green snapshot-full-backup-restore" data-item="<?php echo esc_attr( $timestamp ); ?>"><?php _e( 'Wiederherstellen', 'snapshot' ); ?></a>
 
 								<a class="button button-outline button-gray thickbox" href="<?php echo esc_url( add_query_arg( array(
 									'action' => 'snapshot-full_backup-get_log',
 									'idx' => $timestamp,
 									'TB_iframe' => 'true',
-								), admin_url( 'admin-ajax.php' ) ) ); ?>" title="<?php esc_attr_e( 'Backup-Log', SNAPSHOT_I18N_DOMAIN ); ?>"><?php _e( 'Log ansehen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								), admin_url( 'admin-ajax.php' ) ) ); ?>" title="<?php esc_attr_e( 'Backup-Log', 'snapshot' ); ?>"><?php _e( 'Log ansehen', 'snapshot' ); ?></a>
 
 								<?php if ( $backup_path && file_exists( $backup_path ) ) : ?>
 									<a class="button button-blue" href="<?php echo esc_url( add_query_arg( array(
@@ -207,7 +207,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 										'snapshot-item' => $timestamp,
 										'snapshot-full-backup-nonce' => $download_nonce,
 									), admin_url( 'admin.php' ) ) ); ?>">
-										<?php _e( 'Herunterladen', SNAPSHOT_I18N_DOMAIN ); ?>
+										<?php _e( 'Herunterladen', 'snapshot' ); ?>
 									</a>
 								<?php endif; ?>
 
@@ -234,7 +234,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 		$('.snapshot-full-backup-delete').on('click', function(e) {
 			e.preventDefault();
 			
-			if (!confirm('<?php echo esc_js( __( 'Möchten Sie dieses Backup wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.', SNAPSHOT_I18N_DOMAIN ) ); ?>')) {
+			if (!confirm('<?php echo esc_js( __( 'Möchten Sie dieses Backup wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.', 'snapshot' ) ); ?>')) {
 				return;
 			}
 			
@@ -252,11 +252,11 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 					if (response.success) {
 						window.location.href = '<?php echo esc_url( add_query_arg( array( 'page' => 'snapshot_network_backup' ), network_admin_url( 'admin.php' ) ) ); ?>';
 					} else {
-						alert(response.data || '<?php echo esc_js( __( 'Fehler beim Löschen des Backups.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+						alert(response.data || '<?php echo esc_js( __( 'Fehler beim Löschen des Backups.', 'snapshot' ) ); ?>');
 					}
 				},
 				error: function() {
-					alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', SNAPSHOT_I18N_DOMAIN ) ); ?>');
+					alert('<?php echo esc_js( __( 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.', 'snapshot' ) ); ?>');
 				}
 			});
 		});
@@ -264,7 +264,7 @@ if ( $backup_path && file_exists( $backup_path ) ) {
 		$('.snapshot-full-backup-restore').on('click', function(e) {
 			e.preventDefault();
 			
-			if (!confirm('<?php echo esc_js( __( 'Möchten Sie dieses Backup wirklich wiederherstellen? Dies wird alle aktuellen Dateien und Datenbanken überschreiben!', SNAPSHOT_I18N_DOMAIN ) ); ?>')) {
+			if (!confirm('<?php echo esc_js( __( 'Möchten Sie dieses Backup wirklich wiederherstellen? Dies wird alle aktuellen Dateien und Datenbanken überschreiben!', 'snapshot' ) ); ?>')) {
 				return;
 			}
 			

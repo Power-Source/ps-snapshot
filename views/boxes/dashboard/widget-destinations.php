@@ -23,9 +23,9 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 	<div class="wpmud-box-title has-button">
 
-		<h3 class="has-count"><?php _e( 'Speicherorte', SNAPSHOT_I18N_DOMAIN ); ?><span class="wps-count"><?php echo count( PSOURCESnapshot::instance()->config_data['destinations'] ) ?></span></h3>
+		<h3 class="has-count"><?php _e( 'Speicherorte', 'snapshot' ); ?><span class="wps-count"><?php echo count( PSOURCESnapshot::instance()->config_data['destinations'] ) ?></span></h3>
 
-		<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations'); ?>" class="button button-blue button-small"><?php _e( 'Neu hinzufügen', SNAPSHOT_I18N_DOMAIN ); ?></a>
+		<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations'); ?>" class="button button-blue button-small"><?php _e( 'Neu hinzufügen', 'snapshot' ); ?></a>
 
 	</div>
 
@@ -35,7 +35,7 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 			<div class="col-xs-12">
 
-				<p><?php _e( 'Speicherorte sind Orte, an denen Deine Snapshots hochgeladen und gespeichert werden. Speichere Dateien auf Dropbox, Google Drive, FTP/SFTP oder Deinem lokalen Computer.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php _e( 'Speicherorte sind Orte, an denen Deine Snapshots hochgeladen und gespeichert werden. Speichere Dateien auf Dropbox, Google Drive, FTP/SFTP oder Deinem lokalen Computer.', 'snapshot' ); ?></p>
 
 				<table class="has-footer" cellpadding="0" cellspacing="0">
 
@@ -43,9 +43,9 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 						<tr>
 
-							<th class="wpsd-name"><?php _e( 'Aktive Speicherorte', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th class="wpsd-name"><?php _e( 'Aktive Speicherorte', 'snapshot' ); ?></th>
 
-							<th class="wpsd-type"><?php _e( 'Typ', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th class="wpsd-type"><?php _e( 'Typ', 'snapshot' ); ?></th>
 
 						</tr>
 
@@ -86,7 +86,7 @@ foreach ( PSOURCESnapshot::instance()->config_data['destinations'] as $key => $i
 
 							<td colspan="2">
 
-								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations'); ?>" class="button button-outline button-gray"><?php echo __( 'Alle anzeigen', SNAPSHOT_I18N_DOMAIN ) ?></a>
+								<a href="<?php echo PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations'); ?>" class="button button-outline button-gray"><?php echo __( 'Alle anzeigen', 'snapshot' ) ?></a>
 
 							</td>
 

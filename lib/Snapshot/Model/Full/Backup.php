@@ -89,15 +89,15 @@ class Snapshot_Model_Full_Backup extends Snapshot_Model_Full_Abstract {
 
 		if ( $title_case ) {
 			$frequencies = array(
-				'daily' => __( 'Täglich', SNAPSHOT_I18N_DOMAIN ),
-				'weekly' => __( 'Wöchentlich', SNAPSHOT_I18N_DOMAIN ),
-				'monthly' => __( 'Monatlich', SNAPSHOT_I18N_DOMAIN ),
+				'daily' => __( 'Täglich', 'snapshot' ),
+				'weekly' => __( 'Wöchentlich', 'snapshot' ),
+				'monthly' => __( 'Monatlich', 'snapshot' ),
 			);
 		} else {
 			$frequencies = array(
-				'daily' => __( 'daily', SNAPSHOT_I18N_DOMAIN ),
-				'weekly' => __( 'weekly', SNAPSHOT_I18N_DOMAIN ),
-				'monthly' => __( 'monthly', SNAPSHOT_I18N_DOMAIN ),
+				'daily' => __( 'daily', 'snapshot' ),
+				'weekly' => __( 'weekly', 'snapshot' ),
+				'monthly' => __( 'monthly', 'snapshot' ),
 			);
 		}
 

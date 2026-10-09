@@ -1,6 +1,6 @@
 <?php
 if ( ! is_multisite() || ! is_network_admin() || ! current_user_can( 'manage_options' ) ) {
-	wp_die( esc_html__( 'Diese Seite ist nur im Netzwerk-Admin verfügbar.', SNAPSHOT_I18N_DOMAIN ) );
+	wp_die( esc_html__( 'Diese Seite ist nur im Netzwerk-Admin verfügbar.', 'snapshot' ) );
 }
 
 $backups = ( isset( $backups ) && is_array( $backups ) ) ? $backups : array();
@@ -12,12 +12,12 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 ?>
 
 <section id="header">
-	<h1><?php esc_html_e( 'Netzwerk-Backup', SNAPSHOT_I18N_DOMAIN ); ?></h1>
+	<h1><?php esc_html_e( 'Netzwerk-Backup', 'snapshot' ); ?></h1>
 </section>
 
 <?php if ( 'invalid_nonce' === $download_error ) : ?>
 	<div class="notice notice-error">
-		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+		<p><?php esc_html_e( 'Download fehlgeschlagen: Ungueltiger Sicherheits-Token. Bitte Seite neu laden und erneut versuchen.', 'snapshot' ); ?></p>
 	</div>
 <?php endif; ?>
 
@@ -31,14 +31,14 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 <div id="container" class="snapshot-three wps-page-settings">
 	<section class="wpmud-box">
 		<div class="wpmud-box-title">
-			<h3><?php esc_html_e( 'Komplettes Netzwerk sichern', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+			<h3><?php esc_html_e( 'Komplettes Netzwerk sichern', 'snapshot' ); ?></h3>
 		</div>
 		<div class="wpmud-box-content">
-			<p><?php esc_html_e( 'Diese Aktion erstellt ein vollständiges Backup des gesamten Netzwerks (Dateien + Datenbanktabellen).', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Diese Aktion erstellt ein vollständiges Backup des gesamten Netzwerks (Dateien + Datenbanktabellen).', 'snapshot' ); ?></p>
 			
 			<div style="margin-bottom:15px;">
 				<label for="snapshot-network-backup-destination" style="display:block; margin-bottom:8px; font-weight:bold;">
-					<?php esc_html_e( 'Speicherort:', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php esc_html_e( 'Speicherort:', 'snapshot' ); ?>
 				</label>
 				<select id="snapshot-network-backup-destination" style="padding:8px; min-width:250px; border:1px solid #ddd; border-radius:3px;">
 					<?php
@@ -53,7 +53,7 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 								: $destination['type'];
 							$label = $destination['name'] . ' (' . $type_name . ')';
 							if ( 'local' === $key || 'local' === $destination['type'] ) {
-								$label = __( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN );
+								$label = __( 'Lokal (Server)', 'snapshot' );
 							}
 							?>
 							<option value="<?php echo esc_attr( $key ); ?>">
@@ -67,13 +67,13 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 			</div>
 
 			<div id="snapshot-backup-method-info" style="margin-bottom:15px;padding:10px;background:#f0f6fc;border-left:3px solid #2271b1;display:none;">
-				<strong><?php esc_html_e( 'Backup-Methode:', SNAPSHOT_I18N_DOMAIN ); ?></strong> <span id="snapshot-method-name">-</span><br>
+				<strong><?php esc_html_e( 'Backup-Methode:', 'snapshot' ); ?></strong> <span id="snapshot-method-name">-</span><br>
 				<small style="color:#666;"><span id="snapshot-method-detail">-</span></small>
 			</div>
 
 			<p>
-				<button id="snapshot-network-backup-start" class="button button-blue"><?php esc_html_e( 'Netzwerk-Backup jetzt starten', SNAPSHOT_I18N_DOMAIN ); ?></button>
-				<button id="snapshot-network-backup-abort" class="button button-secondary" style="display:none;margin-left:10px;"><?php esc_html_e( 'Backup abbrechen', SNAPSHOT_I18N_DOMAIN ); ?></button>
+				<button id="snapshot-network-backup-start" class="button button-blue"><?php esc_html_e( 'Netzwerk-Backup jetzt starten', 'snapshot' ); ?></button>
+				<button id="snapshot-network-backup-abort" class="button button-secondary" style="display:none;margin-left:10px;"><?php esc_html_e( 'Backup abbrechen', 'snapshot' ); ?></button>
 			</p>
 			<div id="snapshot-network-progress" style="display:none;max-width:760px;">
 				<div style="background:#e5e5e5;border-radius:4px;height:20px;overflow:hidden;position:relative;">
@@ -92,14 +92,14 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 
 	<section class="wpmud-box" style="margin-top:20px;">
 		<div class="wpmud-box-title">
-			<h3><?php esc_html_e( 'Wöchentliche Zeitplanung', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+			<h3><?php esc_html_e( 'Wöchentliche Zeitplanung', 'snapshot' ); ?></h3>
 		</div>
 		<div class="wpmud-box-content">
-			<p><?php esc_html_e( 'Konfiguriere an welchen Wochentagen und um welche Uhrzeit automatische Backups durchgeführt werden sollen. Das Backup läuft im Hintergrund ohne dass der Browser-Tab offen sein muss.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Konfiguriere an welchen Wochentagen und um welche Uhrzeit automatische Backups durchgeführt werden sollen. Das Backup läuft im Hintergrund ohne dass der Browser-Tab offen sein muss.', 'snapshot' ); ?></p>
 			
 			<div>
 				<fieldset>
-					<legend style="font-weight:bold;margin-bottom:10px;"><?php esc_html_e( 'Backup-Tage (Wähle mindestens einen Tag aus)', SNAPSHOT_I18N_DOMAIN ); ?></legend>
+					<legend style="font-weight:bold;margin-bottom:10px;"><?php esc_html_e( 'Backup-Tage (Wähle mindestens einen Tag aus)', 'snapshot' ); ?></legend>
 					<div style="margin-left:10px;">
 						<label><input type="checkbox" name="snapshot-schedule-day" value="1" class="snapshot-schedule-day"> Montag</label><br>
 						<label><input type="checkbox" name="snapshot-schedule-day" value="2" class="snapshot-schedule-day"> Dienstag</label><br>
@@ -113,22 +113,22 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 			</div>
 
 			<div style="margin-top:20px;">
-				<label for="snapshot-schedule-time"><strong><?php esc_html_e( 'Uhrzeit für Backup-Start', SNAPSHOT_I18N_DOMAIN ); ?></strong></label><br>
+				<label for="snapshot-schedule-time"><strong><?php esc_html_e( 'Uhrzeit für Backup-Start', 'snapshot' ); ?></strong></label><br>
 				<input type="time" id="snapshot-schedule-time" value="02:00" style="margin-top:5px;">
 				<p style="font-size:11px;color:#888;">
-					<?php esc_html_e( 'Wähle eine Uhrzeit mit niedrigerem Serveraufkommen, z.B. nachts.', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php esc_html_e( 'Wähle eine Uhrzeit mit niedrigerem Serveraufkommen, z.B. nachts.', 'snapshot' ); ?>
 				</p>
 			</div>
 
 			<div style="margin-top:20px;">
-				<label for="snapshot-schedule-destination"><strong><?php esc_html_e( 'Speicherort für geplante Backups', SNAPSHOT_I18N_DOMAIN ); ?></strong></label><br>
+				<label for="snapshot-schedule-destination"><strong><?php esc_html_e( 'Speicherort für geplante Backups', 'snapshot' ); ?></strong></label><br>
 				<select id="snapshot-schedule-destination" style="margin-top:5px;max-width:400px;">
-					<option value="local"><?php esc_html_e( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN ); ?></option>
+					<option value="local"><?php esc_html_e( 'Lokal (Server)', 'snapshot' ); ?></option>
 					<?php foreach ( $destinations as $key => $destination ) {
 						$type_name = isset( $destination_classes[ $destination['type'] ] ) ? $destination_classes[ $destination['type'] ] : $destination['type'];
 						$label = $destination['name'] . ' (' . $type_name . ')';
 						if ( 'local' === $key || 'local' === $destination['type'] ) {
-							$label = __( 'Lokal (Server)', SNAPSHOT_I18N_DOMAIN );
+							$label = __( 'Lokal (Server)', 'snapshot' );
 						}
 					?>
 						<option value="<?php echo esc_attr( $key ); ?>">
@@ -137,20 +137,20 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 					<?php } ?>
 				</select>
 				<p style="font-size:11px;color:#888;margin-top:5px;">
-					<?php esc_html_e( 'Backups werden immer lokal erstellt und dann zu diesem Speicherort hochgeladen.', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php esc_html_e( 'Backups werden immer lokal erstellt und dann zu diesem Speicherort hochgeladen.', 'snapshot' ); ?>
 				</p>
 			</div>
 
 			<p style="margin-top:20px;">
-				<button id="snapshot-schedule-save" class="button button-primary"><?php esc_html_e( 'Zeitplan speichern', SNAPSHOT_I18N_DOMAIN ); ?></button>
+				<button id="snapshot-schedule-save" class="button button-primary"><?php esc_html_e( 'Zeitplan speichern', 'snapshot' ); ?></button>
 				<span id="snapshot-schedule-status" style="margin-left:10px;display:none;"></span>
 			</p>
 
 			<div id="snapshot-schedule-info" style="margin-top:15px;padding:10px;background:#f9f9f9;border-left:4px solid #2ea2cc;display:none;">
-				<strong><?php esc_html_e( 'Zeitplan aktiv:', SNAPSHOT_I18N_DOMAIN ); ?></strong><br>
+				<strong><?php esc_html_e( 'Zeitplan aktiv:', 'snapshot' ); ?></strong><br>
 				<span id="snapshot-schedule-info-text"></span>
 				<p style="margin-top:10px;font-size:11px;color:#888;">
-					<?php esc_html_e( 'Nächstes Backup: ', SNAPSHOT_I18N_DOMAIN ); ?><span id="snapshot-next-backup-time"></span>
+					<?php esc_html_e( 'Nächstes Backup: ', 'snapshot' ); ?><span id="snapshot-next-backup-time"></span>
 				</p>
 			</div>
 		</div>
@@ -158,17 +158,17 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 
 	<section class="wpmud-box" style="margin-top:20px;">
 		<div class="wpmud-box-title">
-			<h3><?php esc_html_e( 'Vorhandene Netzwerk-Backups', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+			<h3><?php esc_html_e( 'Vorhandene Netzwerk-Backups', 'snapshot' ); ?></h3>
 		</div>
 		<div class="wpmud-box-content">
 			<p>
-				<label for="snapshot-network-restore-path"><strong><?php esc_html_e( 'Restore-Zielpfad', SNAPSHOT_I18N_DOMAIN ); ?></strong></label><br>
+				<label for="snapshot-network-restore-path"><strong><?php esc_html_e( 'Restore-Zielpfad', 'snapshot' ); ?></strong></label><br>
 				<input type="text" id="snapshot-network-restore-path" value="<?php echo esc_attr( $restore_path_default ); ?>" style="width:100%;max-width:760px;">
 			</p>
 			<p>
 				<label>
 					<input type="checkbox" id="snapshot-network-delete-archive" value="1">
-					<?php esc_html_e( 'Backup-Archiv nach erfolgreichem Restore loeschen', SNAPSHOT_I18N_DOMAIN ); ?>
+					<?php esc_html_e( 'Backup-Archiv nach erfolgreichem Restore loeschen', 'snapshot' ); ?>
 				</label>
 			</p>
 			<div id="snapshot-network-restore-progress" style="display:none;max-width:760px;">
@@ -183,15 +183,15 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 			</div>
 
 			<?php if ( empty( $backups ) ) : ?>
-				<p><?php esc_html_e( 'Es sind noch keine Netzwerk-Backups vorhanden.', SNAPSHOT_I18N_DOMAIN ); ?></p>
+				<p><?php esc_html_e( 'Es sind noch keine Netzwerk-Backups vorhanden.', 'snapshot' ); ?></p>
 			<?php else : ?>
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Name', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th><?php esc_html_e( 'Größe', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th><?php esc_html_e( 'Erstellt am', SNAPSHOT_I18N_DOMAIN ); ?></th>
-							<th><?php esc_html_e( 'Aktion', SNAPSHOT_I18N_DOMAIN ); ?></th>
+							<th><?php esc_html_e( 'Name', 'snapshot' ); ?></th>
+							<th><?php esc_html_e( 'Größe', 'snapshot' ); ?></th>
+							<th><?php esc_html_e( 'Erstellt am', 'snapshot' ); ?></th>
+							<th><?php esc_html_e( 'Aktion', 'snapshot' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -206,7 +206,7 @@ $download_error = isset( $_GET['snapshot-full-backup-error'] )
 							<td><?php echo esc_html( $size ); ?></td>
 							<td><?php echo $timestamp ? esc_html( date_i18n( 'd.m.Y H:i:s', $timestamp ) ) : '-'; ?></td>
 							<td>
-								<a href="<?php echo esc_url( $detail_url ); ?>" class="button"><?php esc_html_e( 'Details', SNAPSHOT_I18N_DOMAIN ); ?></a>
+								<a href="<?php echo esc_url( $detail_url ); ?>" class="button"><?php esc_html_e( 'Details', 'snapshot' ); ?></a>
 							</td>
 						</tr>
 					<?php endforeach; ?>

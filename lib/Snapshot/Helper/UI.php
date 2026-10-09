@@ -39,13 +39,13 @@ if ( ! class_exists( 'Snapshot_Helper_UI' ) ) {
 			while ( $_hour < 24 ) {
 
 				if ( $_hour == 0 ) {
-					$_hour_label = __( "Mitternacht", SNAPSHOT_I18N_DOMAIN );
+					$_hour_label = __( "Mitternacht", 'snapshot' );
 				} else if ( $_hour == 12 ) {
-					$_hour_label = __( "Mittag", SNAPSHOT_I18N_DOMAIN );
+					$_hour_label = __( "Mittag", 'snapshot' );
 				} else if ( $_hour < 13 ) {
-					$_hour_label = $_hour . __( "vorm.", SNAPSHOT_I18N_DOMAIN );
+					$_hour_label = $_hour . __( "vorm.", 'snapshot' );
 				} else {
-					$_hour_label = ( $_hour - 12 ) . __( "nachm.", SNAPSHOT_I18N_DOMAIN );
+					$_hour_label = ( $_hour - 12 ) . __( "nachm.", 'snapshot' );
 				}
 
 				?>
@@ -82,13 +82,13 @@ if ( ! class_exists( 'Snapshot_Helper_UI' ) ) {
 		public static function form_show_wday_selector_options( $wday_value = 0 ) {
 
 			$_dow = array(
-				'0' => __( 'Sonntag', SNAPSHOT_I18N_DOMAIN ),
-				'1' => __( 'Montag', SNAPSHOT_I18N_DOMAIN ),
-				'2' => __( 'Dienstag', SNAPSHOT_I18N_DOMAIN ),
-				'3' => __( 'Mittwoch', SNAPSHOT_I18N_DOMAIN ),
-				'4' => __( 'Donnerstag', SNAPSHOT_I18N_DOMAIN ),
-				'5' => __( 'Freitag', SNAPSHOT_I18N_DOMAIN ),
-				'6' => __( 'Samstag', SNAPSHOT_I18N_DOMAIN ),
+				'0' => __( 'Sonntag', 'snapshot' ),
+				'1' => __( 'Montag', 'snapshot' ),
+				'2' => __( 'Dienstag', 'snapshot' ),
+				'3' => __( 'Mittwoch', 'snapshot' ),
+				'4' => __( 'Donnerstag', 'snapshot' ),
+				'5' => __( 'Freitag', 'snapshot' ),
+				'6' => __( 'Samstag', 'snapshot' ),
 			);
 
 			foreach ( $_dow as $_key => $_label ) {
@@ -239,7 +239,7 @@ if ( ! class_exists( 'Snapshot_Helper_UI' ) ) {
 
 				</div>
 				<?php if( count( $all_destinations ) < 2 ) : ?>
-				<div class="wps-notice"><p><?php printf( __( "Du hast noch keine externen Speicherorte hinzugefügt. Es ist wesentlich sicherer, Deine Snapshots extern zu speichern. Daher empfehlen wir Dir, <a href='%s'>einen weiteren Speicherort</a> hinzuzufügen.", SNAPSHOT_I18N_DOMAIN ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ); ?></p></div>
+				<div class="wps-notice"><p><?php printf( __( "Du hast noch keine externen Speicherorte hinzugefügt. Es ist wesentlich sicherer, Deine Snapshots extern zu speichern. Daher empfehlen wir Dir, <a href='%s'>einen weiteren Speicherort</a> hinzuzufügen.", 'snapshot' ), PSOURCESnapshot::instance()->snapshot_get_pagehook_url('snapshots-newui-destinations') ); ?></p></div>
 				<?php endif; ?>
 			</div>
 			<?php
@@ -253,10 +253,10 @@ if ( ! class_exists( 'Snapshot_Helper_UI' ) ) {
 			$session_save_path = session_save_path();
 			//echo "session_save_path=[". $session_save_path ."]<br />";
 			if ( ! file_exists( $session_save_path ) ) {
-				PSOURCESnapshot::instance()->snapshot_admin_notices_proc( "error", sprintf( __( "<p>Der Speicherort für Sitzungen (%s) ist kein gültiges Verzeichnis. Überprüfe deine PHP (php.ini) Einstellungen oder kontaktiere deinen Hosting-Anbieter.</p>", SNAPSHOT_I18N_DOMAIN ), $session_save_path ) );
+				PSOURCESnapshot::instance()->snapshot_admin_notices_proc( "error", sprintf( __( "<p>Der Speicherort für Sitzungen (%s) ist kein gültiges Verzeichnis. Überprüfe deine PHP (php.ini) Einstellungen oder kontaktiere deinen Hosting-Anbieter.</p>", 'snapshot' ), $session_save_path ) );
 
 			} else if ( ! is_writable( $session_save_path ) ) {
-				PSOURCESnapshot::instance()->snapshot_admin_notices_proc( "error", sprintf( __( "<p>Der Speicherort für Sitzungen (%s) ist nicht beschreibbar. Überprüfe deine PHP (php.ini) Einstellungen oder kontaktiere deinen Hosting-Anbieter.</p>", SNAPSHOT_I18N_DOMAIN ), $session_save_path ) );
+				PSOURCESnapshot::instance()->snapshot_admin_notices_proc( "error", sprintf( __( "<p>Der Speicherort für Sitzungen (%s) ist nicht beschreibbar. Überprüfe deine PHP (php.ini) Einstellungen oder kontaktiere deinen Hosting-Anbieter.</p>", 'snapshot' ), $session_save_path ) );
 			}
 		}
 

@@ -3,12 +3,12 @@
 	<div class="msf-left">
 
 		<select name="action" class="bulk-action-selector-top">
-			<option value="-1"><?php _e( "Massenaktionen","SNAPSHOT_I18N_DOMAIN");?>
-			<option value="delete"><?php _e( "Löschen","SNAPSHOT_I18N_DOMAIN");?></option>
+			<option value="-1"><?php _e( "Massenaktionen",'snapshot');?>
+			<option value="delete"><?php _e( "Löschen",'snapshot');?></option>
 
 		</select>
 
-		<input type="submit" id="doaction" class="button button-outline button-gray action" value="<?php _e( "Anwenden","SNAPSHOT_I18N_DOMAIN");?>">
+		<input type="submit" id="doaction" class="button button-outline button-gray action" value="<?php _e( "Anwenden",'snapshot');?>">
 
 	</div>
 

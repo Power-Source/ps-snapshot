@@ -77,7 +77,7 @@ class Snapshot_Helper_String {
 	private static function _get_key () {
 		$key = '';
 		if (defined('NONCE_KEY')) $key .= NONCE_KEY;
-		$key .= SNAPSHOT_I18N_DOMAIN;
+		$key .= 'snapshot';
 		if (defined('NONCE_SALT')) $key .= NONCE_SALT;
 
 		return sha1($key);

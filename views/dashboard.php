@@ -1,6 +1,6 @@
 
 <section id="header">
-    <h1><?php esc_html_e( 'Dashboard', SNAPSHOT_I18N_DOMAIN ); ?></h1>
+    <h1><?php esc_html_e( 'Dashboard', 'snapshot' ); ?></h1>
 </section>
 
 <div id="container" class="snapshot-three wps-page-dashboard">
@@ -70,35 +70,35 @@
 		<div class="col-xs-12">
 			<div class="wpmud-box" style="background:#fff3cd; border-left:4px solid #ff9800;">
 				<div class="wpmud-box-title" style="padding:10px;">
-					<h3 style="margin:0; color:#ff6f00;"><?php esc_html_e( '⚠️ Notfall-Wiederherstellung', SNAPSHOT_I18N_DOMAIN ); ?></h3>
+					<h3 style="margin:0; color:#ff6f00;"><?php esc_html_e( '⚠️ Notfall-Wiederherstellung', 'snapshot' ); ?></h3>
 				</div>
 				<div class="wpmud-box-content" style="padding:15px;">
 					<p style="margin:0 0 12px 0;">
-						<?php esc_html_e( 'Falls Deine Webseite nicht mehr erreichbar ist und Du nicht auf das Dashboard zugreifen kannst, kannst Du die Seite mit unserem Recovery-Skript wiederherstellen.', SNAPSHOT_I18N_DOMAIN ); ?>
+						<?php esc_html_e( 'Falls Deine Webseite nicht mehr erreichbar ist und Du nicht auf das Dashboard zugreifen kannst, kannst Du die Seite mit unserem Recovery-Skript wiederherstellen.', 'snapshot' ); ?>
 					</p>
 					<ol style="margin:12px 0; padding-left:20px;">
 						<li style="margin-bottom:8px;">
-							<?php esc_html_e( 'Lade das Recovery-Skript herunter und speichere es an einem sicheren Ort (z.B. auf Deinem Computer).', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php esc_html_e( 'Lade das Recovery-Skript herunter und speichere es an einem sicheren Ort (z.B. auf Deinem Computer).', 'snapshot' ); ?>
 						</li>
 						<li style="margin-bottom:8px;">
-							<?php esc_html_e( 'Falls die Seite ausfällt, lade das Skript via FTP in das Root-Verzeichnis Deiner Installation hoch.', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php esc_html_e( 'Falls die Seite ausfällt, lade das Skript via FTP in das Root-Verzeichnis Deiner Installation hoch.', 'snapshot' ); ?>
 						</li>
 						<li style="margin-bottom:8px;">
-							<?php esc_html_e( 'Öffne das Skript im Browser (z.B. https://example.com/snapshot-recovery.php).', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php esc_html_e( 'Öffne das Skript im Browser (z.B. https://example.com/snapshot-recovery.php).', 'snapshot' ); ?>
 						</li>
 						<li style="margin-bottom:0;">
-							<?php esc_html_e( 'Folge den Anweisungen im Skript, um ein Backup auszuwählen und wiederherzustellen.', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php esc_html_e( 'Folge den Anweisungen im Skript, um ein Backup auszuwählen und wiederherzustellen.', 'snapshot' ); ?>
 						</li>
 					</ol>
 					<p style="margin:12px 0 0 0;">
-						<strong><?php esc_html_e( '💾 Recovery-Skript herunterladen:', SNAPSHOT_I18N_DOMAIN ); ?></strong><br>
+						<strong><?php esc_html_e( '💾 Recovery-Skript herunterladen:', 'snapshot' ); ?></strong><br>
 						<a href="https://github.com/Power-Source/ps-snapshot-installer/releases" class="button button-secondary" style="margin-top:8px;" target="_blank">
-							<?php esc_html_e( '📥 snapshot-recovery.php herunterladen', SNAPSHOT_I18N_DOMAIN ); ?>
+							<?php esc_html_e( '📥 snapshot-recovery.php herunterladen', 'snapshot' ); ?>
 						</a>
 					</p>
 					<p style="margin:12px 0 0 0; padding:10px; background:#fff; border-left:3px solid #ff9800; font-size:12px;">
-						<strong><?php esc_html_e( 'Wichtig:', SNAPSHOT_I18N_DOMAIN ); ?></strong> 
-						<?php esc_html_e( 'Speichere dieses Skript jetzt! Es ist Deine Rettung im Notfall, wenn die Seite nicht mehr erreichbar ist.', SNAPSHOT_I18N_DOMAIN ); ?>
+											<strong><?php esc_html_e( 'Wichtig:', 'snapshot' ); ?></strong>
+						<?php esc_html_e( 'Speichere dieses Skript jetzt! Es ist Deine Rettung im Notfall, wenn die Seite nicht mehr erreichbar ist.', 'snapshot' ); ?>
 					</p>
 				</div>
 			</div>

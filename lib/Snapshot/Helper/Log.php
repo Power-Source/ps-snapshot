@@ -110,10 +110,10 @@ class Snapshot_Helper_Log {
 	public function get_known_levels () {
 		static $levels;
 		if (empty($levels)) $levels = array(
-			Snapshot_Helper_Log::LEVEL_ERROR => __('Error', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_WARNING => __('Warning', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_NOTICE => __('Notice', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_INFO => __('Info', SNAPSHOT_I18N_DOMAIN),
+			Snapshot_Helper_Log::LEVEL_ERROR => __('Error', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_WARNING => __('Warning', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_NOTICE => __('Notice', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_INFO => __('Info', 'snapshot'),
 		);
 		return $levels;
 	}
@@ -127,10 +127,10 @@ class Snapshot_Helper_Log {
 	 */
 	public function get_known_sections () {
 		return array(
-			Snapshot_Helper_Log::SECTION_DEFAULT => __('Default', SNAPSHOT_I18N_DOMAIN),
-			'Cron' => __('Cron', SNAPSHOT_I18N_DOMAIN),
-			'Remote' => __('Remote', SNAPSHOT_I18N_DOMAIN),
-			'Queue' => __('Queue', SNAPSHOT_I18N_DOMAIN),
+			Snapshot_Helper_Log::SECTION_DEFAULT => __('Default', 'snapshot'),
+			'Cron' => __('Cron', 'snapshot'),
+			'Remote' => __('Remote', 'snapshot'),
+			'Queue' => __('Queue', 'snapshot'),
 		);
 	}
 
@@ -232,10 +232,10 @@ class Snapshot_Helper_Log {
 		/*
 		static $levels;
 		if (empty($levels)) $levels = array(
-			Snapshot_Helper_Log::LEVEL_ERROR => __('Error', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_WARNING => __('Warning', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_NOTICE => __('Notice', SNAPSHOT_I18N_DOMAIN),
-			Snapshot_Helper_Log::LEVEL_INFO => __('Info', SNAPSHOT_I18N_DOMAIN),
+			Snapshot_Helper_Log::LEVEL_ERROR => __('Error', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_WARNING => __('Warning', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_NOTICE => __('Notice', 'snapshot'),
+			Snapshot_Helper_Log::LEVEL_INFO => __('Info', 'snapshot'),
 		);
 		*/
 		return !empty($levels[$level])

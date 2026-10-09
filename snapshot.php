@@ -2,10 +2,10 @@
 /*
 Plugin Name: PS Snapshot
 Version: 1.0.3
-Description: Dieses Plugin ermöglicht es Dir, bei Bedarf schnelle Backup-Snapshots Deiner funktionierenden ClassicPress-Datenbank zu erstellen. Du kannst aus den standardmäßigen ClassicPress-Tabellen sowie benutzerdefinierten Plugin-Tabellen innerhalb der Datenbankstruktur auswählen. Alle Snapshots werden protokolliert und Du kannst den Snapshot nach Bedarf wiederherstellen.
+Description: Create and restore fast backup snapshots of your ClassicPress database and files whenever you need them.
 Author: PSOURCE
-Author URI: https://github.com/Power-Source
-Plugin URI: https://cp-psource.github.io/ps-snapshot
+Author URI: https://psource.eimen.net
+Plugin URI: https://psource.eimen.net/psource/ps-snapshot/
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: snapshot
@@ -27,10 +27,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-if ( ! defined( 'SNAPSHOT_I18N_DOMAIN' ) ) {
-	define( 'SNAPSHOT_I18N_DOMAIN', 'snapshot' );
-}
 
 if ( ! defined( 'SNAPSHOT_TD' ) ) {
 	define( 'SNAPSHOT_TD', 'snapshot' );
@@ -108,7 +104,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 
 			$this->_settings['SNAPSHOT_PLUGIN_URL'] = trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) );
 			$this->_settings['SNAPSHOT_PLUGIN_BASE_DIR'] = dirname( __FILE__ );
-			$this->_settings['admin_menu_label'] = __( "Snapshot", SNAPSHOT_I18N_DOMAIN ); // Used as the 'option_name' for wp_options table
+			$this->_settings['admin_menu_label'] = __( "Snapshot", 'snapshot' ); // Used as the 'option_name' for wp_options table
 
 			$this->_settings['options_key'] = "psource_snapshot";
 
@@ -136,11 +132,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_icon_admin_style' ) );
 
 			/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
-			load_plugin_textdomain( SNAPSHOT_I18N_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-			// Erzwinge deutsche Du-Übersetzungen im Plugin-Kontext
-			add_filter( 'gettext', array( __CLASS__, 'snapshot_filter_gettext_german' ), 10, 3 );
-			add_filter( 'gettext_with_context', array( __CLASS__, 'snapshot_filter_gettext_german_context' ), 10, 4 );
+			load_plugin_textdomain( 'snapshot', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 			/* Standard activation hook for all WordPress plugins see http://codex.wordpress.org/Function_Reference/register_activation_hook */
 			register_activation_hook( __FILE__, array( $this, 'snapshot_plugin_activation_proc' ) );
@@ -396,7 +388,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				'<div class="%%1$s snapshot-three wps-message wps-%%2$s-message" title="%s">
 					<div class="wps-%%2$s-message-wrap"><p>%%3$s</p></div>
 				</div>',
-				esc_attr__( 'Zum Schließen klicken', SNAPSHOT_I18N_DOMAIN )
+				esc_attr__( 'Zum Schließen klicken', 'snapshot' )
 			);
 
 			if ( $message_text && $message_type ) {
@@ -421,7 +413,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 		function snapshot_plugin_settings_link_proc( $links ) {
 			$settings_link = sprintf( '<a href="%s">%s</a>',
 				esc_url( $this->snapshot_get_pagehook_url( 'snapshots-newui-new-snapshot' ) ),
-				esc_html__( 'Einstellungen', SNAPSHOT_I18N_DOMAIN )
+				esc_html__( 'Einstellungen', 'snapshot' )
 			);
 			array_unshift( $links, $settings_link );
 
@@ -442,8 +434,8 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 		function snapshot_admin_menu_proc() {
 
 			add_menu_page(
-				_x( 'Snapshot', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Snapshot', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Snapshot', 'page label', 'snapshot' ),
+				_x( 'Snapshot', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_dashboard',
 				array( $this->_new_ui_tester, 'dashboard' ),
@@ -451,40 +443,40 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			);
 			$this->_pagehooks['snapshots-newui-dashboard'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Dashboard', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Dashboard', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Dashboard', 'page label', 'snapshot' ),
+				_x( 'Dashboard', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_dashboard',
 				array( $this->_new_ui_tester, 'dashboard' )
 			);
 			$this->_pagehooks['snapshots-newui-snapshots'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Snapshots', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Snapshots', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Snapshots', 'page label', 'snapshot' ),
+				_x( 'Snapshots', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_snapshots',
 				array( $this->_new_ui_tester, 'snapshots' )
 			);
 			$this->_pagehooks['snapshots-newui-destinations'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Speicherorte', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Speicherorte', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Speicherorte', 'page label', 'snapshot' ),
+				_x( 'Speicherorte', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_destinations',
 				array( $this->_new_ui_tester, 'destinations' )
 			);
 			$this->_pagehooks['snapshots-newui-import'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Importieren', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Importieren', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Importieren', 'page label', 'snapshot' ),
+				_x( 'Importieren', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_import',
 				array( $this->_new_ui_tester, 'import' )
 			);
 			$this->_pagehooks['snapshots-newui-settings'] = add_submenu_page(
 				'snapshot_dashboard',
-				_x( 'Einstellungen', 'page label', SNAPSHOT_I18N_DOMAIN ),
-				_x( 'Einstellungen', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+				_x( 'Einstellungen', 'page label', 'snapshot' ),
+				_x( 'Einstellungen', 'menu label', 'snapshot' ),
 				'manage_options',
 				'snapshot_settings',
 				array( $this->_new_ui_tester, 'settings' )
@@ -493,8 +485,8 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( is_multisite() && is_network_admin() ) {
 				$this->_pagehooks['snapshots-newui-network-backup'] = add_submenu_page(
 					'snapshot_dashboard',
-					_x( 'Netzwerk-Backup', 'page label', SNAPSHOT_I18N_DOMAIN ),
-					_x( 'Netzwerk-Backup', 'menu label', SNAPSHOT_I18N_DOMAIN ),
+					_x( 'Netzwerk-Backup', 'page label', 'snapshot' ),
+					_x( 'Netzwerk-Backup', 'menu label', 'snapshot' ),
 					'manage_options',
 					'snapshot_network_backup',
 					array( $this->_new_ui_tester, 'network_backup' )
@@ -547,14 +539,14 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 		function snapshot_on_load_panels() {
 
 			/* These messages are displayed as part of the admin header message see 'admin_notices' WordPress action */
-			$this->_messages['success-update'] = __( 'Dein Snapshot wurde aktualisiert.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-add'] = __( 'Dein Snapshot wurde erstellt.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-delete'] = __( 'Snapshot erfolgreich gelöscht.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-delete-bulk'] = __( 'Ausgewählte Snapshots erfolgreich gelöscht.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-restore'] = __( 'Dein Snapshot wurde wiederhergestellt.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-settings'] = __( 'Deine Einstellungen wurden aktualisiert.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-runonce'] = __( 'Dein Eintrag wurde eingeplant.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-snapshot-key'] = __( 'Dein Snapshot-Schlüssel wurde hinzugefügt.', SNAPSHOT_I18N_DOMAIN );
+			$this->_messages['success-update'] = __( 'Dein Snapshot wurde aktualisiert.', 'snapshot' );
+			$this->_messages['success-add'] = __( 'Dein Snapshot wurde erstellt.', 'snapshot' );
+			$this->_messages['success-delete'] = __( 'Snapshot erfolgreich gelöscht.', 'snapshot' );
+			$this->_messages['success-delete-bulk'] = __( 'Ausgewählte Snapshots erfolgreich gelöscht.', 'snapshot' );
+			$this->_messages['success-restore'] = __( 'Dein Snapshot wurde wiederhergestellt.', 'snapshot' );
+			$this->_messages['success-settings'] = __( 'Deine Einstellungen wurden aktualisiert.', 'snapshot' );
+			$this->_messages['success-runonce'] = __( 'Dein Eintrag wurde eingeplant.', 'snapshot' );
+			$this->_messages['success-snapshot-key'] = __( 'Dein Snapshot-Schlüssel wurde hinzugefügt.', 'snapshot' );
 
 			if ( isset( $_GET['snapshot-action'] ) && 'item-archives' === $_GET['snapshot-action'] ) {
 				$this->archives_data_items_table = new Snapshot_View_Table_Archives();
@@ -577,11 +569,11 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 		 */
 		/*function on_load_managed_backups_panels() {
 
-			$this->_messages['success-update'] = __( 'The Backup has been updated.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-add'] = __( 'The Backup has been created.', SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-delete'] = __( "Backup successfully deleted.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-delete-bulk'] = __( "Selected Backups successfully deleted.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-restore'] = __( "The Backup has been restored.", SNAPSHOT_I18N_DOMAIN );
+			$this->_messages['success-update'] = __( 'The Backup has been updated.', 'snapshot' );
+			$this->_messages['success-add'] = __( 'The Backup has been created.', 'snapshot' );
+			$this->_messages['success-delete'] = __( "Backup successfully deleted.", 'snapshot' );
+			$this->_messages['success-delete-bulk'] = __( "Selected Backups successfully deleted.", 'snapshot' );
+			$this->_messages['success-restore'] = __( "The Backup has been restored.", 'snapshot' );
 		}*/
 
 		/**
@@ -597,11 +589,11 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 		function on_load_destination_panels() {
 
 			// These messages are displayed as part of the admin header message see 'admin_notices' WordPress action
-			$this->_messages['success-update'] = __( "Das Ziel wurde aktualisiert.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-add'] = __( "Das Ziel wurde hinzugefügt.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-delete'] = __( "Das Ziel wurde gelöscht.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-restore'] = __( "Das Ziel wurde wiederhergestellt.", SNAPSHOT_I18N_DOMAIN );
-			$this->_messages['success-settings'] = __( "Deine Einstellungen wurden aktualisiert.", SNAPSHOT_I18N_DOMAIN );
+			$this->_messages['success-update'] = __( "Das Ziel wurde aktualisiert.", 'snapshot' );
+			$this->_messages['success-add'] = __( "Das Ziel wurde hinzugefügt.", 'snapshot' );
+			$this->_messages['success-delete'] = __( "Das Ziel wurde gelöscht.", 'snapshot' );
+			$this->_messages['success-restore'] = __( "Das Ziel wurde wiederhergestellt.", 'snapshot' );
+			$this->_messages['success-settings'] = __( "Deine Einstellungen wurden aktualisiert.", 'snapshot' );
 
 			$this->process_snapshot_destination_actions();
 			$this->snapshot_admin_plugin_help();
@@ -637,27 +629,27 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				array( 'jquery' ), $this->_settings['SNAPSHOT_VERSION'] );
 
 			wp_localize_script( 'snapshot-admin', 'snapshot_admin_messages', array(
-				'log_viewer_title' => esc_html__( 'Snapshot-Log-Viewer', SNAPSHOT_I18N_DOMAIN ),
-				'select_all' => esc_html__( 'Alles auswählen', SNAPSHOT_I18N_DOMAIN ),
-				'unselect_all' => esc_html__( 'Auswahl aufheben', SNAPSHOT_I18N_DOMAIN ),
-				'loading' => esc_html__( 'Lädt ...', SNAPSHOT_I18N_DOMAIN ),
-				'snapshot_initializing' => esc_html__( 'Snapshot wird gestartet', SNAPSHOT_I18N_DOMAIN ),
-				'destination_type_dropbox' => esc_html__( 'Dropbox', SNAPSHOT_I18N_DOMAIN ),
-				'memory' => esc_html__( 'Speicher: ', SNAPSHOT_I18N_DOMAIN ),
-				'memory_limit' => esc_html__( 'Limit', SNAPSHOT_I18N_DOMAIN ),
-				'memory_usage' => esc_html__( 'Verbrauch:', SNAPSHOT_I18N_DOMAIN ),
-				'memory_peak' => esc_html__( 'Spitze:', SNAPSHOT_I18N_DOMAIN ),
-				'abort' => esc_html__( 'Abbrechen', SNAPSHOT_I18N_DOMAIN ),
-				'database' => esc_html__( 'Datenbank:', SNAPSHOT_I18N_DOMAIN ),
-				'files_label' => esc_html__( 'Dateien: ', SNAPSHOT_I18N_DOMAIN ),
-				'finishing_snapshot' => esc_html__( 'Snapshot wird abgeschlossen', SNAPSHOT_I18N_DOMAIN ),
-				'snapshot_failed' => esc_html__( 'Unbekannte Antwort vom Snapshot-Backup. Abgebrochen. Prüfe deine Snapshot-Einstellungen.', SNAPSHOT_I18N_DOMAIN ),
-				'finding_filestables' => esc_html__( 'Snapshot ermittelt Tabellen/Dateien zum Wiederherstellen', SNAPSHOT_I18N_DOMAIN ),
-				'files' => esc_html__( 'Dateien', SNAPSHOT_I18N_DOMAIN ),
-				'backup_aborted' => esc_html__( 'Snapshot-Backup abgebrochen', SNAPSHOT_I18N_DOMAIN ),
-				'no_tables_selected' => esc_html__( 'Du musst mindestens eine Tabelle auswählen.', SNAPSHOT_I18N_DOMAIN ),
-				'no_files_tables_selected' => esc_html__( 'Du musst festlegen, welche Dateien und/oder Tabellen gesichert werden.', SNAPSHOT_I18N_DOMAIN ),
-				'missing_snapshot_timekey' => esc_html__( 'Fehler: Der Snapshot-Zeitstempel fehlt. Lade die Seite neu.', SNAPSHOT_I18N_DOMAIN ),
+				'log_viewer_title' => esc_html__( 'Snapshot-Log-Viewer', 'snapshot' ),
+				'select_all' => esc_html__( 'Alles auswählen', 'snapshot' ),
+				'unselect_all' => esc_html__( 'Auswahl aufheben', 'snapshot' ),
+				'loading' => esc_html__( 'Lädt ...', 'snapshot' ),
+				'snapshot_initializing' => esc_html__( 'Snapshot wird gestartet', 'snapshot' ),
+				'destination_type_dropbox' => esc_html__( 'Dropbox', 'snapshot' ),
+				'memory' => esc_html__( 'Speicher: ', 'snapshot' ),
+				'memory_limit' => esc_html__( 'Limit', 'snapshot' ),
+				'memory_usage' => esc_html__( 'Verbrauch:', 'snapshot' ),
+				'memory_peak' => esc_html__( 'Spitze:', 'snapshot' ),
+				'abort' => esc_html__( 'Abbrechen', 'snapshot' ),
+				'database' => esc_html__( 'Datenbank:', 'snapshot' ),
+				'files_label' => esc_html__( 'Dateien: ', 'snapshot' ),
+				'finishing_snapshot' => esc_html__( 'Snapshot wird abgeschlossen', 'snapshot' ),
+				'snapshot_failed' => esc_html__( 'Unbekannte Antwort vom Snapshot-Backup. Abgebrochen. Prüfe deine Snapshot-Einstellungen.', 'snapshot' ),
+				'finding_filestables' => esc_html__( 'Snapshot ermittelt Tabellen/Dateien zum Wiederherstellen', 'snapshot' ),
+				'files' => esc_html__( 'Dateien', 'snapshot' ),
+				'backup_aborted' => esc_html__( 'Snapshot-Backup abgebrochen', 'snapshot' ),
+				'no_tables_selected' => esc_html__( 'Du musst mindestens eine Tabelle auswählen.', 'snapshot' ),
+				'no_files_tables_selected' => esc_html__( 'Du musst festlegen, welche Dateien und/oder Tabellen gesichert werden.', 'snapshot' ),
+				'missing_snapshot_timekey' => esc_html__( 'Fehler: Der Snapshot-Zeitstempel fehlt. Lade die Seite neu.', 'snapshot' ),
 			) );
 
 			/* new_ui styles and js */
@@ -668,16 +660,16 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				array( 'jquery' ), $this->_settings['SNAPSHOT_VERSION'] );
 
 			wp_localize_script( 'snapshot-pro-admin', 'snapshot_messages', array(
-				'snapshot_key' => esc_html__( 'Snapshot-Schlüssel', SNAPSHOT_I18N_DOMAIN ),
-				'snapshot_failed' => esc_html__( 'Unbekannte Antwort vom Snapshot-Backup. Abgebrochen. Prüfe deine Snapshot-Einstellungen.', SNAPSHOT_I18N_DOMAIN ),
-				'no_files_selected' => esc_html__( 'Du musst mindestens eine Datei-Option auswählen.', SNAPSHOT_I18N_DOMAIN ),
-				'no_tables_selected' => esc_html__( 'Du musst mindestens eine Datenbanktabelle auswählen.', SNAPSHOT_I18N_DOMAIN ),
-				'no_files_tables' => esc_html__( 'Du hast keine Dateien oder Tabellen ausgewählt. Wähle, was gesichert werden soll, und versuch es erneut.', SNAPSHOT_I18N_DOMAIN ),
-				'loading' => esc_html__( 'Lädt ...', SNAPSHOT_I18N_DOMAIN ),
-				'working' => esc_html__( 'Arbeite ...', SNAPSHOT_I18N_DOMAIN ),
-				'snapshot_aborted' => esc_html__( 'Snapshot-Backup abgebrochen', SNAPSHOT_I18N_DOMAIN ),
-				'restore_aborted' => esc_html__( 'Snapshot-Wiederherstellung abgebrochen', SNAPSHOT_I18N_DOMAIN ),
-				'missing_timekey' => esc_html__( 'Fehler: Der Snapshot-Zeitstempel fehlt. Lade die Seite neu.', SNAPSHOT_I18N_DOMAIN ),
+				'snapshot_key' => esc_html__( 'Snapshot-Schlüssel', 'snapshot' ),
+				'snapshot_failed' => esc_html__( 'Unbekannte Antwort vom Snapshot-Backup. Abgebrochen. Prüfe deine Snapshot-Einstellungen.', 'snapshot' ),
+				'no_files_selected' => esc_html__( 'Du musst mindestens eine Datei-Option auswählen.', 'snapshot' ),
+				'no_tables_selected' => esc_html__( 'Du musst mindestens eine Datenbanktabelle auswählen.', 'snapshot' ),
+				'no_files_tables' => esc_html__( 'Du hast keine Dateien oder Tabellen ausgewählt. Wähle, was gesichert werden soll, und versuch es erneut.', 'snapshot' ),
+				'loading' => esc_html__( 'Lädt ...', 'snapshot' ),
+				'working' => esc_html__( 'Arbeite ...', 'snapshot' ),
+				'snapshot_aborted' => esc_html__( 'Snapshot-Backup abgebrochen', 'snapshot' ),
+				'restore_aborted' => esc_html__( 'Snapshot-Wiederherstellung abgebrochen', 'snapshot' ),
+				'missing_timekey' => esc_html__( 'Fehler: Der Snapshot-Zeitstempel fehlt. Lade die Seite neu.', 'snapshot' ),
 			) );
 		}
 
@@ -1094,7 +1086,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 						}
 						//$this->archives_data_items_table = new Snapshot_Archives_Data_Items_Table( $this );
 						add_screen_option( 'per_page', array(
-							'label' => __( 'per Page', SNAPSHOT_I18N_DOMAIN ),
+							'label' => __( 'per Page', 'snapshot' ),
 							'default' => $per_page,
 						) );
 
@@ -1136,7 +1128,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				}
 
 				add_screen_option( 'per_page', array(
-					'label' => __( 'pro Seite', SNAPSHOT_I18N_DOMAIN ),
+					'label' => __( 'pro Seite', 'snapshot' ),
 					'default' => $per_page,
 				) );
 
@@ -1289,46 +1281,46 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			$screen = get_current_screen();
 
 			$screen_help_text = array();
-			$screen_help_text['snapshot-help-overview'] = '<p>' . __( 'Das Snapshot-Plugin ermöglicht das schnelle Erstellen von Snapshots Deiner WordPress-Webseite-Datenbank und -Dateien. Du kannst beliebig viele Snapshots erstellen. Das Plugin bietet außerdem die Möglichkeit, ein Snapshot-Backup wiederherzustellen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshot-help-overview'] = '<p>' . __( 'Das Snapshot-Plugin ermöglicht das schnelle Erstellen von Snapshots Deiner WordPress-Webseite-Datenbank und -Dateien. Du kannst beliebig viele Snapshots erstellen. Das Plugin bietet außerdem die Möglichkeit, ein Snapshot-Backup wiederherzustellen.', 'snapshot' ) . '</p>';
 
-			$screen_help_text['snapshots_new_panel'] = '<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Was soll gesichert werden?</strong> – In diesem Abschnitt werden alle Tabellen Deiner Webseite aufgelistet. Wähle die Tabelle aus, die Du sichern möchtest. Die Tabellen sind in WordPress-Kerntabellen und Sonstige Tabellen unterteilt. Diese Sonstigen Tabellen wurden möglicherweise von installierten Plugins erstellt und verwendet.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Backupzeitpunkt</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du die Häufigkeit der Sicherung der ausgewählten Tabellen festlegen kannst. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung planen, indem Du eine der verfügbaren Optionen auswählen. Bei geplanter Sicherung kannst Du außerdem die Anzahl der aufzubewahrenden Backups festlegen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Speicherort für das Backup</strong> – Du kannst zwischen lokaler Speicherung, Dropbox, Google Drive oder FTP/SFTP wählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_new_panel'] = '<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Was soll gesichert werden?</strong> – In diesem Abschnitt werden alle Tabellen Deiner Webseite aufgelistet. Wähle die Tabelle aus, die Du sichern möchtest. Die Tabellen sind in WordPress-Kerntabellen und Sonstige Tabellen unterteilt. Diese Sonstigen Tabellen wurden möglicherweise von installierten Plugins erstellt und verwendet.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Backupzeitpunkt</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du die Häufigkeit der Sicherung der ausgewählten Tabellen festlegen kannst. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung planen, indem Du eine der verfügbaren Optionen auswählen. Bei geplanter Sicherung kannst Du außerdem die Anzahl der aufzubewahrenden Backups festlegen.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Speicherort für das Backup</strong> – Du kannst zwischen lokaler Speicherung, Dropbox, Google Drive oder FTP/SFTP wählen.', 'snapshot' ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['edit'] = '<p>' . __( 'Im Bearbeitungsfenster für Snapshots kannst Du den Snapshot umbenennen oder Notizen hinzufügen. Außerdem findest Du dort einen Link zur Snapshot-Datei, die Du herunterladen und auf Deinem lokalen System archivieren kannst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Wann archivieren</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du festlegen kannst, wie oft die ausgewählten Tabellen gesichert werden sollen. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung auch planen, indem Du eine der zahlreichen verfügbaren Optionen auswählen.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Tabellen im Archiv</strong> – Dieser Abschnitt listet die in den Snapshot-Archiven enthaltenen Tabellen auf. Die Tabellenauswahl wird beim Erstellen einer neuen Snapshot-Konfiguration festgelegt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Speicherort für das Archiv</strong> – Die Dateien werden standardmäßig auf dem lokalen Server gespeichert. Alternativ sind auch Dropbox, Google Drive oder FTP/SFTP unterstützt.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Klicke hier auf den Dateinamen, um die Datei herunterzuladen. In derselben Zeile findest Du außerdem einen Link zu den Protokolleinträgen, die mit der Erstellung dieser Archivinstanz zusammenhängen. Am Ende befindet sich ein Link zum Herunterladen der vollständigen Snapshot-Protokolldatei.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_edit_panel']['edit'] = '<p>' . __( 'Im Bearbeitungsfenster für Snapshots kannst Du den Snapshot umbenennen oder Notizen hinzufügen. Außerdem findest Du dort einen Link zur Snapshot-Datei, die Du herunterladen und auf Deinem lokalen System archivieren kannst.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Name</strong> - Gib einen benutzerdefinierten Namen für diesen Snapshot an. Der Standardname ist "Snapshot".', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Anmerkungen</strong> – Füge optional Anmerkungen zum Snapshot hinzu. Beispielsweise Details zu den aktiven Plugins oder dem Theme. Oder einen Hinweis, bevor Du ein neues Plugin aktivierst.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Wann archivieren</strong> – In diesem Abschnitt findest Du ein Dropdown-Menü, in dem Du festlegen kannst, wie oft die ausgewählten Tabellen gesichert werden sollen. Standardmäßig ist Manuell ausgewählt. Bei Auswahl dieser Option wird eine einmalige Sicherung auf Anforderung erstellt. Alternativ kannst Du die Sicherung auch planen, indem Du eine der zahlreichen verfügbaren Optionen auswählen.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Tabellen im Archiv</strong> – Dieser Abschnitt listet die in den Snapshot-Archiven enthaltenen Tabellen auf. Die Tabellenauswahl wird beim Erstellen einer neuen Snapshot-Konfiguration festgelegt.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Speicherort für das Archiv</strong> – Die Dateien werden standardmäßig auf dem lokalen Server gespeichert. Alternativ sind auch Dropbox, Google Drive oder FTP/SFTP unterstützt.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Klicke hier auf den Dateinamen, um die Datei herunterzuladen. In derselben Zeile findest Du außerdem einen Link zu den Protokolleinträgen, die mit der Erstellung dieser Archivinstanz zusammenhängen. Am Ende befindet sich ein Link zum Herunterladen der vollständigen Snapshot-Protokolldatei.', 'snapshot' ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['restore-panel'] = '<p>' . __( 'Auf diesem Bildschirm kannst Du einen Snapshot wiederherstellen. Die Wiederherstellung lädt den Datenbankexport in Deine aktuelle Live-Umgebung. Alle während der Snapshot-Erstellung ausgewählten Tabellen werden vor dem Laden der Snapshot-Informationen geleert. Beachte, dass bei dieser Wiederherstellung seit dem Snapshot vorhandene und neue Informationen entfernt bzw. hinzugefügt werden.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( 'Auf dem Wiederherstellungsbildschirm findest Du den Abschnitt Wiederherstellungsoptionen. Die Details zu den einzelnen Optionen werden im Folgenden erläutert.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Alle Plugins deaktivieren</strong> – Im Rahmen des Wiederherstellungsprozesses kannst Du alle Plugins automatisch deaktivieren. Dies ist hilfreich, wenn Du Probleme mit einem Plugin hattest und Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Design aktivieren</strong> – Ähnlich wie bei der Option Plugins kannst Du ein bestimmtes Design auswählen, das im Rahmen des Wiederherstellungsprozesses aktiviert wird. Dies ist hilfreich, wenn Du ein neues Design installiert hast, das Deine Webseite beschädigt hat, und Du Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Wähle aus der Liste das Archiv aus, das für die Wiederherstellung verwendet werden soll.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_edit_panel']['restore-panel'] = '<p>' . __( 'Auf diesem Bildschirm kannst Du einen Snapshot wiederherstellen. Die Wiederherstellung lädt den Datenbankexport in Deine aktuelle Live-Umgebung. Alle während der Snapshot-Erstellung ausgewählten Tabellen werden vor dem Laden der Snapshot-Informationen geleert. Beachte, dass bei dieser Wiederherstellung seit dem Snapshot vorhandene und neue Informationen entfernt bzw. hinzugefügt werden.', 'snapshot' ) . '</p>
+			<p>' . __( 'Auf dem Wiederherstellungsbildschirm findest Du den Abschnitt Wiederherstellungsoptionen. Die Details zu den einzelnen Optionen werden im Folgenden erläutert.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Alle Plugins deaktivieren</strong> – Im Rahmen des Wiederherstellungsprozesses kannst Du alle Plugins automatisch deaktivieren. Dies ist hilfreich, wenn Du Probleme mit einem Plugin hattest und Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Design aktivieren</strong> – Ähnlich wie bei der Option Plugins kannst Du ein bestimmtes Design auswählen, das im Rahmen des Wiederherstellungsprozesses aktiviert wird. Dies ist hilfreich, wenn Du ein neues Design installiert hast, das Deine Webseite beschädigt hat, und Du Deine Webseite wieder in einen stabilen Zustand versetzen möchtest.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Alle Archive</strong> – In diesem Abschnitt werden die verschiedenen Archivdateien aufgelistet, die aus dieser Snapshot-Konfiguration erstellt wurden. Wähle aus der Liste das Archiv aus, das für die Wiederherstellung verwendet werden soll.', 'snapshot' ) . '</p>';
 
-			$screen_help_text['snapshots_edit_panel']['default'] = '<p>' . __( 'Hier sind alle Snapshots aufgelistet. Innerhalb der Liste stehen Dir verschiedene Optionen zur Verfügung.', SNAPSHOT_I18N_DOMAIN ) . '</p><p>' . __( '<strong>Delete</strong> - On each row you will see a checkbox. To delete one or more existing Snapshots click checkbox then click the "Delete Snapshots" button below the listing.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Edit/Restore/Delete</strong> - Hover over the Name to reveal options for Edit, Restore, Delete. The Edit option will show the Snapshot detail form where you can change many of the configuration options. The Restore option will show a form where you can select from the various restore options. The Delete option will delete this snapshot only', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Notes</strong> - The Notes columns shows the description you assigned to the Snapshot. Also in this column are the tabls included in this snapshot.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Interval</strong> - The Interval column shows how often the snapshot will be generated. When you created the snapshot instance you had the option to create a manual snapshot or schedule the snapshot to be created on certain interval (once an hour, once a day, etc.). If the interval is scheduled this column will show the estimated time for the next backup.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Destination</strong> - The Destinations column shows where the archive is stored. This can be local, Dropbox, Google Drive, or any custom destination.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( '<strong>Archive</strong> - The Archives column shows the last snapshot archive created.', SNAPSHOT_I18N_DOMAIN ) . '</p>';
+			$screen_help_text['snapshots_edit_panel']['default'] = '<p>' . __( 'Hier sind alle Snapshots aufgelistet. Innerhalb der Liste stehen Dir verschiedene Optionen zur Verfügung.', 'snapshot' ) . '</p><p>' . __( '<strong>Delete</strong> - On each row you will see a checkbox. To delete one or more existing Snapshots click checkbox then click the "Delete Snapshots" button below the listing.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Edit/Restore/Delete</strong> - Hover over the Name to reveal options for Edit, Restore, Delete. The Edit option will show the Snapshot detail form where you can change many of the configuration options. The Restore option will show a form where you can select from the various restore options. The Delete option will delete this snapshot only', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Notes</strong> - The Notes columns shows the description you assigned to the Snapshot. Also in this column are the tabls included in this snapshot.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Interval</strong> - The Interval column shows how often the snapshot will be generated. When you created the snapshot instance you had the option to create a manual snapshot or schedule the snapshot to be created on certain interval (once an hour, once a day, etc.). If the interval is scheduled this column will show the estimated time for the next backup.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Destination</strong> - The Destinations column shows where the archive is stored. This can be local, Dropbox, Google Drive, or any custom destination.', 'snapshot' ) . '</p>
+			<p>' . __( '<strong>Archive</strong> - The Archives column shows the last snapshot archive created.', 'snapshot' ) . '</p>';
 
-			$screen_help_text['snapshots_settings_panel'] = '<p>' . __( 'The Settings panel provides access to a number of configuration settings you can customize Snapshot to meet you site needs.', SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( "<strong>Folder Location</strong> - By default the snapshot files are stored under your site's /wp-content/uploads/ directory in a new folder named 'snapshots'. If for some reason you already use a folder of this name you can set a different folder name to be used. If you change the folder name after some snapshots have been generated these files will be moved to the new folder. Note you cannot move the folder outside the /wp-content/uploads/ directory.", SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( "<strong>Database Segment Size</strong> - The Segment Size can be defined as the number of rows to backup per table per request. The Segment Size controls the backup processing when you create a new snapshot. During the backup processing Snapshot will make a request to the server to backup each table. You can see this in the progress meters when you create a new snapshot. In most situations this backup process will attempt to backup the table in one step. But on some server configurations the timeout is set very low or the table size is very large and prevents the backup process from finishing. To control this the Snapshot backup process will breakup the requests into smaller 'chunks of work' requested to the server. ", SNAPSHOT_I18N_DOMAIN ) . '</p>
-			<p>' . __( "<strong>Server Info</strong> - This section provides useful details about your site configuration and should be used when contacting support.", SNAPSHOT_I18N_DOMAIN ) . "</p><p>" . __( "<strong>Memory Limit</strong> - This section can control the amount of memory used/needed by Snapshot when created/restoring an archive.", SNAPSHOT_I18N_DOMAIN ) . "</p>
-			<p>" . __( "<strong>Archive Import</strong> - Do you have some snapshot zip file from an older version that somehow became disconnected with the settings. You can now import the zip file and snapshot will add it to the listing.", SNAPSHOT_I18N_DOMAIN ) . "</p>";
+			$screen_help_text['snapshots_settings_panel'] = '<p>' . __( 'The Settings panel provides access to a number of configuration settings you can customize Snapshot to meet you site needs.', 'snapshot' ) . '</p>
+			<p>' . __( "<strong>Folder Location</strong> - By default the snapshot files are stored under your site's /wp-content/uploads/ directory in a new folder named 'snapshots'. If for some reason you already use a folder of this name you can set a different folder name to be used. If you change the folder name after some snapshots have been generated these files will be moved to the new folder. Note you cannot move the folder outside the /wp-content/uploads/ directory.", 'snapshot' ) . '</p>
+			<p>' . __( "<strong>Database Segment Size</strong> - The Segment Size can be defined as the number of rows to backup per table per request. The Segment Size controls the backup processing when you create a new snapshot. During the backup processing Snapshot will make a request to the server to backup each table. You can see this in the progress meters when you create a new snapshot. In most situations this backup process will attempt to backup the table in one step. But on some server configurations the timeout is set very low or the table size is very large and prevents the backup process from finishing. To control this the Snapshot backup process will breakup the requests into smaller 'chunks of work' requested to the server. ", 'snapshot' ) . '</p>
+			<p>' . __( "<strong>Server Info</strong> - This section provides useful details about your site configuration and should be used when contacting support.", 'snapshot' ) . "</p><p>" . __( "<strong>Memory Limit</strong> - This section can control the amount of memory used/needed by Snapshot when created/restoring an archive.", 'snapshot' ) . "</p>
+			<p>" . __( "<strong>Archive Import</strong> - Do you have some snapshot zip file from an older version that somehow became disconnected with the settings. You can now import the zip file and snapshot will add it to the listing.", 'snapshot' ) . "</p>";
 
 			if ( version_compare( $wp_version, '3.3.0', '>' ) ) {
 
 				$screen->add_help_tab( array(
 						'id' => 'snapshot-help-overview',
-						'title' => __( 'Übersicht', SNAPSHOT_I18N_DOMAIN ),
+						'title' => __( 'Übersicht', 'snapshot' ),
 						'content' => $screen_help_text['snapshot-help-overview'],
 					)
 				);
@@ -1337,7 +1329,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					$screen->add_help_tab( array(
 							'id' => 'snapshot-help-new',
-							'title' => __( 'Neuer Snapshot', SNAPSHOT_I18N_DOMAIN ),
+							'title' => __( 'Neuer Snapshot', 'snapshot' ),
 							'content' => $screen_help_text['snapshots_new_panel'],
 						)
 					);
@@ -1347,7 +1339,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 					if ( ( isset( $_REQUEST['action'] ) ) && ( $_REQUEST['action'] == 'edit' ) ) {
 						$screen->add_help_tab( array(
 								'id' => 'snapshot-help-edit',
-								'title' => __( 'Snapshot Bearbeiten', SNAPSHOT_I18N_DOMAIN ),
+								'title' => __( 'Snapshot Bearbeiten', 'snapshot' ),
 								'content' => $screen_help_text['snapshots_edit_panel']['edit'],
 							)
 						);
@@ -1355,7 +1347,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 						$screen->add_help_tab( array(
 								'id' => 'snapshot-help-edit',
-								'title' => __( 'Snapshot Wiederherstellen', SNAPSHOT_I18N_DOMAIN ),
+								'title' => __( 'Snapshot Wiederherstellen', 'snapshot' ),
 								'content' => $screen_help_text['snapshots_edit_panel']['restore-panel'],
 							)
 						);
@@ -1363,7 +1355,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 					} else {
 						$screen->add_help_tab( array(
 								'id' => 'snapshot-help-listing',
-								'title' => __( 'Alle Snapshots', SNAPSHOT_I18N_DOMAIN ),
+								'title' => __( 'Alle Snapshots', 'snapshot' ),
 								'content' => $screen_help_text['snapshots_edit_panel']['default'],
 							)
 						);
@@ -1372,7 +1364,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					$screen->add_help_tab( array(
 							'id' => 'snapshot-help-activity',
-							'title' => __( 'Aktivitätsprotokoll', SNAPSHOT_I18N_DOMAIN ),
+							'title' => __( 'Aktivitätsprotokoll', 'snapshot' ),
 							'content' => $screen_help_text['snapshots_activity_panel'],
 						)
 					);
@@ -1380,7 +1372,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					$screen->add_help_tab( array(
 							'id' => 'snapshot-help-settings',
-							'title' => __( 'Einstellungen', SNAPSHOT_I18N_DOMAIN ),
+							'title' => __( 'Einstellungen', 'snapshot' ),
 							'content' => $screen_help_text['snapshots_settings_panel'],
 						)
 					);
@@ -2040,7 +2032,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					if ( file_exists( $_newbackupFolderFull ) && $backupFolderRequest !== $this->config_data['config']['backupFolder'] ) {
 						/* If here we cannot create the folder. So report this via the admin header message and return */
-						$this->_admin_header_error .= __( 'ERROR: The new Snapshot folder already exists. ', SNAPSHOT_I18N_DOMAIN );
+						$this->_admin_header_error .= __( 'ERROR: The new Snapshot folder already exists. ', 'snapshot' );
 						$this->_admin_header_error .= ' ' . $_newbackupFolderFull;
 
 						return;
@@ -2058,7 +2050,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 						} else {
 							// Okay, so no old backup folder. Let's just create
 							// what we got and inform the user
-							$this->_admin_header_error .= __( 'Warning: We were unable to find the old Snapshot folder.', SNAPSHOT_I18N_DOMAIN );
+							$this->_admin_header_error .= __( 'Warning: We were unable to find the old Snapshot folder.', 'snapshot' );
 							$this->_admin_header_error .= ' ' . $_newbackupFolderFull;
 							$rename_ret = true; // This will get picked up by the next condition...
 							// ... and we will just create it via
@@ -2264,7 +2256,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 			if ( ! isset( $this->config_data['destinations']['local'] ) ) {
 				$this->config_data['destinations']['local'] = array(
-					'name' => __( 'Lokaler Snapshot', SNAPSHOT_I18N_DOMAIN ),
+					'name' => __( 'Lokaler Snapshot', 'snapshot' ),
 					'type' => 'local',
 				);
 			}
@@ -2690,7 +2682,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( wp_mkdir_p( $_backupFolderFull, 0775 ) === false ) {
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
-					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot folder. Check that the parent folder is writable", SNAPSHOT_I18N_DOMAIN )
+					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot folder. Check that the parent folder is writable", 'snapshot' )
 					                              . " " . $_backupFolderFull;
 
 					return;
@@ -2706,7 +2698,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", SNAPSHOT_I18N_DOMAIN )
+					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", 'snapshot' )
 					                              . " " . $_backupFolderFull;
 				}
 			}
@@ -2740,7 +2732,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
 					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Log folder. Check that the parent folder is writeable",
-							SNAPSHOT_I18N_DOMAIN ) . " " . $_backupBackupFolderFull;
+							'snapshot' ) . " " . $_backupBackupFolderFull;
 
 					return;
 				}
@@ -2754,7 +2746,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupBackupFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", SNAPSHOT_I18N_DOMAIN ) . " " . $_backupBackupFolderFull;
+					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", 'snapshot' ) . " " . $_backupBackupFolderFull;
 				}
 			}
 			Snapshot_Helper_Utility::secure_folder( $_backupBackupFolderFull );
@@ -2767,7 +2759,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( wp_mkdir_p( $_backupRestoreFolderFull, 0775 ) === false ) {
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
-					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Restore folder. Check that the parent folder is writeable", SNAPSHOT_I18N_DOMAIN ) . " " . $_backupRestoreFolderFull;
+					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Restore folder. Check that the parent folder is writeable", 'snapshot' ) . " " . $_backupRestoreFolderFull;
 
 					return;
 				}
@@ -2781,7 +2773,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupRestoreFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot restore folder is not writable", SNAPSHOT_I18N_DOMAIN ) . " " . $_backupRestoreFolderFull;
+					$this->_admin_header_error .= __( "ERROR: The Snapshot restore folder is not writable", 'snapshot' ) . " " . $_backupRestoreFolderFull;
 				}
 			}
 			Snapshot_Helper_Utility::secure_folder( $_backupRestoreFolderFull );
@@ -2794,7 +2786,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( wp_mkdir_p( $_backupLogFolderFull, 0775 ) === false ) {
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
-					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Log folder. Check that the parent folder is writeable", SNAPSHOT_I18N_DOMAIN ) . " " . $_backupLogFolderFull;
+					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Log folder. Check that the parent folder is writeable", 'snapshot' ) . " " . $_backupLogFolderFull;
 
 					return;
 				}
@@ -2808,7 +2800,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupLogFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", SNAPSHOT_I18N_DOMAIN ) . " " . $_backupLogFolderFull;
+					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", 'snapshot' ) . " " . $_backupLogFolderFull;
 				}
 			}
 			Snapshot_Helper_Utility::secure_folder( $_backupLogFolderFull );
@@ -2822,7 +2814,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( wp_mkdir_p( $_backupSessionsFolderFull, 0775 ) === false ) {
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
-					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Log folder. Check that the parent folder is writeable", SNAPSHOT_I18N_DOMAIN );
+					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Log folder. Check that the parent folder is writeable", 'snapshot' );
 					$this->_admin_header_error .= ' ' . $_backupSessionsFolderFull;
 
 					return;
@@ -2837,7 +2829,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupSessionsFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", SNAPSHOT_I18N_DOMAIN )
+					$this->_admin_header_error .= __( "ERROR: The Snapshot destination folder is not writable", 'snapshot' )
 					                              . " " . $_backupSessionsFolderFull;
 				}
 			}
@@ -2863,7 +2855,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 					/* If here we cannot create the folder. So report this via the admin header message and return */
 					$this->_admin_header_error .= __( "ERROR: Cannot create snapshot Lock folder. Check that the parent folder is writeable",
-							SNAPSHOT_I18N_DOMAIN ) . " " . $_backupLockFolderFull;
+							'snapshot' ) . " " . $_backupLockFolderFull;
 
 					return;
 				}
@@ -2877,7 +2869,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! is_writable( $_backupLockFolderFull ) ) {
 
 					/* Appears it is still not writeable then report this via the admin heder message and return */
-					$this->_admin_header_error .= __( "ERROR: The Snapshot locks folder is not writable", SNAPSHOT_I18N_DOMAIN )
+					$this->_admin_header_error .= __( "ERROR: The Snapshot locks folder is not writable", 'snapshot' )
 					                              . " " . $_backupLockFolderFull;
 				}
 			}
@@ -3236,7 +3228,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! is_writable( $sessionItemBackupFolder ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: Snapshot backup aborted.<br />The Snapshot folder is not writeable. Check the settings.",
-						SNAPSHOT_I18N_DOMAIN ) . " " . $sessionItemBackupFolder . "</p>";
+						'snapshot' ) . " " . $sessionItemBackupFolder . "</p>";
 
 				return $error_status;
 			}
@@ -3589,7 +3581,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 					if ( count( $backup_db->errors ) ) {
 						$error_status['errorStatus'] = true;
 						$error_messages = implode( '</p><p>', $backup_db->errors );
-						$error_status['errorText'] = "<p>" . __( 'ERROR: Snapshot backup aborted.', SNAPSHOT_I18N_DOMAIN ) . $error_messages . "</p>";
+						$error_status['errorText'] = "<p>" . __( 'ERROR: Snapshot backup aborted.', 'snapshot' ) . $error_messages . "</p>";
 
 						return $error_status;
 					}
@@ -4143,7 +4135,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 				// echo out the finished message so the user knows we are done.
 				$snapshot_url = $this->_settings['SNAPSHOT_MENU_URL'] . 'snapshot_snapshots';
-				$error_status['responseText'] = __( "Dein Snapshot wurde erfolgreich erstellt und gespeichert!", SNAPSHOT_I18N_DOMAIN ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "Snapshot anzeigen", SNAPSHOT_I18N_DOMAIN ) . '</a>';
+				$error_status['responseText'] = __( "Dein Snapshot wurde erfolgreich erstellt und gespeichert!", 'snapshot' ) . "<br />" . '<a href="' . $snapshot_url . '&amp;snapshot-action=view&amp;item=' . $item_key . '">' . __( "Snapshot anzeigen", 'snapshot' ) . '</a>';
 
 				//}
 
@@ -4727,7 +4719,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! isset( $_POST['item_data'] ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot missing 'item_data' key",
-						SNAPSHOT_I18N_DOMAIN ) . "</p>";
+						'snapshot' ) . "</p>";
 
 				return $error_status;
 			}
@@ -4737,7 +4729,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! isset( $item['data'][ $item_data ] ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot incorrect 'item_data' [" . $item_data . "] key",
-						SNAPSHOT_I18N_DOMAIN ) . "</p>";
+						'snapshot' ) . "</p>";
 
 				return $error_status;
 			}
@@ -4752,7 +4744,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			$error_status['restoreFile'] = $restoreFile;
 			if ( ! file_exists( $restoreFile ) ) {
 				$error_status_errorText = "<p>" . __( "ERROR: The Snapshot file not found:",
-						SNAPSHOT_I18N_DOMAIN ) . " " . $restoreFile . "</p>";
+						'snapshot' ) . " " . $restoreFile . "</p>";
 
 				$restoreFile = trailingslashit( $this->_settings['backupBaseFolderFull'] ) . $data_item['filename'];
 				$error_status['restoreFile'] = $restoreFile;
@@ -4760,7 +4752,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				if ( ! file_exists( $restoreFile ) ) {
 					$error_status['errorStatus'] = true;
 					$error_status['errorText'] = $error_status_errorText . "<p>" . __( "ERROR: The Snapshot file not found:",
-							SNAPSHOT_I18N_DOMAIN ) . " " . $restoreFile . "</p>";
+							'snapshot' ) . " " . $restoreFile . "</p>";
 
 					return $error_status;
 				}
@@ -4772,7 +4764,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! is_writable( $sessionRestoreFolder ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot folder is not writeable. Check the settings",
-						SNAPSHOT_I18N_DOMAIN ) . " " . $sessionRestoreFolder . "</p>";
+						'snapshot' ) . " " . $sessionRestoreFolder . "</p>";
 
 				return $error_status;
 			}
@@ -5122,7 +5114,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				} else {
 					$error_status['errorStatus'] = true;
 					$error_status['errorText'] = "<p>" . __( "ERROR: Unable to locate table restore file from archive: ",
-							SNAPSHOT_I18N_DOMAIN ) . " " . basename( $restoreFile ) . "</p>";
+							'snapshot' ) . " " . basename( $restoreFile ) . "</p>";
 
 					return $error_status;
 				}
@@ -5154,7 +5146,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 			if ( ! isset( $_POST['file_data_idx'] ) ) {
 				$error_status['errorStatus'] = true;
-				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot missing 'file_data_idx' key", SNAPSHOT_I18N_DOMAIN ) . "</p>";
+				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot missing 'file_data_idx' key", 'snapshot' ) . "</p>";
 
 				return $error_status;
 
@@ -5165,7 +5157,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! isset( $this->_session->data['MANIFEST']['FILES-DATA'] ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot missing session 'FILES-DATA' object.",
-						SNAPSHOT_I18N_DOMAIN ) . "</p>";
+						'snapshot' ) . "</p>";
 
 				return $error_status;
 			}
@@ -5173,7 +5165,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			if ( ! isset( $this->_session->data['MANIFEST']['FILES-DATA'][ $file_data_idx ] ) ) {
 				$error_status['errorStatus'] = true;
 				$error_status['errorText'] = "<p>" . __( "ERROR: The Snapshot missing restore file at idx [" . $file_data_idx . "]",
-						SNAPSHOT_I18N_DOMAIN ) . "</p>";
+						'snapshot' ) . "</p>";
 
 				return $error_status;
 			}
@@ -5274,7 +5266,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 								$error_status['errorStatus'] = true;
 								$error_status['errorText'] =
 									"<p>" . sprintf( __( 'Unable to create directory %s. Make sure the parent folder is writeable.',
-										SNAPSHOT_I18N_DOMAIN ), $currentFileDir ) . "</p>";
+										'snapshot' ), $currentFileDir ) . "</p>";
 
 								return $error_status;
 							}
@@ -5311,103 +5303,6 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			}
 
 			$wpdb->query( $set_names );
-		}
-
-		/**
-		 * German du-Form translations for plugin strings without relying on external MO files.
-		 */
-		public static function snapshot_filter_gettext_german( $translated, $text, $domain ) {
-			if ( $domain !== SNAPSHOT_I18N_DOMAIN ) {
-				return $translated;
-			}
-
-			$map = self::snapshot_german_translation_map();
-			return isset( $map[ $text ] ) ? $map[ $text ] : $translated;
-		}
-
-		public static function snapshot_filter_gettext_german_context( $translated, $text, $context, $domain ) {
-			if ( $domain !== SNAPSHOT_I18N_DOMAIN ) {
-				return $translated;
-			}
-
-			$map = self::snapshot_german_translation_map();
-			return isset( $map[ $text ] ) ? $map[ $text ] : $translated;
-		}
-
-		private static function snapshot_german_translation_map() {
-			return array(
-				'Managed Backups' => 'Verwaltete Backups',
-				'Cloud Storage Used' => 'Genutzter Cloud-Speicher',
-				'Last backup' => 'Letztes Backup',
-				'Never' => 'Nie',
-				'Snapshot Key' => 'Snapshot-Schlüssel',
-				'View Key' => 'Schlüssel anzeigen',
-				'Add snapshot key' => 'Snapshot-Schlüssel hinzufügen',
-				'Backups Schedule' => 'Backup-Zeitplan',
-				'%s at %s' => '%s um %s',
-				'Enable' => 'Aktivieren',
-				'Configure' => 'Konfigurieren',
-				'Backups' => 'Backups',
-				'Settings' => 'Einstellungen',
-				'Available Backups' => 'Verfügbare Backups',
-				'Show Log' => 'Log anzeigen',
-				'New Backup' => 'Neues Backup',
-				"%s, you've enabled Managed Backups but haven't created your first backup yet. Do it now!" => '%s, du hast verwaltete Backups aktiviert, aber noch kein Backup angelegt. Leg jetzt eins an!',
-				'Run Backup' => 'Backup starten',
-				"Here's a list of your current backups. You can restore your entire website from them at any time." => 'Hier siehst du deine aktuellen Backups. Du kannst deine komplette Website jederzeit daraus wiederherstellen.',
-				'Backup Details' => 'Backup-Details',
-				'Size' => 'Größe',
-				'Date' => 'Datum',
-				'Options' => 'Optionen',
-				'Restore' => 'Wiederherstellen',
-				'Delete' => 'Löschen',
-				'Schedule' => 'Zeitplan',
-				'Set your full website managed backups to run automatically to a schedule that suits you. We highly recommend a weekly or daily frequency depending on how active your website is.' => 'Plane deine verwalteten Backups automatisch. Wir empfehlen wöchentliche oder tägliche Backups – je nach Aktivität deiner Website.',
-				'Enable scheduled backups' => 'Geplante Backups aktivieren',
-				'Frequency' => 'Häufigkeit',
-				'Time of Day' => 'Uhrzeit',
-				'Storage Limit' => 'Speicherlimit',
-				'By default, Snapshot will run as many scheduled backups as you need. If you would like to keep all of your snapshot archives, just set your storage limit to 0.' => 'Standardmäßig führt Snapshot so viele geplante Backups aus, wie du brauchst. Wenn du alle Archive behalten willst, setze das Limit auf 0.',
-				'Keep' => 'Behalte',
-				'backups before removing older archives.' => 'Backups, bevor ältere Archive gelöscht werden.',
-				'Update Settings' => 'Einstellungen aktualisieren',
-				'Managed Backups Log' => 'Log verwalteter Backups',
-				"<p>Here's a log of events for managed backups.</p>" => '<p>Hier findest du das Log der verwalteten Backups.</p>',
-				'Destinations' => 'Speicherorte',
-				'Snapshots' => 'Snapshots',
-				'Get Started' => 'Los geht’s',
-				"Create and store snapshots of your website. You choose what you want to back up and where you want to save it. Let's get started!" => 'Erstelle und speichere Snapshots deiner Website. Du entscheidest, was gesichert wird und wohin. Leg los!',
-				'Create Snapshot' => 'Snapshot erstellen',
-				'Available Snapshots' => 'Verfügbare Snapshots',
-				'New Snapshot' => 'Neuer Snapshot',
-				'Filter by' => 'Filtern nach',
-				'All Destinations' => 'Alle Speicherorte',
-				'Filter' => 'Filtern',
-				'Name' => 'Name',
-				'Type' => 'Typ',
-				'Once off' => 'Einmalig',
-				'Edit' => 'Bearbeiten',
-				'Regenerate' => 'Neu erstellen',
-				'Back' => 'Zurück',
-				'Destination Info' => 'Ziel-Info',
-				'Remove Destination' => 'Ziel entfernen',
-				"You are deleting the destination <strong>%s</strong>. This destination has %d archives in it, are you sure you wish to remove it? You will still be able to access any archives at the destinations using the %s interface." => 'Du löschst das Ziel <strong>%s</strong>. Dieses Ziel enthält %d Archive. Bist du sicher? Über die %s-Oberfläche kannst du weiter auf die Archive zugreifen.',
-				'Remove' => 'Entfernen',
-				'Cancel' => 'Abbrechen',
-				'Get authorization code' => 'Autorisierungscode holen',
-				'Save Destination' => 'Ziel speichern',
-				'Authenticate' => 'Authentifizieren',
-				'Directory' => 'Verzeichnis',
-				'Local' => 'Lokal',
-				'Control who will have access to your backup files.' => 'Bestimme, wer auf deine Backup-Dateien zugreifen darf.',
-				'Test Connection' => 'Verbindung testen',
-				'This destination is authenticated and ready for use.' => 'Dieses Ziel ist authentifiziert und bereit.',
-				"You've authenticated this Dropbox destination. To finish adding this destination, please specify a folder to store the snapshots in and click Save Destination." => 'Du hast dieses Dropbox-Ziel authentifiziert. Wähle jetzt einen Ordner für die Snapshots und klicke auf „Ziel speichern“.',
-				'An error occurred when attempting to connect to Dropbox: ' => 'Beim Verbinden mit Dropbox ist ein Fehler aufgetreten: ',
-				'Use SSL Connection' => 'SSL-Verbindung verwenden',
-				'Directory (optional)' => 'Verzeichnis (optional)',
-				'Local' => 'Lokal',
-			);
 		}
 
 		/**
@@ -5481,7 +5376,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			$error_status = array();
 			$error_status['errorStatus'] = false;
 			$error_status['errorText'] = "";
-			$error_status['responseText'] = "<p>" . __( "SUCCESS: Snapshot Restore complete! ", SNAPSHOT_I18N_DOMAIN ) . "</p>";
+			$error_status['responseText'] = "<p>" . __( "SUCCESS: Snapshot Restore complete! ", 'snapshot' ) . "</p>";
 
 			return $error_status;
 		}
@@ -6741,7 +6636,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 				}
 
 				$locket_info = array(
-					'doing' => __( 'Creating Archive', SNAPSHOT_I18N_DOMAIN ),
+					'doing' => __( 'Creating Archive', 'snapshot' ),
 					'item_key' => $item_key,
 					'data_item_key' => $data_item_key,
 					'time_start' => time(),
@@ -6947,7 +6842,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 						if ( ( isset( $error_array['files_data']['excluded']['pattern'] ) ) && ( count( $error_array['files_data']['excluded']['pattern'] ) ) ) {
 
 							$this->snapshot_logger->log_message( __( "file: The following files are excluded due to match exclusion patterns.",
-								SNAPSHOT_I18N_DOMAIN ) );
+								'snapshot' ) );
 
 							foreach ( $error_array['files_data']['excluded']['pattern'] as $idx => $filename ) {
 								$filename = str_replace( $home_path, '', $filename );
@@ -6957,7 +6852,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 
 						if ( ( isset( $error_array['files_data']['excluded']['error'] ) ) && ( count( $error_array['files_data']['excluded']['error'] ) ) ) {
 
-							$this->snapshot_logger->log_message( __( "file: The following files are excluded because snapshot cannot open them. Check file permissions or locks", SNAPSHOT_I18N_DOMAIN ) );
+							$this->snapshot_logger->log_message( __( "file: The following files are excluded because snapshot cannot open them. Check file permissions or locks", 'snapshot' ) );
 
 							foreach ( $error_array['files_data']['excluded']['error'] as $idx => $filename ) {
 								$filename = str_replace( $home_path, '', $filename );
@@ -7136,9 +7031,9 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 					$data_item_key = $data_item['timestamp'];
 
 					if ( isset( $item['destination-sync'] ) && 'mirror' === $item['destination-sync'] ) {
-						$doing_message = __( 'Syncing Files', SNAPSHOT_I18N_DOMAIN );
+						$doing_message = __( 'Syncing Files', 'snapshot' );
 					} else {
-						$doing_message = __( 'Sending Archive', SNAPSHOT_I18N_DOMAIN );
+						$doing_message = __( 'Sending Archive', 'snapshot' );
 					}
 
 					$locker_info = array(
@@ -8087,22 +7982,22 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			check_ajax_referer( 'snapshot-full-backup-delete' );
 			
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'Sie haben keine Berechtigung für diese Aktion.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_send_json_error( __( 'Sie haben keine Berechtigung für diese Aktion.', 'snapshot' ) );
 			}
 			
 			$timestamp = isset( $_POST['timestamp'] ) ? intval( $_POST['timestamp'] ) : 0;
 			
 			if ( ! $timestamp ) {
-				wp_send_json_error( __( 'Ungültiger Zeitstempel.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_send_json_error( __( 'Ungültiger Zeitstempel.', 'snapshot' ) );
 			}
 			
 			$model = new Snapshot_Model_Full_Backup();
 			$success = $model->delete_backup( $timestamp );
 			
 			if ( $success ) {
-				wp_send_json_success( __( 'Backup erfolgreich gelöscht.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_send_json_success( __( 'Backup erfolgreich gelöscht.', 'snapshot' ) );
 			} else {
-				wp_send_json_error( __( 'Fehler beim Löschen des Backups.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_send_json_error( __( 'Fehler beim Löschen des Backups.', 'snapshot' ) );
 			}
 		}
 
@@ -8132,7 +8027,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			}
 			
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( __( 'Sie haben keine Berechtigung für diese Aktion.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_die( __( 'Sie haben keine Berechtigung für diese Aktion.', 'snapshot' ) );
 			}
 			
 			$timestamp = intval( $_GET['snapshot-item'] );
@@ -8141,7 +8036,7 @@ add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_shared_ui' ), 5 );
 			$backup_path = $model->local()->get_backup( $timestamp );
 			
 			if ( ! $backup_path || ! file_exists( $backup_path ) ) {
-				wp_die( __( 'Backup-Datei nicht gefunden.', SNAPSHOT_I18N_DOMAIN ) );
+				wp_die( __( 'Backup-Datei nicht gefunden.', 'snapshot' ) );
 			}
 			
 			$filename = basename( $backup_path );
