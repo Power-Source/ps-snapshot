@@ -484,23 +484,23 @@
 								blog_name += ")";
 							}
 
-							jQuery('#snapshot-blog-search-success span#snapshot-blog-name').html(blog_name);
+							jQuery('#snapshot-blog-search-success span#snapshot-blog-name').text(blog_name);
 							jQuery('#snapshot-blog-search-success').show();
 							jQuery('#snapshot-blog-search').hide();
 
 							if ((reply_data['blog'] !== undefined) && (reply_data['blog']['blog_id'] !== undefined)) {
 								jQuery('input#snapshot-blog-id').val(reply_data['blog']['blog_id']);
-								jQuery('#snapshot-new-blog-id').html(reply_data['blog']['blog_id']);
+								jQuery('#snapshot-new-blog-id').text(reply_data['blog']['blog_id']);
 								jQuery("form#snapshot-edit-restore input#snapshot-form-restore-submit").removeAttr('disabled');
 
 							}
 
 							if (reply_data['WP_DB_NAME'] !== undefined) {
-								jQuery('#snapshot-new-db-name').html(reply_data['WP_DB_NAME']);
+								jQuery('#snapshot-new-db-name').text(reply_data['WP_DB_NAME']);
 							}
 
 							if (reply_data['WP_DB_BASE_PREFIX'] !== undefined) {
-								jQuery('#snapshot-new-db-base-prefix').html(reply_data['WP_DB_BASE_PREFIX']);
+								jQuery('#snapshot-new-db-base-prefix').text(reply_data['WP_DB_BASE_PREFIX']);
 							}
 
 							if (reply_data['WP_DB_PREFIX'] !== undefined) {

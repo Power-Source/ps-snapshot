@@ -318,7 +318,7 @@ WDP.showOverlay = function(dialogSource, args) {
 			dialog.addClass(args.class);
 		}
 
-		WDP.overlay.box_title.find('h3').html(args.title);
+		WDP.overlay.box_title.find('h3').text(args.title);
 		WDP.overlay.box_content.html(dialog.html());
 
 		WDP.overlay.wrapper.addClass(dialog.attr('class'));
