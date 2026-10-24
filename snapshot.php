@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: PS Snapshot
-Version: 1.0.3
+Version: 1.0.4
 Description: Create and restore fast backup snapshots of your ClassicPress database and files whenever you need them.
 Author: PSOURCE
 Author URI: https://psource.eimen.net
@@ -83,7 +83,7 @@ if ( ! class_exists( 'PSOURCESnapshot' ) ) {
 			$this->plugin_url = plugin_dir_url( __FILE__ );
 
 			$this->DEBUG = false;
-			$this->_settings['SNAPSHOT_VERSION'] = '1.0.3';
+			$this->_settings['SNAPSHOT_VERSION'] = '1.0.4';
 
 			if ( is_multisite() ) {
 				$this->_settings['SNAPSHOT_MENU_URL'] = network_admin_url() . 'admin.php?page=';
