@@ -621,12 +621,8 @@
 									clearInterval(snapshot_log_viewer_polling);
 								},
 								success: function (reply_data) {
-									if ($(reply_data).length > 0) {
-										$('#wps-snapshot-log .wps-log-box').html($(reply_data).text());
-										$('#wps-snapshot-log .wps-log-box').scrollTop($('#wps-snapshot-log .wps-log-box')[0].scrollHeight);
-									} else {
-										$('#wps-snapshot-log .wps-log-box').html(reply_data);
-									}
+									$('#wps-snapshot-log .wps-log-box').text(reply_data);
+									$('#wps-snapshot-log .wps-log-box').scrollTop($('#wps-snapshot-log .wps-log-box')[0].scrollHeight);
 								}
 							});
 						} else {

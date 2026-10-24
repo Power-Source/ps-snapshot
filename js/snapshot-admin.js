@@ -838,8 +838,23 @@
 				if (!snapshot_form_tables_array.hasOwnProperty(table_key)) continue;
 				var table_name = snapshot_form_tables_array[table_key];
 
-				var snapshot_item_html = '<div class="snapshot-item" id="snapshot-item-table-' + table_name + '"><div class="progress"><div class="percent">0%</div><div class="bar" style="width: 0;"></div></div><button style="display: none;" class="snapshot-button-abort">' + snapshot_admin_messages.abort + '</button><div class="snapshot-text">' + snapshot_admin_messages.database + ' ' + table_name + '</div></div>';
-				jQuery('#snapshot-progress-bar-container').append(snapshot_item_html);
+				var snapshot_item = jQuery('<div/>', { 'class': 'snapshot-item' })
+					.attr('id', 'snapshot-item-table-' + table_name)
+					.append(
+						jQuery('<div/>', { 'class': 'progress' })
+							.append(jQuery('<div/>', { 'class': 'percent' }).text('0%'))
+							.append(jQuery('<div/>', { 'class': 'bar' }).css('width', '0'))
+					)
+					.append(
+						jQuery('<button/>', { 'class': 'snapshot-button-abort' })
+							.css('display', 'none')
+							.text(snapshot_admin_messages.abort)
+					)
+					.append(
+						jQuery('<div/>', { 'class': 'snapshot-text' })
+							.text(snapshot_admin_messages.database + ' ' + table_name)
+					);
+				jQuery('#snapshot-progress-bar-container').append(snapshot_item);
 			}
 
 //		for (var file_set_key in snapshot_form_files_sections) {
