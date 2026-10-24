@@ -261,9 +261,10 @@
 				if (!snapshot_form_tables_array.hasOwnProperty(table_key)) continue;
 				var table_name = snapshot_form_tables_array[table_key];
 
-				snapshot_item_html = $('<tr id="snapshot-item-table-' + table_name + '"></tr>')
-					.append($('#wps-log-process-template').html())
-					.find('.wps-log-process.name').html(table_name)
+				snapshot_item_html = $('<tr/>')
+					.attr('id', 'snapshot-item-table-' + table_name)
+					.append($('#wps-log-process-template').children().clone())
+					.find('.wps-log-process.name').text(table_name)
 					.end();
 
 				jQuery('tr#wps-log-process-finish').before(snapshot_item_html);
