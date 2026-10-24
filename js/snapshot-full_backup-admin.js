@@ -107,8 +107,8 @@ Sfb.Notice = $.extend({}, ElementSelector, {
 	 */
 	handle_target_scroll: function (e) {
 		var target = $(this).attr("data-target") || Sfb.Notice.target_selector,
-			subtarget = $(this).is('[data-subtarget]') ? $(this).attr("data-target") : Sfb.Notice.subtarget_selector,
-			$target = $(target),
+			subtarget = $(this).is('[data-subtarget]') ? $(this).attr("data-subtarget") : Sfb.Notice.subtarget_selector,
+			$target = $(document).find(target),
 			top = 0
 		;
 		if (subtarget) $target = $target.closest(subtarget);
